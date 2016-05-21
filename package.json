@@ -1,6 +1,6 @@
 {
   "name": "@flowio/node-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node apidoc clients",
   "main": "lib/index.js",
   "scripts": {
@@ -8,6 +8,9 @@
     "postpublish": "rm -rf lib",
     "test": "eslint src && mocha --compilers js:babel-core/register --recursive"
   },
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/flowcommerce/node-sdk.git"
@@ -21,6 +24,8 @@
   "devDependencies": {
     "@flowio/babel-preset-flowio": "1.0.1",
     "@flowio/eslint-config-flowio": "1.1.0",
+    "babel-cli": "6.9.0",
+    "babel-core": "6.9.0",
     "babel-eslint": "6.0.4",
     "eslint": "2.10.2",
     "eslint-plugin-import": "1.8.0",
