@@ -1,0 +1,146 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "Github Oauth",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "github-oauth"
+  },
+  "namespace": "io.flow.github.oauth.v0",
+  "version": "0.0.3",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "Michael Bryzek",
+      "url": "http://twitter.com/mbryzek",
+      "email": "mbryzek@alum.mit.edu"
+    }
+  },
+  "headers": [],
+  "imports": [],
+  "enums": [
+    {
+      "name": "token_type",
+      "plural": "token_types",
+      "values": [
+        {
+          "name": "bearer",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [],
+  "models": [
+    {
+      "name": "access_token",
+      "plural": "access_tokens",
+      "fields": [
+        {
+          "name": "access_token",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "token_type",
+          "type": "token_type",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "access_token_form",
+      "plural": "access_token_forms",
+      "fields": [
+        {
+          "name": "client_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "client_secret",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "redirect_uri",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "access_token",
+      "plural": "access_tokens",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/login/oauth/access_token",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "access_token"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "access_token_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/login/oauth"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://github.com",
+  "description": "See https://developer.github.com/v3/oauth/"
+}

@@ -1,0 +1,1278 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "harmonization",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "harmonization"
+  },
+  "namespace": "io.flow.harmonization.v0",
+  "version": "0.0.65",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "email": "tech@flow.io"
+    }
+  },
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "sort_direction",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_location",
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "healthcheck",
+        "location",
+        "location_reference",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "component",
+      "plural": "components",
+      "values": [
+        {
+          "name": "goods",
+          "attributes": [],
+          "description": "The value of goods"
+        },
+        {
+          "name": "duty",
+          "attributes": []
+        },
+        {
+          "name": "insurance",
+          "attributes": []
+        },
+        {
+          "name": "freight",
+          "attributes": []
+        },
+        {
+          "name": "vat",
+          "attributes": [],
+          "description": "Value-Added Tax"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "strategy",
+      "plural": "strategies",
+      "values": [
+        {
+          "name": "minimum",
+          "attributes": []
+        },
+        {
+          "name": "average",
+          "attributes": []
+        },
+        {
+          "name": "maximum",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [
+    {
+      "name": "deminimus",
+      "plural": "deminimuses",
+      "types": [
+        {
+          "type": "deminimus_simple",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    }
+  ],
+  "models": [
+    {
+      "name": "code",
+      "plural": "codes",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Your item number"
+        },
+        {
+          "name": "country_of_origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the country of origin"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the destination country"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The assigned HS10 code"
+        }
+      ],
+      "attributes": [],
+      "description": "The harmonization code assigned to an item in a given lane."
+    },
+    {
+      "name": "deminimus_simple",
+      "plural": "deminimus_simples",
+      "fields": [
+        {
+          "name": "value",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The value below which no tax or duty is collected"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO-4217 3 character currency code in which the value is calculated"
+        },
+        {
+          "name": "components",
+          "type": "[component]",
+          "required": true,
+          "attributes": [],
+          "description": "The components which are used to determine the value. Note that these components may be different from the components for the tax or duty itself"
+        },
+        {
+          "name": "minimum",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "If the value of the deminimus is less than the minimum, no tax or duty is due",
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "duty",
+      "plural": "duties",
+      "fields": [
+        {
+          "name": "rate",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The combined duty rate",
+          "minimum": 0,
+          "example": ".35"
+        },
+        {
+          "name": "components",
+          "type": "[component]",
+          "required": true,
+          "attributes": [],
+          "description": "The components to which duty is applied.",
+          "minimum": 1
+        },
+        {
+          "name": "deminimus",
+          "type": "deminimus",
+          "required": false,
+          "attributes": [],
+          "description": "Describes the duty deminimus if there is one for this destination"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a simple model of duties that apply to a given item / trade lane."
+    },
+    {
+      "name": "item",
+      "plural": "items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "hs6",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "minimum": 6,
+          "maximum": 6
+        }
+      ],
+      "attributes": [],
+      "description": "An item stores explicit information for harmonization purposes."
+    },
+    {
+      "name": "item_duty",
+      "plural": "item_duties",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item",
+          "type": "item_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "country_of_origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 2 or 3 character code for the country of origin. Case insensitive. See https://reference.api.flow.io/countries",
+          "example": "USA"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 2 or 3 character code for the destination country. Case insensitive. See https://reference.api.flow.io/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "rate",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The actual duty rate, expressed as a decimal (e.g. 10% is represented as .1 not 10)",
+          "minimum": 0,
+          "example": ".15"
+        }
+      ],
+      "attributes": [],
+      "description": "Used to specifically set an item's duty rate for a given trade lane."
+    },
+    {
+      "name": "item_duty_form",
+      "plural": "item_duty_forms",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The item number"
+        },
+        {
+          "name": "country_of_origin",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rate",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_form",
+      "plural": "item_forms",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The item number"
+        },
+        {
+          "name": "hs6",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "minimum": 6,
+          "maximum": 6
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_reference",
+      "plural": "item_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "settings",
+      "plural": "settings",
+      "fields": [
+        {
+          "name": "duty_strategy",
+          "type": "strategy",
+          "required": true,
+          "attributes": [],
+          "description": "Documents what will happen if we are unable to get an actual duty rate for this item, i.e. there will be estimation of some sort",
+          "default": "maximum"
+        },
+        {
+          "name": "tax_strategy",
+          "type": "strategy",
+          "required": true,
+          "attributes": [],
+          "description": "Documents what will happen if we are unable to get an actual duty rate for this item, i.e. there will be estimation of some sort",
+          "default": "maximum"
+        }
+      ],
+      "attributes": [],
+      "description": "Organization level settings."
+    },
+    {
+      "name": "settings_form",
+      "plural": "settings_forms",
+      "fields": [
+        {
+          "name": "duty_strategy",
+          "type": "strategy",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "tax_strategy",
+          "type": "strategy",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tax",
+      "plural": "taxes",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The name of the taxes being applied",
+          "example": "VAT, GST + PST, HST"
+        },
+        {
+          "name": "rate",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The combined tax rate",
+          "minimum": 0,
+          "example": ".35"
+        },
+        {
+          "name": "components",
+          "type": "[component]",
+          "required": true,
+          "attributes": [],
+          "description": "The components to which tax is applied.",
+          "minimum": 1
+        },
+        {
+          "name": "deminimus",
+          "type": "deminimus",
+          "required": false,
+          "attributes": [],
+          "description": "Describes the tax deminimus if there is one for this destination"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a simple model of taxes that apply to a given item / destination."
+    }
+  ],
+  "resources": [
+    {
+      "type": "code",
+      "plural": "codes",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/codes",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "country_of_origin",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+            },
+            {
+              "name": "destination",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+            },
+            {
+              "name": "code",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to records matching this harmonization code"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[code]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/harmonization/codes",
+      "description": "API to fetch harmonization codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. That is, each code is unique across your item number, country of origin and destination."
+    },
+    {
+      "type": "duty",
+      "plural": "duties",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/duties/:origin",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "origin",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "The ISO 3 character code for country of origin",
+              "minimum": 3,
+              "maximum": 3,
+              "example": "chn"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Query",
+              "required": true
+            },
+            {
+              "name": "address",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "22 Hudson Pl, Hoboken NJ 07030 USA"
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "latitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "longitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "duty"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]",
+              "description": "Common error would be that we were unable to resolve the destination view the provide parameters (e.g. address, latitude, longitude or ip address)"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/harmonization/duties/:origin"
+    },
+    {
+      "type": "item",
+      "plural": "items",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/items",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/items/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/harmonization/items",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "item"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "item_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/harmonization/items/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/harmonization/items"
+    },
+    {
+      "type": "item_duty",
+      "plural": "item_duties",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/item-duties",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "country_of_origin",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+            },
+            {
+              "name": "destination",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item_duty]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/item-duties/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item_duty"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/harmonization/item-duties",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "item_duty"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "item_duty_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/harmonization/item-duties/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/harmonization/item-duties"
+    },
+    {
+      "type": "settings",
+      "plural": "settings",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "settings"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/harmonization/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "settings"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "settings_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/harmonization/settings"
+    },
+    {
+      "type": "tax",
+      "plural": "taxes",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/taxes",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "address",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "22 Hudson Pl, Hoboken NJ 07030 USA"
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "latitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "longitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tax"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]",
+              "description": "Common error would be that we were unable to resolve the destination view the provide parameters (e.g. address, latitude, longitude or ip address)"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/harmonization/taxes"
+    }
+  ],
+  "attributes": []
+}

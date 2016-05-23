@@ -1,0 +1,157 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "location",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "location"
+  },
+  "namespace": "io.flow.location.v0",
+  "version": "0.0.12",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "email": "tech@flow.io"
+    }
+  },
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "sort_direction",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_location",
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "healthcheck",
+        "location",
+        "location_reference",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [],
+  "unions": [],
+  "models": [],
+  "resources": [
+    {
+      "type": "io.flow.common.v0.models.location",
+      "plural": "locations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/locations",
+          "parameters": [
+            {
+              "name": "address",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "22 Hudson Pl, Hoboken NJ 07030 USA"
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "latitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "longitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[io.flow.common.v0.models.location]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Based on the provided location parameters, returns a list of the best potential matching addresses."
+        }
+      ],
+      "attributes": [],
+      "path": "/locations"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://location.api.flow.io"
+}

@@ -1,0 +1,1544 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "Github",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "github"
+  },
+  "namespace": "io.flow.github.v0",
+  "version": "0.0.3",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "Michael Bryzek",
+      "url": "http://twitter.com/mbryzek",
+      "email": "mbryzek@alum.mit.edu"
+    }
+  },
+  "headers": [],
+  "imports": [],
+  "enums": [
+    {
+      "name": "contents_type",
+      "plural": "contents_types",
+      "values": [
+        {
+          "name": "file",
+          "attributes": []
+        },
+        {
+          "name": "dir",
+          "attributes": []
+        },
+        {
+          "name": "symlink",
+          "attributes": []
+        },
+        {
+          "name": "submodule",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "encoding",
+      "plural": "encodings",
+      "values": [
+        {
+          "name": "base64",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "hook_event",
+      "plural": "hook_events",
+      "values": [
+        {
+          "name": "push",
+          "attributes": []
+        },
+        {
+          "name": "pull_request",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "owner_type",
+      "plural": "owner_types",
+      "values": [
+        {
+          "name": "User",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "visibility",
+      "plural": "visibilities",
+      "values": [
+        {
+          "name": "all",
+          "attributes": []
+        },
+        {
+          "name": "public",
+          "attributes": []
+        },
+        {
+          "name": "private",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [],
+  "models": [
+    {
+      "name": "commit",
+      "plural": "commits",
+      "fields": [
+        {
+          "name": "sha",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "https://api.github.com/repos/octocat/Hello-World/commits/c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "contents",
+      "plural": "contents",
+      "fields": [
+        {
+          "name": "type",
+          "type": "contents_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "encoding",
+          "type": "encoding",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "size",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If file, then present"
+        },
+        {
+          "name": "sha",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "git_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "html_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "download_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "error",
+      "plural": "errors",
+      "fields": [
+        {
+          "name": "resource",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "Issue"
+        },
+        {
+          "name": "field",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "title"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "missing_field"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "github_object",
+      "plural": "github_objects",
+      "fields": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "commit"
+        },
+        {
+          "name": "sha",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "hook",
+      "plural": "hooks",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "test_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "ping_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "events",
+          "type": "[hook_event]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "config",
+          "type": "hook_config",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "See https://developer.github.com/v3/repos/hooks/#create-a-hook"
+    },
+    {
+      "name": "hook_config",
+      "plural": "hook_configs",
+      "fields": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "content_type",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "example": "json or form"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "ref",
+      "plural": "refs",
+      "fields": [
+        {
+          "name": "ref",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "refs/heads/featureA or refs/heads/master"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "object",
+          "type": "github_object",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "ref_form",
+      "plural": "ref_forms",
+      "fields": [
+        {
+          "name": "ref",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "refs/heads/featureA or refs/heads/master"
+        },
+        {
+          "name": "sha",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "940bd336248efae0f9ee5bc7b2d5c985887b16ac"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "repository",
+      "plural": "repositories",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "owner",
+          "type": "user",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "full_name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "private",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "html_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tag",
+      "plural": "tags",
+      "fields": [
+        {
+          "name": "tag",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "v0.0.1"
+        },
+        {
+          "name": "sha",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "940bd336248efae0f9ee5bc7b2d5c985887b16ac"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "https://api.github.com/repos/octocat/Hello-World/git/tags/940bd336248efae0f9ee5bc7b2d5c985887b16ac"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "initial version"
+        },
+        {
+          "name": "tagger",
+          "type": "tagger",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "object",
+          "type": "github_object",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tag_form",
+      "plural": "tag_forms",
+      "fields": [
+        {
+          "name": "tag",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "v0.0.1"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "object",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The SHA of the git object this is tagging",
+          "example": "940bd336248efae0f9ee5bc7b2d5c985887b16ac"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "default": "commit"
+        },
+        {
+          "name": "tagger",
+          "type": "tagger",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tag_summary",
+      "plural": "tag_summaries",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "v0.1"
+        },
+        {
+          "name": "commit",
+          "type": "commit",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tagger",
+      "plural": "taggers",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "date",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "unprocessable_entity",
+      "plural": "unprocessable_entities",
+      "fields": [
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "Validation Failed"
+        },
+        {
+          "name": "errors",
+          "type": "[error]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "user",
+      "plural": "users",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "login",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "avatar_url",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "gravatar_id",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "html_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "owner_type",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "user_email",
+      "plural": "user_emails",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "verified",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "primary",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "contents",
+      "plural": "contents",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/readme",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "ref",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "master"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "contents"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/contents/:path",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "path",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "ref",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "master"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "contents"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/repos/:owner/:repo"
+    },
+    {
+      "type": "hook",
+      "plural": "hooks",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/hooks",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[hook]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/hooks/:id",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "long",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "hook"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/repos/:owner/:repo/hooks",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "location": "Form",
+              "required": true,
+              "example": "web"
+            },
+            {
+              "name": "config",
+              "type": "hook_config",
+              "location": "Form",
+              "required": true
+            },
+            {
+              "name": "events",
+              "type": "[hook_event]",
+              "location": "Form",
+              "required": true
+            },
+            {
+              "name": "active",
+              "type": "boolean",
+              "location": "Form",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "hook"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "unprocessable_entity"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/repos/:owner/:repo/hooks/:id",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "long",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/repos/:owner/:repo/hooks"
+    },
+    {
+      "type": "ref",
+      "plural": "refs",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/git/refs",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[ref]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/git/refs/:ref",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "ref",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "ref"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/repos/:owner/:repo/git/refs",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "ref"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "unprocessable_entity"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "ref_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/repos/:owner/:repo/git/refs"
+    },
+    {
+      "type": "repository",
+      "plural": "repositories",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/user/repos",
+          "parameters": [
+            {
+              "name": "page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "1"
+            },
+            {
+              "name": "visibility",
+              "type": "visibility",
+              "location": "Query",
+              "required": true,
+              "default": "all"
+            },
+            {
+              "name": "affiliation",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "full_name"
+            },
+            {
+              "name": "direction",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "asc"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[repository]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/users/:username/repos",
+          "parameters": [
+            {
+              "name": "username",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "1"
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "owner"
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "full_name"
+            },
+            {
+              "name": "direction",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "asc"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[repository]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "List public repositories for the specified user."
+        },
+        {
+          "method": "GET",
+          "path": "/orgs/:org/repos",
+          "parameters": [
+            {
+              "name": "org",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "1"
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "all"
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "full_name"
+            },
+            {
+              "name": "direction",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "asc"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[repository]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "List repositories for the specified org."
+        }
+      ],
+      "attributes": [],
+      "path": ""
+    },
+    {
+      "type": "tag",
+      "plural": "tags",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/tags",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tag_summary]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/repos/:owner/:repo/tags/:sha",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "sha",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tag"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/repos/:owner/:repo/git/tags",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tag"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "unprocessable_entity"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "tag_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/repos/:owner/:repo"
+    },
+    {
+      "type": "user",
+      "plural": "users",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/user",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "user"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": ""
+    },
+    {
+      "type": "user_email",
+      "plural": "user_emails",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/user/emails",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[user_email]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/user/emails"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://api.github.com",
+  "description": "See https://developer.github.com/v3/"
+}

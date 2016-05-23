@@ -1,0 +1,361 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "harmonization-event",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "harmonization-event"
+  },
+  "namespace": "io.flow.harmonization.event.v0",
+  "version": "0.0.16",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "email": "tech@flow.io"
+    }
+  },
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_location",
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "address",
+        "address_summary",
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "healthcheck",
+        "location",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "duty_rate_source",
+      "plural": "duty_rate_sources",
+      "values": [
+        {
+          "name": "country_default",
+          "attributes": []
+        },
+        {
+          "name": "explicit_item_data",
+          "attributes": []
+        },
+        {
+          "name": "global_estimate_by_hs6",
+          "attributes": []
+        },
+        {
+          "name": "global_estimate_by_hs5",
+          "attributes": []
+        },
+        {
+          "name": "global_estimate_by_hs4",
+          "attributes": []
+        },
+        {
+          "name": "organization_estimate_by_hs6",
+          "attributes": []
+        },
+        {
+          "name": "organization_estimate_by_hs5",
+          "attributes": []
+        },
+        {
+          "name": "organization_estimate_by_hs4",
+          "attributes": []
+        },
+        {
+          "name": "threece_cache",
+          "attributes": []
+        },
+        {
+          "name": "threece_real_time",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Records the specific way in which the duty rate was calculated"
+    },
+    {
+      "name": "strategy",
+      "plural": "strategies",
+      "values": [
+        {
+          "name": "minimum",
+          "attributes": []
+        },
+        {
+          "name": "average",
+          "attributes": []
+        },
+        {
+          "name": "maximum",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [
+    {
+      "name": "event",
+      "plural": "events",
+      "types": [
+        {
+          "type": "harmonization_request",
+          "attributes": []
+        },
+        {
+          "type": "lane_request",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Identifies all of the types of messages that travel on the harmonization stream"
+    },
+    {
+      "name": "metric",
+      "plural": "metrics",
+      "types": [
+        {
+          "type": "duty_rate_computation",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Defines the events related to metrics published by the service"
+    }
+  ],
+  "models": [
+    {
+      "name": "duty_rate_computation",
+      "plural": "duty_rate_computations",
+      "fields": [
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "description": "The date/time of the request"
+        },
+        {
+          "name": "request",
+          "type": "duty_rate_request",
+          "required": true,
+          "attributes": [],
+          "description": "The data sent in the request to calculate duties"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO-3166-3 country code for the destination country as computed by the incoming request parameters."
+        },
+        {
+          "name": "rate",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "source",
+          "type": "duty_rate_source",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "strategy",
+          "type": "strategy",
+          "required": false,
+          "attributes": [],
+          "description": "If relevant, the strategy used to pick this duty rate. If no strategy is provided in this event, that indicates that the organization's preferred strategy did not factor in the selection of the actual duty rate."
+        }
+      ],
+      "attributes": [],
+      "description": "Records that we have computed a duty rate, including the request data we had, the rate that was computed, and how exactly how that rate was generated"
+    },
+    {
+      "name": "duty_rate_request",
+      "plural": "duty_rate_requests",
+      "fields": [
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO-3166-3 country code for the country of origin"
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "latitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "longitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "harmonization_request",
+      "plural": "harmonization_requests",
+      "fields": [
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Unique item identifier"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Text to classify"
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Optional list of of categories to help with classification"
+        }
+      ],
+      "attributes": [],
+      "description": "A request to harmonize an item. This allows us to classify the item and gather other data needed to be able to calculate duty and tax for landed cost calculations. You will need to provide categories to descriptions to enable any classifiaction."
+    },
+    {
+      "name": "lane_request",
+      "plural": "lane_requests",
+      "fields": [
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "origin",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "List of ISO 3166-3 country codes representing the origins from which this organization ships",
+          "minimum": 1
+        },
+        {
+          "name": "destination",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "List of ISO 3166-3 country codes representing the destinations that this organization primarily operates in",
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "A request to create a lane for this organization. The trade lanes help us prepare accurate duty / tax for each item"
+    }
+  ],
+  "resources": [],
+  "attributes": []
+}

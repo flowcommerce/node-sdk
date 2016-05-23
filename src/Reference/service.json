@@ -1,0 +1,323 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "reference",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "reference"
+  },
+  "namespace": "io.flow.reference.v0",
+  "version": "0.0.12",
+  "info": {},
+  "headers": [],
+  "imports": [],
+  "enums": [
+    {
+      "name": "measurement_system",
+      "plural": "measurement_systems",
+      "values": [
+        {
+          "name": "imperial",
+          "attributes": []
+        },
+        {
+          "name": "metric",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [],
+  "models": [
+    {
+      "name": "country",
+      "plural": "countries",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "United States of America"
+        },
+        {
+          "name": "iso_3166_2",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 2-character country code. See https://www.iso.org/obp/ui/#search",
+          "example": "US"
+        },
+        {
+          "name": "iso_3166_3",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 3-character country code. See https://www.iso.org/obp/ui/#search",
+          "example": "USA"
+        },
+        {
+          "name": "measurement_system",
+          "type": "measurement_system",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "default_currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "ISO 4217 3-character currency code. See http://www.xe.com/iso4217.php",
+          "example": "USD"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "currency",
+      "plural": "currencies",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "US Dollar"
+        },
+        {
+          "name": "iso_4217_3",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "USD"
+        }
+      ],
+      "attributes": [],
+      "description": "ISO 4217 3-character currency code. See http://www.xe.com/iso4217.php"
+    },
+    {
+      "name": "language",
+      "plural": "languages",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "English"
+        },
+        {
+          "name": "iso_639_2",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "en"
+        }
+      ],
+      "attributes": [],
+      "description": "ISO 639 2-character language code. See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+    },
+    {
+      "name": "timezone",
+      "plural": "timezones",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "America/New_York"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "Coordinated Universal Time"
+        },
+        {
+          "name": "offset",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "description": "Minutes offset from GMT",
+          "example": "-180, 60"
+        }
+      ],
+      "attributes": [],
+      "description": "Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones"
+    }
+  ],
+  "resources": [
+    {
+      "type": "country",
+      "plural": "countries",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/countries",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search for a single matching country. Can be the 2 or 3 character code or the name of the country. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[country]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns a list of countries."
+        }
+      ],
+      "attributes": [],
+      "path": "/countries"
+    },
+    {
+      "type": "currency",
+      "plural": "currencies",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/currencies",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search for a single matching currency. Can be the code or the name of the currency. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[currency]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns a list of currencies."
+        }
+      ],
+      "attributes": [],
+      "path": "/currencies"
+    },
+    {
+      "type": "language",
+      "plural": "languages",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/languages",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search for a single matching language. Can be the code or the name of the language. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[language]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns a list of languages."
+        }
+      ],
+      "attributes": [],
+      "path": "/languages"
+    },
+    {
+      "type": "timezone",
+      "plural": "timezones",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/timezones",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search on name for a single matching timezone. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[timezone]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns a list of timezones."
+        }
+      ],
+      "attributes": [],
+      "path": "/timezones"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://reference.api.flow.io"
+}

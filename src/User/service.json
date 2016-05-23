@@ -1,0 +1,813 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "user",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "user"
+  },
+  "namespace": "io.flow.user.v0",
+  "version": "0.0.12",
+  "info": {},
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "sort_direction",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_location",
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "healthcheck",
+        "location",
+        "location_reference",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "authentication_form",
+      "plural": "authentication_forms",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "email_verification",
+      "plural": "email_verifications",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified."
+    },
+    {
+      "name": "name_form",
+      "plural": "name_forms",
+      "fields": [
+        {
+          "name": "first",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "last",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "password_change_form",
+      "plural": "password_change_forms",
+      "fields": [
+        {
+          "name": "current",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The current valid account password"
+        },
+        {
+          "name": "new",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The new password"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "password_reset_form",
+      "plural": "password_reset_forms",
+      "fields": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The token for the password reset request"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The new password"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "password_reset_request_form",
+      "plural": "password_reset_request_forms",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "user_form",
+      "plural": "user_forms",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "name_form",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "user_put_form",
+      "plural": "user_put_forms",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "name_form",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "user_version",
+      "plural": "user_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "io.flow.common.v0.enums.change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "user",
+          "type": "io.flow.common.v0.models.user",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "email_verification",
+      "plural": "email_verifications",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/users/emails/verifications/:token",
+          "parameters": [
+            {
+              "name": "token",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "The unique token sent to the user to verify their email address"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "email_verification"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/users/emails/verifications"
+    },
+    {
+      "type": "io.flow.common.v0.models.user",
+      "plural": "users",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/users",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Find users with this email address. Case insensitive. Exact match"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[io.flow.common.v0.models.user]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Search users. Always paginated."
+        },
+        {
+          "method": "GET",
+          "path": "/users/versions",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "user_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to users with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[user_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Provides visibility into recent changes of each object, including deletion"
+        },
+        {
+          "method": "POST",
+          "path": "/users/authenticate",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "io.flow.common.v0.models.user"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Authenticates a user by email / password.",
+          "body": {
+            "type": "authentication_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/users/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "io.flow.common.v0.models.user"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific user."
+        },
+        {
+          "method": "POST",
+          "path": "/users",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "io.flow.common.v0.models.user"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new user.",
+          "body": {
+            "type": "user_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/users/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "io.flow.common.v0.models.user"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Update a user.",
+          "body": {
+            "type": "user_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PATCH",
+          "path": "/users/:id/passwords",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Update the password for a user.",
+          "body": {
+            "type": "password_change_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/users/:id/passwords",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Deletes a password for the given user."
+        }
+      ],
+      "attributes": [],
+      "path": "/users"
+    },
+    {
+      "type": "password_reset_form",
+      "plural": "password_reset_forms",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/users/passwords/resets",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "password_reset_request_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/users/passwords",
+          "parameters": [
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "user"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "io.flow.common.v0.unions.expandable_user"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "password_reset_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/users/passwords"
+    }
+  ],
+  "attributes": []
+}

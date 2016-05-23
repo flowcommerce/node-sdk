@@ -1,0 +1,376 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "splashpage",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "splashpage"
+  },
+  "namespace": "io.flow.splashpage.v0",
+  "version": "0.1.31",
+  "info": {},
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.11/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.11",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "schedule_exception_status",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "address",
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "healthcheck",
+        "location",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "publication",
+      "plural": "publications",
+      "values": [
+        {
+          "name": "launch",
+          "attributes": [],
+          "description": "Email me when flow launches"
+        }
+      ],
+      "attributes": [],
+      "description": "A publication represents something that a user can subscribe to. An example would be subscribing to notification when we launch the business"
+    }
+  ],
+  "unions": [],
+  "models": [
+    {
+      "name": "geo",
+      "plural": "geos",
+      "fields": [
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The 2 or 3 digit ISO country code."
+        },
+        {
+          "name": "ip_address",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "geo_form",
+      "plural": "geo_forms",
+      "fields": [
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "ip_address",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "subscription",
+      "plural": "subscriptions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Case insensitive email address to which to send notifications for this subscription"
+        },
+        {
+          "name": "publication",
+          "type": "publication",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "geo",
+          "type": "geo",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an email address that is currently subscribed to a publication"
+    },
+    {
+      "name": "subscription_form",
+      "plural": "subscription_forms",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "publication",
+          "type": "publication",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "geo",
+          "type": "geo_form",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "subscription",
+      "plural": "subscriptions",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/subscriptions",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Find subscriptions for this email. Case insensitive."
+            },
+            {
+              "name": "publication",
+              "type": "publication",
+              "location": "Query",
+              "required": false,
+              "description": "Find subscriptions for this publication."
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[subscription]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Search subscriptions. Always paginated."
+        },
+        {
+          "method": "GET",
+          "path": "/subscriptions/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "subscription"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific subscription."
+        },
+        {
+          "method": "POST",
+          "path": "/subscriptions",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "subscription",
+              "description": "Indicates that request was successful, but email address was already subscribed. We return the original subscription record"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "subscription"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new subscription.",
+          "body": {
+            "type": "subscription_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/subscriptions/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/subscriptions"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://api.flow.io"
+}

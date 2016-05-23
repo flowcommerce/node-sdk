@@ -1,0 +1,238 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "token",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "token"
+  },
+  "namespace": "io.flow.token.v0",
+  "version": "0.0.24",
+  "info": {},
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "address",
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "healthcheck",
+        "location",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "token",
+      "plural": "tokens",
+      "fields": [
+        {
+          "name": "user",
+          "type": "io.flow.common.v0.models.user_reference",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "token_form",
+      "plural": "token_forms",
+      "fields": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Used to create a new token for the specified user."
+    }
+  ],
+  "resources": [
+    {
+      "type": "token",
+      "plural": "tokens",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/tokens",
+          "parameters": [
+            {
+              "name": "token",
+              "type": "[string]",
+              "location": "Query",
+              "required": true,
+              "maximum": 100
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[token]"
+            }
+          ],
+          "attributes": [],
+          "description": "Get user reference by token"
+        },
+        {
+          "method": "GET",
+          "path": "/tokens/:token",
+          "parameters": [
+            {
+              "name": "token",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "token"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Get the user for this specified token"
+        },
+        {
+          "method": "POST",
+          "path": "/tokens",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "token"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Create a user token",
+          "body": {
+            "type": "token_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/tokens/:token",
+          "parameters": [
+            {
+              "name": "token",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/tokens"
+    }
+  ],
+  "attributes": []
+}

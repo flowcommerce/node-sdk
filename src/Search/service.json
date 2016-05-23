@@ -1,0 +1,148 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "search",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "search"
+  },
+  "namespace": "io.flow.search.v0",
+  "version": "0.0.12",
+  "info": {},
+  "headers": [],
+  "imports": [],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "item",
+      "plural": "items",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        },
+        {
+          "name": "views",
+          "type": "[view]",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "view",
+      "plural": "views",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "item",
+      "plural": "items",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/search/items",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "gucci category:handbag price:10"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "lower(name)"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns items based on search criteria"
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/search/items"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://search.api.flow.io"
+}

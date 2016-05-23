@@ -1,0 +1,398 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "threece",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "threece"
+  },
+  "namespace": "io.flow.threece.v0",
+  "version": "0.0.3",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "Flow Commerce",
+      "email": "tech@flow.io"
+    }
+  },
+  "headers": [],
+  "imports": [],
+  "enums": [
+    {
+      "name": "status",
+      "plural": "statuses",
+      "values": [
+        {
+          "name": "Success",
+          "attributes": []
+        },
+        {
+          "name": "Ok",
+          "attributes": []
+        },
+        {
+          "name": "Error",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [],
+  "models": [
+    {
+      "name": "classification",
+      "plural": "classifications",
+      "fields": [
+        {
+          "name": "hs6code",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "example": "620342"
+        },
+        {
+          "name": "txid",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "3CE assigned unique transaction ID",
+          "example": "54cba146a65d8a9427000000"
+        },
+        {
+          "name": "when",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "This link opens the 3CE Classifier allowing the user the ability to complete a query where manual intervention is required or the ability to change the result of a classified record.  The URL allows a user to complete a classification to the first 6 digits of the HS Code."
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "selectedItem",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "example": "pants"
+        },
+        {
+          "name": "auto",
+          "type": "boolean",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "classify_response",
+      "plural": "classify_responses",
+      "fields": [
+        {
+          "name": "status",
+          "type": "status",
+          "required": true,
+          "attributes": [],
+          "example": "success"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "result",
+          "type": "classify_result",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "classify_result",
+      "plural": "classify_results",
+      "fields": [
+        {
+          "name": "datetime",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "productid",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The 3CE assigned product ID"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "classification",
+          "type": "classification",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "duty",
+      "plural": "duties",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "ERGA OMNES"
+        },
+        {
+          "name": "rate",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "12.000 % or 16% or 25"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "General"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "propagation",
+      "plural": "propagations",
+      "fields": [
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Destination country as 2-char iso country code"
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Country of origin as 2-char iso country code"
+        },
+        {
+          "name": "tariffCode",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The specific tariff code (e.g. HS10/12/etc.)"
+        },
+        {
+          "name": "duties",
+          "type": "[duty]",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "taxes",
+          "type": "[object]",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Unique URL to view the detailed propagation information for this specific country/origin pair"
+        }
+      ],
+      "attributes": [],
+      "description": "Once a successful classification has been obtained in the above request, the user can then generate a PROPAGATE call to obtain the Tariff Level Code for any amount of countries as required. By providing an existing ID along with the country or countries required, a Tariff Level Code can be generated along with duty rates."
+    },
+    {
+      "name": "propagation_response",
+      "plural": "propagation_responses",
+      "fields": [
+        {
+          "name": "status",
+          "type": "status",
+          "required": true,
+          "attributes": [],
+          "example": "success"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "result",
+          "type": "propagation_result",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "propagation_result",
+      "plural": "propagation_results",
+      "fields": [
+        {
+          "name": "propagations",
+          "type": "[propagation]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "classification",
+      "plural": "classifications",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/classify/:api_key/:client_product_id/:description",
+          "parameters": [
+            {
+              "name": "api_key",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "3CE assigned API key"
+            },
+            {
+              "name": "client_product_id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Our unique identifier for this item. 3CE asked if we could prefix our Client product ID's sent through the service so we can identify the traffic between parties. We thus prepend a 'io.flow.' to all of our client product IDs"
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Free form text describing the item to classify"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "classify_response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/classify/:api_key"
+    },
+    {
+      "type": "propagation",
+      "plural": "propagations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/propagate/:api_key/:product_id/:destinations/:origin",
+          "parameters": [
+            {
+              "name": "api_key",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "3CE assigned API key"
+            },
+            {
+              "name": "product_id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "The product Id must come from the initial classification record."
+            },
+            {
+              "name": "destinations",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "One or more destination countries as 2-char iso country code. Comma separated.",
+              "example": "GB,HK,MX,US"
+            },
+            {
+              "name": "origin",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Country of origin as a 2-char iso country code",
+              "example": "CN"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "propagation_response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/propagate/:api_key"
+    }
+  ],
+  "attributes": [],
+  "base_url": "http://demo.dev.3ceonline.com/apis"
+}

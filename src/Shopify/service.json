@@ -1,0 +1,996 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "Shopify",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "shopify"
+  },
+  "namespace": "io.flow.shopify.v0",
+  "version": "0.0.3",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "Michael Bryzek",
+      "url": "http://twitter.com/mbryzek",
+      "email": "mbryzek@alum.mit.edu"
+    }
+  },
+  "headers": [],
+  "imports": [],
+  "enums": [
+    {
+      "name": "fulfillment_service",
+      "plural": "fulfillment_services",
+      "values": [
+        {
+          "name": "manual",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "inventory_management",
+      "plural": "inventory_managements",
+      "values": [
+        {
+          "name": "blank",
+          "attributes": []
+        },
+        {
+          "name": "shopify",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "inventory_policy",
+      "plural": "inventory_policies",
+      "values": [
+        {
+          "name": "deny",
+          "attributes": []
+        },
+        {
+          "name": "continue",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "published_scope",
+      "plural": "published_scopes",
+      "values": [
+        {
+          "name": "global",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "value_type",
+      "plural": "value_types",
+      "values": [
+        {
+          "name": "string",
+          "attributes": []
+        },
+        {
+          "name": "integer",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "weight_unit",
+      "plural": "weight_units",
+      "values": [
+        {
+          "name": "g",
+          "attributes": []
+        },
+        {
+          "name": "kg",
+          "attributes": []
+        },
+        {
+          "name": "oz",
+          "attributes": []
+        },
+        {
+          "name": "lb",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [],
+  "models": [
+    {
+      "name": "metafield",
+      "plural": "metafields",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "namespace",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value_type",
+          "type": "value_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "option",
+      "plural": "options",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "product_id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "values",
+          "type": "[string]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "option_form",
+      "plural": "option_forms",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "values",
+          "type": "[string]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "product",
+      "plural": "products",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "handle",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "variants",
+          "type": "[product_variant]",
+          "required": true,
+          "attributes": [],
+          "default": "[]",
+          "minimum": 0,
+          "maximum": 100
+        },
+        {
+          "name": "images",
+          "type": "[product_image]",
+          "required": true,
+          "attributes": [],
+          "default": "[]",
+          "minimum": 0,
+          "maximum": 250
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "vendor",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "body_html",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "product_type",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "options",
+          "type": "[option]",
+          "required": true,
+          "attributes": [],
+          "default": "[]",
+          "maximum": 3
+        },
+        {
+          "name": "tags",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Comma separated list of tags."
+        },
+        {
+          "name": "template_suffix",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "published_scope",
+          "type": "published_scope",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "published_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "product_form",
+      "plural": "product_forms",
+      "fields": [
+        {
+          "name": "variants",
+          "type": "[product_variant_form]",
+          "required": false,
+          "attributes": [],
+          "minimum": 0,
+          "maximum": 100
+        },
+        {
+          "name": "images",
+          "type": "[product_image_form]",
+          "required": false,
+          "attributes": [],
+          "minimum": 0,
+          "maximum": 250
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "vendor",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "body_html",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "product_type",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "options",
+          "type": "[option_form]",
+          "required": false,
+          "attributes": [],
+          "maximum": 3
+        },
+        {
+          "name": "tags",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Comma separated list of tags."
+        },
+        {
+          "name": "template_suffix",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "published",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "default": "true"
+        },
+        {
+          "name": "metafields",
+          "type": "[metafield]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "product_image",
+      "plural": "product_images",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "product_id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "variant_ids",
+          "type": "[long]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "product_image_form",
+      "plural": "product_image_forms",
+      "fields": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "attachment",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "product_variant",
+      "plural": "product_variants",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "sku",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "product_id",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "image_id",
+          "type": "long",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "barcode",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "compare_at_price",
+          "type": "decimal",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "fulfillment_service",
+          "type": "fulfillment_service",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "inventory_management",
+          "type": "inventory_management",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "inventory_policy",
+          "type": "inventory_policy",
+          "required": true,
+          "attributes": [],
+          "default": "deny"
+        },
+        {
+          "name": "grams",
+          "type": "double",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "weight",
+          "type": "double",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "weight_units",
+          "type": "weight_unit",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "inventory_quantity",
+          "type": "long",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "metafield",
+          "type": "metafield",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "option1",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "option2",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "option3",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "required_shipping",
+          "type": "boolean",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "taxable",
+          "type": "boolean",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "product_variant_form",
+      "plural": "product_variant_forms",
+      "fields": [
+        {
+          "name": "sku",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "image_id",
+          "type": "long",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "barcode",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "compare_at_price",
+          "type": "decimal",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "fulfillment_service",
+          "type": "fulfillment_service",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "inventory_management",
+          "type": "inventory_management",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "inventory_policy",
+          "type": "inventory_policy",
+          "required": true,
+          "attributes": [],
+          "default": "deny"
+        },
+        {
+          "name": "weight",
+          "type": "double",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "weight_units",
+          "type": "weight_unit",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "inventory_quantity",
+          "type": "long",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "metafield",
+          "type": "metafield",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "option1",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "option2",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "option3",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "required_shipping",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "taxable",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "request_product_form",
+      "plural": "request_product_forms",
+      "fields": [
+        {
+          "name": "product",
+          "type": "product_form",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "response_product",
+      "plural": "response_products",
+      "fields": [
+        {
+          "name": "product",
+          "type": "product",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "response_products",
+      "plural": "response_products",
+      "fields": [
+        {
+          "name": "products",
+          "type": "[product]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "product",
+      "plural": "products",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/admin/products.json",
+          "parameters": [
+            {
+              "name": "ids",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "since_id",
+              "type": "long",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "vendor",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "fields",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "50",
+              "minimum": 1,
+              "maximum": 250
+            },
+            {
+              "name": "page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "1",
+              "minimum": 1
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "response_products"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/admin/products/:id.json",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "long",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "response_product"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/admin/products.json",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "response_product"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "response_product"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 400
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "unit",
+              "description": "TODO: returns a map from field name to a list of validation errors"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "request_product_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/admin/products/:id.json",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "long",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "unit",
+              "description": "product was successfully deleted"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "product was not found"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/admin"
+    }
+  ],
+  "attributes": [],
+  "description": "See https://docs.shopify.com/api/product#index"
+}

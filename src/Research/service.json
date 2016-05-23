@@ -1,0 +1,477 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "research",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "research"
+  },
+  "namespace": "io.flow.research.v0",
+  "version": "0.0.5",
+  "info": {},
+  "headers": [],
+  "imports": [],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "country_percentile",
+      "plural": "country_percentiles",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "United States"
+        },
+        {
+          "name": "percentile",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "minimum": 0,
+          "maximum": 100,
+          "example": "89.12"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "domain",
+      "plural": "domains",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "www.gilt.com"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "statistics",
+      "plural": "statistics",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "domain",
+          "type": "domain",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "global_rank",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "country_rank",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "category_rank",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        },
+        {
+          "name": "countries",
+          "type": "[country_percentile]",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "statistics_form",
+      "plural": "statistics_forms",
+      "fields": [
+        {
+          "name": "domain",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "www.gilt.com"
+        },
+        {
+          "name": "global_rank",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "country_rank",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "category_rank",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "countries",
+          "type": "[country_percentile]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "domain",
+      "plural": "domains",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/domains",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[domain]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/domains/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "example": "www.gilt.com"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "domain"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "domain"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[string]"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/domains/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "domain"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/domains/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/domains"
+    },
+    {
+      "type": "statistics",
+      "plural": "statistics",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/statistics",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "domain",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Find stats for this domain",
+              "example": "www.gilt.com"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[statistics]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/statistics",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "statistics"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[string]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "statistics_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/statistics/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "statistics"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/statistics/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/statistics"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://research.api.flow.io"
+}

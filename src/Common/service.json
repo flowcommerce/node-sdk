@@ -1,0 +1,732 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "common",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "common"
+  },
+  "namespace": "io.flow.common.v0",
+  "version": "0.0.12",
+  "info": {},
+  "headers": [],
+  "imports": [],
+  "enums": [
+    {
+      "name": "calendar",
+      "plural": "calendars",
+      "values": [
+        {
+          "name": "weekdays",
+          "attributes": [],
+          "description": "Mon - Fri"
+        },
+        {
+          "name": "everyday",
+          "attributes": [],
+          "description": "7 days per week"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "capability",
+      "plural": "capabilities",
+      "values": [
+        {
+          "name": "crossdock",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "TODO: Returns, inventory"
+    },
+    {
+      "name": "change_type",
+      "plural": "change_types",
+      "values": [
+        {
+          "name": "insert",
+          "attributes": []
+        },
+        {
+          "name": "update",
+          "attributes": []
+        },
+        {
+          "name": "delete",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "exception_type",
+      "plural": "exception_types",
+      "values": [
+        {
+          "name": "open",
+          "attributes": []
+        },
+        {
+          "name": "closed",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "holiday_calendar",
+      "plural": "holiday_calendars",
+      "values": [
+        {
+          "name": "us_bank_holidays",
+          "attributes": []
+        },
+        {
+          "name": "jewish_holidays",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "schedule_exception_status",
+      "plural": "schedule_exception_statuses",
+      "values": [
+        {
+          "name": "Open",
+          "attributes": []
+        },
+        {
+          "name": "Closed",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Pending better name"
+    },
+    {
+      "name": "sort_direction",
+      "plural": "sort_directions",
+      "values": [
+        {
+          "name": "ascending",
+          "attributes": []
+        },
+        {
+          "name": "descending",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "unit_of_measurement",
+      "plural": "unit_of_measurements",
+      "values": [
+        {
+          "name": "millimeter",
+          "attributes": [],
+          "description": "Equivalent to MILLI(METRE)."
+        },
+        {
+          "name": "centimeter",
+          "attributes": [],
+          "description": "Equivalent to CENTI(METRE)."
+        },
+        {
+          "name": "inch",
+          "attributes": [],
+          "description": "A unit of length equal to 0.01004 m (standard name in)."
+        },
+        {
+          "name": "foot",
+          "attributes": [],
+          "description": "A unit of length equal to 0.3048 m (standard name ft)."
+        },
+        {
+          "name": "cubic_inch",
+          "attributes": [],
+          "description": "A unit of volume equal to one cubic inch (in³)."
+        },
+        {
+          "name": "cubic_meter",
+          "attributes": [],
+          "description": "The metric unit for volume quantities (m³)."
+        },
+        {
+          "name": "gram",
+          "attributes": [],
+          "description": "A unit of mass equal to 1 / 1000 kilogram (standard name g)."
+        },
+        {
+          "name": "kilogram",
+          "attributes": [],
+          "description": "The base unit for mass quantities (kg)."
+        },
+        {
+          "name": "meter",
+          "attributes": [],
+          "description": "The base unit for length quantities (m)."
+        },
+        {
+          "name": "ounce",
+          "attributes": [],
+          "description": "A unit of mass equal to 1 / 16 POUND (standard name oz)."
+        },
+        {
+          "name": "pound",
+          "attributes": [],
+          "description": "A unit of mass equal to 453.59237 grams (avoirdupois pound, standard name lb)."
+        }
+      ],
+      "attributes": [],
+      "description": "Defines the units of measurement that we support. As units are added, we conform with the standard units provided by jscience as part of JSR 363 - see http://jscience.org/api/javax/measure/unit/SI.html and http://jscience.org/api/javax/measure/unit/NonSI.html"
+    },
+    {
+      "name": "unit_of_time",
+      "plural": "unit_of_times",
+      "values": [
+        {
+          "name": "day",
+          "attributes": []
+        },
+        {
+          "name": "hour",
+          "attributes": []
+        },
+        {
+          "name": "minute",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Defines the units of time that we support. We confirm with the standard set of units of time from http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html"
+    },
+    {
+      "name": "value_added_service",
+      "plural": "value_added_services",
+      "values": [
+        {
+          "name": "Hazardous Material",
+          "attributes": [],
+          "description": "See https://en.wikipedia.org/wiki/ORM-D"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "visibility",
+      "plural": "visibilities",
+      "values": [
+        {
+          "name": "public",
+          "attributes": []
+        },
+        {
+          "name": "private",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "unions": [
+    {
+      "name": "expandable_location",
+      "plural": "expandable_locations",
+      "types": [
+        {
+          "type": "location",
+          "attributes": []
+        },
+        {
+          "type": "location_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "expandable_organization",
+      "plural": "expandable_organizations",
+      "types": [
+        {
+          "type": "organization",
+          "attributes": []
+        },
+        {
+          "type": "organization_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "expandable_user",
+      "plural": "expandable_users",
+      "types": [
+        {
+          "type": "user",
+          "attributes": []
+        },
+        {
+          "type": "user_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    }
+  ],
+  "models": [
+    {
+      "name": "contact",
+      "plural": "contacts",
+      "fields": [
+        {
+          "name": "name",
+          "type": "name",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Defines structured fields for a contact person. Typically used for specifying contact person for an account, shipment, or organization representative"
+    },
+    {
+      "name": "datetime_range",
+      "plural": "datetime_ranges",
+      "fields": [
+        {
+          "name": "from",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "to",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "dimension",
+      "plural": "dimensions",
+      "fields": [
+        {
+          "name": "value",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "units",
+          "type": "unit_of_measurement",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "error",
+      "plural": "errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Machine readable code for this specific error message"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Description of the error"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "exception",
+      "plural": "exceptions",
+      "fields": [
+        {
+          "name": "type",
+          "type": "exception_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "datetime_range",
+          "type": "datetime_range",
+          "required": true,
+          "attributes": [],
+          "description": "Range for the holiday. For single-day holidays, from and to should just be the same.",
+          "example": "2016/12/24 12:00 am to 2016/12/25 11:59 pm"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an exception to the schedule of a location."
+    },
+    {
+      "name": "healthcheck",
+      "plural": "healthchecks",
+      "fields": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "healthy"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "location",
+      "plural": "locations",
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Full text version of address"
+        },
+        {
+          "name": "streets",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Array for street line 1, street line 2, etc., in order"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "province",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "postal",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://reference.api.flow.io/countries",
+          "example": "USA"
+        },
+        {
+          "name": "latitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "longitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Defines structured fields for address to be used in user/form input. Either text or the structured input needs to be present."
+    },
+    {
+      "name": "location_reference",
+      "plural": "location_references",
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Full text version of address"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "measurement",
+      "plural": "measurements",
+      "fields": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "12.23"
+        },
+        {
+          "name": "units",
+          "type": "unit_of_measurement",
+          "required": true,
+          "attributes": [],
+          "example": "inch"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "name",
+      "plural": "names",
+      "fields": [
+        {
+          "name": "first",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "last",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization",
+      "plural": "organizations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a single organization in the system"
+    },
+    {
+      "name": "organization_reference",
+      "plural": "organization_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization_summary",
+      "plural": "organization_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "price",
+      "plural": "prices",
+      "fields": [
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": [],
+          "example": "12.23"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 4217 3-character currency code. Case insensitive. See https://reference.api.flow.io/currencies",
+          "example": "EUR"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "schedule",
+      "plural": "schedules",
+      "fields": [
+        {
+          "name": "calendar",
+          "type": "calendar",
+          "required": false,
+          "attributes": [],
+          "description": "Operating calendar used by origin location for shipment, if avialable. If not provided, assume they are never open.",
+          "example": "Weekdays, 7 days, etc."
+        },
+        {
+          "name": "holiday",
+          "type": "holiday_calendar",
+          "required": true,
+          "attributes": [],
+          "description": "Standard holiday set to respect for this schedule",
+          "example": "US bank holidays"
+        },
+        {
+          "name": "exception",
+          "type": "[exception]",
+          "required": true,
+          "attributes": [],
+          "description": "Holiday calendar used by origin location for shipment, if avialable.",
+          "example": "Memorial Day, Independence Day, etc."
+        },
+        {
+          "name": "cutoff",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Daily cutoff time for shipment fulfillment at origin location, if available. 24-hour time",
+          "example": "16:45"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents operating calendar and holidays of a location"
+    },
+    {
+      "name": "user",
+      "plural": "users",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If known, the user's primary email address. While in most common cases, we expect users to have email addresses, there are edge cases where it is useful to allow a user to NOT have an email address. For example, users interacting solely from mobile devices, guest user accounts, initial onboarding where email is not known, etc. We think by starting off with an optional primary email address we can support these use cases with very little implementation cost."
+        },
+        {
+          "name": "name",
+          "type": "name",
+          "required": true,
+          "attributes": [],
+          "description": "The user's name."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a single user in the system"
+    },
+    {
+      "name": "user_reference",
+      "plural": "user_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "user_summary",
+      "plural": "user_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "healthcheck",
+      "plural": "healthchecks",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/_internal_/healthcheck",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "healthcheck"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/_internal_"
+    }
+  ],
+  "attributes": []
+}

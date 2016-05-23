@@ -1,0 +1,102 @@
+#!node_modules/.bin/babel-node
+
+import fs from 'fs';
+import path from 'path';
+import apidoc from '@flowio/lib-apidoc';
+import {
+  capitalizeFirstLetter,
+  toCamelCase,
+  slug } from '@flowio/lib-apidoc/lib/codegen/util/strings';
+import fetch from 'node-fetch';
+import querystring from 'querystring';
+
+const auth = 'Basic NDlnWlhmdXJQR2dBTDRoMDREV0pib1dCMzc4d2JqaFprTUhRSXVlZ0dHV25QVnJSSWJDRjhSSndPZXRRRE5sdDVjWGRUSWE2a3VpUGFldXo=';
+
+function ensureDir(dir) {
+  try {
+    fs.mkdirSync(dir);
+  } catch (e) {
+    if (e.code !== 'EEXIST') {
+      throw new Error(e.message);
+    }
+  }
+}
+
+function getQueryString(params) {
+  const queryStr = querystring.stringify(params);
+  return queryStr ? `?${queryStr}` : '';
+}
+
+function listApplications(org, offset = 0, limit = 25) {
+  const params = {
+    offset,
+    limit,
+  };
+
+  return fetch(`http://api.apidoc.me/flow${getQueryString(params)}`, {
+    headers: {
+      Authorization: auth,
+    },
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(`bad response from server: ${response.status}`);
+  });
+}
+
+function getApplications(org, offset = 0) {
+  return listApplications(org, offset).then((apps) => {
+    if (apps.length) {
+      return getApplications(org, offset + 25).then((apps2) =>
+        apps.concat(apps2));
+    }
+    return apps;
+  });
+}
+
+function getVersion(app) {
+  console.log(`[flow/${app.key}] Fetching latest version...`);
+  const url = `http://api.apidoc.me/flow/${app.key}/latest`;
+  return fetch(url, {
+    headers: {
+      Authorization: auth,
+    },
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(`bad response from server: ${response.status} - ${url}`);
+  });
+}
+
+function generateClient(app) {
+  return getVersion(app).then((version) => {
+    const service = version.service;
+    const directoryName = capitalizeFirstLetter(toCamelCase(slug(service.name)));
+    const serviceJsonString = JSON.stringify(service, null, 2);
+    const clientBasePath = path.join(__dirname, 'src', directoryName);
+    const client = apidoc.codegen.generate(service);
+
+    ensureDir(clientBasePath);
+    console.log(`[flow/${app.key}] writing service.json...`);
+    fs.writeFileSync(path.join(clientBasePath, 'service.json'), serviceJsonString);
+
+    console.log(`[flow/${app.key}] writing client files...`);
+    client.files.forEach((file) => {
+      fs.writeFileSync(path.join(clientBasePath, file.path), file.contents);
+    });
+  });
+}
+
+getApplications('flow').then((apps) => {
+  let sequence = Promise.resolve();
+
+  apps.forEach((application) => {
+    sequence = sequence.then(() => generateClient(application));
+  });
+
+  return sequence;
+}).catch((err) => console.log('Error syncing applications', err));

@@ -1,0 +1,42 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "client",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "client"
+  },
+  "namespace": "io.flow.client.v0",
+  "version": "0.0.1-dev",
+  "info": {},
+  "headers": [],
+  "imports": [],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "client",
+      "plural": "clients",
+      "fields": [
+        {
+          "name": "guid",
+          "type": "uuid",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [],
+  "attributes": []
+}

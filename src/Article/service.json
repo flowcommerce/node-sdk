@@ -1,0 +1,339 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "article",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "article"
+  },
+  "namespace": "io.flow.article.v0",
+  "version": "0.0.9",
+  "info": {},
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.9/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.9",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "country",
+        "currency",
+        "language",
+        "schedule_exception_status",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "address",
+        "change_header",
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "healthcheck",
+        "locale",
+        "location",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "article",
+      "plural": "articles",
+      "fields": [
+        {
+          "name": "author",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "posted_by",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "tags",
+          "type": "[string]",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "article_version",
+      "plural": "article_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "io.flow.common.v0.enums.change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "article",
+          "type": "article",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "article",
+      "plural": "articles",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/articles",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[article]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/articles/versions",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "article_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[article_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/articles",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "article"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "article",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/articles"
+    },
+    {
+      "type": "io.flow.common.v0.models.healthcheck",
+      "plural": "healthchecks",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/_internal_/healthcheck",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "io.flow.common.v0.models.healthcheck"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/_internal_"
+    }
+  ],
+  "attributes": []
+}

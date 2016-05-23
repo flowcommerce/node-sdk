@@ -1,0 +1,463 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "classification-internal",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "classification-internal"
+  },
+  "namespace": "io.flow.classification.internal.v0",
+  "version": "0.0.7",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "email": "tech@flow.io"
+    }
+  },
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "address",
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "healthcheck",
+        "location",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "price",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "source",
+      "plural": "sources",
+      "values": [
+        {
+          "name": "wco2012",
+          "attributes": [],
+          "description": "The WCO 2012 Database"
+        }
+      ],
+      "attributes": [],
+      "description": "Describes the source of the classification codes. Mainly here to document exactly which codes we are using from which WCO publication"
+    }
+  ],
+  "unions": [],
+  "models": [
+    {
+      "name": "code",
+      "plural": "codes",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Unique identifier for this particular record. The format of the ID is the source.code",
+          "example": "wco2012.392620"
+        },
+        {
+          "name": "source",
+          "type": "source",
+          "required": true,
+          "attributes": [],
+          "example": "wco2012"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The actual HS code from the specified source database",
+          "example": "392620"
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The parent harmonization code if there is one",
+          "example": "3926"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Description of this code"
+        }
+      ],
+      "attributes": [],
+      "description": "A single harmonization code in the source database."
+    },
+    {
+      "name": "code_form",
+      "plural": "code_forms",
+      "fields": [
+        {
+          "name": "source",
+          "type": "source",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "code_put_form",
+      "plural": "code_put_forms",
+      "fields": [
+        {
+          "name": "source",
+          "type": "source",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "hs6",
+      "plural": "hs6s",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The actual HS6 code",
+          "example": "392620"
+        },
+        {
+          "name": "confidence",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "description": "The probability that this is the correct code for this item. The value is expressed as a number in the range (0, 100] (> 0 and <= 100)",
+          "minimum": 1,
+          "maximum": 100
+        },
+        {
+          "name": "explanation",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Description of why these particular codes were chosen presented primarily to help understand why certain classification decisions were made."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a single recommendation for a matching HS6 code, including the confidence we have in that recommendation."
+    },
+    {
+      "name": "nlp_code",
+      "plural": "nlp_codes",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The id from the codes table"
+        },
+        {
+          "name": "results",
+          "type": "[nlp_result]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "nlp_result",
+      "plural": "nlp_results",
+      "fields": [
+        {
+          "name": "pos",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "part of speech. see http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html"
+        },
+        {
+          "name": "phrase",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "code",
+      "plural": "codes",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/codes/:source",
+          "parameters": [
+            {
+              "name": "source",
+              "type": "source",
+              "location": "Path",
+              "required": true,
+              "description": "The source of these harmonization codes.",
+              "example": "wco2012"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "code",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Find records with this harmonization code. Case insensitive."
+            },
+            {
+              "name": "parent",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Find records with this parent harmonization code. Case insensitive."
+            },
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Keywords to query. Right now a simple word match. Case insensitive."
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "id"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[code]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 400
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Search harmonization codes. Always paginated."
+        },
+        {
+          "method": "GET",
+          "path": "/codes/:source/:code",
+          "parameters": [
+            {
+              "name": "source",
+              "type": "source",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "code",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "code"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 400
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific code."
+        }
+      ],
+      "attributes": [],
+      "path": "/codes/:source"
+    },
+    {
+      "type": "source",
+      "plural": "sources",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/codes",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[source]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Top level list of the sources of data for harmonization codes."
+        }
+      ],
+      "attributes": [],
+      "path": "/codes"
+    }
+  ],
+  "attributes": []
+}

@@ -1,0 +1,203 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "view-internal",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "view-internal"
+  },
+  "namespace": "io.flow.view.internal.v0",
+  "version": "0.0.35",
+  "info": {},
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/catalog/0.0.12/service.json",
+      "namespace": "io.flow.catalog.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "catalog"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "dimension_type",
+        "update_policy"
+      ],
+      "unions": [
+        "expandable_subcatalog"
+      ],
+      "models": [
+        "attribute",
+        "catalog",
+        "catalog_version",
+        "dimension",
+        "flow",
+        "image",
+        "item",
+        "item_form",
+        "item_version",
+        "local",
+        "localized_price",
+        "price",
+        "subcatalog",
+        "subcatalog_form",
+        "subcatalog_item",
+        "subcatalog_reference",
+        "subcatalog_settings",
+        "subcatalog_settings_form",
+        "subcatalog_version"
+      ]
+    },
+    {
+      "uri": "http://www.apidoc.me/flow/fulfillment/0.0.12/service.json",
+      "namespace": "io.flow.fulfillment.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "fulfillment"
+      },
+      "version": "0.0.12",
+      "enums": [
+        "calendar",
+        "capability",
+        "commercial_term",
+        "content_type",
+        "dimension_type",
+        "eel_pfc",
+        "reason",
+        "rule_operation",
+        "status",
+        "tier_strategy"
+      ],
+      "unions": [
+        "credentials",
+        "expandable_booking",
+        "expandable_carrier",
+        "expandable_carrier_account",
+        "expandable_center",
+        "expandable_delivery",
+        "expandable_experience",
+        "expandable_label",
+        "expandable_lane",
+        "expandable_option",
+        "expandable_quote",
+        "expandable_service",
+        "expandable_shipment",
+        "expandable_tier",
+        "rule_outcome"
+      ],
+      "models": [
+        "at_cost",
+        "booking",
+        "booking_form",
+        "booking_reference",
+        "booking_version",
+        "carrier",
+        "carrier_account",
+        "carrier_account_form",
+        "carrier_account_reference",
+        "carrier_account_version",
+        "carrier_form",
+        "carrier_reference",
+        "carrier_version",
+        "center",
+        "center_form",
+        "center_reference",
+        "center_version",
+        "customs",
+        "delivery",
+        "delivery_form",
+        "delivery_reference",
+        "delivery_version",
+        "dhl_credentials",
+        "dimension",
+        "estimated_window",
+        "event",
+        "event_form",
+        "experience",
+        "experience_form",
+        "experience_reference",
+        "experience_version",
+        "fedex_credentials",
+        "file",
+        "flat_rate",
+        "free_shipping",
+        "item",
+        "label",
+        "label_form",
+        "label_reference",
+        "label_version",
+        "lane",
+        "lane_exception",
+        "lane_form",
+        "lane_reference",
+        "lane_version",
+        "location",
+        "option",
+        "option_form",
+        "option_reference",
+        "option_version",
+        "quote",
+        "quote_exception",
+        "quote_form",
+        "quote_reference",
+        "quote_version",
+        "rule",
+        "rule_query",
+        "service",
+        "service_form",
+        "service_reference",
+        "service_version",
+        "shipment",
+        "shipment_reference",
+        "shipment_version",
+        "tier",
+        "tier_form",
+        "tier_reference",
+        "tier_summary",
+        "tier_version",
+        "ups_credentials",
+        "username_password",
+        "usps_credentials",
+        "view_reference"
+      ]
+    }
+  ],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "internal_checkout",
+      "plural": "internal_checkouts",
+      "fields": [
+        {
+          "name": "deliveries",
+          "type": "[io.flow.fulfillment.v0.models.delivery]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "prices",
+          "type": "[io.flow.catalog.v0.models.localized_price]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "total",
+          "type": "io.flow.catalog.v0.models.localized_price",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [],
+  "attributes": []
+}

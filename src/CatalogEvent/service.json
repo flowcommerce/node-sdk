@@ -1,0 +1,83 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "catalog-event",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "catalog-event"
+  },
+  "namespace": "io.flow.catalog.event.v0",
+  "version": "0.0.12",
+  "info": {},
+  "headers": [],
+  "imports": [],
+  "enums": [],
+  "unions": [
+    {
+      "name": "event",
+      "plural": "events",
+      "types": [
+        {
+          "type": "item_created",
+          "attributes": []
+        },
+        {
+          "type": "item_updated",
+          "attributes": []
+        },
+        {
+          "type": "item_deleted",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    }
+  ],
+  "models": [
+    {
+      "name": "item_created",
+      "plural": "item_createds",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_deleted",
+      "plural": "item_deleteds",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_updated",
+      "plural": "item_updateds",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [],
+  "attributes": []
+}

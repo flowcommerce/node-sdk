@@ -1,0 +1,565 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "cloudflare",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "cloudflare"
+  },
+  "namespace": "io.flow.cloudflare.v0",
+  "version": "0.0.3",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "Michael Bryzek",
+      "url": "http://twitter.com/mbryzek",
+      "email": "mbryzek@alum.mit.edu"
+    }
+  },
+  "headers": [],
+  "imports": [],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "dns_record",
+      "plural": "dns_records",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "A"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "flow.io"
+        },
+        {
+          "name": "ttl",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "zone_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "zone_name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "dns_record_form",
+      "plural": "dns_record_forms",
+      "fields": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "CNAME"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "splashpage.api.flow.io"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "dualstack....."
+        },
+        {
+          "name": "ttl",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "default": "300"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "dns_record_response",
+      "plural": "dns_record_responses",
+      "fields": [
+        {
+          "name": "success",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "errors",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "result",
+          "type": "dns_record",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "dns_records_response",
+      "plural": "dns_records_responses",
+      "fields": [
+        {
+          "name": "success",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "errors",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "result_info",
+          "type": "result_info",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "result",
+          "type": "[dns_record]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "result_info",
+      "plural": "result_infoes",
+      "fields": [
+        {
+          "name": "page",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "per_page",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "count",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "total_count",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "zone",
+      "plural": "zones",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "flow.io"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "zones_response",
+      "plural": "zones_responses",
+      "fields": [
+        {
+          "name": "success",
+          "type": "boolean",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "errors",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "result_info",
+          "type": "result_info",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "result",
+          "type": "[zone]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "dns_record",
+      "plural": "dns_records",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/zones/:zone_identifier/dns_records",
+          "parameters": [
+            {
+              "name": "zone_identifier",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "1",
+              "minimum": 1
+            },
+            {
+              "name": "per_page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "20",
+              "minimum": 5,
+              "maximum": 50
+            },
+            {
+              "name": "order",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "name"
+            },
+            {
+              "name": "direction",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "asc"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "dns_records_response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/zones/:zone_identifier/dns_records/:id",
+          "parameters": [
+            {
+              "name": "zone_identifier",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "dns_record_response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/zones/:zone_identifier/dns_records",
+          "parameters": [
+            {
+              "name": "zone_identifier",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "dns_record_response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "dns_record_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/zones/:zone_identifier/dns_records/:id",
+          "parameters": [
+            {
+              "name": "zone_identifier",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "dns_record_response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "dns_record_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/zones/:zone_identifier/dns_records"
+    },
+    {
+      "type": "zone",
+      "plural": "zones",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/zones",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "1",
+              "minimum": 1
+            },
+            {
+              "name": "per_page",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "20",
+              "minimum": 5,
+              "maximum": 50
+            },
+            {
+              "name": "order",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "name"
+            },
+            {
+              "name": "direction",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "asc"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "zones_response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/zones"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://api.cloudflare.com/client/v4",
+  "description": "See https://api.cloudflare.com"
+}
