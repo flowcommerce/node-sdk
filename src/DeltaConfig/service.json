@@ -10,7 +10,7 @@
     "key": "delta-config"
   },
   "namespace": "io.flow.delta.config.v0",
-  "version": "0.1.68",
+  "version": "0.1.75",
   "info": {},
   "headers": [],
   "imports": [],
@@ -149,6 +149,27 @@
           "attributes": []
         },
         {
+          "name": "memory",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The number of MiB of memory to reserve for the container."
+        },
+        {
+          "name": "port_container",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "description": "The port number on the container that is bound to the user-specified or automatically assigned host port."
+        },
+        {
+          "name": "port_host",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "description": "The port number on the container instance to reserve for your container"
+        },
+        {
           "name": "stages",
           "type": "[build_stage]",
           "required": true,
@@ -160,7 +181,7 @@
           "type": "[string]",
           "required": true,
           "attributes": [],
-          "description": "The names of other builds that this one is dependent on. If specified, we will not scale up this build while any of the dependent builds are in the process of scaling.",
+          "description": "The names of other builds that this one is dependent on. If specified, we will ensure that we never scale this build to a tag that is ahead of the minimum version of the dependent application running in production.",
           "minimum": 0,
           "example": "www"
         }

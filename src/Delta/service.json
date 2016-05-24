@@ -10,12 +10,12 @@
     "key": "delta"
   },
   "namespace": "io.flow.delta.v0",
-  "version": "0.1.68",
+  "version": "0.1.75",
   "info": {},
   "headers": [],
   "imports": [
     {
-      "uri": "http://www.apidoc.me/flow/common/0.0.9/service.json",
+      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
       "namespace": "io.flow.common.v0",
       "organization": {
         "key": "flow"
@@ -23,42 +23,69 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.9",
+      "version": "0.0.12",
       "enums": [
         "calendar",
         "capability",
         "change_type",
-        "country",
-        "currency",
-        "language",
+        "exception_type",
+        "holiday_calendar",
         "schedule_exception_status",
+        "sort_direction",
         "unit_of_measurement",
         "unit_of_time",
         "value_added_service",
         "visibility"
       ],
       "unions": [
+        "expandable_location",
         "expandable_organization",
         "expandable_user"
       ],
       "models": [
-        "address",
-        "change_header",
         "contact",
         "datetime_range",
         "dimension",
         "error",
+        "exception",
         "healthcheck",
-        "locale",
         "location",
+        "location_reference",
+        "measurement",
         "name",
         "organization",
         "organization_reference",
         "organization_summary",
         "price",
+        "schedule",
         "user",
         "user_reference",
         "user_summary"
+      ]
+    },
+    {
+      "uri": "http://www.apidoc.me/flow/delta-config/0.1.68/service.json",
+      "namespace": "io.flow.delta.config.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "delta-config"
+      },
+      "version": "0.1.68",
+      "enums": [
+        "build_stage",
+        "instance_type",
+        "project_stage"
+      ],
+      "unions": [
+        "config"
+      ],
+      "models": [
+        "branch",
+        "build",
+        "config_error",
+        "config_project"
       ]
     },
     {
@@ -740,6 +767,12 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "config",
+          "type": "io.flow.delta.config.v0.unions.config",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -777,6 +810,13 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "config",
+          "type": "io.flow.delta.config.v0.models.config_project",
+          "required": false,
+          "attributes": [],
+          "description": "Project configuration. If not provided, we use the global default"
         }
       ],
       "attributes": []
@@ -1298,6 +1338,14 @@
                 }
               },
               "type": "[dashboard_build]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
             }
           ],
           "attributes": []
@@ -1664,30 +1712,6 @@
       ],
       "attributes": [],
       "path": "/images"
-    },
-    {
-      "type": "io.flow.common.v0.models.healthcheck",
-      "plural": "healthchecks",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/_internal_/healthcheck",
-          "parameters": [],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "io.flow.common.v0.models.healthcheck"
-            }
-          ],
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "path": "/_internal_"
     },
     {
       "type": "io.flow.common.v0.models.user",
@@ -2818,7 +2842,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/repositories/github",
+          "path": "/github",
           "parameters": [
             {
               "name": "owner",
@@ -2896,10 +2920,56 @@
           ],
           "attributes": [],
           "description": "Returns a list of repositories from github"
+        },
+        {
+          "method": "GET",
+          "path": "/github/:owner/:repo/config",
+          "parameters": [
+            {
+              "name": "owner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "repo",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "io.flow.delta.config.v0.unions.config"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns the delta configuration for the specified github repo, if the repo has a .delta file in its root"
         }
       ],
       "attributes": [],
-      "path": "/repositories"
+      "path": "/github"
     },
     {
       "type": "sha",

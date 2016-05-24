@@ -4,7 +4,6 @@ import Events from './events';
 import GithubUsers from './github-users';
 import GithubWebhooks from './github-webhooks';
 import Images from './images';
-import Healthchecks from './healthchecks';
 import Users from './users';
 import Items from './items';
 import Memberships from './memberships';
@@ -24,7 +23,6 @@ export default class DeltaClient {
     this.github_users = new GithubUsers(host, auth, headers);
     this.github_webhooks = new GithubWebhooks(host, auth, headers);
     this.images = new Images(host, auth, headers);
-    this.healthchecks = new Healthchecks(host, auth, headers);
     this.users = new Users(host, auth, headers);
     this.items = new Items(host, auth, headers);
     this.memberships = new Memberships(host, auth, headers);

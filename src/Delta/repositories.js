@@ -11,8 +11,12 @@ export default class Repositories extends Client {
     this.headers = headers;
   }
 
-  getGithub(options) {
-    return this.makeRequest(`${this.host}/repositories/github`, options);
+  get(options) {
+    return this.makeRequest(`${this.host}/github`, options);
+  }
+
+  getConfigByOwnerAndRepo(owner, repo, options) {
+    return this.makeRequest(`${this.host}/github/${owner}/${repo}/config`, options);
   }
 
 }

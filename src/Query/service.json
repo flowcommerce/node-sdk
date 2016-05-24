@@ -1,0 +1,124 @@
+{
+  "apidoc": {
+    "version": "0.11.23"
+  },
+  "name": "query",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "query"
+  },
+  "namespace": "io.flow.query.v0",
+  "version": "0.0.1",
+  "info": {},
+  "headers": [],
+  "imports": [],
+  "enums": [],
+  "unions": [
+    {
+      "name": "query_type",
+      "plural": "query_types",
+      "types": [
+        {
+          "type": "algolia",
+          "attributes": []
+        },
+        {
+          "type": "postgresql",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    }
+  ],
+  "models": [
+    {
+      "name": "algolia",
+      "plural": "algolias",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Generates an Algolia query"
+    },
+    {
+      "name": "error",
+      "plural": "errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Machine readable code for this specific error message"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Description of the error"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "postgresql",
+      "plural": "postgresqls",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Generates a PostgresQL query"
+    },
+    {
+      "name": "query",
+      "plural": "queries",
+      "fields": [
+        {
+          "name": "term",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "operator",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "query_input",
+      "plural": "query_inputs",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Valid Google Advanced Operators Reference - http://www.googleguide.com/advanced_operators_reference.html"
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [],
+  "attributes": [],
+  "base_url": "https://query.api.flow.io",
+  "description": "API for other internal Flow services to parse queries."
+}
