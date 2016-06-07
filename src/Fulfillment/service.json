@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "fulfillment",
   "organization": {
@@ -10,12 +10,12 @@
     "key": "fulfillment"
   },
   "namespace": "io.flow.fulfillment.v0",
-  "version": "0.0.12",
+  "version": "0.0.19",
   "info": {},
   "headers": [],
   "imports": [
     {
-      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
       "namespace": "io.flow.common.v0",
       "organization": {
         "key": "flow"
@@ -23,11 +23,12 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.12",
+      "version": "0.0.19",
       "enums": [
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
@@ -48,6 +49,7 @@
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
         "location_reference",
@@ -56,7 +58,6 @@
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",
@@ -65,39 +66,6 @@
     }
   ],
   "enums": [
-    {
-      "name": "calendar",
-      "plural": "calendars",
-      "values": [
-        {
-          "name": "Weekdays",
-          "attributes": [],
-          "description": "Mon - Fri"
-        },
-        {
-          "name": "Everyday",
-          "attributes": [],
-          "description": "7 days per week"
-        },
-        {
-          "name": "Unknown",
-          "attributes": [],
-          "description": "We do not yet know the calendar"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "capability",
-      "plural": "capabilities",
-      "values": [
-        {
-          "name": "crossdock",
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
     {
       "name": "commercial_term",
       "plural": "commercial_terms",
@@ -139,24 +107,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
-    },
-    {
-      "name": "dimension_type",
-      "plural": "dimension_types",
-      "values": [
-        {
-          "name": "product",
-          "attributes": [],
-          "description": "The standalone dimensions of an item."
-        },
-        {
-          "name": "package",
-          "attributes": [],
-          "description": "The boxed dimensions of an item."
-        }
-      ],
-      "attributes": []
+      "attributes": [],
+      "description": "Content format of a generated shipment_label"
     },
     {
       "name": "eel_pfc",
@@ -202,61 +154,8 @@
           "description": "Known to cause delays at customs"
         }
       ],
-      "attributes": []
-    },
-    {
-      "name": "rule_operation",
-      "plural": "rule_operations",
-      "values": [
-        {
-          "name": "equals",
-          "attributes": []
-        },
-        {
-          "name": "not_equals",
-          "attributes": []
-        },
-        {
-          "name": "greater_than",
-          "attributes": []
-        },
-        {
-          "name": "less_than",
-          "attributes": []
-        },
-        {
-          "name": "in",
-          "attributes": []
-        },
-        {
-          "name": "not_in",
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "status",
-      "plural": "statuses",
-      "values": [
-        {
-          "name": "delivered",
-          "attributes": []
-        },
-        {
-          "name": "transit",
-          "attributes": []
-        },
-        {
-          "name": "other",
-          "attributes": []
-        },
-        {
-          "name": "exception",
-          "attributes": []
-        }
-      ],
-      "attributes": []
+      "attributes": [],
+      "description": "Exception reasons"
     },
     {
       "name": "tier_strategy",
@@ -273,7 +172,8 @@
           "description": "Optimize for cheapest first, then fastest"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Strategy to apply when there are multiple rates available for a tier"
     }
   ],
   "unions": [
@@ -382,38 +282,6 @@
       "discriminator": "discriminator"
     },
     {
-      "name": "expandable_experience",
-      "plural": "expandable_experiences",
-      "types": [
-        {
-          "type": "experience",
-          "attributes": []
-        },
-        {
-          "type": "experience_reference",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator"
-    },
-    {
-      "name": "expandable_label",
-      "plural": "expandable_labels",
-      "types": [
-        {
-          "type": "label",
-          "attributes": []
-        },
-        {
-          "type": "label_reference",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator"
-    },
-    {
       "name": "expandable_lane",
       "plural": "expandable_lanes",
       "types": [
@@ -494,6 +362,22 @@
       "discriminator": "discriminator"
     },
     {
+      "name": "expandable_shipment_label",
+      "plural": "expandable_shipment_labels",
+      "types": [
+        {
+          "type": "shipment_label",
+          "attributes": []
+        },
+        {
+          "type": "shipment_label_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "expandable_tier",
       "plural": "expandable_tiers",
       "types": [
@@ -540,13 +424,15 @@
           "name": "contact",
           "type": "io.flow.common.v0.models.contact",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Contact information of entity at the address"
         },
         {
           "name": "location",
           "type": "io.flow.common.v0.models.location",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Attributes on physical location"
         }
       ],
       "attributes": []
@@ -582,18 +468,11 @@
           "attributes": []
         },
         {
-          "name": "quote",
-          "type": "expandable_quote",
+          "name": "shipments",
+          "type": "[shipment_reference]",
           "required": true,
           "attributes": [],
-          "description": "Reference to quote being booked by the organization"
-        },
-        {
-          "name": "options",
-          "type": "[expandable_option]",
-          "required": true,
-          "attributes": [],
-          "description": "Selected list of options for the quote"
+          "description": "Shipments created as a result of booking the quote options"
         }
       ],
       "attributes": [],
@@ -624,7 +503,8 @@
           "description": "Selected list of options for the quote"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Represents second step of two-step purchase of Flow services."
     },
     {
       "name": "booking_reference",
@@ -828,7 +708,8 @@
           "description": "Parter API source providing access to this carrier. Defaults to carrier itself"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Partner that actually take a shipment between places (ex: FedEx, DHL, SF Express)"
     },
     {
       "name": "carrier_reference",
@@ -886,9 +767,10 @@
         },
         {
           "name": "capabilities",
-          "type": "[capability]",
+          "type": "[io.flow.common.v0.enums.capability]",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "List of standard capabilities that this center offers"
         },
         {
           "name": "address",
@@ -926,7 +808,7 @@
       "fields": [
         {
           "name": "capabilities",
-          "type": "[capability]",
+          "type": "[io.flow.common.v0.enums.capability]",
           "required": true,
           "attributes": []
         },
@@ -1038,7 +920,7 @@
         },
         {
           "name": "items",
-          "type": "[item]",
+          "type": "[item_summary]",
           "required": true,
           "attributes": []
         },
@@ -1065,13 +947,7 @@
         },
         {
           "name": "items",
-          "type": "[item]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "customs",
-          "type": "customs",
+          "type": "[item_summary]",
           "required": true,
           "attributes": []
         },
@@ -1082,7 +958,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Represents a collection of items, the available delivery option tier for that collection of items, and metadata about those options"
     },
     {
       "name": "delivery_reference",
@@ -1149,43 +1026,6 @@
       "description": "Credentials used to communicate with DHL on behalf of client organization."
     },
     {
-      "name": "dimension",
-      "plural": "dimensions",
-      "fields": [
-        {
-          "name": "type",
-          "type": "dimension_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "depth",
-          "type": "io.flow.common.v0.models.measurement",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "length",
-          "type": "io.flow.common.v0.models.measurement",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "weight",
-          "type": "io.flow.common.v0.models.measurement",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "width",
-          "type": "io.flow.common.v0.models.measurement",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "estimated_window",
       "plural": "estimated_windows",
       "fields": [
@@ -1208,114 +1048,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
-    },
-    {
-      "name": "experience",
-      "plural": "experiences",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "view",
-          "type": "view_reference",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "tiers",
-          "type": "[tier]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "country",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
       "attributes": [],
-      "description": "Grouping of Service tier that could later be associated with a catalog view or experience. e.g. China-specific Experience Tier Group of Services. Default Global tier group of available Services"
-    },
-    {
-      "name": "experience_form",
-      "plural": "experience_forms",
-      "fields": [
-        {
-          "name": "name",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "view",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "country",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "experience_reference",
-      "plural": "experience_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "experience_version",
-      "plural": "experience_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "io.flow.common.v0.enums.change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "experience",
-          "type": "expandable_experience",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
+      "description": "Range of time given a from and to number and the unit. For example: 1-4 hours or 4-7 days"
     },
     {
       "name": "fedex_credentials",
@@ -1348,25 +1082,6 @@
       ],
       "attributes": [],
       "description": "Credentials used to communicate with Fedex on behalf of client organization."
-    },
-    {
-      "name": "file",
-      "plural": "files",
-      "fields": [
-        {
-          "name": "url",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "content_type",
-          "type": "content_type",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "flat_rate",
@@ -1403,8 +1118,8 @@
       "description": "Rule outcome where shipping surfaced in quote is free"
     },
     {
-      "name": "item",
-      "plural": "items",
+      "name": "item_summary",
+      "plural": "item_summaries",
       "fields": [
         {
           "name": "number",
@@ -1421,7 +1136,7 @@
         },
         {
           "name": "dimensions",
-          "type": "[dimension]",
+          "type": "[io.flow.common.v0.models.dimension]",
           "required": true,
           "attributes": [],
           "default": "[]"
@@ -1441,124 +1156,6 @@
       ],
       "attributes": [],
       "description": "Represents metadata about the customer's line item product"
-    },
-    {
-      "name": "label",
-      "plural": "labels",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "service",
-          "type": "service",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "window",
-          "type": "io.flow.common.v0.models.datetime_range",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "files",
-          "type": "[file]",
-          "required": true,
-          "attributes": [],
-          "minimum": 0
-        }
-      ],
-      "attributes": [],
-      "description": "Top-level information on shipment tracking label number"
-    },
-    {
-      "name": "label_form",
-      "plural": "label_forms",
-      "fields": [
-        {
-          "name": "service",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Service associated with this label."
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Carrier-issued reference number used to track a shipment."
-        },
-        {
-          "name": "data",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Actual zpl contents of the label to be generated."
-        },
-        {
-          "name": "window",
-          "type": "io.flow.common.v0.models.datetime_range",
-          "required": true,
-          "attributes": [],
-          "description": "Carrier-provided information on actual delivery date range."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_reference",
-      "plural": "label_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_version",
-      "plural": "label_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "io.flow.common.v0.enums.change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "label",
-          "type": "expandable_label",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "lane",
@@ -1733,6 +1330,12 @@
           "attributes": []
         },
         {
+          "name": "delivery",
+          "type": "delivery_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "price",
           "type": "string",
           "required": true,
@@ -1755,12 +1358,6 @@
           "type": "io.flow.common.v0.models.datetime_range",
           "required": true,
           "attributes": []
-        },
-        {
-          "name": "delivery",
-          "type": "delivery_reference",
-          "required": true,
-          "attributes": []
         }
       ],
       "attributes": [],
@@ -1778,13 +1375,7 @@
         },
         {
           "name": "items",
-          "type": "[item]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "customs",
-          "type": "customs",
+          "type": "[item_summary]",
           "required": true,
           "attributes": []
         },
@@ -1795,7 +1386,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Represents a way to fulfill a delivery, including an estimates for the date range and cost"
     },
     {
       "name": "option_reference",
@@ -1872,7 +1464,7 @@
         {
           "name": "customs",
           "type": "customs",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -1885,7 +1477,7 @@
       "fields": [
         {
           "name": "items",
-          "type": "[item]",
+          "type": "[item_summary]",
           "required": true,
           "attributes": []
         },
@@ -1904,14 +1496,8 @@
       "plural": "quote_forms",
       "fields": [
         {
-          "name": "customs",
-          "type": "customs",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "items",
-          "type": "[item]",
+          "type": "[item_summary]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -1920,6 +1506,12 @@
           "name": "destination",
           "type": "address",
           "required": true,
+          "attributes": []
+        },
+        {
+          "name": "customs",
+          "type": "customs",
+          "required": false,
           "attributes": []
         },
         {
@@ -1982,10 +1574,10 @@
       "fields": [
         {
           "name": "query",
-          "type": "[rule_query]",
+          "type": "[string]",
           "required": true,
           "attributes": [],
-          "description": "Filter for incoming quotes. e.g. 'destination.country=US', 'sum(items.price) >= 100 USD'"
+          "description": "Search API query"
         },
         {
           "name": "outcome",
@@ -1997,35 +1589,6 @@
       ],
       "attributes": [],
       "description": "System to filter incoming quote for a shipment request based on a query and output corresponding outcomes."
-    },
-    {
-      "name": "rule_query",
-      "plural": "rule_queries",
-      "fields": [
-        {
-          "name": "field",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Name of the field to be used. e.g. destination.address.country, sum(items.price)"
-        },
-        {
-          "name": "operation",
-          "type": "rule_operation",
-          "required": true,
-          "attributes": [],
-          "description": "Operation on the fields. e.g. equals, not equals, greater than, in, not in"
-        },
-        {
-          "name": "values",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "description": "List of valid values derived from the operatio on the fields."
-        }
-      ],
-      "attributes": [],
-      "description": "Criteria to be used to filter incoming quote, items, origin, destination to see if this tier is applicable."
     },
     {
       "name": "service",
@@ -2080,7 +1643,8 @@
           "description": "Mapping of what this Service is referenced by in the partner. Defaults to generated ID."
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc)"
     },
     {
       "name": "service_reference",
@@ -2137,20 +1701,184 @@
           "attributes": []
         },
         {
-          "name": "booking",
-          "type": "expandable_booking",
+          "name": "destination",
+          "type": "address",
           "required": true,
           "attributes": []
         },
         {
-          "name": "option",
-          "type": "expandable_option",
+          "name": "shipment_labels",
+          "type": "[shipment_label]",
           "required": true,
           "attributes": []
         },
         {
-          "name": "labels",
-          "type": "[label]",
+          "name": "items",
+          "type": "[item_summary]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a subset of items from an order grouped into a single physical shipment. Flow provides a generated tracking number to track this shipment across multiple possible hops and carriers."
+    },
+    {
+      "name": "shipment_form",
+      "plural": "shipment_forms",
+      "fields": [
+        {
+          "name": "destination",
+          "type": "address",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "items",
+          "type": "[item_summary]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "shipment_labels",
+          "type": "[shipment_label_form]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a subset of items from an order grouped into a single physical shipment."
+    },
+    {
+      "name": "shipment_label",
+      "plural": "shipment_labels",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "service",
+          "type": "service",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "window",
+          "type": "io.flow.common.v0.models.datetime_range",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "pdf",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "zpl",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Top-level information on shipment tracking shipment_label and number"
+    },
+    {
+      "name": "shipment_label_form",
+      "plural": "shipment_label_forms",
+      "fields": [
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Service associated with this shipment_label."
+        },
+        {
+          "name": "tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier-issued reference number used to track a shipment."
+        },
+        {
+          "name": "window",
+          "type": "io.flow.common.v0.models.datetime_range",
+          "required": false,
+          "attributes": [],
+          "description": "Carrier-provided information on actual delivery date range."
+        },
+        {
+          "name": "data",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Actual zpl contents of the shipment_label to be generated, if available."
+        },
+        {
+          "name": "shipment",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Shipment ID of the shipment_label, if shipment_label is generated after initial shipment is created"
+        }
+      ],
+      "attributes": [],
+      "description": "Top-level information on shipment tracking shipment_label and number"
+    },
+    {
+      "name": "shipment_label_reference",
+      "plural": "shipment_label_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shipment_label_version",
+      "plural": "shipment_label_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "io.flow.common.v0.enums.change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "shipment_label",
+          "type": "expandable_shipment_label",
           "required": true,
           "attributes": []
         }
@@ -2213,7 +1941,7 @@
         },
         {
           "name": "experience",
-          "type": "expandable_experience",
+          "type": "io.flow.common.v0.models.experience_summary",
           "required": true,
           "attributes": []
         },
@@ -2300,7 +2028,8 @@
           "description": "Services associated with this tier"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier"
     },
     {
       "name": "tier_reference",
@@ -2418,19 +2147,6 @@
       ],
       "attributes": [],
       "description": "Credentials used to communicate with USPS on behalf of client organization."
-    },
-    {
-      "name": "view_reference",
-      "plural": "view_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     }
   ],
   "resources": [
@@ -2550,15 +2266,6 @@
               "location": "Query",
               "required": true,
               "default": "-created_at"
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 1,
-              "example": "quote"
             }
           ],
           "responses": [
@@ -2590,15 +2297,6 @@
               "type": "string",
               "location": "Path",
               "required": true
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 1,
-              "example": "quote"
             }
           ],
           "responses": [
@@ -2632,17 +2330,7 @@
         {
           "method": "POST",
           "path": "/bookings",
-          "parameters": [
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 1,
-              "example": "quote"
-            }
-          ],
+          "parameters": [],
           "responses": [
             {
               "code": {
@@ -3703,583 +3391,6 @@
       "path": "/:organization/centers"
     },
     {
-      "type": "experience",
-      "plural": "experiences",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/experiences/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "experience",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 1,
-              "example": "experience"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[experience_version]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/experiences",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "lower(name)"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[experience]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/experiences/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "experience"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/experiences",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "experience"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[io.flow.common.v0.models.error]"
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "experience_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "PUT",
-          "path": "/:organization/experiences/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "experience"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "experience"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[io.flow.common.v0.models.error]"
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "experience_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/:organization/experiences/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[io.flow.common.v0.models.error]"
-            }
-          ],
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "path": "/:organization/experiences"
-    },
-    {
-      "type": "label",
-      "plural": "labels",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/labels/versions",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "label",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 1,
-              "example": "label"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[label_version]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/labels",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "carrier",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "tracking_number",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[label]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/labels/:id",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "label"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "POST",
-          "path": "/labels",
-          "parameters": [],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "label"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[io.flow.common.v0.models.error]"
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "label_form",
-            "attributes": []
-          }
-        }
-      ],
-      "attributes": [],
-      "path": "/labels"
-    },
-    {
       "type": "lane",
       "plural": "lanes",
       "operations": [
@@ -5200,13 +4311,6 @@
               "maximum": 100
             },
             {
-              "name": "booking",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -5300,15 +4404,6 @@
               "location": "Query",
               "required": true,
               "default": "-created_at"
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 2,
-              "example": "booking, option"
             }
           ],
           "responses": [
@@ -5340,15 +4435,6 @@
               "type": "string",
               "location": "Path",
               "required": true
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 2,
-              "example": "booking, option"
             }
           ],
           "responses": [
@@ -5378,10 +4464,230 @@
             }
           ],
           "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/shipments",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shipment"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "shipment_form",
+            "attributes": []
+          }
         }
       ],
       "attributes": [],
       "path": "/shipments"
+    },
+    {
+      "type": "shipment_label",
+      "plural": "shipment_labels",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/shipments/:tracking_number/labels/versions",
+          "parameters": [
+            {
+              "name": "tracking_number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "shipment_label"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[shipment_label_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/shipments/:tracking_number/labels",
+          "parameters": [
+            {
+              "name": "tracking_number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[shipment_label]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/shipments/:tracking_number/labels",
+          "parameters": [
+            {
+              "name": "tracking_number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shipment_label"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "shipment_label_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/shipments/:tracking_number/labels"
     },
     {
       "type": "tier",
@@ -5493,14 +4799,6 @@
               "location": "Query",
               "required": true,
               "default": "lower(name)"
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 1,
-              "example": "experience"
             }
           ],
           "responses": [
@@ -5532,14 +4830,6 @@
               "type": "string",
               "location": "Path",
               "required": true
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 1,
-              "example": "experience"
             }
           ],
           "responses": [
@@ -5573,16 +4863,7 @@
         {
           "method": "POST",
           "path": "/tiers",
-          "parameters": [
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 1,
-              "example": "experience"
-            }
-          ],
+          "parameters": [],
           "responses": [
             {
               "code": {
@@ -5624,14 +4905,6 @@
               "type": "string",
               "location": "Path",
               "required": true
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 1,
-              "example": "experience"
             }
           ],
           "responses": [
@@ -5734,5 +5007,6 @@
       "path": "/tiers"
     }
   ],
-  "attributes": []
+  "attributes": [],
+  "description": "Fullfillment provides access to all of the configuration and setup required to then select available shipping routes for each consumer order."
 }

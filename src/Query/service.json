@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "query",
   "organization": {
@@ -21,11 +21,11 @@
       "plural": "query_types",
       "types": [
         {
-          "type": "algolia",
+          "type": "query_simple",
           "attributes": []
         },
         {
-          "type": "postgresql",
+          "type": "query_multi",
           "attributes": []
         }
       ],
@@ -35,18 +35,41 @@
   ],
   "models": [
     {
-      "name": "algolia",
-      "plural": "algolias",
+      "name": "algolia_criteria",
+      "plural": "algolia_criterias",
       "fields": [
         {
-          "name": "q",
-          "type": "string",
+          "name": "attributes_for_faceting",
+          "type": "[string]",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "default": "[]"
         }
       ],
       "attributes": [],
-      "description": "Generates an Algolia query"
+      "description": "Defines Algolia search parameters"
+    },
+    {
+      "name": "algolia_search",
+      "plural": "algolia_searches",
+      "fields": [
+        {
+          "name": "facetFilters",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "default": "[]"
+        },
+        {
+          "name": "query",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "default": "[]"
+        }
+      ],
+      "attributes": [],
+      "description": "Defines Algolia search parameters"
     },
     {
       "name": "error",
@@ -68,20 +91,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "postgresql",
-      "plural": "postgresqls",
-      "fields": [
-        {
-          "name": "q",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Generates a PostgresQL query"
     },
     {
       "name": "query",
@@ -112,6 +121,32 @@
           "required": true,
           "attributes": [],
           "description": "Valid Google Advanced Operators Reference - http://www.googleguide.com/advanced_operators_reference.html"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "query_multi",
+      "plural": "query_multis",
+      "fields": [
+        {
+          "name": "q",
+          "type": "[query]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "query_simple",
+      "plural": "query_simples",
+      "fields": [
+        {
+          "name": "q",
+          "type": "query",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []

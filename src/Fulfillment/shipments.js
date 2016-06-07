@@ -23,4 +23,9 @@ export default class Shipments extends Client {
     return this.makeRequest(`${this.host}/shipments/${id}`, options);
   }
 
+  post(options) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/shipments`, options);
+  }
+
 }

@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "experience-internal",
   "organization": {
@@ -25,24 +25,31 @@
       },
       "version": "0.0.12",
       "enums": [
-        "dimension_type",
+        "adjustment_type",
+        "delivered_duty",
+        "levy",
         "update_policy"
       ],
       "unions": [
         "expandable_subcatalog"
       ],
       "models": [
+        "adjustment",
         "attribute",
         "catalog",
         "catalog_version",
-        "dimension",
         "flow",
+        "function",
+        "function_form",
+        "function_summary",
+        "function_version",
         "image",
         "item",
         "item_form",
         "item_version",
         "local",
         "localized_price",
+        "presets",
         "price",
         "subcatalog",
         "subcatalog_form",
@@ -64,15 +71,10 @@
       },
       "version": "0.0.12",
       "enums": [
-        "calendar",
-        "capability",
         "commercial_term",
         "content_type",
-        "dimension_type",
         "eel_pfc",
         "reason",
-        "rule_operation",
-        "status",
         "tier_strategy"
       ],
       "unions": [
@@ -82,13 +84,12 @@
         "expandable_carrier_account",
         "expandable_center",
         "expandable_delivery",
-        "expandable_experience",
-        "expandable_label",
         "expandable_lane",
         "expandable_option",
         "expandable_quote",
         "expandable_service",
         "expandable_shipment",
+        "expandable_shipment_label",
         "expandable_tier",
         "rule_outcome"
       ],
@@ -117,21 +118,11 @@
         "delivery_reference",
         "delivery_version",
         "dhl_credentials",
-        "dimension",
         "estimated_window",
-        "experience",
-        "experience_form",
-        "experience_reference",
-        "experience_version",
         "fedex_credentials",
-        "file",
         "flat_rate",
         "free_shipping",
-        "item",
-        "label",
-        "label_form",
-        "label_reference",
-        "label_version",
+        "item_summary",
         "lane",
         "lane_exception",
         "lane_form",
@@ -147,12 +138,16 @@
         "quote_reference",
         "quote_version",
         "rule",
-        "rule_query",
         "service",
         "service_form",
         "service_reference",
         "service_version",
         "shipment",
+        "shipment_form",
+        "shipment_label",
+        "shipment_label_form",
+        "shipment_label_reference",
+        "shipment_label_version",
         "shipment_reference",
         "shipment_version",
         "tier",
@@ -162,8 +157,7 @@
         "tier_version",
         "ups_credentials",
         "username_password",
-        "usps_credentials",
-        "view_reference"
+        "usps_credentials"
       ]
     }
   ],

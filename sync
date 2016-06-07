@@ -73,20 +73,27 @@ function getVersion(app) {
 }
 
 function generateClient(app) {
-  return getVersion(app).then((version) => {
-    const service = version.service;
-    const directoryName = capitalizeFirstLetter(toCamelCase(slug(service.name)));
-    const serviceJsonString = JSON.stringify(service, null, 2);
-    const clientBasePath = path.join(__dirname, 'src', directoryName);
-    const client = apidoc.codegen.generate(service);
+  return new Promise((resolve) => {
+    getVersion(app).then((version) => {
+      const service = version.service;
+      const directoryName = capitalizeFirstLetter(toCamelCase(slug(service.name)));
+      const serviceJsonString = JSON.stringify(service, null, 2);
+      const clientBasePath = path.join(__dirname, 'src', directoryName);
+      const client = apidoc.codegen.generate(service);
 
-    ensureDir(clientBasePath);
-    console.log(`[flow/${app.key}] writing service.json...`);
-    fs.writeFileSync(path.join(clientBasePath, 'service.json'), serviceJsonString);
+      ensureDir(clientBasePath);
+      console.log(`[flow/${app.key}] writing service.json...`);
+      fs.writeFileSync(path.join(clientBasePath, 'service.json'), serviceJsonString);
 
-    console.log(`[flow/${app.key}] writing client files...`);
-    client.files.forEach((file) => {
-      fs.writeFileSync(path.join(clientBasePath, file.path), file.contents);
+      console.log(`[flow/${app.key}] writing client files...`);
+      client.files.forEach((file) => {
+        fs.writeFileSync(path.join(clientBasePath, file.path), file.contents);
+      });
+      resolve();
+    })
+    .catch((err) => {
+      console.error(`Could not create client for ${app} \n\n ${err.stack}`);
+      resolve();
     });
   });
 }

@@ -1,0 +1,405 @@
+{
+  "apidoc": {
+    "version": "0.11.26"
+  },
+  "name": "payment-internal",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "payment-internal"
+  },
+  "namespace": "io.flow.payment.internal.v0",
+  "version": "0.0.1",
+  "info": {},
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.19",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "dimension_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "sort_direction",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_location",
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "experience_summary",
+        "healthcheck",
+        "location",
+        "location_reference",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "initialization",
+      "plural": "initializations",
+      "fields": [
+        {
+          "name": "tribe",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ID of the tribe for which you are providing a password"
+        },
+        {
+          "name": "passphrase",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Form used to initialize the passwords for each tribe. The passphrases are required to decrypt the actual card encryption key. These passphrases are specified at server startup time."
+    },
+    {
+      "name": "passphrase",
+      "plural": "passphrases",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tribe",
+          "type": "tribe",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "salt",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Base 64 encoded salt"
+        },
+        {
+          "name": "iv",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Base 64 encoded iv"
+        },
+        {
+          "name": "challenge_cipher",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Base 64 cipher of the challenge text"
+        },
+        {
+          "name": "challenge_text",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Cleartext that was encrypted using this passphrase. Used to provide feedback to each tribe if their individual password is valid."
+        }
+      ],
+      "attributes": [],
+      "description": "Stores individual passphrases for each tribe. Each passphrase consists of a unique IV and salt, and a challenge phrase. When a tribe member enters their password, we to decrypt the challenge_cipher and verify that it matches the challenge text. This enables us to validate whether or not the entered password is valid."
+    },
+    {
+      "name": "passphrase_form",
+      "plural": "passphrase_forms",
+      "fields": [
+        {
+          "name": "passphrase",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "passphrase_status",
+      "plural": "passphrase_statuses",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tribe",
+      "plural": "tribes",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tribe_status",
+      "plural": "tribe_status",
+      "fields": [
+        {
+          "name": "tribe",
+          "type": "tribe",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "passphrases",
+          "type": "[passphrase_status]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    }
+  ],
+  "resources": [
+    {
+      "type": "initialization",
+      "plural": "initializations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/_internal_/initializations",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "initialization",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/_internal_/initializations"
+    },
+    {
+      "type": "tribe",
+      "plural": "tribes",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/tribes",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tribe]"
+            }
+          ],
+          "attributes": [],
+          "description": "List all tribes. There is no pagination as number of tribes is small."
+        },
+        {
+          "method": "GET",
+          "path": "/tribes/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tribe"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/tribes/:id/passphrases",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Creates a new passphrase for this tribe",
+          "body": {
+            "type": "passphrase_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/tribes",
+      "description": "Tribes are read only. This resource allows you to view information on the globally configured tribes."
+    },
+    {
+      "type": "tribe_status",
+      "plural": "tribe_status",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/_internal_/status",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tribe_status]"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/_internal_/status"
+    }
+  ],
+  "attributes": []
+}

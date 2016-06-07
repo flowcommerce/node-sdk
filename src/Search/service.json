@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "search",
   "organization": {
@@ -10,16 +10,67 @@
     "key": "search"
   },
   "namespace": "io.flow.search.v0",
-  "version": "0.0.12",
+  "version": "0.0.19",
   "info": {},
   "headers": [],
-  "imports": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.19",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "dimension_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "sort_direction",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_location",
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "experience_summary",
+        "healthcheck",
+        "location",
+        "location_reference",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
   "enums": [],
   "unions": [],
   "models": [
     {
-      "name": "item",
-      "plural": "items",
+      "name": "document",
+      "plural": "documents",
       "fields": [
         {
           "name": "number",
@@ -41,30 +92,11 @@
           "minimum": 0
         },
         {
-          "name": "views",
-          "type": "[view]",
+          "name": "experiences",
+          "type": "[io.flow.common.v0.models.experience_summary]",
           "required": true,
           "attributes": [],
           "minimum": 0
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "view",
-      "plural": "views",
-      "fields": [
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
         }
       ],
       "attributes": []
@@ -72,12 +104,12 @@
   ],
   "resources": [
     {
-      "type": "item",
-      "plural": "items",
+      "type": "document",
+      "plural": "documents",
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/search/items",
+          "path": "/:organization/search",
           "parameters": [
             {
               "name": "organization",
@@ -124,7 +156,7 @@
                   "value": 200
                 }
               },
-              "type": "[item]"
+              "type": "[document]"
             },
             {
               "code": {
@@ -140,7 +172,7 @@
         }
       ],
       "attributes": [],
-      "path": "/:organization/search/items"
+      "path": "/:organization/search"
     }
   ],
   "attributes": [],

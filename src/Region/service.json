@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "region",
   "organization": {
@@ -28,6 +28,7 @@
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
@@ -48,6 +49,7 @@
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
         "location_reference",
@@ -56,7 +58,6 @@
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",

@@ -47,11 +47,6 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/display/${id}`, options);
   }
 
-  putFunctionByKeyAndId(organization, key, id, options) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/function/${id}`, options);
-  }
-
   deleteById(organization, id, options) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/experiences/${id}`, options);

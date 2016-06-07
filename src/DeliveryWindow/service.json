@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "delivery_window",
   "organization": {
@@ -10,12 +10,12 @@
     "key": "delivery_window"
   },
   "namespace": "io.flow.delivery.window.v0",
-  "version": "0.0.12",
+  "version": "0.0.19",
   "info": {},
   "headers": [],
   "imports": [
     {
-      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
       "namespace": "io.flow.common.v0",
       "organization": {
         "key": "flow"
@@ -23,11 +23,12 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.12",
+      "version": "0.0.19",
       "enums": [
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
@@ -48,6 +49,7 @@
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
         "location_reference",
@@ -56,7 +58,6 @@
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",
@@ -227,5 +228,6 @@
       "path": "/:organization/delivery-windows"
     }
   ],
-  "attributes": []
+  "attributes": [],
+  "description": "Delivery windows define the possible shipping options for a given set of items, including estimates on how long those items will take to arrive."
 }

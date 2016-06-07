@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "common",
   "organization": {
@@ -10,8 +10,16 @@
     "key": "common"
   },
   "namespace": "io.flow.common.v0",
-  "version": "0.0.12",
-  "info": {},
+  "version": "0.0.19",
+  "info": {
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "email": "tech@flow.io"
+    }
+  },
   "headers": [],
   "imports": [],
   "enums": [
@@ -41,8 +49,7 @@
           "attributes": []
         }
       ],
-      "attributes": [],
-      "description": "TODO: Returns, inventory"
+      "attributes": []
     },
     {
       "name": "change_type",
@@ -62,6 +69,24 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "dimension_type",
+      "plural": "dimension_types",
+      "values": [
+        {
+          "name": "product",
+          "attributes": [],
+          "description": "The standalone dimensions of an item."
+        },
+        {
+          "name": "package",
+          "attributes": [],
+          "description": "The boxed dimensions of an item."
+        }
+      ],
+      "attributes": [],
+      "description": "Specifies the difference between product dimensions and the actual packaged dimensions. This enables us to generate more accurate shipping estimates based on the packaged dimensions. The common example is a scarf which may have product dimensions of 6 feet long even though it can be folded to have very small package dimensions."
     },
     {
       "name": "exception_type",
@@ -336,15 +361,33 @@
       "plural": "dimensions",
       "fields": [
         {
-          "name": "value",
-          "type": "double",
+          "name": "type",
+          "type": "dimension_type",
           "required": true,
           "attributes": []
         },
         {
-          "name": "units",
-          "type": "unit_of_measurement",
-          "required": true,
+          "name": "depth",
+          "type": "measurement",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "length",
+          "type": "measurement",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "weight",
+          "type": "measurement",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "width",
+          "type": "measurement",
+          "required": false,
           "attributes": []
         }
       ],
@@ -392,6 +435,46 @@
       ],
       "attributes": [],
       "description": "Represents an exception to the schedule of a location."
+    },
+    {
+      "name": "experience_summary",
+      "plural": "experience_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Standard currency to use for prices on this shipping experience"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Destination country for this shipping experience"
+        }
+      ],
+      "attributes": [],
+      "description": "Some important fields related to experiences used in various APIs"
     },
     {
       "name": "healthcheck",
@@ -574,28 +657,6 @@
       "attributes": []
     },
     {
-      "name": "price",
-      "plural": "prices",
-      "fields": [
-        {
-          "name": "amount",
-          "type": "double",
-          "required": true,
-          "attributes": [],
-          "example": "12.23"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "ISO 4217 3-character currency code. Case insensitive. See https://reference.api.flow.io/currencies",
-          "example": "EUR"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "schedule",
       "plural": "schedules",
       "fields": [
@@ -719,6 +780,14 @@
                 }
               },
               "type": "healthcheck"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]"
             }
           ],
           "attributes": []
@@ -728,5 +797,7 @@
       "path": "/_internal_"
     }
   ],
-  "attributes": []
+  "attributes": [],
+  "base_url": "https://api.flow.io",
+  "description": "The Flow Commerce REST API provides full access to the global ecommerce platform."
 }

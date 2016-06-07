@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "experience",
   "organization": {
@@ -10,12 +10,12 @@
     "key": "experience"
   },
   "namespace": "io.flow.experience.v0",
-  "version": "0.0.12",
+  "version": "0.0.19",
   "info": {},
   "headers": [],
   "imports": [
     {
-      "uri": "http://www.apidoc.me/flow/catalog/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/catalog/latest/service.json",
       "namespace": "io.flow.catalog.v0",
       "organization": {
         "key": "flow"
@@ -23,26 +23,35 @@
       "application": {
         "key": "catalog"
       },
-      "version": "0.0.12",
+      "version": "0.0.19",
       "enums": [
-        "dimension_type",
+        "adjustment_type",
+        "delivered_duty",
+        "levy",
         "update_policy"
       ],
       "unions": [
+        "expandable_function",
         "expandable_subcatalog"
       ],
       "models": [
+        "adjustment",
         "attribute",
         "catalog",
         "catalog_version",
-        "dimension",
         "flow",
+        "function",
+        "function_form",
+        "function_reference",
+        "function_summary",
+        "function_version",
         "image",
         "item",
         "item_form",
         "item_version",
         "local",
         "localized_price",
+        "presets",
         "price",
         "subcatalog",
         "subcatalog_form",
@@ -54,7 +63,7 @@
       ]
     },
     {
-      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
       "namespace": "io.flow.common.v0",
       "organization": {
         "key": "flow"
@@ -62,11 +71,12 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.12",
+      "version": "0.0.19",
       "enums": [
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
@@ -87,6 +97,7 @@
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
         "location_reference",
@@ -95,7 +106,6 @@
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",
@@ -103,7 +113,7 @@
       ]
     },
     {
-      "uri": "http://www.apidoc.me/flow/fulfillment/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/fulfillment/latest/service.json",
       "namespace": "io.flow.fulfillment.v0",
       "organization": {
         "key": "flow"
@@ -111,17 +121,12 @@
       "application": {
         "key": "fulfillment"
       },
-      "version": "0.0.12",
+      "version": "0.0.19",
       "enums": [
-        "calendar",
-        "capability",
         "commercial_term",
         "content_type",
-        "dimension_type",
         "eel_pfc",
         "reason",
-        "rule_operation",
-        "status",
         "tier_strategy"
       ],
       "unions": [
@@ -131,13 +136,12 @@
         "expandable_carrier_account",
         "expandable_center",
         "expandable_delivery",
-        "expandable_experience",
-        "expandable_label",
         "expandable_lane",
         "expandable_option",
         "expandable_quote",
         "expandable_service",
         "expandable_shipment",
+        "expandable_shipment_label",
         "expandable_tier",
         "rule_outcome"
       ],
@@ -166,21 +170,11 @@
         "delivery_reference",
         "delivery_version",
         "dhl_credentials",
-        "dimension",
         "estimated_window",
-        "experience",
-        "experience_form",
-        "experience_reference",
-        "experience_version",
         "fedex_credentials",
-        "file",
         "flat_rate",
         "free_shipping",
-        "item",
-        "label",
-        "label_form",
-        "label_reference",
-        "label_version",
+        "item_summary",
         "lane",
         "lane_exception",
         "lane_form",
@@ -196,12 +190,16 @@
         "quote_reference",
         "quote_version",
         "rule",
-        "rule_query",
         "service",
         "service_form",
         "service_reference",
         "service_version",
         "shipment",
+        "shipment_form",
+        "shipment_label",
+        "shipment_label_form",
+        "shipment_label_reference",
+        "shipment_label_version",
         "shipment_reference",
         "shipment_version",
         "tier",
@@ -211,88 +209,13 @@
         "tier_version",
         "ups_credentials",
         "username_password",
-        "usps_credentials",
-        "view_reference"
+        "usps_credentials"
       ]
     }
   ],
-  "enums": [
-    {
-      "name": "adjustment_type",
-      "plural": "adjustment_types",
-      "values": [
-        {
-          "name": "added_margin",
-          "attributes": []
-        },
-        {
-          "name": "percent_margin",
-          "attributes": []
-        },
-        {
-          "name": "round",
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "delivered_duty",
-      "plural": "delivered_duties",
-      "values": [
-        {
-          "name": "paid",
-          "attributes": []
-        },
-        {
-          "name": "unpaid",
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "levy",
-      "plural": "levies",
-      "values": [
-        {
-          "name": "duty",
-          "attributes": []
-        },
-        {
-          "name": "shipping",
-          "attributes": []
-        },
-        {
-          "name": "vat",
-          "attributes": [],
-          "description": "Value-Added Tax"
-        }
-      ],
-      "attributes": []
-    }
-  ],
+  "enums": [],
   "unions": [],
   "models": [
-    {
-      "name": "adjustment",
-      "plural": "adjustments",
-      "fields": [
-        {
-          "name": "name",
-          "type": "adjustment_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "value",
-          "type": "double",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
     {
       "name": "checkout",
       "plural": "checkouts",
@@ -323,7 +246,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Representation of information indicating landed cost and how it was derived"
     },
     {
       "name": "checkout_form",
@@ -350,13 +274,13 @@
       "fields": [
         {
           "name": "adjustments",
-          "type": "[adjustment_type]",
+          "type": "[io.flow.catalog.v0.enums.adjustment_type]",
           "required": true,
           "attributes": []
         },
         {
           "name": "levies",
-          "type": "[levy]",
+          "type": "[io.flow.catalog.v0.enums.levy]",
           "required": true,
           "attributes": []
         }
@@ -392,7 +316,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Defines elements of a localized cost available for display (e.g on a localized product page or checkout)"
     },
     {
       "name": "display_form",
@@ -534,7 +459,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Properties that define a customized local experience for a given country"
     },
     {
       "name": "experience_form",
@@ -569,12 +495,6 @@
         },
         {
           "name": "display_id",
-          "type": "[string]",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "function_id",
           "type": "[string]",
           "required": false,
           "attributes": []
@@ -634,136 +554,6 @@
       "attributes": []
     },
     {
-      "name": "function",
-      "plural": "functions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "position",
-          "type": "long",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "presets",
-          "type": "presets",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "code",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "q",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "function_form",
-      "plural": "function_forms",
-      "fields": [
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "q",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "presets",
-          "type": "presets",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "code",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "position",
-          "type": "long",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "function_summary",
-      "plural": "function_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "function_version",
-      "plural": "function_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "io.flow.common.v0.enums.change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "function",
-          "type": "function",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "line",
       "plural": "lines",
       "fields": [
@@ -781,47 +571,28 @@
           "minimum": 1
         }
       ],
-      "attributes": []
-    },
-    {
-      "name": "presets",
-      "plural": "presets",
-      "fields": [
-        {
-          "name": "adjustments",
-          "type": "[adjustment]",
-          "required": true,
-          "attributes": [],
-          "default": "[]"
-        },
-        {
-          "name": "levies",
-          "type": "[levy]",
-          "required": true,
-          "attributes": [],
-          "default": "[]"
-        }
-      ],
-      "attributes": []
+      "attributes": [],
+      "description": "Represents an order line for checkout"
     },
     {
       "name": "pricing",
       "plural": "pricings",
       "fields": [
         {
-          "name": "functions",
-          "type": "[function_summary]",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "displays",
           "type": "[display_summary]",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "functions",
+          "type": "[io.flow.catalog.v0.models.function_summary]",
+          "required": true,
+          "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Transparent representation of localized price values and how they were derived"
     }
   ],
   "resources": [
@@ -1306,6 +1077,20 @@
               "maximum": 100
             },
             {
+              "name": "country",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "currency",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "key",
               "type": "[string]",
               "location": "Query",
@@ -1773,74 +1558,6 @@
           "description": "Remove the experience display with this id"
         },
         {
-          "method": "PUT",
-          "path": "/:organization/experiences/:key/function/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "experience"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "experience"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[io.flow.common.v0.models.error]"
-            }
-          ],
-          "attributes": [],
-          "description": "Remove the experience function with this id"
-        },
-        {
           "method": "DELETE",
           "path": "/:organization/experiences/:id",
           "parameters": [
@@ -1889,389 +1606,9 @@
       ],
       "attributes": [],
       "path": "/:organization/experiences"
-    },
-    {
-      "type": "function",
-      "plural": "functions",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/functions/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "name",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[function_version]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": [],
-          "description": "Provides visibility into recent changes of each object, including deletion"
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/functions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "name",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "position",
-              "type": "[long]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "lower(name)"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[function]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": [],
-          "description": "Search functions. Always paginated."
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/functions/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "function"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": [],
-          "description": "Returns information about a specific function."
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/functions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "function"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[io.flow.common.v0.models.error]"
-            }
-          ],
-          "attributes": [],
-          "description": "Add function",
-          "body": {
-            "type": "function_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "PUT",
-          "path": "/:organization/functions/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "function"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "function"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[io.flow.common.v0.models.error]"
-            }
-          ],
-          "attributes": [],
-          "description": "Update function with the specified id, creating if it does not exist.",
-          "body": {
-            "type": "function_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/:organization/functions/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": [],
-          "description": "Delete the function with this id"
-        }
-      ],
-      "attributes": [],
-      "path": "/:organization/functions"
     }
   ],
   "attributes": [],
-  "base_url": "https://experience.api.flow.io"
+  "base_url": "https://experience.api.flow.io",
+  "description": "An experience defines all of the configuration and settings that are relevant to a particular country"
 }

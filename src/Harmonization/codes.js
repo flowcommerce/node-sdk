@@ -15,4 +15,8 @@ export default class Codes extends Client {
     return this.makeRequest(`${this.host}/${organization}/harmonization/codes`, options);
   }
 
+  getVersions(organization, options) {
+    return this.makeRequest(`${this.host}/${organization}/harmonization/codes/versions`, options);
+  }
+
 }

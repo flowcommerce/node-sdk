@@ -1,0 +1,566 @@
+{
+  "apidoc": {
+    "version": "0.11.26"
+  },
+  "name": "payment",
+  "organization": {
+    "key": "flow"
+  },
+  "application": {
+    "key": "payment"
+  },
+  "namespace": "io.flow.payment.v0",
+  "version": "0.0.19",
+  "info": {},
+  "headers": [],
+  "imports": [
+    {
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
+      "namespace": "io.flow.common.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "common"
+      },
+      "version": "0.0.19",
+      "enums": [
+        "calendar",
+        "capability",
+        "change_type",
+        "dimension_type",
+        "exception_type",
+        "holiday_calendar",
+        "schedule_exception_status",
+        "sort_direction",
+        "unit_of_measurement",
+        "unit_of_time",
+        "value_added_service",
+        "visibility"
+      ],
+      "unions": [
+        "expandable_location",
+        "expandable_organization",
+        "expandable_user"
+      ],
+      "models": [
+        "contact",
+        "datetime_range",
+        "dimension",
+        "error",
+        "exception",
+        "experience_summary",
+        "healthcheck",
+        "location",
+        "location_reference",
+        "measurement",
+        "name",
+        "organization",
+        "organization_reference",
+        "organization_summary",
+        "schedule",
+        "user",
+        "user_reference",
+        "user_summary"
+      ]
+    }
+  ],
+  "enums": [],
+  "unions": [],
+  "models": [
+    {
+      "name": "card",
+      "plural": "cards",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "brand",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "visa"
+        },
+        {
+          "name": "expiration",
+          "type": "expiration",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "last4",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Cleartext last 4 numbers of the card"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Cardholder name"
+        },
+        {
+          "name": "address",
+          "type": "io.flow.common.v0.models.location",
+          "required": false,
+          "attributes": [],
+          "description": "Cardholder address"
+        }
+      ],
+      "attributes": [],
+      "description": "Card represents the metadata about a secure, tokenized card. The card 'id' is a unique, cryptographically secure token by which this card can be identified in the future."
+    },
+    {
+      "name": "card_form",
+      "plural": "card_forms",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Cleartext card number",
+          "example": "4111111111111111"
+        },
+        {
+          "name": "expiration_month",
+          "type": "integer",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "expiration_year",
+          "type": "integer",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Cardholder name"
+        },
+        {
+          "name": "address",
+          "type": "io.flow.common.v0.models.location",
+          "required": false,
+          "attributes": [],
+          "description": "Cardholder address"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "card_version",
+      "plural": "card_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "io.flow.common.v0.enums.change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "card",
+          "type": "card",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "expiration",
+      "plural": "expirations",
+      "fields": [
+        {
+          "name": "month",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "minimum": 1,
+          "maximum": 12,
+          "example": "4"
+        },
+        {
+          "name": "year",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "description": "The 4 digit expiration year",
+          "example": "2016"
+        }
+      ],
+      "attributes": [],
+      "description": "The month and year at which a card expires"
+    }
+  ],
+  "resources": [
+    {
+      "type": "card",
+      "plural": "cards",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/cards",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[card]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "sort_parameter_default"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/cards/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "card_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to cards with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[card_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Provides visibility into recent changes of each object, including deletion"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/cards/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "card"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific card."
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/cards",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "card"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new card.",
+          "body": {
+            "type": "card_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/cards/:id/updates",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "card"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Updates are implemented as copy on write. This method is a convenience method that will transactionally DELETE the card with the specified ID, then CREATE a new card with the data from this request.",
+          "body": {
+            "type": "card_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/cards/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Deletes the card with the specified ID."
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/cards"
+    }
+  ],
+  "attributes": [],
+  "base_url": "https://payment.api.flow.io",
+  "description": "Payment API to secure, tokenized card storage and global payment authorization / settlement."
+}

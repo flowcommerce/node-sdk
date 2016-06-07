@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "reference",
   "organization": {
@@ -10,7 +10,7 @@
     "key": "reference"
   },
   "namespace": "io.flow.reference.v0",
-  "version": "0.0.12",
+  "version": "0.0.19",
   "info": {},
   "headers": [],
   "imports": [],
@@ -319,5 +319,6 @@
     }
   ],
   "attributes": [],
-  "base_url": "https://reference.api.flow.io"
+  "base_url": "https://reference.api.flow.io",
+  "description": "Reference data that changes infrequently including countries, currencies, languages, etc."
 }

@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "catalog-event",
   "organization": {
@@ -30,6 +30,18 @@
         },
         {
           "type": "item_deleted",
+          "attributes": []
+        },
+        {
+          "type": "subitem_created",
+          "attributes": []
+        },
+        {
+          "type": "subitem_updated",
+          "attributes": []
+        },
+        {
+          "type": "subitem_deleted",
           "attributes": []
         }
       ],
@@ -67,6 +79,45 @@
     {
       "name": "item_updated",
       "plural": "item_updateds",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "subitem_created",
+      "plural": "subitem_createds",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "subitem_deleted",
+      "plural": "subitem_deleteds",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "subitem_updated",
+      "plural": "subitem_updateds",
       "fields": [
         {
           "name": "id",

@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "harmonization",
   "organization": {
@@ -10,16 +10,8 @@
     "key": "harmonization"
   },
   "namespace": "io.flow.harmonization.v0",
-  "version": "0.0.65",
-  "info": {
-    "license": {
-      "name": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    },
-    "contact": {
-      "email": "tech@flow.io"
-    }
-  },
+  "version": "0.0.12",
+  "info": {},
   "headers": [],
   "imports": [
     {
@@ -36,6 +28,7 @@
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
@@ -56,6 +49,7 @@
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
         "location_reference",
@@ -64,7 +58,6 @@
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",
@@ -74,8 +67,8 @@
   ],
   "enums": [
     {
-      "name": "component",
-      "plural": "components",
+      "name": "levy_component",
+      "plural": "levy_components",
       "values": [
         {
           "name": "goods",
@@ -103,8 +96,8 @@
       "attributes": []
     },
     {
-      "name": "strategy",
-      "plural": "strategies",
+      "name": "levy_strategy",
+      "plural": "levy_strategies",
       "values": [
         {
           "name": "minimum",
@@ -151,11 +144,10 @@
           "name": "number",
           "type": "string",
           "required": true,
-          "attributes": [],
-          "description": "Your item number"
+          "attributes": []
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -180,6 +172,37 @@
       "description": "The harmonization code assigned to an item in a given lane."
     },
     {
+      "name": "code_version",
+      "plural": "code_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "io.flow.common.v0.enums.change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "code",
+          "type": "code",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "deminimus_simple",
       "plural": "deminimus_simples",
       "fields": [
@@ -199,7 +222,7 @@
         },
         {
           "name": "components",
-          "type": "[component]",
+          "type": "[levy_component]",
           "required": true,
           "attributes": [],
           "description": "The components which are used to determine the value. Note that these components may be different from the components for the tax or duty itself"
@@ -230,7 +253,7 @@
         },
         {
           "name": "components",
-          "type": "[component]",
+          "type": "[levy_component]",
           "required": true,
           "attributes": [],
           "description": "The components to which duty is applied.",
@@ -248,8 +271,8 @@
       "description": "Represents a simple model of duties that apply to a given item / trade lane."
     },
     {
-      "name": "item",
-      "plural": "items",
+      "name": "harmonized_item",
+      "plural": "harmonized_items",
       "fields": [
         {
           "name": "id",
@@ -273,11 +296,11 @@
         }
       ],
       "attributes": [],
-      "description": "An item stores explicit information for harmonization purposes."
+      "description": "A harmonized item stores explicit information about this item for the purposes of harmonization / classification."
     },
     {
-      "name": "item_duty",
-      "plural": "item_duties",
+      "name": "harmonized_item_duty",
+      "plural": "harmonized_item_duties",
       "fields": [
         {
           "name": "id",
@@ -287,12 +310,12 @@
         },
         {
           "name": "item",
-          "type": "item_reference",
+          "type": "harmonized_item_reference",
           "required": true,
           "attributes": []
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -321,18 +344,17 @@
       "description": "Used to specifically set an item's duty rate for a given trade lane."
     },
     {
-      "name": "item_duty_form",
-      "plural": "item_duty_forms",
+      "name": "harmonized_item_duty_form",
+      "plural": "harmonized_item_duty_forms",
       "fields": [
         {
           "name": "number",
           "type": "string",
           "required": true,
-          "attributes": [],
-          "description": "The item number"
+          "attributes": []
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": []
@@ -353,15 +375,45 @@
       "attributes": []
     },
     {
-      "name": "item_form",
-      "plural": "item_forms",
+      "name": "harmonized_item_duty_version",
+      "plural": "harmonized_item_duty_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "io.flow.common.v0.enums.change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "harmonized_item_duty",
+          "type": "harmonized_item_duty",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "harmonized_item_form",
+      "plural": "harmonized_item_forms",
       "fields": [
         {
           "name": "number",
           "type": "string",
           "required": true,
-          "attributes": [],
-          "description": "The item number"
+          "attributes": []
         },
         {
           "name": "hs6",
@@ -375,8 +427,8 @@
       "attributes": []
     },
     {
-      "name": "item_reference",
-      "plural": "item_references",
+      "name": "harmonized_item_reference",
+      "plural": "harmonized_item_references",
       "fields": [
         {
           "name": "id",
@@ -394,12 +446,43 @@
       "attributes": []
     },
     {
+      "name": "harmonized_item_version",
+      "plural": "harmonized_item_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "io.flow.common.v0.enums.change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "harmonized_item",
+          "type": "harmonized_item",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "settings",
       "plural": "settings",
       "fields": [
         {
           "name": "duty_strategy",
-          "type": "strategy",
+          "type": "levy_strategy",
           "required": true,
           "attributes": [],
           "description": "Documents what will happen if we are unable to get an actual duty rate for this item, i.e. there will be estimation of some sort",
@@ -407,7 +490,7 @@
         },
         {
           "name": "tax_strategy",
-          "type": "strategy",
+          "type": "levy_strategy",
           "required": true,
           "attributes": [],
           "description": "Documents what will happen if we are unable to get an actual duty rate for this item, i.e. there will be estimation of some sort",
@@ -423,13 +506,13 @@
       "fields": [
         {
           "name": "duty_strategy",
-          "type": "strategy",
+          "type": "levy_strategy",
           "required": false,
           "attributes": []
         },
         {
           "name": "tax_strategy",
-          "type": "strategy",
+          "type": "levy_strategy",
           "required": false,
           "attributes": []
         }
@@ -459,7 +542,7 @@
         },
         {
           "name": "components",
-          "type": "[component]",
+          "type": "[levy_component]",
           "required": true,
           "attributes": [],
           "description": "The components to which tax is applied.",
@@ -496,16 +579,18 @@
               "name": "id",
               "type": "[string]",
               "location": "Query",
-              "required": false
+              "required": false,
+              "maximum": 100
             },
             {
               "name": "number",
               "type": "[string]",
               "location": "Query",
-              "required": false
+              "required": false,
+              "maximum": 100
             },
             {
-              "name": "country_of_origin",
+              "name": "origin",
               "type": "string",
               "location": "Query",
               "required": false,
@@ -569,6 +654,77 @@
             }
           ],
           "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/codes/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "code_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to codes with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[code_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Provides visibility into recent changes of each object, including deletion"
         }
       ],
       "attributes": [],
@@ -673,8 +829,8 @@
       "path": "/:organization/harmonization/duties/:origin"
     },
     {
-      "type": "item",
-      "plural": "items",
+      "type": "harmonized_item",
+      "plural": "harmonized_items",
       "operations": [
         {
           "method": "GET",
@@ -690,13 +846,15 @@
               "name": "id",
               "type": "[string]",
               "location": "Query",
-              "required": false
+              "required": false,
+              "maximum": 100
             },
             {
               "name": "number",
               "type": "[string]",
               "location": "Query",
-              "required": false
+              "required": false,
+              "maximum": 100
             },
             {
               "name": "limit",
@@ -730,7 +888,7 @@
                   "value": 200
                 }
               },
-              "type": "[item]"
+              "type": "[harmonized_item]"
             },
             {
               "code": {
@@ -742,6 +900,77 @@
             }
           ],
           "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/items/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "item_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to items with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[harmonized_item_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Provides visibility into recent changes of each object, including deletion"
         },
         {
           "method": "GET",
@@ -767,7 +996,7 @@
                   "value": 200
                 }
               },
-              "type": "item"
+              "type": "harmonized_item"
             },
             {
               "code": {
@@ -806,7 +1035,7 @@
                   "value": 201
                 }
               },
-              "type": "item"
+              "type": "harmonized_item"
             },
             {
               "code": {
@@ -827,7 +1056,7 @@
           ],
           "attributes": [],
           "body": {
-            "type": "item_form",
+            "type": "harmonized_item_form",
             "attributes": []
           }
         },
@@ -881,8 +1110,8 @@
       "path": "/:organization/harmonization/items"
     },
     {
-      "type": "item_duty",
-      "plural": "item_duties",
+      "type": "harmonized_item_duty",
+      "plural": "harmonized_item_duties",
       "operations": [
         {
           "method": "GET",
@@ -898,20 +1127,22 @@
               "name": "id",
               "type": "[string]",
               "location": "Query",
-              "required": false
+              "required": false,
+              "maximum": 100
             },
             {
               "name": "number",
               "type": "[string]",
               "location": "Query",
-              "required": false
+              "required": false,
+              "maximum": 100
             },
             {
-              "name": "country_of_origin",
+              "name": "origin",
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+              "description": "The ISO-3166 2 or 3 character country code of the country of origin"
             },
             {
               "name": "destination",
@@ -952,7 +1183,7 @@
                   "value": 200
                 }
               },
-              "type": "[item_duty]"
+              "type": "[harmonized_item_duty]"
             },
             {
               "code": {
@@ -972,6 +1203,77 @@
             }
           ],
           "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/item-duties/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "harmonized_item_duty_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to item duties with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[harmonized_item_duty_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Provides visibility into recent changes of each object, including deletion"
         },
         {
           "method": "GET",
@@ -997,7 +1299,7 @@
                   "value": 200
                 }
               },
-              "type": "item_duty"
+              "type": "harmonized_item_duty"
             },
             {
               "code": {
@@ -1036,7 +1338,7 @@
                   "value": 201
                 }
               },
-              "type": "item_duty"
+              "type": "harmonized_item_duty"
             },
             {
               "code": {
@@ -1057,7 +1359,7 @@
           ],
           "attributes": [],
           "body": {
-            "type": "item_duty_form",
+            "type": "harmonized_item_duty_form",
             "attributes": []
           }
         },
@@ -1274,5 +1576,7 @@
       "path": "/:organization/harmonization/taxes"
     }
   ],
-  "attributes": []
+  "attributes": [],
+  "base_url": "https://harmonization.api.flow.io",
+  "description": "API to harmonization to support tax and duty calculations as part of landed cost."
 }

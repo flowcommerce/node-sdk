@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "harmonization-internal",
   "organization": {
@@ -36,33 +36,36 @@
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
+        "sort_direction",
         "unit_of_measurement",
         "unit_of_time",
         "value_added_service",
         "visibility"
       ],
       "unions": [
+        "expandable_location",
         "expandable_organization",
         "expandable_user"
       ],
       "models": [
-        "address",
         "contact",
         "datetime_range",
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
+        "location_reference",
         "measurement",
         "name",
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",

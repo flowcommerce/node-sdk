@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "message",
   "organization": {
@@ -10,7 +10,7 @@
     "key": "message"
   },
   "namespace": "io.flow.message.v0",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "info": {},
   "headers": [],
   "imports": [
@@ -28,6 +28,7 @@
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
@@ -48,6 +49,7 @@
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
         "location_reference",
@@ -56,7 +58,6 @@
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",
@@ -66,8 +67,8 @@
   ],
   "enums": [
     {
-      "name": "label_type",
-      "plural": "label_types",
+      "name": "content_type",
+      "plural": "content_types",
       "values": [
         {
           "name": "zpl",
@@ -87,8 +88,8 @@
   ],
   "unions": [
     {
-      "name": "message",
-      "plural": "messages",
+      "name": "event",
+      "plural": "events",
       "types": [
         {
           "type": "preadvice_request",
@@ -212,6 +213,38 @@
       "attributes": []
     },
     {
+      "name": "label",
+      "plural": "labels",
+      "fields": [
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "tracking_number",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "content",
+          "type": "content_type",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "link",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "S3 URL for the label data"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "label_request",
       "plural": "label_requests",
       "fields": [
@@ -220,9 +253,64 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "origin",
+          "type": "address",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "address",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "price",
+          "type": "price",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "metadata",
+          "type": "object",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "shipment",
+          "type": "shipment",
+          "required": true,
+          "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Create a label for a single shipment"
     },
     {
       "name": "label_result",
@@ -233,9 +321,34 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "label",
+          "required": true,
+          "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Corresponding result from carrier of label creation request"
     },
     {
       "name": "preadvice_request",
@@ -243,6 +356,12 @@
       "fields": [
         {
           "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "partner",
           "type": "string",
           "required": true,
           "attributes": []
@@ -302,7 +421,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Advice a carrier or logistics partner about future arrival of a package"
     },
     {
       "name": "preadvice_result",
@@ -313,9 +433,40 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "partner",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "shipments",
+          "type": "[shipment]",
+          "required": true,
+          "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Carrier result of pre-advice request"
     },
     {
       "name": "price",
@@ -361,6 +512,12 @@
         {
           "name": "items",
           "type": "[item]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "labels",
+          "type": "[label]",
           "required": true,
           "attributes": []
         }

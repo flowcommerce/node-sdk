@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.23"
+    "version": "0.11.26"
   },
   "name": "location",
   "organization": {
@@ -10,7 +10,7 @@
     "key": "location"
   },
   "namespace": "io.flow.location.v0",
-  "version": "0.0.12",
+  "version": "0.0.19",
   "info": {
     "license": {
       "name": "MIT",
@@ -23,7 +23,7 @@
   "headers": [],
   "imports": [
     {
-      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
       "namespace": "io.flow.common.v0",
       "organization": {
         "key": "flow"
@@ -31,11 +31,12 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.12",
+      "version": "0.0.19",
       "enums": [
         "calendar",
         "capability",
         "change_type",
+        "dimension_type",
         "exception_type",
         "holiday_calendar",
         "schedule_exception_status",
@@ -56,6 +57,7 @@
         "dimension",
         "error",
         "exception",
+        "experience_summary",
         "healthcheck",
         "location",
         "location_reference",
@@ -64,7 +66,6 @@
         "organization",
         "organization_reference",
         "organization_summary",
-        "price",
         "schedule",
         "user",
         "user_reference",
@@ -153,5 +154,6 @@
     }
   ],
   "attributes": [],
-  "base_url": "https://location.api.flow.io"
+  "base_url": "https://location.api.flow.io",
+  "description": "Location is used to geolocate addresses, supporting lookup by IP address, textual physical address, or latitude/longitude."
 }
