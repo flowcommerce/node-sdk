@@ -10,7 +10,7 @@
     "key": "harmonization-event"
   },
   "namespace": "io.flow.harmonization.event.v0",
-  "version": "0.0.16",
+  "version": "0.0.27",
   "info": {
     "license": {
       "name": "MIT",
@@ -23,7 +23,7 @@
   "headers": [],
   "imports": [
     {
-      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/common/latest/service.json",
       "namespace": "io.flow.common.v0",
       "organization": {
         "key": "flow"
@@ -31,7 +31,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.12",
+      "version": "0.0.24",
       "enums": [
         "calendar",
         "capability",
@@ -166,6 +166,10 @@
       "types": [
         {
           "type": "duty_rate_computation",
+          "attributes": []
+        },
+        {
+          "type": "harmonized_item",
           "attributes": []
         }
       ],
@@ -319,6 +323,39 @@
       ],
       "attributes": [],
       "description": "A request to harmonize an item. This allows us to classify the item and gather other data needed to be able to calculate duty and tax for landed cost calculations. You will need to provide categories to descriptions to enable any classifiaction."
+    },
+    {
+      "name": "harmonized_item",
+      "plural": "harmonized_items",
+      "fields": [
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The item number"
+        },
+        {
+          "name": "hs6",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Event is raised whenever a harmonized item is created or updated"
     },
     {
       "name": "lane_request",

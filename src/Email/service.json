@@ -43,6 +43,18 @@
       ],
       "attributes": [],
       "discriminator": "discriminator"
+    },
+    {
+      "name": "report",
+      "plural": "reports",
+      "types": [
+        {
+          "type": "report_error",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
     }
   ],
   "models": [
@@ -147,6 +159,48 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "report_error",
+      "plural": "report_errors",
+      "fields": [
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "user",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The user id who made a request to the API that generated an error"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The organization to which the error pertains"
+        },
+        {
+          "name": "request",
+          "type": "object",
+          "required": false,
+          "attributes": [],
+          "description": "The original API request which caused the error(s)"
+        },
+        {
+          "name": "errors",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "The reported error(s)"
+        }
+      ],
+      "attributes": [],
+      "description": "A message sent to an email address to report and error received in an API."
     },
     {
       "name": "user_email_changed",
@@ -321,6 +375,50 @@
       ],
       "attributes": [],
       "path": "/_internal_"
+    },
+    {
+      "type": "report",
+      "plural": "reports",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/reports",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "report",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/reports"
     }
   ],
   "attributes": [],

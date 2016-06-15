@@ -1,11 +1,11 @@
-import Initializations from './initializations';
+import Keys from './keys';
+import Passphrases from './passphrases';
 import Tribes from './tribes';
-import TribeStatus from './tribe-status';
 
 export default class PaymentInternalClient {
   constructor(host, auth, headers) {
-    this.initializations = new Initializations(host, auth, headers);
+    this.keys = new Keys(host, auth, headers);
+    this.passphrases = new Passphrases(host, auth, headers);
     this.tribes = new Tribes(host, auth, headers);
-    this.tribe_status = new TribeStatus(host, auth, headers);
   }
 }

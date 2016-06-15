@@ -10,7 +10,7 @@
     "key": "token"
   },
   "namespace": "io.flow.token.v0",
-  "version": "0.0.24",
+  "version": "0.0.36",
   "info": {},
   "headers": [],
   "imports": [
@@ -100,6 +100,42 @@
       ],
       "attributes": [],
       "description": "Used to create a new token for the specified user."
+    },
+    {
+      "name": "validation",
+      "plural": "validations",
+      "fields": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Textual description of whether or not token is valid"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The token description if provided at the time the token was created"
+        }
+      ],
+      "attributes": [],
+      "description": "Model used to test whether or not a token is valid"
+    },
+    {
+      "name": "validation_form",
+      "plural": "validation_forms",
+      "fields": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The token that you are validating"
+        }
+      ],
+      "attributes": []
     }
   ],
   "resources": [
@@ -127,6 +163,14 @@
                 }
               },
               "type": "[token]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
             }
           ],
           "attributes": [],
@@ -235,7 +279,37 @@
       ],
       "attributes": [],
       "path": "/tokens"
+    },
+    {
+      "type": "validation",
+      "plural": "validations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/token-validations",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "validation"
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "validation_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [],
+      "path": "/token-validations",
+      "description": "Validations test whether or not a given API token is valid"
     }
   ],
-  "attributes": []
+  "attributes": [],
+  "base_url": "https://token.api.flow.io"
 }

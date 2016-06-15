@@ -19,6 +19,10 @@ export default class Applications extends Client {
     return this.makeRequest(`${this.host}/applications/versions`, options);
   }
 
+  getYaml(options) {
+    return this.makeRequest(`${this.host}/applications/yaml`, options);
+  }
+
   getById(id, options) {
     return this.makeRequest(`${this.host}/applications/${id}`, options);
   }

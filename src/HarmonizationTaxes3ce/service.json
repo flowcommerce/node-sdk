@@ -10,7 +10,7 @@
     "key": "harmonization-taxes-3ce"
   },
   "namespace": "io.flow.harmonization.taxes3ce.v0",
-  "version": "0.0.47",
+  "version": "0.0.83",
   "info": {},
   "headers": [],
   "imports": [],

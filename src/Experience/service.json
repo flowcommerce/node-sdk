@@ -10,7 +10,7 @@
     "key": "experience"
   },
   "namespace": "io.flow.experience.v0",
-  "version": "0.0.19",
+  "version": "0.0.25",
   "info": {},
   "headers": [],
   "imports": [
@@ -23,7 +23,7 @@
       "application": {
         "key": "catalog"
       },
-      "version": "0.0.19",
+      "version": "0.0.25",
       "enums": [
         "adjustment_type",
         "delivered_duty",
@@ -46,6 +46,7 @@
         "function_summary",
         "function_version",
         "image",
+        "image_form",
         "item",
         "item_form",
         "item_version",
@@ -71,7 +72,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.19",
+      "version": "0.0.25",
       "enums": [
         "calendar",
         "capability",
@@ -121,7 +122,7 @@
       "application": {
         "key": "fulfillment"
       },
-      "version": "0.0.19",
+      "version": "0.0.25",
       "enums": [
         "commercial_term",
         "content_type",
@@ -427,6 +428,12 @@
           "example": "usd"
         },
         {
+          "name": "displays",
+          "type": "[display_summary]",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "language",
           "type": "string",
           "required": true,
@@ -443,12 +450,6 @@
         {
           "name": "name",
           "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "pricing",
-          "type": "pricing",
           "required": true,
           "attributes": []
         },
@@ -573,26 +574,6 @@
       ],
       "attributes": [],
       "description": "Represents an order line for checkout"
-    },
-    {
-      "name": "pricing",
-      "plural": "pricings",
-      "fields": [
-        {
-          "name": "displays",
-          "type": "[display_summary]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "functions",
-          "type": "[io.flow.catalog.v0.models.function_summary]",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Transparent representation of localized price values and how they were derived"
     }
   ],
   "resources": [
@@ -967,7 +948,14 @@
           "description": "Delete the display with this id"
         }
       ],
-      "attributes": [],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "pricing"
+          }
+        }
+      ],
       "path": "/:organization/displays"
     },
     {
@@ -1091,6 +1079,13 @@
               "maximum": 100
             },
             {
+              "name": "display",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "key",
               "type": "[string]",
               "location": "Query",
@@ -1099,6 +1094,13 @@
             },
             {
               "name": "name",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "subcatalog",
               "type": "[string]",
               "location": "Query",
               "required": false,

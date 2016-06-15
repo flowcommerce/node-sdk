@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Tribes extends Client {
+export default class Keys extends Client {
   constructor(host, auth, headers) {
     super({
       serviceName: 'payment-internal',
@@ -12,11 +12,12 @@ export default class Tribes extends Client {
   }
 
   get(options) {
-    return this.makeRequest(`${this.host}/tribes`, options);
+    return this.makeRequest(`${this.host}/keys`, options);
   }
 
-  getById(id, options) {
-    return this.makeRequest(`${this.host}/tribes/${id}`, options);
+  post(options) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/keys`, options);
   }
 
 }

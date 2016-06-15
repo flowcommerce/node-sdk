@@ -10,7 +10,7 @@
     "key": "payment"
   },
   "namespace": "io.flow.payment.v0",
-  "version": "0.0.19",
+  "version": "0.0.25",
   "info": {},
   "headers": [],
   "imports": [
@@ -23,7 +23,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.19",
+      "version": "0.0.25",
       "enums": [
         "calendar",
         "capability",
@@ -132,13 +132,19 @@
           "name": "expiration_month",
           "type": "integer",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
+          "minimum": 1,
+          "maximum": 12,
+          "example": "4"
         },
         {
           "name": "expiration_year",
           "type": "integer",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The 4 digit expiration year",
+          "example": "2016"
         },
         {
           "name": "name",
@@ -197,6 +203,7 @@
           "type": "integer",
           "required": true,
           "attributes": [],
+          "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
           "minimum": 1,
           "maximum": 12,
           "example": "4"
@@ -503,7 +510,7 @@
             }
           ],
           "attributes": [],
-          "description": "Updates are implemented as copy on write. This method is a convenience method that will transactionally DELETE the card with the specified ID, then CREATE a new card with the data from this request.",
+          "description": "Updates are implemented as copy on write. This method is a convenience method that will transactionally DELETE the card with the specified ID, then CREATE a new card with the data from this request. Note that this means the returned credit card token will be DIFFERENT from the one used in the request.",
           "body": {
             "type": "card_form",
             "attributes": []

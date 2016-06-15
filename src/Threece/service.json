@@ -167,21 +167,21 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "example": "ERGA OMNES"
+          "example": "ERGA OMNES, MFT, UST"
         },
         {
           "name": "rate",
           "type": "string",
           "required": true,
           "attributes": [],
-          "example": "12.000 % or 16% or 25"
+          "example": "12.000 %, 16%, 25, Free"
         },
         {
           "name": "type",
           "type": "string",
           "required": true,
           "attributes": [],
-          "example": "General"
+          "example": "General, Other"
         }
       ],
       "attributes": []
@@ -318,6 +318,14 @@
               "code": {
                 "integer": {
                   "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
                 }
               },
               "type": "unit"

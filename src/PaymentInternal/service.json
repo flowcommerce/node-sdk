@@ -10,7 +10,7 @@
     "key": "payment-internal"
   },
   "namespace": "io.flow.payment.internal.v0",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "info": {},
   "headers": [],
   "imports": [
@@ -23,7 +23,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.19",
+      "version": "0.0.23",
       "enums": [
         "calendar",
         "capability",
@@ -69,25 +69,72 @@
   "unions": [],
   "models": [
     {
-      "name": "initialization",
-      "plural": "initializations",
+      "name": "authentication_form",
+      "plural": "authentication_forms",
       "fields": [
         {
-          "name": "tribe",
+          "name": "password",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "encryption",
+      "plural": "encryptions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "key",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "iv",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ID of the tribe for which you are providing a password"
+          "description": "Base64 encoded iv"
         },
         {
-          "name": "passphrase",
+          "name": "cipher",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Base64 encoded cipher"
+        },
+        {
+          "name": "passphrase_ids",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "The passphrase IDs, in the order in which they were used to encrypt this cipher"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents the actual encrypted key, with a list of associated passphrases"
+    },
+    {
+      "name": "key",
+      "plural": "keys",
+      "fields": [
+        {
+          "name": "id",
           "type": "string",
           "required": true,
           "attributes": []
         }
       ],
       "attributes": [],
-      "description": "Form used to initialize the passwords for each tribe. The passphrases are required to decrypt the actual card encryption key. These passphrases are specified at server startup time."
+      "description": "Represents the actual card encryption key"
     },
     {
       "name": "passphrase",
@@ -142,7 +189,21 @@
       "plural": "passphrase_forms",
       "fields": [
         {
-          "name": "passphrase",
+          "name": "tribe",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Id of the tribe for which we are creating a passphrase"
+        },
+        {
+          "name": "current_password",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "When creating a new passphrase, you must provide a valid password for one of the active passphrases for your tribe. This field is required EXCEPT if you are creating a passphrase for the very first time."
+        },
+        {
+          "name": "new_password",
           "type": "string",
           "required": true,
           "attributes": []
@@ -151,8 +212,8 @@
       "attributes": []
     },
     {
-      "name": "passphrase_status",
-      "plural": "passphrase_statuses",
+      "name": "passphrase_summary",
+      "plural": "passphrase_summaries",
       "fields": [
         {
           "name": "id",
@@ -161,8 +222,8 @@
           "attributes": []
         },
         {
-          "name": "status",
-          "type": "string",
+          "name": "tribe",
+          "type": "tribe",
           "required": true,
           "attributes": []
         }
@@ -187,47 +248,133 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "tribe_status",
-      "plural": "tribe_status",
-      "fields": [
-        {
-          "name": "tribe",
-          "type": "tribe",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "status",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "passphrases",
-          "type": "[passphrase_status]",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     }
   ],
   "resources": [
     {
-      "type": "initialization",
-      "plural": "initializations",
+      "type": "key",
+      "plural": "keys",
       "operations": [
         {
-          "method": "POST",
-          "path": "/_internal_/initializations",
+          "method": "GET",
+          "path": "/keys",
           "parameters": [],
           "responses": [
             {
               "code": {
                 "integer": {
-                  "value": 204
+                  "value": 200
+                }
+              },
+              "type": "[key]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/keys",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "key"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "path": "/keys"
+    },
+    {
+      "type": "passphrase",
+      "plural": "passphrases",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/passphrases",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to passphrases with these ids",
+              "maximum": 100
+            },
+            {
+              "name": "tribe",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to passphrases for this tribe"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[passphrase_summary]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/passphrases/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "passphrase_summary"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
                 }
               },
               "type": "unit"
@@ -235,7 +382,31 @@
             {
               "code": {
                 "integer": {
-                  "value": 401
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/passphrases",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "passphrase_summary"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
                 }
               },
               "type": "unit"
@@ -250,14 +421,60 @@
             }
           ],
           "attributes": [],
+          "description": "Creates a new passphrase for a given tribe",
           "body": {
-            "type": "initialization",
+            "type": "passphrase_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/passphrases/:id/authentications",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[io.flow.common.v0.models.error]"
+            }
+          ],
+          "attributes": [],
+          "description": "Used to provide the cleartext password for a given passphrase",
+          "body": {
+            "type": "authentication_form",
             "attributes": []
           }
         }
       ],
       "attributes": [],
-      "path": "/_internal_/initializations"
+      "path": "/passphrases",
+      "description": "Returns a list of all of passphrases that are currently defined."
     },
     {
       "type": "tribe",
@@ -283,6 +500,14 @@
                 }
               },
               "type": "[tribe]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
             }
           ],
           "attributes": [],
@@ -326,79 +551,11 @@
             }
           ],
           "attributes": []
-        },
-        {
-          "method": "POST",
-          "path": "/tribes/:id/passphrases",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit"
-            }
-          ],
-          "attributes": [],
-          "description": "Creates a new passphrase for this tribe",
-          "body": {
-            "type": "passphrase_form",
-            "attributes": []
-          }
         }
       ],
       "attributes": [],
       "path": "/tribes",
       "description": "Tribes are read only. This resource allows you to view information on the globally configured tribes."
-    },
-    {
-      "type": "tribe_status",
-      "plural": "tribe_status",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/_internal_/status",
-          "parameters": [],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[tribe_status]"
-            }
-          ],
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "path": "/_internal_/status"
     }
   ],
   "attributes": []

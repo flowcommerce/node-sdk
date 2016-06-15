@@ -34,11 +34,6 @@ export default class Functions extends Client {
     return this.makeRequest(`${this.host}/${organization}/functions/${id}`, options);
   }
 
-  postEventsByIdAndEvent(organization, id, event, options) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/functions/${id}/events/${event}`, options);
-  }
-
   getVersions(organization, options) {
     return this.makeRequest(`${this.host}/${organization}/functions/versions`, options);
   }

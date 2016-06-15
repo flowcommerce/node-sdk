@@ -1,10 +1,16 @@
 import Catalogs from './catalogs';
-import Displays from './displays';
 import Experiences from './experiences';
-import Functions from './functions';
 import Items from './items';
 import Subcatalogs from './subcatalogs';
 import SubcatalogItems from './subcatalog-items';
+import Displays from './displays';
+import Functions from './functions';
+import Codes from './codes';
+import Duties from './duties';
+import HarmonizedItems from './harmonized-items';
+import HarmonizedItemDuties from './harmonized-item-duties';
+import Settings from './settings';
+import Taxes from './taxes';
 import Cards from './cards';
 import Bookings from './bookings';
 import Carriers from './carriers';
@@ -22,27 +28,33 @@ import Tiers from './tiers';
 import Trackings from './trackings';
 import Countries from './countries';
 import Currencies from './currencies';
+import Languages from './languages';
+import Timezones from './timezones';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Healthchecks from './healthchecks';
 import Invitations from './invitations';
-import Languages from './languages';
 import Locations from './locations';
 import Memberships from './memberships';
 import Organizations from './organizations';
 import PasswordResetForms from './password-reset-forms';
-import Timezones from './timezones';
 import Users from './users';
 
 export default class ApiClient {
   constructor(host, auth, headers) {
     this.catalogs = new Catalogs(host, auth, headers);
-    this.displays = new Displays(host, auth, headers);
     this.experiences = new Experiences(host, auth, headers);
-    this.functions = new Functions(host, auth, headers);
     this.items = new Items(host, auth, headers);
     this.subcatalogs = new Subcatalogs(host, auth, headers);
     this.subcatalog_items = new SubcatalogItems(host, auth, headers);
+    this.displays = new Displays(host, auth, headers);
+    this.functions = new Functions(host, auth, headers);
+    this.codes = new Codes(host, auth, headers);
+    this.duties = new Duties(host, auth, headers);
+    this.harmonized_items = new HarmonizedItems(host, auth, headers);
+    this.harmonized_item_duties = new HarmonizedItemDuties(host, auth, headers);
+    this.settings = new Settings(host, auth, headers);
+    this.taxes = new Taxes(host, auth, headers);
     this.cards = new Cards(host, auth, headers);
     this.bookings = new Bookings(host, auth, headers);
     this.carriers = new Carriers(host, auth, headers);
@@ -60,16 +72,16 @@ export default class ApiClient {
     this.trackings = new Trackings(host, auth, headers);
     this.countries = new Countries(host, auth, headers);
     this.currencies = new Currencies(host, auth, headers);
+    this.languages = new Languages(host, auth, headers);
+    this.timezones = new Timezones(host, auth, headers);
     this.documents = new Documents(host, auth, headers);
     this.email_verifications = new EmailVerifications(host, auth, headers);
     this.healthchecks = new Healthchecks(host, auth, headers);
     this.invitations = new Invitations(host, auth, headers);
-    this.languages = new Languages(host, auth, headers);
     this.locations = new Locations(host, auth, headers);
     this.memberships = new Memberships(host, auth, headers);
     this.organizations = new Organizations(host, auth, headers);
     this.password_reset_forms = new PasswordResetForms(host, auth, headers);
-    this.timezones = new Timezones(host, auth, headers);
     this.users = new Users(host, auth, headers);
   }
 }

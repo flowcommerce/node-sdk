@@ -10,7 +10,7 @@
     "key": "harmonization-internal"
   },
   "namespace": "io.flow.harmonization.internal.v0",
-  "version": "0.0.53",
+  "version": "0.0.83",
   "info": {
     "license": {
       "name": "MIT",
@@ -23,7 +23,7 @@
   "headers": [],
   "imports": [
     {
-      "uri": "http://www.apidoc.me/flow/common/0.0.12/service.json",
+      "uri": "http://www.apidoc.me/flow/common/0.0.23/service.json",
       "namespace": "io.flow.common.v0",
       "organization": {
         "key": "flow"
@@ -31,7 +31,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.12",
+      "version": "0.0.23",
       "enums": [
         "calendar",
         "capability",
@@ -266,7 +266,7 @@
           "description": "The classification record for which we are requesting detailed information."
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -325,7 +325,7 @@
           "description": "The classification record for which we are requesting detailed information. We will only pursue detailed information once this classification has successfully resulted in an hs6 code"
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -448,7 +448,7 @@
           "attributes": []
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -472,7 +472,7 @@
       "plural": "lane_forms",
       "fields": [
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -501,7 +501,7 @@
           "attributes": []
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -553,7 +553,7 @@
           "attributes": []
         },
         {
-          "name": "country_of_origin",
+          "name": "origin",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -652,7 +652,7 @@
         {
           "name": "code",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": []
         },
         {
@@ -661,6 +661,13 @@
           "required": true,
           "attributes": [],
           "description": "The 3CE assigned product Id for this classification record."
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The URL into 3CE's system for this result."
         }
       ],
       "attributes": []
@@ -1156,7 +1163,7 @@
               "maximum": 100
             },
             {
-              "name": "country_of_origin",
+              "name": "origin",
               "type": "string",
               "location": "Query",
               "required": false,

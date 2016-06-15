@@ -10,7 +10,7 @@
     "key": "currency"
   },
   "namespace": "io.flow.currency.v0",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "info": {},
   "headers": [],
   "imports": [
@@ -23,7 +23,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.19",
+      "version": "0.0.25",
       "enums": [
         "calendar",
         "capability",

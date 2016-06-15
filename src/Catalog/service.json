@@ -10,7 +10,7 @@
     "key": "catalog"
   },
   "namespace": "io.flow.catalog.v0",
-  "version": "0.0.19",
+  "version": "0.0.25",
   "info": {},
   "headers": [],
   "imports": [
@@ -23,7 +23,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.19",
+      "version": "0.0.25",
       "enums": [
         "calendar",
         "capability",
@@ -455,17 +455,44 @@
           "name": "url",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The full URL to the image",
+          "example": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
         },
         {
           "name": "tags",
           "type": "[string]",
           "required": true,
           "attributes": [],
+          "description": "Tags can be used to identify the type of image being sent",
           "default": "[]"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "The URL to an image, with optional tags. Flow Commerce primarily uses images to enhance the administrative tools (e.g. showing an item image in console)"
+    },
+    {
+      "name": "image_form",
+      "plural": "image_forms",
+      "fields": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The full URL to the image",
+          "example": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+        },
+        {
+          "name": "tags",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Optional tags that can keep track of which image this is"
+        }
+      ],
+      "attributes": [],
+      "description": "Image form defines the data needed to create an image"
     },
     {
       "name": "item",
@@ -631,7 +658,7 @@
         },
         {
           "name": "images",
-          "type": "[image]",
+          "type": "[image_form]",
           "required": false,
           "attributes": [],
           "description": "If provided, the item images will be used to enhance the user experience in Flow's online tools."
@@ -1344,7 +1371,14 @@
           "description": "Delete the function with this id"
         }
       ],
-      "attributes": [],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "pricing"
+          }
+        }
+      ],
       "path": "/:organization/functions"
     },
     {
@@ -1752,6 +1786,13 @@
               "maximum": 100
             },
             {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -1817,6 +1858,13 @@
             },
             {
               "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,

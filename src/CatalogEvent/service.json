@@ -21,10 +21,6 @@
       "plural": "events",
       "types": [
         {
-          "type": "item_created",
-          "attributes": []
-        },
-        {
           "type": "item_updated",
           "attributes": []
         },
@@ -43,13 +39,97 @@
         {
           "type": "subitem_deleted",
           "attributes": []
+        },
+        {
+          "type": "item_created",
+          "attributes": []
         }
       ],
       "attributes": [],
       "discriminator": "discriminator"
+    },
+    {
+      "name": "metric",
+      "plural": "metrics",
+      "types": [
+        {
+          "type": "catalog_item",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Defines the events related to metrics published by the service"
     }
   ],
   "models": [
+    {
+      "name": "catalog_item",
+      "plural": "catalog_items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "price",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
     {
       "name": "item_created",
       "plural": "item_createds",

@@ -66,7 +66,24 @@
     }
   ],
   "enums": [],
-  "unions": [],
+  "unions": [
+    {
+      "name": "healthcheck",
+      "plural": "healthchecks",
+      "types": [
+        {
+          "type": "http",
+          "attributes": []
+        },
+        {
+          "type": "postgresql",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    }
+  ],
   "models": [
     {
       "name": "application",
@@ -198,6 +215,26 @@
       "attributes": []
     },
     {
+      "name": "http",
+      "plural": "https",
+      "fields": [
+        {
+          "name": "host",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "port",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The port on which clients access this service."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "port",
       "plural": "ports",
       "fields": [
@@ -220,6 +257,39 @@
           "required": true,
           "attributes": [],
           "description": "The port on which this service is running internally. If running in a container, this is the port inside the container."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "postgresql",
+      "plural": "postgresqls",
+      "fields": [
+        {
+          "name": "db_name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The database name."
+        },
+        {
+          "name": "host",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "port",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The port on which clients access this database."
+        },
+        {
+          "name": "user",
+          "type": "string",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -479,6 +549,39 @@
           ],
           "attributes": [],
           "description": "Provides visibility into recent changes of each application, including deletion"
+        },
+        {
+          "method": "GET",
+          "path": "/applications/yaml",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "string"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns YAML representation of applications."
         },
         {
           "method": "GET",

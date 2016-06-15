@@ -10,7 +10,7 @@
     "key": "location"
   },
   "namespace": "io.flow.location.v0",
-  "version": "0.0.19",
+  "version": "0.0.25",
   "info": {
     "license": {
       "name": "MIT",
@@ -31,7 +31,7 @@
       "application": {
         "key": "common"
       },
-      "version": "0.0.19",
+      "version": "0.0.25",
       "enums": [
         "calendar",
         "capability",

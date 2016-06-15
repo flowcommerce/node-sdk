@@ -10,7 +10,7 @@
     "key": "common"
   },
   "namespace": "io.flow.common.v0",
-  "version": "0.0.19",
+  "version": "0.0.25",
   "info": {
     "license": {
       "name": "MIT",
