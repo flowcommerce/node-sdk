@@ -24,7 +24,7 @@
   "devDependencies": {
     "@flowio/babel-preset-flowio": "1.0.1",
     "@flowio/eslint-config-flowio": "1.1.0",
-    "@flowio/lib-apidoc": "0.0.1",
+    "@flowio/lib-apidoc": "0.0.3",
     "babel-cli": "6.9.0",
     "babel-core": "6.9.0",
     "babel-eslint": "6.0.4",
