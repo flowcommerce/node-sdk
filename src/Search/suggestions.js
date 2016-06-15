@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Documents extends Client {
+export default class Suggestions extends Client {
   constructor(host, auth, headers) {
     super({
       serviceName: 'search',
@@ -12,11 +12,11 @@ export default class Documents extends Client {
   }
 
   getCatalog(organization, options) {
-    return this.makeRequest(`${this.host}/${organization}/search/catalog`, options);
+    return this.makeRequest(`${this.host}/${organization}/suggestion/catalog`, options);
   }
 
   getHarmonization(organization, options) {
-    return this.makeRequest(`${this.host}/${organization}/search/harmonization`, options);
+    return this.makeRequest(`${this.host}/${organization}/suggestion/harmonization`, options);
   }
 
 }

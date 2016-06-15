@@ -10,7 +10,7 @@
     "key": "search"
   },
   "namespace": "io.flow.search.v0",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "info": {},
   "headers": [],
   "imports": [
@@ -69,8 +69,8 @@
   "unions": [],
   "models": [
     {
-      "name": "document",
-      "plural": "documents",
+      "name": "catalog_item_document",
+      "plural": "catalog_item_documents",
       "fields": [
         {
           "name": "number",
@@ -97,6 +97,147 @@
           "required": true,
           "attributes": [],
           "minimum": 0
+        },
+        {
+          "name": "attributes",
+          "type": "[document_attribute]",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "category_summary",
+      "plural": "category_summaries",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "count",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "document",
+      "plural": "documents",
+      "fields": [
+        {
+          "name": "ignore",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Putting this in place so that client generation makes sense"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "document_attribute",
+      "plural": "document_attributes",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "harmonization_document",
+      "plural": "harmonization_documents",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "categories",
+          "type": "[category_summary]",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Country of origin"
+        },
+        {
+          "name": "rates",
+          "type": "rates",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "rates",
+      "plural": "rates",
+      "fields": [
+        {
+          "name": "average",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        },
+        {
+          "name": "maximum",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        },
+        {
+          "name": "minimum",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "suggestion",
+      "plural": "suggestions",
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The suggestion to display to user"
+        },
+        {
+          "name": "count",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The number of results for the label"
         }
       ],
       "attributes": []
@@ -109,7 +250,162 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/search",
+          "path": "/:organization/search/catalog",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "gucci category:handbag price:10"
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "attributes",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "lower(name)"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[catalog_item_document]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns items based on search criteria"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/search/harmonization",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "gucci category:handbag price:10"
+            },
+            {
+              "name": "destination",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "ISO 3166 3-character country code. See https://www.iso.org/obp/ui/#search",
+              "example": "USA"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[harmonization_document]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns harmonization information based on search criteria"
+        }
+      ],
+      "attributes": [],
+      "path": "/:organization/search"
+    },
+    {
+      "type": "suggestion",
+      "plural": "suggestions",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/suggestion/catalog",
           "parameters": [
             {
               "name": "organization",
@@ -146,7 +442,7 @@
               "type": "string",
               "location": "Query",
               "required": true,
-              "default": "lower(name)"
+              "default": "-created_at"
             }
           ],
           "responses": [
@@ -156,7 +452,7 @@
                   "value": 200
                 }
               },
-              "type": "[document]"
+              "type": "[suggestion]"
             },
             {
               "code": {
@@ -168,11 +464,74 @@
             }
           ],
           "attributes": [],
-          "description": "Returns items based on search criteria"
+          "description": "Returns search suggestions for catalog items"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/suggestion/harmonization",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "gucci category:handbag price:10"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[suggestion]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns search suggestions for harmonization data"
         }
       ],
       "attributes": [],
-      "path": "/:organization/search"
+      "path": "/:organization/suggestion"
     }
   ],
   "attributes": [],
