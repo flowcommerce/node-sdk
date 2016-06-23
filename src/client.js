@@ -1,4 +1,3 @@
-// This cannot migrate to generated code
 import querystring from 'querystring';
 import Logger from './logger';
 

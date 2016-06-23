@@ -1,9 +1,9 @@
-import Client from '../client';
+import Client from './client';
 
 export default class PasswordResetForms extends Client {
   constructor(host, auth, headers) {
     super({
-      serviceName: 'user',
+      serviceName: 'API',
     });
 
     this.host = host;
@@ -11,13 +11,14 @@ export default class PasswordResetForms extends Client {
     this.headers = headers;
   }
 
+  post(options) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/users/passwords`, options);
+  }
+
   postResets(options) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/users/passwords/resets`, options);
   }
 
-  post(options) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/users/passwords`, options);
-  }
 }

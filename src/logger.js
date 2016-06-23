@@ -15,9 +15,7 @@ export default class {
   }
 
   format(message) {
-    let path = `console:${this.path}`;
-
-    return `[${path}] ${message}`;
+    return `[apidoc:${this.path}] ${message}`;
   }
 
   debug(message, ...other) {
