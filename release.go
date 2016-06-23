@@ -1,15 +1,7 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/flowcommerce/apidoc/registry"
 	"github.com/flowcommerce/tools/executor"
-	"github.com/flowcommerce/tools/profile"
-	"github.com/flowcommerce/tools/util"
-	"io/ioutil"
-	"net/http"
-	"os"
 )
 
 func main() {
