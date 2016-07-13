@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(organization, options)`
+##`get(organization, options)`
 
 ### Function Parameters
 
@@ -22,7 +22,7 @@
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-`post(organization, options)`
+##`post(organization, options)`
 
 ### Function Parameters
 
@@ -31,7 +31,7 @@
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-`getById(organization, id, options)`
+##`getById(organization, id, options)`
 
 ### Function Parameters
 
@@ -41,7 +41,7 @@
 | id | string | Filter by one or more IDs of this resource |
 
 
-`getVersions(organization, options)`
+##`getVersions(organization, options)`
 
 ### Function Parameters
 

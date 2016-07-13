@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(organization, subcatalog, options)`
+##`get(organization, subcatalog, options)`
 
 ### Function Parameters
 
@@ -22,7 +22,7 @@
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-`post(organization, subcatalog, options)`
+##`post(organization, subcatalog, options)`
 
 ### Function Parameters
 
@@ -32,18 +32,7 @@
 | subcatalog | string |  |
 
 
-`getByNumber(organization, subcatalog, number, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog | string |  |
-| number | string |  |
-
-
-`putByNumber(organization, subcatalog, number, options)`
+##`getByNumber(organization, subcatalog, number, options)`
 
 ### Function Parameters
 
@@ -54,7 +43,7 @@
 | number | string |  |
 
 
-`deleteByNumber(organization, subcatalog, number, options)`
+##`putByNumber(organization, subcatalog, number, options)`
 
 ### Function Parameters
 
@@ -65,7 +54,18 @@
 | number | string |  |
 
 
-`getVersions(organization, subcatalog, options)`
+##`deleteByNumber(organization, subcatalog, number, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| subcatalog | string |  |
+| number | string |  |
+
+
+##`getVersions(organization, subcatalog, options)`
 
 ### Function Parameters
 

@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(organization, trackingNumber, options)`
+##`get(organization, trackingNumber, options)`
 
 ### Function Parameters
 
@@ -20,7 +20,7 @@
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-`post(organization, trackingNumber, options)`
+##`post(organization, trackingNumber, options)`
 
 ### Function Parameters
 
@@ -30,7 +30,7 @@
 | tracking_number | string |  |
 
 
-`getVersions(organization, trackingNumber, options)`
+##`getVersions(organization, trackingNumber, options)`
 
 ### Function Parameters
 

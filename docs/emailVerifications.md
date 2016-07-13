@@ -2,7 +2,7 @@
 
 ## Operations
 
-`postByToken(token, options)`
+##`postByToken(token, options)`
 
 ### Function Parameters
 

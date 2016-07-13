@@ -2,7 +2,7 @@
 
 ## Operations
 
-`post(options)`
+##`post(options)`
 
 
 ### Query Parameters
@@ -11,7 +11,7 @@
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
-`postResets(options)`
+##`postResets(options)`
 
 
 

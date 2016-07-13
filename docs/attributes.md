@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(organization, options)`
+##`get(organization, options)`
 
 ### Function Parameters
 
@@ -21,7 +21,7 @@
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-`post(organization, options)`
+##`post(organization, options)`
 
 ### Function Parameters
 
@@ -30,17 +30,7 @@
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-`getByName(organization, name, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| name | string |  |
-
-
-`putByName(organization, name, options)`
+##`getByName(organization, name, options)`
 
 ### Function Parameters
 
@@ -50,7 +40,7 @@
 | name | string |  |
 
 
-`deleteByName(organization, name, options)`
+##`putByName(organization, name, options)`
 
 ### Function Parameters
 
@@ -60,7 +50,17 @@
 | name | string |  |
 
 
-`getVersions(organization, options)`
+##`deleteByName(organization, name, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| name | string |  |
+
+
+##`getVersions(organization, options)`
 
 ### Function Parameters
 

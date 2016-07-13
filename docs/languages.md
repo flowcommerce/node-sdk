@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(options)`
+##`get(options)`
 
 
 ### Query Parameters

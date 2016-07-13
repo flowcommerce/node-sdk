@@ -2,7 +2,7 @@
 
 ## Operations
 
-`getCatalog(organization, options)`
+##`getCatalog(organization, options)`
 
 ### Function Parameters
 

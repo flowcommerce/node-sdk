@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(options)`
+##`get(options)`
 
 
 ### Query Parameters
@@ -18,11 +18,11 @@
 | sort | string |  |
 | expand | [string] |  |
 
-`post(options)`
+##`post(options)`
 
 
 
-`getById(id, options)`
+##`getById(id, options)`
 
 ### Function Parameters
 
@@ -36,7 +36,7 @@
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
-`putById(id, options)`
+##`putById(id, options)`
 
 ### Function Parameters
 
@@ -45,7 +45,7 @@
 | id | string | Filter by one or more IDs of this resource |
 
 
-`deleteById(id, options)`
+##`deleteById(id, options)`
 
 ### Function Parameters
 
@@ -54,7 +54,7 @@
 | id | string | Filter by one or more IDs of this resource |
 
 
-`getVersions(options)`
+##`getVersions(options)`
 
 
 ### Query Parameters

@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(options)`
+##`get(options)`
 
 
 ### Query Parameters
@@ -15,20 +15,11 @@
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-`post(options)`
+##`post(options)`
 
 
 
-`getById(id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
-
-
-`putById(id, options)`
+##`getById(id, options)`
 
 ### Function Parameters
 
@@ -37,7 +28,7 @@
 | id | string | Filter by one or more IDs of this resource |
 
 
-`deleteById(id, options)`
+##`putById(id, options)`
 
 ### Function Parameters
 
@@ -46,7 +37,16 @@
 | id | string | Filter by one or more IDs of this resource |
 
 
-`getVersions(options)`
+##`deleteById(id, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`getVersions(options)`
 
 
 ### Query Parameters

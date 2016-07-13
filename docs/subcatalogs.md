@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(organization, options)`
+##`get(organization, options)`
 
 ### Function Parameters
 
@@ -20,7 +20,7 @@
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-`post(organization, options)`
+##`post(organization, options)`
 
 ### Function Parameters
 
@@ -29,17 +29,7 @@
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-`getByKey(organization, key, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-
-
-`putByKey(organization, key, options)`
+##`getByKey(organization, key, options)`
 
 ### Function Parameters
 
@@ -49,7 +39,7 @@
 | key | string |  |
 
 
-`deleteByKey(organization, key, options)`
+##`putByKey(organization, key, options)`
 
 ### Function Parameters
 
@@ -59,7 +49,17 @@
 | key | string |  |
 
 
-`postEventsByKeyAndEvent(organization, key, event, options)`
+##`deleteByKey(organization, key, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+
+##`postEventsByKeyAndEvent(organization, key, event, options)`
 
 ### Function Parameters
 
@@ -70,7 +70,7 @@
 | event | string |  |
 
 
-`getSettingsByKey(organization, key, options)`
+##`getSettingsByKey(organization, key, options)`
 
 ### Function Parameters
 
@@ -80,7 +80,7 @@
 | key | string |  |
 
 
-`putSettingsByKey(organization, key, options)`
+##`putSettingsByKey(organization, key, options)`
 
 ### Function Parameters
 
@@ -90,7 +90,7 @@
 | key | string |  |
 
 
-`getVersions(organization, options)`
+##`getVersions(organization, options)`
 
 ### Function Parameters
 

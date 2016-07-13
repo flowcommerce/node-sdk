@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(options)`
+##`get(options)`
 
 
 ### Query Parameters
@@ -18,7 +18,7 @@
 | sort | string |  |
 | expand | [string] |  |
 
-`getById(id, options)`
+##`getById(id, options)`
 
 ### Function Parameters
 
@@ -32,7 +32,7 @@
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
-`getVersions(options)`
+##`getVersions(options)`
 
 
 ### Query Parameters

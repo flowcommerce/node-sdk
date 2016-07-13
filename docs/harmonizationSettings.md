@@ -2,7 +2,7 @@
 
 ## Operations
 
-`get(organization, options)`
+##`get(organization, options)`
 
 ### Function Parameters
 
@@ -11,7 +11,7 @@
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-`put(organization, options)`
+##`put(organization, options)`
 
 ### Function Parameters
 

@@ -2,7 +2,7 @@
 
 ## Operations
 
-`getHealthcheck(options)`
+##`getHealthcheck(options)`
 
 
 
