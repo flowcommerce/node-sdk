@@ -1,5 +1,13 @@
 # [API](README.md).attributes - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const attributes = client().attributes;
+```
+
 ## Operations
 
 ##`get(organization, options)`

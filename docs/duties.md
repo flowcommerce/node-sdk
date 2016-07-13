@@ -1,5 +1,13 @@
 # [API](README.md).duties - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const duties = client().duties;
+```
+
 ## Operations
 
 ##`get(organization, origin, options)`

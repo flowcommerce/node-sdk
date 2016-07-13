@@ -1,5 +1,13 @@
 # [API](README.md).hs6 - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const hs6 = client().hs6;
+```
+
 ## Operations
 
 ##`get(organization, options)`

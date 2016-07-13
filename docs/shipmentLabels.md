@@ -1,5 +1,13 @@
 # [API](README.md).shipmentLabels - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const shipmentLabels = client().shipmentLabels;
+```
+
 ## Operations
 
 ##`get(organization, trackingNumber, options)`

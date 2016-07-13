@@ -1,5 +1,13 @@
 # [API](README.md).trackings - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const trackings = client().trackings;
+```
+
 ## Operations
 
 ##`get(options)`

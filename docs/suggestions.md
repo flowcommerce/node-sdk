@@ -1,5 +1,13 @@
 # [API](README.md).suggestions - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const suggestions = client().suggestions;
+```
+
 ## Operations
 
 ##`getCatalog(organization, options)`

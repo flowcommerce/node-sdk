@@ -1,5 +1,13 @@
 # [API](README.md).languages - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const languages = client().languages;
+```
+
 ## Operations
 
 ##`get(options)`

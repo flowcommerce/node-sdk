@@ -1,5 +1,13 @@
 # [API](README.md).memberships - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const memberships = client().memberships;
+```
+
 ## Operations
 
 ##`get(options)`

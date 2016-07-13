@@ -1,5 +1,13 @@
 # [API](README.md).experiences - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const experiences = client().experiences;
+```
+
 ## Operations
 
 ##`get(organization, options)`

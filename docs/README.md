@@ -2,101 +2,52 @@
 
 ## Resources
 
-[attributes](attributes.md)
-
-[catalogs](catalogs.md)
-
-[experiences](experiences.md)
-
-[items](items.md)
-
-[subcatalogs](subcatalogs.md)
-
-[subcatalogItems](subcatalogItems.md)
-
-[displays](displays.md)
-
-[functions](functions.md)
-
-[duties](duties.md)
-
-[harmonizationSettings](harmonizationSettings.md)
-
-[harmonizedItems](harmonizedItems.md)
-
-[harmonizedItemDuties](harmonizedItemDuties.md)
-
-[hs10](hs10.md)
-
-[hs6](hs6.md)
-
-[taxes](taxes.md)
-
-[authorizations](authorizations.md)
-
-[captures](captures.md)
-
-[cards](cards.md)
-
-[refunds](refunds.md)
-
-[bookings](bookings.md)
-
-[carriers](carriers.md)
-
-[carrierAccounts](carrierAccounts.md)
-
-[centers](centers.md)
-
-[deliveryWindows](deliveryWindows.md)
-
-[events](events.md)
-
-[labels](labels.md)
-
-[lanes](lanes.md)
-
-[quotes](quotes.md)
-
-[services](services.md)
-
-[shipments](shipments.md)
-
-[shipmentLabels](shipmentLabels.md)
-
-[tiers](tiers.md)
-
-[trackings](trackings.md)
-
-[countries](countries.md)
-
-[currencies](currencies.md)
-
-[languages](languages.md)
-
-[timezones](timezones.md)
-
-[documents](documents.md)
-
-[emailVerifications](emailVerifications.md)
-
-[healthchecks](healthchecks.md)
-
-[invitations](invitations.md)
-
-[locations](locations.md)
-
-[memberships](memberships.md)
-
-[organizations](organizations.md)
-
-[passwordResetForms](passwordResetForms.md)
-
-[suggestions](suggestions.md)
-
-[tokens](tokens.md)
-
-[users](users.md)
-
-[validations](validations.md)
-
+- [attributes](attributes.md)
+- [catalogs](catalogs.md)
+- [experiences](experiences.md)
+- [items](items.md)
+- [subcatalogs](subcatalogs.md)
+- [subcatalogItems](subcatalogItems.md)
+- [displays](displays.md)
+- [functions](functions.md)
+- [duties](duties.md)
+- [harmonizationSettings](harmonizationSettings.md)
+- [harmonizedItems](harmonizedItems.md)
+- [harmonizedItemDuties](harmonizedItemDuties.md)
+- [hs10](hs10.md)
+- [hs6](hs6.md)
+- [taxes](taxes.md)
+- [authorizations](authorizations.md)
+- [captures](captures.md)
+- [cards](cards.md)
+- [refunds](refunds.md)
+- [bookings](bookings.md)
+- [carriers](carriers.md)
+- [carrierAccounts](carrierAccounts.md)
+- [centers](centers.md)
+- [deliveryWindows](deliveryWindows.md)
+- [events](events.md)
+- [labels](labels.md)
+- [lanes](lanes.md)
+- [quotes](quotes.md)
+- [services](services.md)
+- [shipments](shipments.md)
+- [shipmentLabels](shipmentLabels.md)
+- [tiers](tiers.md)
+- [trackings](trackings.md)
+- [countries](countries.md)
+- [currencies](currencies.md)
+- [languages](languages.md)
+- [timezones](timezones.md)
+- [documents](documents.md)
+- [emailVerifications](emailVerifications.md)
+- [healthchecks](healthchecks.md)
+- [invitations](invitations.md)
+- [locations](locations.md)
+- [memberships](memberships.md)
+- [organizations](organizations.md)
+- [passwordResetForms](passwordResetForms.md)
+- [suggestions](suggestions.md)
+- [tokens](tokens.md)
+- [users](users.md)
+- [validations](validations.md)

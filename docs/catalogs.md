@@ -1,5 +1,13 @@
 # [API](README.md).catalogs - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const catalogs = client().catalogs;
+```
+
 ## Operations
 
 ##`getCatalog(organization, options)`

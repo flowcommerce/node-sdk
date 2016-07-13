@@ -1,5 +1,13 @@
 # [API](README.md).harmonizedItemDuties - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const harmonizedItemDuties = client().harmonizedItemDuties;
+```
+
 ## Operations
 
 ##`get(organization, options)`

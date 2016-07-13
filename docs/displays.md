@@ -1,5 +1,13 @@
 # [API](README.md).displays - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const displays = client().displays;
+```
+
 ## Operations
 
 ##`get(organization, options)`

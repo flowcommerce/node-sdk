@@ -1,5 +1,13 @@
 # [API](README.md).centers - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const centers = client().centers;
+```
+
 ## Operations
 
 ##`get(organization, options)`

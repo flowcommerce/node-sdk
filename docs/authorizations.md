@@ -1,5 +1,13 @@
 # [API](README.md).authorizations - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const authorizations = client().authorizations;
+```
+
 ## Operations
 
 ##`get(organization, options)`

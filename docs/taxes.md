@@ -1,5 +1,13 @@
 # [API](README.md).taxes - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const taxes = client().taxes;
+```
+
 ## Operations
 
 ##`get(organization, options)`

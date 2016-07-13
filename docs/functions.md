@@ -1,5 +1,13 @@
 # [API](README.md).functions - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const functions = client().functions;
+```
+
 ## Operations
 
 ##`get(organization, options)`

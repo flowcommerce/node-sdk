@@ -1,5 +1,13 @@
 # [API](README.md).currencies - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const currencies = client().currencies;
+```
+
 ## Operations
 
 ##`get(options)`

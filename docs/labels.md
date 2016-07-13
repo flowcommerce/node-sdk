@@ -1,5 +1,13 @@
 # [API](README.md).labels - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const labels = client().labels;
+```
+
 ## Operations
 
 ##`get(options)`

@@ -1,5 +1,13 @@
 # [API](README.md).subcatalogs - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const subcatalogs = client().subcatalogs;
+```
+
 ## Operations
 
 ##`get(organization, options)`

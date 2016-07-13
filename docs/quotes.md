@@ -1,5 +1,13 @@
 # [API](README.md).quotes - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const quotes = client().quotes;
+```
+
 ## Operations
 
 ##`get(organization, options)`

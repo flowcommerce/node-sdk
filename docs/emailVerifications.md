@@ -1,5 +1,13 @@
 # [API](README.md).emailVerifications - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const emailVerifications = client().emailVerifications;
+```
+
 ## Operations
 
 ##`postByToken(token, options)`

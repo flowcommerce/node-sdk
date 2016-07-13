@@ -1,5 +1,13 @@
 # [API](README.md).lanes - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const lanes = client().lanes;
+```
+
 ## Operations
 
 ##`get(options)`

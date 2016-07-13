@@ -1,5 +1,13 @@
 # [API](README.md).tokens - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const tokens = client().tokens;
+```
+
 ## Operations
 
 ##`get(options)`

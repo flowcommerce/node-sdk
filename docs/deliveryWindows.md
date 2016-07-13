@@ -1,5 +1,13 @@
 # [API](README.md).deliveryWindows - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const deliveryWindows = client().deliveryWindows;
+```
+
 ## Operations
 
 ##`getSummary(organization, options)`

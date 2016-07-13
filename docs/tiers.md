@@ -1,5 +1,13 @@
 # [API](README.md).tiers - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const tiers = client().tiers;
+```
+
 ## Operations
 
 ##`get(organization, options)`

@@ -1,5 +1,13 @@
 # [API](README.md).events - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const events = client().events;
+```
+
 ## Operations
 
 ##`get(options)`

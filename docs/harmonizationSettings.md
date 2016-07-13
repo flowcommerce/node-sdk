@@ -1,5 +1,13 @@
 # [API](README.md).harmonizationSettings - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const harmonizationSettings = client().harmonizationSettings;
+```
+
 ## Operations
 
 ##`get(organization, options)`

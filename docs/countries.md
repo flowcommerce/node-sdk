@@ -1,5 +1,13 @@
 # [API](README.md).countries - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const countries = client().countries;
+```
+
 ## Operations
 
 ##`get(options)`

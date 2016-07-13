@@ -1,5 +1,13 @@
 # [API](README.md).carrierAccounts - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const carrierAccounts = client().carrierAccounts;
+```
+
 ## Operations
 
 ##`get(organization, options)`

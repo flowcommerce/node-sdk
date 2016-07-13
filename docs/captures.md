@@ -1,5 +1,13 @@
 # [API](README.md).captures - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const captures = client().captures;
+```
+
 ## Operations
 
 ##`get(organization, options)`

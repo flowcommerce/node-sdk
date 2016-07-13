@@ -1,5 +1,13 @@
 # [API](README.md).bookings - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const bookings = client().bookings;
+```
+
 ## Operations
 
 ##`get(organization, options)`

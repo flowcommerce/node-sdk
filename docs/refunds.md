@@ -1,5 +1,13 @@
 # [API](README.md).refunds - Flow Commerce API - Node SDK Documentation
 
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const refunds = client().refunds;
+```
+
 ## Operations
 
 ##`get(organization, options)`
