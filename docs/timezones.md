@@ -1,5 +1,7 @@
 # [API](README.md).timezones - Flow Commerce API - Node SDK Documentation
 
+Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones
+
 ## Usage
 
 ```JavaScript

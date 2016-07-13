@@ -1,5 +1,7 @@
 # [API](README.md).hs6 - Flow Commerce API - Node SDK Documentation
 
+API to fetch HS-6 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item.
+
 ## Usage
 
 ```JavaScript

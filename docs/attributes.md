@@ -1,5 +1,7 @@
 # [API](README.md).attributes - Flow Commerce API - Node SDK Documentation
 
+An attribute represents applicable item data made available on specific UI elements (e.g. require &#x27;Brand&#x27;)
+
 ## Usage
 
 ```JavaScript

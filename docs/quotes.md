@@ -1,5 +1,7 @@
 # [API](README.md).quotes - Flow Commerce API - Node SDK Documentation
 
+Represents a collection of deliveries and available options for fulfillment of that delivery
+
 ## Usage
 
 ```JavaScript

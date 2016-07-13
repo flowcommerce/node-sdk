@@ -1,5 +1,7 @@
 # [API](README.md).emailVerifications - Flow Commerce API - Node SDK Documentation
 
+Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified.
+
 ## Usage
 
 ```JavaScript

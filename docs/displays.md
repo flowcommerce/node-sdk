@@ -1,5 +1,7 @@
 # [API](README.md).displays - Flow Commerce API - Node SDK Documentation
 
+Defines elements of a localized cost available for display (e.g on a localized product page or checkout)
+
 ## Usage
 
 ```JavaScript

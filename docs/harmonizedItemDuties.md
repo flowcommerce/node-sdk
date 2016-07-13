@@ -1,5 +1,7 @@
 # [API](README.md).harmonizedItemDuties - Flow Commerce API - Node SDK Documentation
 
+Used to specifically set an item&#x27;s duty rate for a given trade lane.
+
 ## Usage
 
 ```JavaScript

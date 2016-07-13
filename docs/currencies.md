@@ -1,5 +1,7 @@
 # [API](README.md).currencies - Flow Commerce API - Node SDK Documentation
 
+ISO 4217 3-character currency code. See http://www.xe.com/iso4217.php
+
 ## Usage
 
 ```JavaScript

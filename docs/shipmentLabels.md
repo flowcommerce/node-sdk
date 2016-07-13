@@ -1,5 +1,7 @@
 # [API](README.md).shipmentLabels - Flow Commerce API - Node SDK Documentation
 
+Top-level information on shipment tracking shipment_label and number
+
 ## Usage
 
 ```JavaScript

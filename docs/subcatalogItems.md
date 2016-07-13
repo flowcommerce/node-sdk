@@ -1,5 +1,7 @@
 # [API](README.md).subcatalogItems - Flow Commerce API - Node SDK Documentation
 
+
+
 ## Usage
 
 ```JavaScript

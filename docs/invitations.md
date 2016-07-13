@@ -1,5 +1,7 @@
 # [API](README.md).invitations - Flow Commerce API - Node SDK Documentation
 
+An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization.
+
 ## Usage
 
 ```JavaScript

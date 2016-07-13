@@ -1,5 +1,7 @@
 # [API](README.md).services - Flow Commerce API - Node SDK Documentation
 
+Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc)
+
 ## Usage
 
 ```JavaScript

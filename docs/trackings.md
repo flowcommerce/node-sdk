@@ -1,5 +1,7 @@
 # [API](README.md).trackings - Flow Commerce API - Node SDK Documentation
 
+Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number
+
 ## Usage
 
 ```JavaScript

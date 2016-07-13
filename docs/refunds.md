@@ -1,5 +1,7 @@
 # [API](README.md).refunds - Flow Commerce API - Node SDK Documentation
 
+Refunds are used to issue refunds against a prior capture.
+
 ## Usage
 
 ```JavaScript

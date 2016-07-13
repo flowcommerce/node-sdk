@@ -1,5 +1,7 @@
 # [API](README.md).centers - Flow Commerce API - Node SDK Documentation
 
+Represents a facility capable of fulfilling a shipment
+
 ## Usage
 
 ```JavaScript

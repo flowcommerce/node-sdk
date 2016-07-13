@@ -1,5 +1,7 @@
 # [API](README.md).functions - Flow Commerce API - Node SDK Documentation
 
+Prioritized calculation yielding a localized price (also allows for custom defined price function)
+
 ## Usage
 
 ```JavaScript

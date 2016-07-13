@@ -1,5 +1,7 @@
 # [API](README.md).carriers - Flow Commerce API - Node SDK Documentation
 
+Partner that actually take a shipment between places (ex: FedEx, DHL, SF Express)
+
 ## Usage
 
 ```JavaScript

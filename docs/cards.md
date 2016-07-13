@@ -1,5 +1,7 @@
 # [API](README.md).cards - Flow Commerce API - Node SDK Documentation
 
+Card represents the metadata about a secure, tokenized card. The card &#x27;id&#x27; is a unique, cryptographically secure token by which this card can be identified in the future.
+
 ## Usage
 
 ```JavaScript

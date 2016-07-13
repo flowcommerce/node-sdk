@@ -1,5 +1,7 @@
 # [API](README.md).lanes - Flow Commerce API - Node SDK Documentation
 
+Available origin/destination mapping and available metadata for lanes of a carrier Service. e.g. UPS Ground only US-US, UPS Intl only US-Intl, etc
+
 ## Usage
 
 ```JavaScript

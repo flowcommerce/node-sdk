@@ -1,5 +1,7 @@
 # [API](README.md).tokens - Flow Commerce API - Node SDK Documentation
 
+All of the metadata associated with a given token.
+
 ## Usage
 
 ```JavaScript

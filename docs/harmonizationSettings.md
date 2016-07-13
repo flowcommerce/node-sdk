@@ -1,5 +1,7 @@
 # [API](README.md).harmonizationSettings - Flow Commerce API - Node SDK Documentation
 
+Organization level settings.
+
 ## Usage
 
 ```JavaScript

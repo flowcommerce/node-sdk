@@ -1,5 +1,7 @@
 # [API](README.md).duties - Flow Commerce API - Node SDK Documentation
 
+Represents a simple model of duties that apply to a given item / trade lane.
+
 ## Usage
 
 ```JavaScript

@@ -1,5 +1,7 @@
 # [API](README.md).experiences - Flow Commerce API - Node SDK Documentation
 
+Properties that define a customized local experience for a given country
+
 ## Usage
 
 ```JavaScript

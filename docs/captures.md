@@ -1,5 +1,7 @@
 # [API](README.md).captures - Flow Commerce API - Node SDK Documentation
 
+Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires).
+
 ## Usage
 
 ```JavaScript

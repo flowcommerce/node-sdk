@@ -1,5 +1,7 @@
 # [API](README.md).labels - Flow Commerce API - Node SDK Documentation
 
+Represents a specific label being tracked as part of the tracking bucket
+
 ## Usage
 
 ```JavaScript

@@ -1,5 +1,7 @@
 # [API](README.md).memberships - Flow Commerce API - Node SDK Documentation
 
+Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization
+
 ## Usage
 
 ```JavaScript

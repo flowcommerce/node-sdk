@@ -1,5 +1,7 @@
 # [API](README.md).tiers - Flow Commerce API - Node SDK Documentation
 
+Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier
+
 ## Usage
 
 ```JavaScript

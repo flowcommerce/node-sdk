@@ -1,5 +1,7 @@
 # [API](README.md).bookings - Flow Commerce API - Node SDK Documentation
 
+Represents second step of two-step purchase of Flow services.
+
 ## Usage
 
 ```JavaScript

@@ -1,5 +1,7 @@
 # [API](README.md).harmonizedItems - Flow Commerce API - Node SDK Documentation
 
+A harmonized item stores explicit information about this item for the purposes of harmonization / classification. The harmonization process begins by creating a harmonized item; this kicks off the internal processes. Once assigned, codes will be available via the hs6 and hs10 resources
+
 ## Usage
 
 ```JavaScript

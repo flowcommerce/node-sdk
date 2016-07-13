@@ -1,5 +1,7 @@
 # [API](README.md).authorizations - Flow Commerce API - Node SDK Documentation
 
+An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization.
+
 ## Usage
 
 ```JavaScript

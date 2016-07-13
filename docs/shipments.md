@@ -1,5 +1,7 @@
 # [API](README.md).shipments - Flow Commerce API - Node SDK Documentation
 
+Represents a subset of items from an order grouped into a single physical shipment. Flow provides a generated tracking number to track this shipment across multiple possible hops and carriers.
+
 ## Usage
 
 ```JavaScript

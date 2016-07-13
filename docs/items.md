@@ -1,5 +1,7 @@
 # [API](README.md).items - Flow Commerce API - Node SDK Documentation
 
+The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku.
+
 ## Usage
 
 ```JavaScript

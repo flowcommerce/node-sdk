@@ -1,5 +1,7 @@
 # [API](README.md).carrierAccounts - Flow Commerce API - Node SDK Documentation
 
+carrier_account an organization has with a carrier, including credentials. A carrier can have multiple carrier_accounts with a single carrier, each with their own set of credentials. This represents the many-to-many relationship between organizations and carriers.
+
 ## Usage
 
 ```JavaScript

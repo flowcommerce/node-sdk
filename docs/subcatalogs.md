@@ -1,5 +1,7 @@
 # [API](README.md).subcatalogs - Flow Commerce API - Node SDK Documentation
 
+A configuration with custom query to select a subset of master catalog items for a localized experience
+
 ## Usage
 
 ```JavaScript
