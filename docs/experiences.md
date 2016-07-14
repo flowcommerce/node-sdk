@@ -99,7 +99,7 @@ const experiences = client().experiences;
 | from_country | string |  |
 | ip | string |  |
 | currency | string |  |
-| language | string | iso_639_2 language code as defined in http://reference.api.flow.io/languages |
+| language | string | iso_639_2 language code as defined in https://api.flow.io/reference/languages |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

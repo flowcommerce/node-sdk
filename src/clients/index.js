@@ -34,6 +34,7 @@ import Trackings from './trackings';
 import Countries from './countries';
 import Currencies from './currencies';
 import Languages from './languages';
+import Regions from './regions';
 import Timezones from './timezones';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
@@ -86,6 +87,7 @@ export default class ApiClient {
     this.countries = new Countries(host, auth, headers);
     this.currencies = new Currencies(host, auth, headers);
     this.languages = new Languages(host, auth, headers);
+    this.regions = new Regions(host, auth, headers);
     this.timezones = new Timezones(host, auth, headers);
     this.documents = new Documents(host, auth, headers);
     this.email_verifications = new EmailVerifications(host, auth, headers);

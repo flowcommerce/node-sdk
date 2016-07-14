@@ -40,6 +40,7 @@
 | [countries](countries.md) |  |
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See http://www.xe.com/iso4217.php |
 | [languages](languages.md) | ISO 639 2-character language code. See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes |
+| [regions](regions.md) |  |
 | [timezones](timezones.md) | Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
