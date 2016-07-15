@@ -4,7 +4,7 @@ Node SDK for the Flow Commerce API.
 
 # Documentation / API
 
-Coming Soon.
+See [API Resources](docs/README.md)
 
 # Development / Release
 
