@@ -30,7 +30,7 @@ make and authenticated request with JavaScript.
 import client from '@flowio/node-sdk';
 
 const api = client();
-const token = process.env.FLOW_IO_API_TOKEN;
+const token = process.env.FLOW_TOKEN;
 
 api.organizations.get({
   headers: {
@@ -67,7 +67,7 @@ api.organizations.get({...})
 ```
 
 Next the syntax for the client is `client.{resource}.{method}`. You can find a
-list of resources and their methods [here](docs/README.me). The parameters for
+list of resources and their methods [here](docs/README.md). The parameters for
 each resource method can vary, so be sure to pay attention to the docs to see
 what is required.
 
@@ -86,7 +86,7 @@ implementation. The following are the most common options:
 | :------ | :----- | :---------- |
 | params  | Object | An object of `paramName`:`paramValue` used as query parameters in the request.
 | body    | string | A JSON string representation of the body, e.g, `JSON.stringify(model_form)`.
-| headers | Object | Used for Basic Authentication and any custom headers that may be required as documented for each method of the API.
+| headers | Object | Used for Basic Authentication.
 
 ```JavaScript
 }).then((response) => {
@@ -104,7 +104,7 @@ implementation. The following are the most common options:
 
 Each method of the SDK returns a `Promise` of the response. The response will
 contain two properties: `status` and `result`. `response.status` is the HTTP
-status code of the response. `response.result` is the data returned by the api.
+status code of the response. `response.result` contains the data returned by the api.
 While switch statements are usually frowned upon, at Flow we feel it is critical
 to handle every known response from an API to prevent unexpected behavior. We
 also do not want to make assumptions on how you may wish to handle those
