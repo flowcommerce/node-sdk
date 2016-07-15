@@ -1,5 +1,8 @@
 # Flow Commerce API - Node SDK Documentation
 
+These resources mirror the official documentation located at
+[docs.flow.io](https://docs.flow.io).
+
 ## Resources
 
 | Resource | Description |
