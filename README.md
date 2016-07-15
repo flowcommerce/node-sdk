@@ -2,6 +2,10 @@
 
 Node SDK for the Flow Commerce API.
 
+# Installation
+
+    npm install @flowio/node-sdk
+
 # Documentation / API
 
 The official documentation can be found at [docs.flow.io](https://docs.flow.io).
@@ -80,7 +84,7 @@ implementation. The following are the most common options:
 
 | option  | Type   | Description |
 | :------ | :----- | :---------- |
-| params  | Object | An object of `paramName`:`paramValue` used at query parameters in the request.
+| params  | Object | An object of `paramName`:`paramValue` used as query parameters in the request.
 | body    | string | A JSON string representation of the body, e.g, `JSON.stringify(model_form)`.
 | headers | Object | Used for Basic Authentication and any custom headers that may be required as documented for each method of the API.
 
