@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "pregenerate": "curl http://api.apidoc.me/flow/api/latest > api.service.json",
-    "generate": "rm -rf ./src/* && babel-node sync",
+    "generate": "rm -rf ./src/clients/* && babel-node sync",
     "prepublish": "babel src --out-dir lib",
     "postpublish": "rm -rf lib",
     "test": "eslint src && mocha --compilers js:babel-core/register --recursive"
@@ -26,7 +26,7 @@
   "devDependencies": {
     "@flowio/babel-preset-flowio": "1.0.2",
     "@flowio/eslint-config-flowio": "2.0.0",
-    "@flowio/lib-apidoc": "1.5.0",
+    "@flowio/lib-apidoc": "1.5.3",
     "babel-cli": "6.10.1",
     "babel-core": "6.10.4",
     "babel-eslint": "6.1.2",
@@ -35,6 +35,8 @@
     "eslint-plugin-jsx-a11y": "1.5.5",
     "eslint-plugin-react": "5.2.2",
     "expect": "1.20.2",
+    "handlebars": "4.0.5",
+    "lodash": "4.13.1",
     "mocha": "2.5.3",
     "node-fetch": "1.5.3"
   },

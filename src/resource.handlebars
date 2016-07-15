@@ -1,0 +1,38 @@
+# [API](README.md).{{name}} - Flow Commerce API - Node SDK Documentation
+
+{{description}}
+
+## Usage
+
+```JavaScript
+import client from '@flowio/node-sdk';
+
+const {{name}} = client().{{name}};
+```
+
+## Operations
+
+{{#operations}}
+##`{{name}}({{parameterString}})`
+
+{{#hasParametersPath}}
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+{{#parametersPath}}
+| {{name}} | {{type}} | {{description}} |
+{{/parametersPath}}
+{{/hasParametersPath}}
+
+{{#hasParametersQuery}}
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+{{#parametersQuery}}
+| {{name}} | {{type}} | {{description}} |
+{{/parametersQuery}}
+{{/hasParametersQuery}}
+
+{{/operations}}

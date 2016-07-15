@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "info": {
     "license": {
       "name": "MIT",
@@ -1244,7 +1244,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://reference.api.flow.io/currencies",
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "USD"
         },
         {
@@ -1260,6 +1260,14 @@
           "required": false,
           "attributes": [],
           "description": "Shipping address, if relevant"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
         },
         {
           "name": "details",
@@ -1349,7 +1357,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://reference.api.flow.io/currencies",
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "USD"
         },
         {
@@ -1372,6 +1380,14 @@
           "required": false,
           "attributes": [],
           "description": "Shipping address, if relevant"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
         }
       ],
       "attributes": [],
@@ -1600,7 +1616,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://reference.api.flow.io/currencies",
+          "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "USD"
         }
       ],
@@ -1637,7 +1653,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://reference.api.flow.io/currencies",
+          "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "USD"
         }
       ],
@@ -1711,7 +1727,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "Cardholder name"
+          "description": "Cardholder name. This field is optional as many banks do not require the card holder name. But note there are payment types that do require the card holder name; In these cases Flow uses defaults based on recommendations by the payment processors. When possible, we recommend capturing and providing the cardholder name as it can improve acceptance rates."
         },
         {
           "name": "address",
@@ -1759,7 +1775,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "Cardholder name"
+          "description": "Cardholder name. This field is optional as many banks do not require the card holder name. But note there are payment types that do require the card holder name; In these cases Flow uses defaults based on recommendations by the payment processors. When possible, we recommend capturing and providing the cardholder name as it can improve acceptance rates."
         },
         {
           "name": "address",
@@ -3134,7 +3150,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "iso_3166_3 currency code as defined in http://reference.api.flow.io/countries",
+          "description": "iso_3166_3 currency code as defined in https://api.flow.io/reference/countries",
           "example": "USA"
         },
         {
@@ -3142,7 +3158,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "description": "iso_4217_3 currency code as defined in https://api.flow.io/reference/currencies",
           "example": "usd"
         },
         {
@@ -3150,7 +3166,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "iso_639_2 language code as defined in http://reference.api.flow.io/languages",
+          "description": "iso_639_2 language code as defined in https://api.flow.io/reference/languages",
           "example": "en"
         },
         {
@@ -3184,7 +3200,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "iso_3166_3 currency code as defined in http://reference.api.flow.io/countries",
+          "description": "iso_3166_3 currency code as defined in https://api.flow.io/reference/countries",
           "minimum": 3,
           "maximum": 3,
           "example": "USA"
@@ -3201,7 +3217,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "description": "iso_4217_3 currency code as defined in https://api.flow.io/reference/currencies",
           "minimum": 3,
           "maximum": 3,
           "example": "usd"
@@ -3211,7 +3227,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "iso_639_2 language code as defined in http://reference.api.flow.io/languages",
+          "description": "iso_639_2 language code as defined in https://api.flow.io/reference/languages",
           "example": "en"
         },
         {
@@ -3271,7 +3287,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://reference.api.flow.io/currencies",
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "USD"
         },
         {
@@ -3279,7 +3295,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "The ISO 3166-3 code for the destination country. Case insensitive. See https://reference.api.flow.io/countries",
+          "description": "The ISO 3166-3 code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
           "example": "USA"
         }
       ],
@@ -3399,7 +3415,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "The country of origin as a iso_4217_3 currency code. See http://reference.api.flow.io/countries",
+          "description": "The country of origin as a iso_4217_3 currency code. See https://api.flow.io/reference/countries",
           "minimum": 3,
           "maximum": 3,
           "example": "USA"
@@ -3742,7 +3758,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO 3166 2 or 3 character code for the country of origin. Case insensitive. See https://reference.api.flow.io/countries",
+          "description": "The ISO 3166 2 or 3 character code for the country of origin. Case insensitive. See https://api.flow.io/reference/countries",
           "example": "USA"
         },
         {
@@ -3750,7 +3766,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO 3166 2 or 3 character code for the destination country. Case insensitive. See https://reference.api.flow.io/countries",
+          "description": "The ISO 3166 2 or 3 character code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
           "example": "CAN"
         },
         {
@@ -4397,7 +4413,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "description": "iso_4217_3 currency code as defined in https://api.flow.io/reference/currencies",
           "example": "usd"
         },
         {
@@ -4714,14 +4730,14 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Origin country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://reference.api.flow.io/countries."
+          "description": "Origin country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries."
         },
         {
           "name": "destination",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Destination country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://reference.api.flow.io/countries"
+          "description": "Destination country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries"
         },
         {
           "name": "window",
@@ -4777,7 +4793,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Origin country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://reference.api.flow.io/countries",
+          "description": "Origin country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
           "example": "USA"
         },
         {
@@ -4785,7 +4801,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Destination country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://reference.api.flow.io/countries",
+          "description": "Destination country for a shipment. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
           "example": "USA"
         },
         {
@@ -4980,7 +4996,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "The ISO 3166-3 country code. Case insensitive. See https://reference.api.flow.io/countries",
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
           "example": "USA"
         },
         {
@@ -5561,7 +5577,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "description": "iso_4217_3 currency code as defined in https://api.flow.io/reference/currencies",
           "example": "usd"
         },
         {
@@ -5749,7 +5765,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://reference.api.flow.io/currencies",
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "USD"
         }
       ],
@@ -5787,7 +5803,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Required if amount is specified. Case insensitive. Note you will get an error if the currency does not match the related authrization's currency. See https://reference.api.flow.io/currencies",
+          "description": "The ISO 4217-3 code for the currency. Required if amount is specified. Case insensitive. Note you will get an error if the currency does not match the related authrization's currency. See https://api.flow.io/reference/currencies",
           "example": "USD"
         }
       ],
@@ -5822,6 +5838,60 @@
           "type": "refund",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "region",
+      "plural": "regions",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "United States of America"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The 3 character, upper case code uniquely identifying this region. If the region is a country, the code will be the same as the country's ISO 3166 3-character code. See https://api.flow.io/regions",
+          "example": "USA or EUZ"
+        },
+        {
+          "name": "countries",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A list of the countries in this region",
+          "minimum": 1
+        },
+        {
+          "name": "currencies",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A list of the currencies in this region",
+          "minimum": 0
+        },
+        {
+          "name": "languages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A list of the languages in this region",
+          "minimum": 0
+        },
+        {
+          "name": "measurement_systems",
+          "type": "[measurement_system]",
+          "required": true,
+          "attributes": [],
+          "description": "A list of the measurement systems in use in this region",
+          "minimum": 0
         }
       ],
       "attributes": []
@@ -8148,7 +8218,7 @@
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "iso_639_2 language code as defined in http://reference.api.flow.io/languages",
+              "description": "iso_639_2 language code as defined in https://api.flow.io/reference/languages",
               "example": "en"
             },
             {
@@ -18484,6 +18554,56 @@
       ],
       "path": "/languages",
       "description": "ISO 639 2-character language code. See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+    },
+    {
+      "type": "region",
+      "plural": "regions",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/regions",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search on name for a single matching region. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[region]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns a list of regions."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "reference"
+          }
+        }
+      ],
+      "path": "/regions"
     },
     {
       "type": "timezone",
