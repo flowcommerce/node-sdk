@@ -2,11 +2,11 @@
 
 Node SDK for the Flow Commerce API.
 
-# Installation
+## Installation
 
     npm install @flowio/node-sdk
 
-# Documentation / API
+## Documentation / API
 
 The official documentation can be found at [docs.flow.io](https://docs.flow.io).
 This will cover in detail all of the resources of the api.
@@ -14,14 +14,14 @@ This will cover in detail all of the resources of the api.
 See [API Resources](docs/README.md) for the documentation of the Node SDK API
 and its functions.
 
-## Getting Started
+### Getting Started
 
-### Authentication
+#### Authentication
 
 Visit [console.flow.io](https://console.flow.io) to create an account and
 generate an API key.
 
-### Making an authenticated request
+#### Making an authenticated request
 
 Most requests to `api.flow.io` require _Basic Authentication_. Here is how to
 make and authenticated request with JavaScript.
@@ -49,7 +49,7 @@ api.organizations.get({
 });
 ```
 
-### Anatomy
+#### Anatomy
 
 Let's break down the example above!
 
@@ -112,11 +112,11 @@ responses. The pattern we recommend adopting is to explicitly handle each
 response code that is documented in the API.
 
 
-### Getting Help
+#### Getting Help
 
 We are in the process of setting up a slack channel. In the interim,
 please feel free to open an issue on this github repository.
 
-# Development / Release
+## Development / Release
 
 See [DEVELOPER](DEVELOPER.md).
