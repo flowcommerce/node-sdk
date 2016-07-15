@@ -104,12 +104,21 @@ implementation. The following are the most common options:
 
 Each method of the SDK returns a `Promise` of the response. The response will
 contain two properties: `status` and `result`. `response.status` is the HTTP
-status code of the response. `response.result` contains the data returned by the api.
-While switch statements are usually frowned upon, at Flow we feel it is critical
-to handle every known response from an API to prevent unexpected behavior. We
-also do not want to make assumptions on how you may wish to handle those
-responses. The pattern we recommend adopting is to explicitly handle each
-response code that is documented in the API.
+status code of the response. `response.result` contains the data returned by
+the api. At Flow we feel it is critical to handle every known response from an
+API to prevent unexpected behavior. We also do not want to make assumptions on
+how you may wish to handle those responses. The pattern we recommend adopting
+is to explicitly handle each response code that is documented in the API.
+
+**Common HTTP Response Codes**
+
+| Code  | Description |
+| :---- | :---------- |
+| 200	  | HTTP response completed successfully. Common with GET, PUT |
+| 201	  | HTTP response completed successfully and a resource was created. Common with POST |
+| 204   |	HTTP response completed successfully and there is no content to return. Common with DELETE |
+| 404	  | Resource not found. Common with GET, PUT, and DELETE (when specifying :id of resource) |
+| 422	  | Validation error of some kind. Body will be a list of type error with specific details |
 
 
 #### Getting Help
