@@ -73,7 +73,16 @@ what is required.
   },
 ```
 
-Whatever the parameters for a method, it always ends with an options parameter. `fetch` is used under the hood, so any thing you add to the `options` object will be forwarded to the underlying [node-fetch](https://github.com/bitinn/node-fetch) implementation. The following are the most common options:
+Whatever the parameters for a method, it always ends with an options parameter.
+`fetch` is used under the hood, so anything you add to the `options` object will
+be forwarded to the underlying [node-fetch](https://github.com/bitinn/node-fetch)
+implementation. The following are the most common options:
+
+| option  | Type   | Description |
+| :------ | :----- | :---------- |
+| params  | Object | An object of `paramName`:`paramValue` used at query parameters in the request.
+| body    | string | A JSON string representation of the body, e.g, `JSON.stringify(model_form)`.
+| headers | Object | Used for Basic Authentication and any custom headers that may be required as documented for each method of the API.
 
 ```JavaScript
 }).then((response) => {
@@ -89,19 +98,15 @@ Whatever the parameters for a method, it always ends with an options parameter. 
 });
 ```
 
-Each method of the SDK returns a `Promise`. The response will contain two
-properties: `status` and `result`. `response.status` is the HTTP status code of
-the response. `response.result` is the data returned by the api. While switch
-statements are usually frowned upon, at Flow we feel it is critical to handle
-ever known response from an API to prevent unexpected behavior. The pattern we
-recommend adopting is to explicitly handle each response code that is documented
-in the API.
+Each method of the SDK returns a `Promise` of the response. The response will
+contain two properties: `status` and `result`. `response.status` is the HTTP
+status code of the response. `response.result` is the data returned by the api.
+While switch statements are usually frowned upon, at Flow we feel it is critical
+to handle every known response from an API to prevent unexpected behavior. We
+also do not want to make assumptions on how you may wish to handle those
+responses. The pattern we recommend adopting is to explicitly handle each
+response code that is documented in the API.
 
-| option  | Type   | Description |
-| :------ | :----- | :---------- |
-| params  | Object | An object of `paramName`:`paramValue` used at query parameters in the request.
-| body    | string | A JSON string representation of the body, e.g, `JSON.stringify(model_form)`.
-| headers | Object | Used for Basic Authentication and any custom headers that may be required as documented for each method of the API.
 
 ### Getting Help
 
