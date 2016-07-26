@@ -1,14 +1,13 @@
 import Client from './client';
 
 export default class SubcatalogItems extends Client {
-  constructor(host, auth, headers) {
-    super({
-      serviceName: 'API',
-    });
-
-    this.host = host;
-    this.auth = auth;
-    this.headers = headers;
+  constructor(opts) {
+    let options = opts;
+    if (typeof opts === 'string') {
+      options = { host: opts }; // convert host string to options object
+    }
+    options.serviceName = 'API';
+    super(options);
   }
 
   get(organization, subcatalogId, options) {

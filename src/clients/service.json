@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.57",
+  "version": "0.0.58",
   "info": {
     "license": {
       "name": "MIT",
@@ -5903,7 +5903,7 @@
       "fields": [
         {
           "name": "dimensions",
-          "type": "[dimension]",
+          "type": "dimensions",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -8967,7 +8967,96 @@
               "value": {}
             }
           ],
-          "description": "Compose items and prices. Always paginated."
+          "description": "Returns information about 1 or more items, localized based on the query parameters"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/items/:number",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will render the items in the context of the experience with this key."
+            },
+            {
+              "name": "destination",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "from_country",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "language",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
+              "example": "en"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about this item localized based on the query parameters"
         },
         {
           "method": "GET",
