@@ -1,13 +1,13 @@
-# [API](README.md).bookings - Flow Commerce API - Node SDK Documentation
+# [API](README.md).inventoryRules - Flow Commerce API - Node SDK Documentation
 
-Represents second step of two-step purchase of Flow services.
+Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const bookings = client().bookings;
+const inventoryRules = client().inventoryRules;
 ```
 
 ## Operations
@@ -25,7 +25,6 @@ const bookings = client().bookings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| number | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -37,16 +36,6 @@ const bookings = client().bookings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`getById(organization, id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
 
 
 ##`getVersions(organization, options)`
@@ -62,7 +51,6 @@ const bookings = client().bookings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| booking | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

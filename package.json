@@ -1,6 +1,6 @@
 {
   "name": "@flowio/node-sdk",
-  "version": "0.0.46-1",
+  "version": "0.0.57",
   "description": "Node apidoc clients",
   "main": "lib/index.js",
   "scripts": {

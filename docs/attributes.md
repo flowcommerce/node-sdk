@@ -1,6 +1,6 @@
 # [API](README.md).attributes - Flow Commerce API - Node SDK Documentation
 
-An attribute represents applicable item data made available on specific UI elements (e.g. require &#x27;Brand&#x27;)
+An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console.
 
 ## Usage
 
@@ -25,8 +25,7 @@ const attributes = client().attributes;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| name | [string] |  |
-| option | [string] |  |
+| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -40,34 +39,34 @@ const attributes = client().attributes;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByName(organization, name, options)`
+##`getByKey(organization, key, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| name | string |  |
+| key | string |  |
 
 
-##`putByName(organization, name, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| name | string |  |
-
-
-##`deleteByName(organization, name, options)`
+##`putByKey(organization, key, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| name | string |  |
+| key | string |  |
+
+
+##`deleteByKey(organization, key, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
 
 
 ##`getVersions(organization, options)`
@@ -83,7 +82,7 @@ const attributes = client().attributes;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| name | [string] |  |
+| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

@@ -1,6 +1,6 @@
 # [API](README.md).carrierAccounts - Flow Commerce API - Node SDK Documentation
 
-carrier_account an organization has with a carrier, including credentials. A carrier can have multiple carrier_accounts with a single carrier, each with their own set of credentials. This represents the many-to-many relationship between organizations and carriers.
+carrier_account an organization has with a carrier. A carrier can have multiple carrier_accounts with a single carrier. This represents the many-to-many relationship between organizations and carriers.
 
 ## Usage
 
@@ -86,5 +86,4 @@ const carrierAccounts = client().carrierAccounts;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-| expand | [string] |  |
 

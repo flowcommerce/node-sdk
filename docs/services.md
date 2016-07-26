@@ -23,16 +23,10 @@ const services = client().services;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-| expand | [string] |  |
 
 ##`post(options)`
 
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
 
 ##`getById(id, options)`
 
@@ -42,11 +36,6 @@ const services = client().services;
 | ---- | ---- | ---- |
 | id | string | Filter by one or more IDs of this resource |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
 
 ##`putById(id, options)`
 
@@ -56,11 +45,6 @@ const services = client().services;
 | ---- | ---- | ---- |
 | id | string | Filter by one or more IDs of this resource |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
 
 ##`deleteById(id, options)`
 
@@ -83,5 +67,4 @@ const services = client().services;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-| expand | [string] |  |
 

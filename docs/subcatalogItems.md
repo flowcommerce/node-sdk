@@ -12,14 +12,14 @@ const subcatalogItems = client().subcatalogItems;
 
 ## Operations
 
-##`get(organization, subcatalog, options)`
+##`get(organization, subcatalogId, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog | string |  |
+| subcatalog_id | string |  |
 
 ### Query Parameters
 
@@ -27,62 +27,61 @@ const subcatalogItems = client().subcatalogItems;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | number | [string] |  |
-| query | string | Query Algolia for subcatalog items |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, subcatalog, options)`
+##`post(organization, subcatalogId, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog | string |  |
+| subcatalog_id | string |  |
 
 
-##`getByNumber(organization, subcatalog, number, options)`
+##`getByNumber(organization, subcatalogId, number, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog | string |  |
+| subcatalog_id | string |  |
 | number | string |  |
 
 
-##`putByNumber(organization, subcatalog, number, options)`
+##`putByNumber(organization, subcatalogId, number, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog | string |  |
+| subcatalog_id | string |  |
 | number | string |  |
 
 
-##`deleteByNumber(organization, subcatalog, number, options)`
+##`deleteByNumber(organization, subcatalogId, number, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog | string |  |
+| subcatalog_id | string |  |
 | number | string |  |
 
 
-##`getVersions(organization, subcatalog, options)`
+##`getVersions(organization, subcatalogId, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog | string |  |
+| subcatalog_id | string |  |
 
 ### Query Parameters
 

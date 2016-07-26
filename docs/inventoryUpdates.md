@@ -1,13 +1,13 @@
-# [API](README.md).bookings - Flow Commerce API - Node SDK Documentation
+# [API](README.md).inventoryUpdates - Flow Commerce API - Node SDK Documentation
 
-Represents second step of two-step purchase of Flow services.
+Represents a single update on inventory quantity
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const bookings = client().bookings;
+const inventoryUpdates = client().inventoryUpdates;
 ```
 
 ## Operations
@@ -25,7 +25,8 @@ const bookings = client().bookings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| number | string |  |
+| center | [string] |  |
+| item | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -62,7 +63,7 @@ const bookings = client().bookings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| booking | [string] |  |
+| inventory_update | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

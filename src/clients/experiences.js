@@ -34,9 +34,9 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, options);
   }
 
-  postCheckout(organization, options) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/checkout`, options);
+  putPriceDisplayByKey(organization, key, options) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/price_display`, options);
   }
 
   getItems(organization, options) {
