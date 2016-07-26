@@ -20,18 +20,18 @@ export default class Attributes extends Client {
     return this.makeRequest(`${this.host}/${organization}/attributes`, options);
   }
 
-  getByName(organization, name, options) {
-    return this.makeRequest(`${this.host}/${organization}/attributes/${name}`, options);
+  getByKey(organization, key, options) {
+    return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, options);
   }
 
-  putByName(organization, name, options) {
+  putByKey(organization, key, options) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/attributes/${name}`, options);
+    return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, options);
   }
 
-  deleteByName(organization, name, options) {
+  deleteByKey(organization, key, options) {
     Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/attributes/${name}`, options);
+    return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, options);
   }
 
   getVersions(organization, options) {

@@ -21,6 +21,8 @@ const organizations = client().organizations;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | name | string | Find organizations with this name. Case insensitive. Exact match. |
+| environment | environment | Find organizations with this environment |
+| parent | string | Find organizations that belong to this specified parent organization id. Case insensitive. Exact match. |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

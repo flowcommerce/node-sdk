@@ -12,7 +12,11 @@ export default class Regions extends Client {
   }
 
   get(options) {
-    return this.makeRequest(`${this.host}/regions`, options);
+    return this.makeRequest(`${this.host}/reference/regions`, options);
+  }
+
+  getById(id, options) {
+    return this.makeRequest(`${this.host}/reference/regions/${id}`, options);
   }
 
 }

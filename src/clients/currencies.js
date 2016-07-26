@@ -12,7 +12,7 @@ export default class Currencies extends Client {
   }
 
   get(options) {
-    return this.makeRequest(`${this.host}/currencies`, options);
+    return this.makeRequest(`${this.host}/reference/currencies`, options);
   }
 
 }

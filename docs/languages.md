@@ -1,6 +1,6 @@
 # [API](README.md).languages - Flow Commerce API - Node SDK Documentation
 
-ISO 639 2-character language code. See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+ISO 639 2-character language code. See https://api.flow.io/reference/languages
 
 ## Usage
 

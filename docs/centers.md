@@ -85,5 +85,4 @@ const centers = client().centers;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-| expand | [string] |  |
 

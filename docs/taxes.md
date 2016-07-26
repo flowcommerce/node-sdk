@@ -1,6 +1,6 @@
 # [API](README.md).taxes - Flow Commerce API - Node SDK Documentation
 
-Represents a simple model of taxes that apply to a given item / destination.
+
 
 ## Usage
 

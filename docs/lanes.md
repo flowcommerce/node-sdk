@@ -20,6 +20,8 @@ const lanes = client().lanes;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
+| origin | [string] |  |
+| destination | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -67,5 +69,4 @@ const lanes = client().lanes;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-| expand | [string] |  |
 
