@@ -12,7 +12,7 @@ export default class Countries extends Client {
   }
 
   get(options) {
-    return this.makeRequest(`${this.host}/countries`, options);
+    return this.makeRequest(`${this.host}/reference/countries`, options);
   }
 
 }

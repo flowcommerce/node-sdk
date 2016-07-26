@@ -12,7 +12,7 @@ export default class Timezones extends Client {
   }
 
   get(options) {
-    return this.makeRequest(`${this.host}/timezones`, options);
+    return this.makeRequest(`${this.host}/reference/timezones`, options);
   }
 
 }

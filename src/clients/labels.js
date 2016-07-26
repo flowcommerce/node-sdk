@@ -11,21 +11,21 @@ export default class Labels extends Client {
     this.headers = headers;
   }
 
-  get(options) {
-    return this.makeRequest(`${this.host}/labels`, options);
+  get(organization, options) {
+    return this.makeRequest(`${this.host}/${organization}/labels`, options);
   }
 
-  post(options) {
+  post(organization, options) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/labels`, options);
+    return this.makeRequest(`${this.host}/${organization}/labels`, options);
   }
 
-  getById(id, options) {
-    return this.makeRequest(`${this.host}/labels/${id}`, options);
+  getById(organization, id, options) {
+    return this.makeRequest(`${this.host}/${organization}/labels/${id}`, options);
   }
 
-  getVersions(options) {
-    return this.makeRequest(`${this.host}/labels/versions`, options);
+  getVersions(organization, options) {
+    return this.makeRequest(`${this.host}/${organization}/labels/versions`, options);
   }
 
 }

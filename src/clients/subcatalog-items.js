@@ -11,31 +11,31 @@ export default class SubcatalogItems extends Client {
     this.headers = headers;
   }
 
-  get(organization, subcatalog, options) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalog}/items`, options);
+  get(organization, subcatalogId, options) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items`, options);
   }
 
-  post(organization, subcatalog, options) {
+  post(organization, subcatalogId, options) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalog}/items`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items`, options);
   }
 
-  getByNumber(organization, subcatalog, number, options) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalog}/items/${number}`, options);
+  getByNumber(organization, subcatalogId, number, options) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items/${number}`, options);
   }
 
-  putByNumber(organization, subcatalog, number, options) {
+  putByNumber(organization, subcatalogId, number, options) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalog}/items/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items/${number}`, options);
   }
 
-  deleteByNumber(organization, subcatalog, number, options) {
+  deleteByNumber(organization, subcatalogId, number, options) {
     Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalog}/items/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items/${number}`, options);
   }
 
-  getVersions(organization, subcatalog, options) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalog}/items/versions`, options);
+  getVersions(organization, subcatalogId, options) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items/versions`, options);
   }
 
 }
