@@ -29,14 +29,10 @@ make and authenticated request with JavaScript.
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const api = client();
 const token = process.env.FLOW_TOKEN;
+const api = client(token);
 
-api.organizations.get({
-  headers: {
-    Authentication: `Basic ${token}`,
-  },
-}).then((response) => {
+api.organizations.get().then((response) => {
   switch(response.status) {
     case 200:
       response.result.map((organization) =>
@@ -54,8 +50,8 @@ api.organizations.get({
 Let's break down the example above!
 
 ```JavaScript
-const api = client();
 const token = process.env.FLOW_IO_API_TOKEN;
+const api = client(token);
 ```
 
 You need two things to make a request to the api. An instance of the client
@@ -63,7 +59,7 @@ and an authorization token. We recommend _not_ storing your token in code, but
 referencing it via an environment variable.
 
 ```JavaScript
-api.organizations.get({...})
+api.organizations.get()
 ```
 
 Next the syntax for the client is `client.{resource}.{method}`. You can find a
@@ -71,14 +67,8 @@ list of resources and their methods [here](docs/README.md). The parameters for
 each resource method can vary, so be sure to pay attention to the docs to see
 what is required.
 
-```JavaScript
-  headers: {
-    Authentication: `Basic ${token}`,
-  },
-```
-
 Whatever the parameters for a method, it always ends with an options parameter.
-`fetch` is used under the hood, so anything you add to the `options` object will
+`fetch` is used under the hood, so anything you add to the `options` parameter will
 be forwarded to the underlying [node-fetch](https://github.com/bitinn/node-fetch)
 implementation. The following are the most common options:
 
@@ -86,10 +76,9 @@ implementation. The following are the most common options:
 | :------ | :----- | :---------- |
 | params  | Object | An object of `paramName`:`paramValue` used as query parameters in the request.
 | body    | string | A JSON string representation of the body, e.g, `JSON.stringify(model_form)`.
-| headers | Object | Used for Basic Authentication.
 
 ```JavaScript
-}).then((response) => {
+).then((response) => {
   switch(response.status) {
     case 200:
       response.result.map((organization) =>
@@ -104,7 +93,7 @@ implementation. The following are the most common options:
 
 Each method of the SDK returns a `Promise` of the response. The response will
 contain two properties: `status` and `result`. `response.status` is the HTTP
-status code of the response. `response.result` contains the data returned by
+status code of the response. `response.result` contains the data (if any) returned by
 the api. At Flow we feel it is critical to handle every known response from an
 API to prevent unexpected behavior. We also do not want to make assumptions on
 how you may wish to handle those responses. The pattern we recommend adopting
