@@ -33,11 +33,6 @@ export default class Subcatalogs extends Client {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, options);
   }
 
-  postEventsByIdAndEvent(organization, id, event, options) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}/events/${event}`, options);
-  }
-
   getSettingsById(organization, id, options) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}/settings`, options);
   }

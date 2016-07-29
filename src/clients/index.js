@@ -33,6 +33,7 @@ import Services from './services';
 import Shipments from './shipments';
 import ShipmentLabels from './shipment-labels';
 import Tiers from './tiers';
+import TierDefaults from './tier-defaults';
 import Trackings from './trackings';
 import Countries from './countries';
 import Currencies from './currencies';
@@ -94,6 +95,7 @@ export default class ApiClient {
     this.shipments = new Shipments(options);
     this.shipment_labels = new ShipmentLabels(options);
     this.tiers = new Tiers(options);
+    this.tier_defaults = new TierDefaults(options);
     this.trackings = new Trackings(options);
     this.countries = new Countries(options);
     this.currencies = new Currencies(options);

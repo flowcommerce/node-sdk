@@ -13,7 +13,7 @@ These resources mirror the official documentation located at
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing. |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
-| [subcatalogItems](subcatalogItems.md) |  |
+| [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
 | [functions](functions.md) | Prioritized calculation yielding a localized price (also allows for custom defined price function) |
 | [duties](duties.md) |  |
 | [harmonizationSettings](harmonizationSettings.md) | Organization level settings. |
@@ -42,6 +42,7 @@ These resources mirror the official documentation located at
 | [shipments](shipments.md) | Represents a subset of items from an order grouped into a single physical shipment. Flow provides a generated tracking number to track this shipment across multiple possible hops and carriers. |
 | [shipmentLabels](shipmentLabels.md) | Top-level information on shipment tracking shipment_label and number |
 | [tiers](tiers.md) | Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier |
+| [tierDefaults](tierDefaults.md) | Grouping of shipping tiers by experience to provide logical default functionality. |
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
 | [countries](countries.md) |  |
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies |

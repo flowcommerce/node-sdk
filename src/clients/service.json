@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.58",
+  "version": "0.0.60",
   "info": {
     "license": {
       "name": "MIT",
@@ -868,9 +868,9 @@
       "plural": "at_costs",
       "fields": [
         {
-          "name": "at_cost",
+          "name": "ignore",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -1040,7 +1040,7 @@
           "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate."
         },
         {
-          "name": "metadata",
+          "name": "attributes",
           "type": "map[string]",
           "required": true,
           "attributes": [],
@@ -1174,7 +1174,7 @@
           "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
         },
         {
-          "name": "metadata",
+          "name": "attributes",
           "type": "map[string]",
           "required": false,
           "attributes": [],
@@ -2460,7 +2460,7 @@
         },
         {
           "name": "service",
-          "type": "service",
+          "type": "service_summary",
           "required": true,
           "attributes": []
         },
@@ -3158,43 +3158,13 @@
       "description": "Rule outcome where shipping surfaced in quote is pre-defined flat rate"
     },
     {
-      "name": "flow",
-      "plural": "flows",
-      "fields": [
-        {
-          "name": "origin",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The country of origin as a ISO 4217 3 currency code. See https://api.flow.io/reference/countries",
-          "minimum": 3,
-          "maximum": 3,
-          "example": "USA"
-        },
-        {
-          "name": "function",
-          "type": "expandable_function",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "hs6",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Flow internal model containing an item's origin and classified harmonization code (6 digit)"
-    },
-    {
       "name": "free_shipping",
       "plural": "free_shippings",
       "fields": [
         {
-          "name": "free_shipping",
+          "name": "ignore",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -3274,7 +3244,8 @@
           "name": "q",
           "type": "string",
           "required": false,
-          "attributes": []
+          "attributes": [],
+          "description": "Optionally apply this pricing function to the items that match this query"
         }
       ],
       "attributes": [],
@@ -3300,7 +3271,8 @@
           "name": "q",
           "type": "string",
           "required": false,
-          "attributes": []
+          "attributes": [],
+          "description": "Optionally apply this pricing function to the items that match this query"
         },
         {
           "name": "presets",
@@ -3318,7 +3290,8 @@
           "name": "position",
           "type": "long",
           "required": false,
-          "attributes": []
+          "attributes": [],
+          "description": "Functions are prioritized by position, function with highest position index, has highest priority"
         }
       ],
       "attributes": []
@@ -3499,7 +3472,7 @@
           "default": "[]"
         },
         {
-          "name": "metadata",
+          "name": "attributes",
           "type": "map[string]",
           "required": true,
           "attributes": [],
@@ -3649,7 +3622,7 @@
           "attributes": []
         },
         {
-          "name": "metadata",
+          "name": "attributes",
           "type": "map[string]",
           "required": false,
           "attributes": []
@@ -3680,7 +3653,7 @@
           "attributes": []
         },
         {
-          "name": "metadata",
+          "name": "attributes",
           "type": "map[string]",
           "required": false,
           "attributes": []
@@ -4516,12 +4489,6 @@
           "required": true,
           "attributes": [],
           "default": "[]"
-        },
-        {
-          "name": "flow",
-          "type": "flow",
-          "required": false,
-          "attributes": []
         },
         {
           "name": "local",
@@ -6222,6 +6189,13 @@
           "type": "[delivery]",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "selections",
+          "type": "[delivery_option_reference]",
+          "required": true,
+          "attributes": [],
+          "description": "Selected options for the quote. This is used to prepare accurate fully-landed costs of an order and can also be used to pre-select a delivery option on a typical checkout page. By default, the option(s) shown here are part of the default tier of an experience. If no default tier has been designated for the tier group, the default selection would be the first option in the list."
         }
       ],
       "attributes": [],
@@ -6764,7 +6738,7 @@
         },
         {
           "name": "service",
-          "type": "service",
+          "type": "service_summary",
           "required": true,
           "attributes": []
         },
@@ -7071,9 +7045,22 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "item",
+          "type": "item",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "function",
+          "type": "expandable_function",
+          "required": false,
+          "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Represents information specific to an item in a given subcatalog"
     },
     {
       "name": "subcatalog_reference",
@@ -7270,6 +7257,93 @@
       ],
       "attributes": [],
       "description": "Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier"
+    },
+    {
+      "name": "tier_default",
+      "plural": "tier_defaults",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "default_tier",
+          "type": "tier_reference",
+          "required": true,
+          "attributes": [],
+          "description": "Default tier used to populate default quote selections"
+        },
+        {
+          "name": "experience",
+          "type": "fulfillment_experience_reference",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Grouping of shipping tiers by experience to provide logical default functionality."
+    },
+    {
+      "name": "tier_default_form",
+      "plural": "tier_default_forms",
+      "fields": [
+        {
+          "name": "default_tier",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Default tier ID used to populate default quote selections"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Form to set the defualt tier for a given experience"
+    },
+    {
+      "name": "tier_default_version",
+      "plural": "tier_default_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tier_default",
+          "type": "tier_default",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tier_form",
@@ -10416,72 +10490,6 @@
           "description": "Delete the subcatalog with this id"
         },
         {
-          "method": "POST",
-          "path": "/:organization/catalog/subcatalogs/:id/events/:event",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            },
-            {
-              "name": "event",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Sync subcatalog"
-        },
-        {
           "method": "GET",
           "path": "/:organization/catalog/subcatalogs/:id/settings",
           "parameters": [
@@ -11621,7 +11629,16 @@
               "type": "string",
               "location": "Query",
               "required": true,
-              "default": "name"
+              "default": "-created_at"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "function"
             }
           ],
           "responses": [
@@ -11631,7 +11648,7 @@
                   "value": 200
                 }
               },
-              "type": "[item]",
+              "type": "[subcatalog_item]",
               "description": "Successful response"
             },
             {
@@ -11674,69 +11691,6 @@
           "description": "Search subcatalog items. Always paginated."
         },
         {
-          "method": "POST",
-          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/items",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "subcatalog_id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "item",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Add subcatalog item",
-          "body": {
-            "type": "item_form",
-            "attributes": []
-          }
-        },
-        {
           "method": "GET",
           "path": "/:organization/catalog/subcatalogs/:subcatalog_id/items/:number",
           "parameters": [
@@ -11767,7 +11721,7 @@
                   "value": 200
                 }
               },
-              "type": "item",
+              "type": "subcatalog_item",
               "description": "Successful response"
             },
             {
@@ -11791,140 +11745,6 @@
           ],
           "attributes": [],
           "description": "Returns information about specific subcatalog items."
-        },
-        {
-          "method": "PUT",
-          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/items/:number",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "subcatalog_id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "item",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "item",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Update subcatalog item with the specified number, creating if it does not exist.",
-          "body": {
-            "type": "item_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/items/:number",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "subcatalog_id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [],
-          "description": "Delete the subcatalog item with this number"
         },
         {
           "method": "GET",
@@ -12044,7 +11864,8 @@
           }
         }
       ],
-      "path": "/:organization/catalog/subcatalogs/:subcatalog_id/items"
+      "path": "/:organization/catalog/subcatalogs/:subcatalog_id/items",
+      "description": "Represents information specific to an item in a given subcatalog"
     },
     {
       "type": "function",
@@ -12077,22 +11898,8 @@
               "maximum": 100
             },
             {
-              "name": "name",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "position",
-              "type": "[long]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
               "name": "subcatalog",
-              "type": "[string]",
+              "type": "string",
               "location": "Query",
               "required": false,
               "maximum": 100
@@ -20466,6 +20273,300 @@
       ],
       "path": "/:organization/tiers",
       "description": "Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier"
+    },
+    {
+      "type": "tier_default",
+      "plural": "tier_defaults",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/tier_defaults",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "experience",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tier_default]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "experience"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/tier_defaults",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tier_default",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "tier_default_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tier_defaults/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tier_default",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tier_defaults/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "tier_default",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tier_default_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "tier_default"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/tier_defaults",
+      "description": "Grouping of shipping tiers by experience to provide logical default functionality."
     },
     {
       "type": "tracking",
