@@ -23,6 +23,11 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
   }
 
+  putByNumber(organization, number, options) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
+  }
+
   deleteByNumber(organization, number, options) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);

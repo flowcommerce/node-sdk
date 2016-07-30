@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.60",
+  "version": "0.0.61",
   "info": {
     "license": {
       "name": "MIT",
@@ -2338,7 +2338,7 @@
         }
       ],
       "attributes": [],
-      "description": "A customer represents the actual person purchasing from you. This information is needed primarily to support logistics (delivery to this person), fraud management (verification of who the person id), and reporting. We also recommend including your customer.number whenever possible as doing so will allow Flow to link up transactions for this customer making customer service easieer."
+      "description": "A customer represents the actual person purchasing from you. This information is needed primarily to support logistics (delivery to this person), fraud management (verification of who the person id), and reporting. We also recommend including your customer.number whenever possible as doing so will allow Flow to link up transactions for this customer making customer service easier."
     },
     {
       "name": "cvv",
@@ -2919,22 +2919,30 @@
           "required": true,
           "attributes": [],
           "description": "Reference to region as defined in https://api.flow.io/reference/regions",
-          "example": "usa or eurozone"
+          "example": "can or eurozone"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "When otherwise not known, the default country to use for this experience. One example would be an experience setup for Europe - when you request landed cost, if there is no geo location information available, we will use this country as the basis for landed cost. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+          "example": "CAN"
         },
         {
           "name": "currency",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
-          "example": "USD"
+          "description": "This currency defines the base currency for all pricing related features - e.g. pricing functions. ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
         },
         {
           "name": "language",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
+          "description": "The default language to use for when displaying products, e.g. to display product information in this language by default. ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
           "example": "en"
         },
         {
@@ -2977,7 +2985,7 @@
           "attributes": [],
           "description": "The actual geographic area to which this experience is targeted. Value is the region Id as defined in https://api.flow.io/reference/regions",
           "minimum": 3,
-          "example": "usa or eurozone"
+          "example": "can or eurozone"
         },
         {
           "name": "name",
@@ -2987,6 +2995,14 @@
           "description": "Name for the experience"
         },
         {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "When otherwise not known, the default country to use for this experience. One example would be an experience setup for Europe - when you request landed cost, if there is no geo location information available, we will use this country as the basis for landed cost. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
           "name": "currency",
           "type": "string",
           "required": false,
@@ -2994,7 +3010,7 @@
           "description": "The default currency for this experience which will define the currency of the pricing for this experience as well as the default currency displayed when no other information is available. Value is an ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
           "minimum": 3,
           "maximum": 3,
-          "example": "usd"
+          "example": "CAD"
         },
         {
           "name": "language",
@@ -4597,11 +4613,11 @@
           "type": "long",
           "required": true,
           "attributes": [],
-          "description": "Requested number of units of this item in the quote"
+          "minimum": 1
         }
       ],
       "attributes": [],
-      "description": "Summary of product line item as part of the quote"
+      "description": "Summary of product line item"
     },
     {
       "name": "item_version",
@@ -5130,28 +5146,6 @@
       "description": "ISO 639 2-character language code. See https://api.flow.io/reference/languages"
     },
     {
-      "name": "line",
-      "plural": "lines",
-      "fields": [
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "quantity",
-          "type": "long",
-          "required": true,
-          "attributes": [],
-          "minimum": 1
-        }
-      ],
-      "attributes": [],
-      "description": "Represents an order line item"
-    },
-    {
       "name": "local",
       "plural": "locals",
       "fields": [
@@ -5513,7 +5507,7 @@
           "type": "customer",
           "required": true,
           "attributes": [],
-          "description": "The customer who actually is making the purchase"
+          "description": "The customer who is actually making the purchase"
         },
         {
           "name": "expires_at",
@@ -5533,6 +5527,14 @@
           "type": "[delivery]",
           "required": true,
           "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "selections",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "The currently selected delivery option ids. These IDs represent the shipping tiers that the customer has chosen (e.g. standard or express) for each delivery. The shipping price is then based on these selections (and included in the prices array). You can update an order before it has been booked to change the delivery options, getting back accurate pricing for the order.",
           "minimum": 1
         },
         {
@@ -5576,23 +5578,7 @@
         }
       ],
       "attributes": [],
-      "description": "Represents an order that has been booked. Booked orders can no longer be deleted as they represent transactions in the real world"
-    },
-    {
-      "name": "order_booking_form",
-      "plural": "order_booking_forms",
-      "fields": [
-        {
-          "name": "options",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "description": "Selected list of delivery options for this quote. The original order will contain one or more deliveries. Each delivery will contain one or more shipping options (e.g. standard or express). We need to know which shipping options the user selected in order to book the order.",
-          "minimum": 1
-        }
-      ],
-      "attributes": [],
-      "description": "Books an order. This means two things: a. all pricing in the quote will be guaranteed by Flow (subject to an active contract); b. you will be invoiced for any relevant costs."
+      "description": "Represents an order that has been booked. Booked orders can no longer be deleted as they represent transactions in the real world."
     },
     {
       "name": "order_form",
@@ -5620,7 +5606,7 @@
         },
         {
           "name": "items",
-          "type": "[line]",
+          "type": "[item_summary]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -5628,6 +5614,22 @@
       ],
       "attributes": [],
       "description": "The order form is used to create an open order, providing the details on pricing and delivery options for destination and items/quantities specified"
+    },
+    {
+      "name": "order_put_form",
+      "plural": "order_put_forms",
+      "fields": [
+        {
+          "name": "options",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "Selected list of delivery options for this quote. The original order will contain one or more deliveries. Each delivery will contain one or more shipping options (e.g. standard or express). We need to know which shipping options the user selected in order to provide accurate, local shipping pricing.",
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "Updates the selections on an order."
     },
     {
       "name": "order_reference",
@@ -8935,35 +8937,33 @@
               "description": "If specified, we will render the items in the context of the experience with this key."
             },
             {
-              "name": "destination",
+              "name": "country",
               "type": "string",
               "location": "Query",
-              "required": false
-            },
-            {
-              "name": "from_country",
-              "type": "string",
-              "location": "Query",
-              "required": false
+              "required": false,
+              "description": "If specified, we will select the experience matching this country. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+              "example": "CAN"
             },
             {
               "name": "ip",
               "type": "string",
               "location": "Query",
-              "required": false
+              "required": false,
+              "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
             },
             {
               "name": "currency",
               "type": "string",
               "location": "Query",
-              "required": false
+              "required": false,
+              "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience."
             },
             {
               "name": "language",
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
+              "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
               "example": "en"
             },
             {
@@ -9020,6 +9020,15 @@
               },
               "type": "unit",
               "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [
@@ -9041,7 +9050,7 @@
               "value": {}
             }
           ],
-          "description": "Returns information about 1 or more items, localized based on the query parameters"
+          "description": "Returns localized information about 1 or more items. The items will be localized based on the experience selected by the query parameters in the order of experience, then country, then ip address."
         },
         {
           "method": "GET",
@@ -9068,13 +9077,7 @@
               "description": "If specified, we will render the items in the context of the experience with this key."
             },
             {
-              "name": "destination",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "from_country",
+              "name": "country",
               "type": "string",
               "location": "Query",
               "required": false
@@ -9127,6 +9130,15 @@
               },
               "type": "unit",
               "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [],
@@ -9816,6 +9828,43 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will render the items in the context of the experience with this key."
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will select the experience matching this country. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+              "example": "CAN"
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience."
+            },
+            {
+              "name": "language",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
+              "example": "en"
             }
           ],
           "responses": [
@@ -9857,7 +9906,7 @@
             }
           ],
           "attributes": [],
-          "description": "Create an order - the order must be booked (see bookings) before its expiration",
+          "description": "Create an order, using the localized information from the experience selected by the query parameters. Note the order must be booked (see bookings) before its expiration",
           "body": {
             "type": "order_form",
             "attributes": []
@@ -9912,6 +9961,69 @@
           ],
           "attributes": [],
           "description": "Returns information about a specific order."
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/orders/:number",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Update an order.",
+          "body": {
+            "type": "order_put_form",
+            "attributes": []
+          }
         },
         {
           "method": "DELETE",
@@ -10038,11 +10150,7 @@
             }
           ],
           "attributes": [],
-          "description": "Books an order. You will get a validation error if the order has already expired (and a new quote could not be automatically recreated for a lower or same price). This method is idempotent - booking an order a second time has no effect.",
-          "body": {
-            "type": "order_booking_form",
-            "attributes": []
-          }
+          "description": "Books an order. You will get a validation error if the order has already expired (and a new quote could not be automatically recreated for a lower or same price). This method is idempotent - booking an order a second time has no effect."
         },
         {
           "method": "GET",
