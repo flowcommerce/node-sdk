@@ -1,80 +1,93 @@
-# [API](README.md).harmonizedItemDuties - Flow Commerce API - Node SDK Documentation
+# [API](README.md).tierRules - Flow Commerce API - Node SDK Documentation
 
-Used to specifically set an item&#x27;s duty rate for a given trade lane.
+System to filter incoming quote for a shipment request based on a query and output corresponding outcomes.
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const harmonizedItemDuties = client().harmonizedItemDuties;
+const tierRules = client().tierRules;
 ```
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, tierId, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
 
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| number | [string] |  |
-| origin | string | The ISO 3166 3 character country code of the country of origin |
-| destination | string | The ISO 3166 3 character country code of the destination country |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options)`
+##`post(organization, tierId, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
 
 
-##`getById(organization, id, options)`
+##`getById(organization, tierId, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`deleteById(organization, id, options)`
+##`putById(organization, tierId, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getVersions(organization, options)`
+##`deleteById(organization, tierId, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`getVersions(organization, tierId, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
 
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| harmonized_item_duty_id | [string] | Filter to item duties with any one of these ids. |
+| tier_rule | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

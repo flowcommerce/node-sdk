@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.61",
+  "version": "0.0.63",
   "info": {
     "license": {
       "name": "MIT",
@@ -706,22 +706,6 @@
       "description": "A function can be represented with just it's ID, or the entire model"
     },
     {
-      "name": "expandable_location",
-      "plural": "expandable_locations",
-      "types": [
-        {
-          "type": "location",
-          "attributes": []
-        },
-        {
-          "type": "location_reference",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator"
-    },
-    {
       "name": "expandable_organization",
       "plural": "expandable_organizations",
       "types": [
@@ -832,21 +816,60 @@
       "plural": "addresses",
       "fields": [
         {
-          "name": "contact",
-          "type": "contact",
-          "required": true,
+          "name": "text",
+          "type": "string",
+          "required": false,
           "attributes": [],
-          "description": "Contact information of entity at the address"
+          "description": "Full text version of address"
         },
         {
-          "name": "location",
-          "type": "location",
-          "required": true,
+          "name": "streets",
+          "type": "[string]",
+          "required": false,
           "attributes": [],
-          "description": "Attributes on physical location"
+          "description": "Array for street line 1, street line 2, etc., in order"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "province",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "postal",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "USA"
+        },
+        {
+          "name": "latitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "longitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Defines structured fields for address to be used in user/form input. Either text or the structured input needs to be present."
     },
     {
       "name": "amount_margin",
@@ -1048,7 +1071,7 @@
         },
         {
           "name": "shipping",
-          "type": "location",
+          "type": "address",
           "required": false,
           "attributes": [],
           "description": "Shipping address, if relevant"
@@ -1182,7 +1205,7 @@
         },
         {
           "name": "shipping",
-          "type": "location",
+          "type": "address",
           "required": false,
           "attributes": [],
           "description": "Shipping address, if relevant"
@@ -1544,7 +1567,7 @@
         },
         {
           "name": "address",
-          "type": "location",
+          "type": "address",
           "required": false,
           "attributes": [],
           "description": "Cardholder billing address"
@@ -1592,7 +1615,7 @@
         },
         {
           "name": "address",
-          "type": "location",
+          "type": "address",
           "required": false,
           "attributes": [],
           "description": "Cardholder billing address"
@@ -1666,7 +1689,7 @@
         },
         {
           "name": "facilities",
-          "type": "[address]",
+          "type": "[shipping_address]",
           "required": true,
           "attributes": [],
           "description": "List of facilities available for consolidation"
@@ -1815,7 +1838,7 @@
         },
         {
           "name": "facilities",
-          "type": "[address]",
+          "type": "[shipping_address]",
           "required": false,
           "attributes": [],
           "description": "List of facilities available for consolidation"
@@ -1997,7 +2020,7 @@
         },
         {
           "name": "address",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         },
@@ -2027,7 +2050,7 @@
           "type": "schedule",
           "required": true,
           "attributes": [],
-          "description": "Schedule of the origin location where shipment is originating. Contains normal operating hours, holiday periods, and cutoff."
+          "description": "Schedule of the origin center where shipment is originating. Contains normal operating hours, holiday periods, and cutoff."
         },
         {
           "name": "timezone",
@@ -2045,7 +2068,7 @@
       "fields": [
         {
           "name": "address",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         },
@@ -2076,7 +2099,7 @@
           "type": "schedule",
           "required": true,
           "attributes": [],
-          "description": "Schedule of the origin location where shipment is originating. Contains normal operating hours, holiday periods, and cutoff."
+          "description": "Schedule of the origin center where shipment is originating. Contains normal operating hours, holiday periods, and cutoff."
         },
         {
           "name": "timezone",
@@ -2425,7 +2448,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         }
@@ -2498,7 +2521,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         }
@@ -2894,7 +2917,7 @@
         }
       ],
       "attributes": [],
-      "description": "Represents an exception to the schedule of a location."
+      "description": "Represents an exception to the schedule of a center."
     },
     {
       "name": "experience",
@@ -2926,7 +2949,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "When otherwise not known, the default country to use for this experience. One example would be an experience setup for Europe - when you request landed cost, if there is no geo location information available, we will use this country as the basis for landed cost. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+          "description": "When otherwise not known, the default country to use for this experience. One example would be an experience setup for Europe - when you request landed cost, if there is no geolocation information available, we will use this country as the basis for landed cost. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
           "example": "CAN"
         },
         {
@@ -2999,7 +3022,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "When otherwise not known, the default country to use for this experience. One example would be an experience setup for Europe - when you request landed cost, if there is no geo location information available, we will use this country as the basis for landed cost. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+          "description": "When otherwise not known, the default country to use for this experience. One example would be an experience setup for Europe - when you request landed cost, if there is no geolocation information available, we will use this country as the basis for landed cost. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
           "example": "CAN"
         },
         {
@@ -3520,15 +3543,15 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO 3166 2 or 3 character code for the country of origin. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "USA"
+          "description": "The ISO 3166 3 character code for the country of origin. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CHN"
         },
         {
           "name": "destination",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO 3166 2 or 3 character code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
+          "description": "The ISO 3166 3 character code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
           "example": "CAN"
         },
         {
@@ -3559,13 +3582,17 @@
           "name": "origin",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the country of origin. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CHN"
         },
         {
           "name": "destination",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
         },
         {
           "name": "rate",
@@ -3729,6 +3756,74 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "harmonized_landed_cost",
+      "plural": "harmonized_landed_costs",
+      "fields": [
+        {
+          "name": "address",
+          "type": "address",
+          "required": true,
+          "attributes": [],
+          "description": "The destination address"
+        },
+        {
+          "name": "items",
+          "type": "[harmonized_landed_cost_item]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Summary of landed cost data (taxes and duties) for 1 or more items going to a single destination country. Records are unique based on (item.number, country of origin)."
+    },
+    {
+      "name": "harmonized_landed_cost_form",
+      "plural": "harmonized_landed_cost_forms",
+      "fields": [
+        {
+          "name": "address",
+          "type": "address",
+          "required": true,
+          "attributes": [],
+          "description": "The destination address. At a minimum, country code is required, but more precise information will lead to more precise rates."
+        },
+        {
+          "name": "item_numbers",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Allows calculation of duty and tax for multiple items in one API call for items going to a specific destination country"
+    },
+    {
+      "name": "harmonized_landed_cost_item",
+      "plural": "harmonized_landed_cost_items",
+      "fields": [
+        {
+          "name": "item",
+          "type": "harmonized_item_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "duty",
+          "type": "duty",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tax",
+          "type": "tax",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Duty and tax information for a given item. Note that the internal implementation supports multiple countries of origin."
     },
     {
       "name": "healthcheck",
@@ -4726,8 +4821,8 @@
           "attributes": []
         },
         {
-          "name": "location",
-          "type": "expandable_location",
+          "name": "address",
+          "type": "address",
           "required": true,
           "attributes": []
         },
@@ -4781,7 +4876,7 @@
           "attributes": []
         },
         {
-          "name": "location",
+          "name": "address",
           "type": "string",
           "required": false,
           "attributes": []
@@ -5190,80 +5285,6 @@
       "attributes": []
     },
     {
-      "name": "location",
-      "plural": "locations",
-      "fields": [
-        {
-          "name": "text",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Full text version of address"
-        },
-        {
-          "name": "streets",
-          "type": "[string]",
-          "required": false,
-          "attributes": [],
-          "description": "Array for street line 1, street line 2, etc., in order"
-        },
-        {
-          "name": "city",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "province",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "postal",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "country",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "USA"
-        },
-        {
-          "name": "latitude",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "longitude",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Defines structured fields for address to be used in user/form input. Either text or the structured input needs to be present."
-    },
-    {
-      "name": "location_reference",
-      "plural": "location_references",
-      "fields": [
-        {
-          "name": "text",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Full text version of address"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "margin",
       "plural": "margins",
       "fields": [
@@ -5518,7 +5539,7 @@
         },
         {
           "name": "destination",
-          "type": "location",
+          "type": "address",
           "required": true,
           "attributes": []
         },
@@ -5600,7 +5621,7 @@
         },
         {
           "name": "destination",
-          "type": "location",
+          "type": "address",
           "required": true,
           "attributes": []
         },
@@ -6182,7 +6203,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         },
@@ -6209,7 +6230,7 @@
       "fields": [
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         },
@@ -6243,7 +6264,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         }
@@ -6498,7 +6519,7 @@
           "type": "calendar",
           "required": false,
           "attributes": [],
-          "description": "Operating calendar used by origin location for shipment, if avialable. If not provided, assume they are never open.",
+          "description": "Operating calendar used by origin center for shipment, if avialable. If not provided, assume they are never open.",
           "example": "Weekdays, 7 days, etc."
         },
         {
@@ -6514,7 +6535,7 @@
           "type": "[exception]",
           "required": true,
           "attributes": [],
-          "description": "Holiday calendar used by origin location for shipment, if avialable.",
+          "description": "Holiday calendar used by origin center for shipment, if avialable.",
           "example": "Memorial Day, Independence Day, etc."
         },
         {
@@ -6522,12 +6543,12 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "Daily cutoff time for shipment fulfillment at origin location, if available. 24-hour time",
+          "description": "Daily cutoff time for shipment fulfillment at origin center, if available. 24-hour time",
           "example": "16:45"
         }
       ],
       "attributes": [],
-      "description": "Represents operating calendar and holidays of a location"
+      "description": "Represents operating calendar and holidays of a center"
     },
     {
       "name": "service",
@@ -6671,7 +6692,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": [],
           "description": "Final destination of this shipment"
@@ -6707,7 +6728,7 @@
       "fields": [
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": []
         },
@@ -6943,7 +6964,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "shipping_address",
           "required": true,
           "attributes": [],
           "description": "Final destination of this shipment"
@@ -6993,6 +7014,27 @@
           "type": "shipment_summary",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shipping_address",
+      "plural": "shipping_addresses",
+      "fields": [
+        {
+          "name": "contact",
+          "type": "contact",
+          "required": true,
+          "attributes": [],
+          "description": "Contact information of entity at the address"
+        },
+        {
+          "name": "location",
+          "type": "address",
+          "required": true,
+          "attributes": [],
+          "description": "Attributes of the physical location"
         }
       ],
       "attributes": []
@@ -7380,7 +7422,7 @@
         },
         {
           "name": "rules",
-          "type": "[tier_rule]",
+          "type": "[tier_rule_form]",
           "required": true,
           "attributes": [],
           "description": "Ordered set of rules for this tier"
@@ -7429,6 +7471,21 @@
       "plural": "tier_rules",
       "fields": [
         {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Execution position of this rule relative to other rules in the tier. Lower position numbers indicate rules that should be executed earlier.",
+          "minimum": 0
+        },
+        {
           "name": "query",
           "type": "string",
           "required": true,
@@ -7446,6 +7503,64 @@
       ],
       "attributes": [],
       "description": "System to filter incoming quote for a shipment request based on a query and output corresponding outcomes."
+    },
+    {
+      "name": "tier_rule_form",
+      "plural": "tier_rule_forms",
+      "fields": [
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "outcome",
+          "type": "tier_rule_outcome",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tier_rule_version",
+      "plural": "tier_rule_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tier_rule",
+          "type": "tier_rule",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tier_summary",
@@ -7476,13 +7591,6 @@
           "type": "string",
           "required": true,
           "attributes": []
-        },
-        {
-          "name": "rules",
-          "type": "[tier_rule]",
-          "required": true,
-          "attributes": [],
-          "description": "Ordered set of rules for this tier"
         },
         {
           "name": "services",
@@ -12464,7 +12572,7 @@
               "type": "string",
               "location": "Path",
               "required": true,
-              "description": "The ISO 3 character code for country of origin",
+              "description": "The ISO 3166 3 character code for country of origin",
               "minimum": 3,
               "maximum": 3,
               "example": "chn"
@@ -13094,14 +13202,14 @@
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "The ISO-3166 2 or 3 character country code of the country of origin"
+              "description": "The ISO 3166 3 character country code of the country of origin"
             },
             {
               "name": "destination",
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+              "description": "The ISO 3166 3 character country code of the destination country"
             },
             {
               "name": "limit",
@@ -13438,6 +13546,70 @@
       "description": "Used to specifically set an item's duty rate for a given trade lane."
     },
     {
+      "type": "harmonized_landed_cost",
+      "plural": "harmonized_landed_costs",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/:organization/harmonization/landed-costs",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "harmonized_landed_cost",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Single operation that provides harmonization landed costs (i.e. duties and taxes) for 1 or more items. This method is designed to enable a single call from applications that need it (like checkout) to get all data for a collection of items",
+          "body": {
+            "type": "harmonized_landed_cost_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "landed cost"
+          }
+        }
+      ],
+      "path": "/:organization/harmonization/landed-costs",
+      "description": "Summary of landed cost data (taxes and duties) for 1 or more items going to a single destination country. Records are unique based on (item.number, country of origin)."
+    },
+    {
       "type": "hs10",
       "plural": "hs10",
       "operations": [
@@ -13472,14 +13644,14 @@
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+              "description": "The ISO 3166 3 character country code of the destination country"
             },
             {
               "name": "destination",
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "The ISO-3166 2 or 3 character country code of the destination country"
+              "description": "The ISO 3166 3 character country code of the destination country"
             },
             {
               "name": "code",
@@ -18187,15 +18359,6 @@
               "location": "Query",
               "required": true,
               "default": "-created_at"
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 1,
-              "example": "location"
             }
           ],
           "responses": [
@@ -18254,15 +18417,6 @@
               "location": "Path",
               "required": true,
               "description": "Filter by one or more IDs of this resource"
-            },
-            {
-              "name": "expand",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "minimum": 0,
-              "maximum": 1,
-              "example": "location"
             }
           ],
           "responses": [
@@ -20677,6 +20831,457 @@
       "description": "Grouping of shipping tiers by experience to provide logical default functionality."
     },
     {
+      "type": "tier_rule",
+      "plural": "tier_rules",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/tiers/:tier_id/rules",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "tier_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tier_rule]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/tiers/:tier_id/rules",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "tier_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tier_rule",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "tier_rule_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tiers/:tier_id/rules/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "tier_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tier_rule",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/tiers/:tier_id/rules/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "tier_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tier_rule",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tier_rule",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "tier_rule_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/tiers/:tier_id/rules/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "tier_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tiers/:tier_id/rules/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "tier_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "tier_rule",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tier_rule_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "tier_rule"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/tiers/:tier_id/rules",
+      "description": "System to filter incoming quote for a shipment request based on a query and output corresponding outcomes."
+    },
+    {
       "type": "tracking",
       "plural": "trackings",
       "operations": [
@@ -21257,6 +21862,93 @@
       ],
       "path": "/reference/timezones",
       "description": "Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones"
+    },
+    {
+      "type": "address",
+      "plural": "addresses",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/locations",
+          "parameters": [
+            {
+              "name": "address",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "22 Hudson Pl, Hoboken NJ 07030 USA"
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "96.242.151.245"
+            },
+            {
+              "name": "latitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "longitude",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[address]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Based on the provided parameters, returns a list of potential matching addresses."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/locations"
     },
     {
       "type": "document",
@@ -22043,93 +22735,6 @@
       ],
       "path": "/invitations",
       "description": "An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization."
-    },
-    {
-      "type": "location",
-      "plural": "locations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/locations",
-          "parameters": [
-            {
-              "name": "address",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "example": "22 Hudson Pl, Hoboken NJ 07030 USA"
-            },
-            {
-              "name": "ip",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "example": "96.242.151.245"
-            },
-            {
-              "name": "latitude",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "longitude",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[location]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Based on the provided location parameters, returns a list of the best potential matching addresses."
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/locations"
     },
     {
       "type": "membership",

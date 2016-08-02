@@ -19,7 +19,7 @@ const duties = client().duties;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| origin | string | The ISO 3 character code for country of origin |
+| origin | string | The ISO 3166 3 character code for country of origin |
 
 ### Query Parameters
 

@@ -30,7 +30,6 @@ const labelEvents = client().labelEvents;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-| expand | [string] |  |
 
 ##`getById(organization, id, options)`
 
@@ -41,11 +40,6 @@ const labelEvents = client().labelEvents;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | id | string | Filter by one or more IDs of this resource |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
 
 ##`getVersions(organization, options)`
 
