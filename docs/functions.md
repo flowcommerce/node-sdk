@@ -1,6 +1,6 @@
 # [API](README.md).functions - Flow Commerce API - Node SDK Documentation
 
-Prioritized calculation yielding a localized price (also allows for custom defined price function)
+Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the &#x27;code&#x27; field) - allowing you to create fully custom functions if needed.
 
 ## Usage
 

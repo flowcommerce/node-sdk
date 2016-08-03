@@ -9,12 +9,12 @@ These resources mirror the official documentation located at
 | :------- | :---------- |
 | [attributes](attributes.md) | An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console. |
 | [catalogs](catalogs.md) |  |
-| [experiences](experiences.md) | Properties that define a customized local experience for a given geographic region |
+| [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing. |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
-| [functions](functions.md) | Prioritized calculation yielding a localized price (also allows for custom defined price function) |
+| [functions](functions.md) | Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the &#x27;code&#x27; field) - allowing you to create fully custom functions if needed. |
 | [duties](duties.md) |  |
 | [harmonizationSettings](harmonizationSettings.md) | Organization level settings. |
 | [harmonizedItems](harmonizedItems.md) | A harmonized item stores explicit information about this item for the purposes of harmonization / classification. The harmonization process begins by creating a harmonized item; this kicks off the internal processes. Once assigned, codes will be available via the hs6 and hs10 resources |

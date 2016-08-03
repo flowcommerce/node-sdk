@@ -1,6 +1,6 @@
 # [API](README.md).experiences - Flow Commerce API - Node SDK Documentation
 
-Properties that define a customized local experience for a given geographic region
+Experiences define a local experience for a given geographic region
 
 ## Usage
 

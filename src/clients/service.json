@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.63",
+  "version": "0.0.65",
   "info": {
     "license": {
       "name": "MIT",
@@ -111,10 +111,16 @@
       "values": [
         {
           "name": "paid",
-          "attributes": []
+          "attributes": [],
+          "description": "DDP"
         },
         {
           "name": "unpaid",
+          "attributes": [],
+          "description": "DDU"
+        },
+        {
+          "name": "choice",
           "attributes": []
         }
       ],
@@ -2475,6 +2481,12 @@
           "description": "Actual shipping cost to be charged to the merchant by Flow"
         },
         {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "price",
           "type": "price",
           "required": true,
@@ -2560,6 +2572,12 @@
           "required": true,
           "attributes": [],
           "description": "Actual shipping cost to be charged to the merchant by Flow"
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": []
         },
         {
           "name": "price",
@@ -2992,10 +3010,18 @@
           "required": true,
           "attributes": [],
           "description": "Defines what information will be displayed in the price"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Position of this experience relative to other experiences. Lower position indicates experience should be considered first. Main use is to resolve incoming geolocation data (e.g. ip, country) to pick an experience. We do this by walking through the list of experiences to find the first one that matches the user's geography.",
+          "minimum": 0
         }
       ],
       "attributes": [],
-      "description": "Properties that define a customized local experience for a given geographic region"
+      "description": "Experiences define a local experience for a given geographic region"
     },
     {
       "name": "experience_form",
@@ -3062,10 +3088,18 @@
           "required": false,
           "attributes": [],
           "description": "The Id of the subcatalog that will define the specific list of products to offer in this experience. If not specified, a new subcatalog will be created."
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Position of this experience relative to other experiences. Lower position indicates experience should be considered first. Main use is to resolve incoming geolocation data (e.g. ip, country) to pick an experience. We do this by walking through the list of experiences to find the first one that matches the user's geography. If not specified, defaults to the end of the list.",
+          "minimum": 0
         }
       ],
       "attributes": [],
-      "description": "Data needed to create an experience for a given geographic region"
+      "description": "Experiences define a local experience for a given geographic region"
     },
     {
       "name": "experience_reference",
@@ -3265,7 +3299,9 @@
           "name": "position",
           "type": "long",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Functions are ordered. Lower position numbers indicate function that should be applied earlier.",
+          "minimum": 0
         },
         {
           "name": "presets",
@@ -3288,7 +3324,7 @@
         }
       ],
       "attributes": [],
-      "description": "Prioritized calculation yielding a localized price (also allows for custom defined price function)"
+      "description": "Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the 'code' field) - allowing you to create fully custom functions if needed."
     },
     {
       "name": "function_form",
@@ -3328,12 +3364,14 @@
         {
           "name": "position",
           "type": "long",
-          "required": false,
+          "required": true,
           "attributes": [],
-          "description": "Functions are prioritized by position, function with highest position index, has highest priority"
+          "description": "Functions are ordered. Lower position numbers indicate function that should be applied earlier. If not specified, position will be set to the end of the current list of functions for this subcatalog",
+          "minimum": 0
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the 'code' field) - allowing you to create fully custom functions if needed."
     },
     {
       "name": "function_reference",
@@ -7511,8 +7549,9 @@
         {
           "name": "position",
           "type": "long",
-          "required": true,
+          "required": false,
           "attributes": [],
+          "description": "Execution position of this rule relative to other rules in the tier. Lower position numbers indicate rules that should be executed earlier. If not specified, we automatically set the position to be last.",
           "minimum": 0
         },
         {
@@ -8719,6 +8758,9 @@
                   },
                   {
                     "value": "name"
+                  },
+                  {
+                    "value": "position"
                   }
                 ]
               }
@@ -9367,7 +9409,7 @@
         }
       ],
       "path": "/:organization/experiences",
-      "description": "Properties that define a customized local experience for a given geographic region"
+      "description": "Experiences define a local experience for a given geographic region"
     },
     {
       "type": "item",
@@ -12550,7 +12592,7 @@
         }
       ],
       "path": "/:organization/functions",
-      "description": "Prioritized calculation yielding a localized price (also allows for custom defined price function)"
+      "description": "Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the 'code' field) - allowing you to create fully custom functions if needed."
     },
     {
       "type": "duty",
@@ -20143,6 +20185,12 @@
               "required": false,
               "description": "Filter by one or more IDs of this resource",
               "maximum": 100
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false
             },
             {
               "name": "limit",
