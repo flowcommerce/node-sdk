@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.67",
+  "version": "0.0.68",
   "info": {
     "license": {
       "name": "MIT",
@@ -3054,9 +3054,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The actual geographic area to which this experience is targeted. Value is the region Id as defined in https://api.flow.io/reference/regions",
+          "description": "The actual geographic area to which this experience is targeted. Value is the region Id as defined in https://api.flow.io/reference/regions - To create a 'default' experience, set region_id to 'world'",
           "minimum": 3,
-          "example": "can or eurozone"
+          "example": "can or eurozone or world"
         },
         {
           "name": "name",
@@ -3116,7 +3116,7 @@
           "type": "long",
           "required": false,
           "attributes": [],
-          "description": "Position of this experience relative to other experiences. Lower position indicates experience should be considered first. Main use is to resolve incoming geolocation data (e.g. ip, country) to pick an experience. We do this by walking through the list of experiences to find the first one that matches the user's geography. If not specified, defaults to the end of the list.",
+          "description": "Position of this experience relative to other experiences. Lower position indicates experience should be considered first. Main use is to resolve incoming geolocation data (e.g. ip, country) to pick an experience. We do this by walking through the list of experiences to find the first one that matches the user's geography. If not specified, then defaults to a: if region is not world, the last non world experience or b: If region is world, the end of the list.",
           "minimum": 0
         }
       ],
