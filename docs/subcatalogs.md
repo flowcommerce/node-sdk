@@ -243,6 +243,16 @@ const subcatalogs = client().subcatalogs;
 | id | string | Filter by one or more IDs of this resource |
 
 
+##`getStatisticsBySubcatalogId(organization, subcatalogId, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| subcatalog_id | string |  |
+
+
 ##`getVersions(organization, options)`
 
 ### Function Parameters

@@ -25,7 +25,6 @@ const functions = client().functions;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
 | subcatalog | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
@@ -40,34 +39,24 @@ const functions = client().functions;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByKey(organization, key, options)`
+##`getById(organization, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 
-##`putByKey(organization, key, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-
-
-##`deleteByKey(organization, key, options)`
+##`deleteById(organization, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 
 ##`getVersions(organization, options)`
@@ -83,8 +72,6 @@ const functions = client().functions;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
-| name | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

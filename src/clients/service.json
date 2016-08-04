@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.65",
+  "version": "0.0.67",
   "info": {
     "license": {
       "name": "MIT",
@@ -1962,6 +1962,28 @@
       "attributes": []
     },
     {
+      "name": "catalog_statistics",
+      "plural": "catalog_statisticses",
+      "fields": [
+        {
+          "name": "number_items",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Total number of catalog items available from master catalog"
+        },
+        {
+          "name": "number_categories",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Distinct number of catalog item categories"
+        }
+      ],
+      "attributes": [],
+      "description": "Statistics covering product catalog item information, including total catalog item count, number of distinct categories, etc."
+    },
+    {
       "name": "catalog_version",
       "plural": "catalog_versions",
       "fields": [
@@ -3284,12 +3306,6 @@
           "attributes": []
         },
         {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "name",
           "type": "string",
           "required": true,
@@ -3304,10 +3320,18 @@
           "minimum": 0
         },
         {
-          "name": "presets",
-          "type": "presets",
+          "name": "adjustments",
+          "type": "[adjustment]",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The list of adjustments (e.g. margin, rounding) to apply"
+        },
+        {
+          "name": "levies",
+          "type": "[levy]",
+          "required": true,
+          "attributes": [],
+          "description": "The list of levies to include in the price when applying this function"
         },
         {
           "name": "code",
@@ -3318,9 +3342,9 @@
         {
           "name": "q",
           "type": "string",
-          "required": false,
+          "required": true,
           "attributes": [],
-          "description": "Optionally apply this pricing function to the items that match this query"
+          "description": "Apply this pricing function to the items that match this query"
         }
       ],
       "attributes": [],
@@ -3347,13 +3371,21 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "Optionally apply this pricing function to the items that match this query"
+          "description": "Optionally apply this pricing function to the items that match this query. If not specified, the pricing function will apply to all items."
         },
         {
-          "name": "presets",
-          "type": "presets",
+          "name": "adjustments",
+          "type": "[adjustment]",
           "required": false,
-          "attributes": []
+          "attributes": [],
+          "description": "Optionally specify the list of adjustments (e.g. margin, rounding) to apply"
+        },
+        {
+          "name": "levies",
+          "type": "[levy]",
+          "required": false,
+          "attributes": [],
+          "description": "Optionally specify the list of levies to include in the price when applying this function"
         },
         {
           "name": "code",
@@ -3364,7 +3396,7 @@
         {
           "name": "position",
           "type": "long",
-          "required": true,
+          "required": false,
           "attributes": [],
           "description": "Functions are ordered. Lower position numbers indicate function that should be applied earlier. If not specified, position will be set to the end of the current list of functions for this subcatalog",
           "minimum": 0
@@ -4382,7 +4414,7 @@
           "attributes": []
         },
         {
-          "name": "item",
+          "name": "item_number",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -6025,28 +6057,6 @@
       "description": "Rule outcome where shipping surfaced in quote is actual cost plus a predefined margin percentage"
     },
     {
-      "name": "presets",
-      "plural": "presets",
-      "fields": [
-        {
-          "name": "adjustments",
-          "type": "[adjustment]",
-          "required": true,
-          "attributes": [],
-          "default": "[]"
-        },
-        {
-          "name": "levies",
-          "type": "[levy]",
-          "required": true,
-          "attributes": [],
-          "default": "[]"
-        }
-      ],
-      "attributes": [],
-      "description": "Presentation for UI that is used to generate a localized price function"
-    },
-    {
       "name": "price",
       "plural": "prices",
       "fields": [
@@ -7184,6 +7194,49 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "subcatalog_statistics",
+      "plural": "subcatalog_statisticses",
+      "fields": [
+        {
+          "name": "number_items",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Total number of catalog items available from master catalog"
+        },
+        {
+          "name": "number_categories",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Distinct number of catalog item categories"
+        },
+        {
+          "name": "number_additions_queued",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Number of items that are currently queued to be added to this subcatalog"
+        },
+        {
+          "name": "number_updates_queued",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Number of updates that are currently queued for items already in this subcatalog"
+        },
+        {
+          "name": "catalog",
+          "type": "catalog_statistics",
+          "required": true,
+          "attributes": [],
+          "description": "The parent catalog's statistics. Provided here to make summary data easy to compute (e.g. what % of items are in this subcatalog)"
+        }
+      ],
+      "attributes": [],
+      "description": "Statistics related to the items in this subcatalog, including item count, number of distinct categories, etc."
     },
     {
       "name": "subcatalog_version",
@@ -11722,6 +11775,56 @@
         },
         {
           "method": "GET",
+          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/statistics",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "subcatalog_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "subcatalog_statistics",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Get statistics for the specified subcatalog. Always paginated."
+        },
+        {
+          "method": "GET",
           "path": "/:organization/catalog/subcatalogs/versions",
           "parameters": [
             {
@@ -12149,13 +12252,6 @@
               "maximum": 100
             },
             {
-              "name": "key",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
               "name": "subcatalog",
               "type": "string",
               "location": "Query",
@@ -12227,13 +12323,13 @@
                     "value": "id"
                   },
                   {
-                    "value": "key"
-                  },
-                  {
                     "value": "name"
                   },
                   {
                     "value": "position"
+                  },
+                  {
+                    "value": "created_at"
                   }
                 ]
               }
@@ -12300,7 +12396,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/functions/:key",
+          "path": "/:organization/functions/:id",
           "parameters": [
             {
               "name": "organization",
@@ -12310,10 +12406,11 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "key",
+              "name": "id",
               "type": "string",
               "location": "Path",
-              "required": true
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
             }
           ],
           "responses": [
@@ -12349,80 +12446,8 @@
           "description": "Returns information about a specific function."
         },
         {
-          "method": "PUT",
-          "path": "/:organization/functions/:key",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "function",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "function",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Update function with the specified key, creating if it does not exist.",
-          "body": {
-            "type": "function_form",
-            "attributes": []
-          }
-        },
-        {
           "method": "DELETE",
-          "path": "/:organization/functions/:key",
+          "path": "/:organization/functions/:id",
           "parameters": [
             {
               "name": "organization",
@@ -12432,10 +12457,11 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "key",
+              "name": "id",
               "type": "string",
               "location": "Path",
-              "required": true
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
             }
           ],
           "responses": [
@@ -12468,7 +12494,7 @@
             }
           ],
           "attributes": [],
-          "description": "Delete the function with this key"
+          "description": "Delete the function with this id"
         },
         {
           "method": "GET",
@@ -12487,20 +12513,6 @@
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "key",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "name",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
               "maximum": 100
             },
             {
@@ -12566,12 +12578,6 @@
                 "values": [
                   {
                     "value": "id"
-                  },
-                  {
-                    "value": "key"
-                  },
-                  {
-                    "value": "name"
                   },
                   {
                     "value": "journal_timestamp"
@@ -17482,7 +17488,7 @@
               "maximum": 100
             },
             {
-              "name": "item",
+              "name": "item_number",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -17565,7 +17571,7 @@
                     "value": "center"
                   },
                   {
-                    "value": "item"
+                    "value": "item_number"
                   }
                 ]
               }
@@ -17757,7 +17763,7 @@
               "maximum": 100
             },
             {
-              "name": "item",
+              "name": "item_number",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -17840,7 +17846,7 @@
                     "value": "center"
                   },
                   {
-                    "value": "item"
+                    "value": "item_number"
                   }
                 ]
               }

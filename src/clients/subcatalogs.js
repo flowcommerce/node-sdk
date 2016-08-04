@@ -96,6 +96,10 @@ export default class Subcatalogs extends Client {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries/${id}`, options);
   }
 
+  getStatisticsBySubcatalogId(organization, subcatalogId, options) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/statistics`, options);
+  }
+
   getVersions(organization, options) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/versions`, options);
   }

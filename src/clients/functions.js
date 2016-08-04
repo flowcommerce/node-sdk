@@ -19,18 +19,13 @@ export default class Functions extends Client {
     return this.makeRequest(`${this.host}/${organization}/functions`, options);
   }
 
-  getByKey(organization, key, options) {
-    return this.makeRequest(`${this.host}/${organization}/functions/${key}`, options);
+  getById(organization, id, options) {
+    return this.makeRequest(`${this.host}/${organization}/functions/${id}`, options);
   }
 
-  putByKey(organization, key, options) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/functions/${key}`, options);
-  }
-
-  deleteByKey(organization, key, options) {
+  deleteById(organization, id, options) {
     Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/functions/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/functions/${id}`, options);
   }
 
   getVersions(organization, options) {
