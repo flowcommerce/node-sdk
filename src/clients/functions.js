@@ -23,6 +23,11 @@ export default class Functions extends Client {
     return this.makeRequest(`${this.host}/${organization}/functions/${id}`, options);
   }
 
+  putById(organization, id, options) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/functions/${id}`, options);
+  }
+
   deleteById(organization, id, options) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/functions/${id}`, options);
