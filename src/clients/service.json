@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.69",
+  "version": "0.0.70",
   "info": {
     "license": {
       "name": "MIT",
@@ -174,26 +174,6 @@
       "attributes": []
     },
     {
-      "name": "levy",
-      "plural": "levies",
-      "values": [
-        {
-          "name": "duty",
-          "attributes": []
-        },
-        {
-          "name": "shipping",
-          "attributes": []
-        },
-        {
-          "name": "vat",
-          "attributes": [],
-          "description": "Value-Added Tax"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "levy_component",
       "plural": "levy_components",
       "values": [
@@ -242,6 +222,39 @@
       "attributes": []
     },
     {
+      "name": "localized_price_key",
+      "plural": "localized_price_keys",
+      "values": [
+        {
+          "name": "price",
+          "attributes": [],
+          "description": "The calculated price, taking into account pricing settings. For example, if vat is set to be included in the price, this value will be equal to subtotal + vat, rounded per the settings. This is the price you should lead with when displaying to consumers"
+        },
+        {
+          "name": "subtotal",
+          "attributes": []
+        },
+        {
+          "name": "vat",
+          "attributes": []
+        },
+        {
+          "name": "duty",
+          "attributes": []
+        },
+        {
+          "name": "shipping",
+          "attributes": []
+        },
+        {
+          "name": "total",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
+    },
+    {
       "name": "margin_type",
       "plural": "margin_types",
       "values": [
@@ -269,6 +282,25 @@
         },
         {
           "name": "metric",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "pricing_levy_setting",
+      "plural": "pricing_levy_settings",
+      "values": [
+        {
+          "name": "included",
+          "attributes": []
+        },
+        {
+          "name": "displayed",
+          "attributes": []
+        },
+        {
+          "name": "ignored",
           "attributes": []
         }
       ],
@@ -695,21 +727,21 @@
       "discriminator": "discriminator"
     },
     {
-      "name": "expandable_function",
-      "plural": "expandable_functions",
+      "name": "expandable_item_function",
+      "plural": "expandable_item_functions",
       "types": [
         {
-          "type": "function",
+          "type": "item_function",
           "attributes": []
         },
         {
-          "type": "function_reference",
+          "type": "item_function_reference",
           "attributes": []
         }
       ],
       "attributes": [],
       "discriminator": "discriminator",
-      "description": "A function can be represented with just it's ID, or the entire model"
+      "description": "An item function can be represented with just it's Id, or the entire model"
     },
     {
       "name": "expandable_organization",
@@ -2200,25 +2232,6 @@
       "description": "The actual value of the API token. This is modeled as a separate resource as it is fetched only on demand."
     },
     {
-      "name": "component",
-      "plural": "components",
-      "fields": [
-        {
-          "name": "adjustments",
-          "type": "[margin_type]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "levies",
-          "type": "[levy]",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "contact",
       "plural": "contacts",
       "fields": [
@@ -2977,6 +2990,19 @@
           "attributes": []
         },
         {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": [],
+          "description": "Determines if a given experience should be DDP, DDU, or customer choice. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU"
+        },
+        {
           "name": "region",
           "type": "region_reference",
           "required": true,
@@ -3015,23 +3041,10 @@
           "attributes": []
         },
         {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "subcatalog",
           "type": "subcatalog_reference",
           "required": true,
           "attributes": []
-        },
-        {
-          "name": "price_display",
-          "type": "price_display",
-          "required": true,
-          "attributes": [],
-          "description": "Defines what information will be displayed in the price"
         },
         {
           "name": "position",
@@ -3064,6 +3077,13 @@
           "required": true,
           "attributes": [],
           "description": "Name for the experience"
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "description": "Determines if a given experience should be DDP, DDU, or customer choice. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
         },
         {
           "name": "country",
@@ -3284,189 +3304,6 @@
           "attributes": [],
           "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
           "example": "USD"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "function",
-      "plural": "functions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "subcatalog_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "position",
-          "type": "long",
-          "required": true,
-          "attributes": [],
-          "description": "Functions are ordered. Lower position numbers indicate function that should be applied earlier.",
-          "minimum": 0
-        },
-        {
-          "name": "adjustments",
-          "type": "[adjustment]",
-          "required": true,
-          "attributes": [],
-          "description": "The list of adjustments (e.g. margin, rounding) to apply"
-        },
-        {
-          "name": "levies",
-          "type": "[levy]",
-          "required": true,
-          "attributes": [],
-          "description": "The list of levies to include in the price when applying this function"
-        },
-        {
-          "name": "code",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "q",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Apply this pricing function to the items that match this query"
-        }
-      ],
-      "attributes": [],
-      "description": "Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the 'code' field) - allowing you to create fully custom functions if needed."
-    },
-    {
-      "name": "function_form",
-      "plural": "function_forms",
-      "fields": [
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "subcatalog_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "q",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Optionally apply this pricing function to the items that match this query. If not specified, the pricing function will apply to all items."
-        },
-        {
-          "name": "adjustments",
-          "type": "[adjustment]",
-          "required": false,
-          "attributes": [],
-          "description": "Optionally specify the list of adjustments (e.g. margin, rounding) to apply"
-        },
-        {
-          "name": "levies",
-          "type": "[levy]",
-          "required": false,
-          "attributes": [],
-          "description": "Optionally specify the list of levies to include in the price when applying this function"
-        },
-        {
-          "name": "code",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "position",
-          "type": "long",
-          "required": false,
-          "attributes": [],
-          "description": "Functions are ordered. Lower position numbers indicate function that should be applied earlier. If not specified, position will be set to the end of the current list of functions for this subcatalog",
-          "minimum": 0
-        }
-      ],
-      "attributes": [],
-      "description": "Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the 'code' field) - allowing you to create fully custom functions if needed."
-    },
-    {
-      "name": "function_reference",
-      "plural": "function_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "function_summary",
-      "plural": "function_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "function_version",
-      "plural": "function_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "function",
-          "type": "function",
-          "required": true,
-          "attributes": []
         }
       ],
       "attributes": []
@@ -4763,6 +4600,306 @@
       "description": "The item form defines the data required to create an item."
     },
     {
+      "name": "item_function",
+      "plural": "item_functions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Unique, url friendly key identifying this function"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Details of what the item function actually does"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created."
+    },
+    {
+      "name": "item_function_post_form",
+      "plural": "item_function_post_forms",
+      "fields": [
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Details of what the item function actually does"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Unique key to identify this function. If not specified, generated server side as the lowercase, hex encoded, Sha-256 of the source code itself"
+        }
+      ],
+      "attributes": [],
+      "description": "Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created."
+    },
+    {
+      "name": "item_function_put_form",
+      "plural": "item_function_put_forms",
+      "fields": [
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Details of what the item function actually does"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created."
+    },
+    {
+      "name": "item_function_reference",
+      "plural": "item_function_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_function_version",
+      "plural": "item_function_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_function",
+          "type": "item_function",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_margin",
+      "plural": "item_margins",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "margin",
+          "type": "margin",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "A list of margin to apply to items based on query."
+    },
+    {
+      "name": "item_margin_form",
+      "plural": "item_margin_forms",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "margin",
+          "type": "margin",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Defaults to matching all items (i.e. '*')"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Defaults to end of list"
+        }
+      ],
+      "attributes": [],
+      "description": "A list of margin to apply to items based on query."
+    },
+    {
+      "name": "item_margin_version",
+      "plural": "item_margin_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_margin",
+          "type": "item_margin",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_price_details",
+      "plural": "item_price_detailses",
+      "fields": [
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "local",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency_margin",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The amount of margin from the organization's currency settings"
+        },
+        {
+          "name": "item_margin",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The amount of margin from the experience's settings"
+        },
+        {
+          "name": "vat",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "duty",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "shipping",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rounding",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The amount required to meet the rounding requirements from the experience's settings. For example, if an item price is 121.50, and the rounding setting is up to the nearest '1.00', rounding would return .50 here."
+        },
+        {
+          "name": "total",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Detailed information for the pricing of a given item within an experience"
+    },
+    {
       "name": "item_summary",
       "plural": "item_summaries",
       "fields": [
@@ -5329,7 +5466,7 @@
       "fields": [
         {
           "name": "key",
-          "type": "string",
+          "type": "localized_price_key",
           "required": true,
           "attributes": []
         },
@@ -6085,20 +6222,6 @@
       "description": "Represents an amount-currency pair for a basic price"
     },
     {
-      "name": "price_display",
-      "plural": "price_displays",
-      "fields": [
-        {
-          "name": "levies",
-          "type": "[levy]",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Defines which elements of a the item price should be explicitly displayed (e.g. deciding whether to list VAT standalone from item price or as part of the item price)"
-    },
-    {
       "name": "price_equation",
       "plural": "price_equations",
       "fields": [
@@ -6189,6 +6312,35 @@
       ],
       "attributes": [],
       "description": "Amount-currency paid for a basic price to be used in model forms, before a price label is created. Label in the main price model is created by the implementing api."
+    },
+    {
+      "name": "pricing",
+      "plural": "pricings",
+      "fields": [
+        {
+          "name": "vat",
+          "type": "pricing_levy_setting",
+          "required": true,
+          "attributes": [],
+          "description": "Determines how VAT is treated within this experience - whether it is included in the item price, displayed as a stand alone line item, or ignored - and only used in checkout (see the orders resource)"
+        },
+        {
+          "name": "duty",
+          "type": "pricing_levy_setting",
+          "required": true,
+          "attributes": [],
+          "description": "Determines how Duty is treated within this experience - whether it is included in the item price, displayed as a stand alone line item, or ignored - and only used in checkout (see the orders resource)"
+        },
+        {
+          "name": "rounding",
+          "type": "rounding",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, we will round prices in this experience"
+        }
+      ],
+      "attributes": [],
+      "description": "Pricing determines how the item price is calculated when items are requests via the experience."
     },
     {
       "name": "query",
@@ -7128,6 +7280,102 @@
       "attributes": []
     },
     {
+      "name": "subcatalog_function",
+      "plural": "subcatalog_functions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "item_function",
+          "type": "item_function",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Apply this pricing function to the items that match this query"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Functions are ordered. Lower position numbers indicate function that should be applied earlier.",
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "subcatalog_function_form",
+      "plural": "subcatalog_function_forms",
+      "fields": [
+        {
+          "name": "item_function_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Id of the item function to associate with this subcatalog"
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Optionally apply this pricing function only to the items that match this query. If not specified, the pricing function will apply to all items."
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Functions are ordered. Lower position numbers indicate function that should be applied earlier. Defaults to last in list.",
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "subcatalog_function_version",
+      "plural": "subcatalog_function_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_function",
+          "type": "subcatalog_function",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "subcatalog_item",
       "plural": "subcatalog_items",
       "fields": [
@@ -7145,8 +7393,8 @@
           "attributes": []
         },
         {
-          "name": "function",
-          "type": "expandable_function",
+          "name": "item_function",
+          "type": "expandable_item_function",
           "required": false,
           "attributes": []
         }
@@ -9051,8 +9299,164 @@
           "description": "Delete the experience with this key"
         },
         {
-          "method": "PUT",
-          "path": "/:organization/experiences/:key/price_display",
+          "method": "GET",
+          "path": "/:organization/experiences/:key/items/:number/price",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item_price_details",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns detailed information on the pricing of this item within this experience"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:key/margins",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "name"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item_margin]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "name"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/experiences/:key/margins",
           "parameters": [
             {
               "name": "organization",
@@ -9075,7 +9479,7 @@
                   "value": 200
                 }
               },
-              "type": "experience",
+              "type": "item_margin",
               "description": "Successful response"
             },
             {
@@ -9107,9 +9511,339 @@
             }
           ],
           "attributes": [],
-          "description": "Update the configuration of the price display for this experience.",
           "body": {
-            "type": "price_display",
+            "type": "item_margin_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:key/margins/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item_margin",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/experiences/:key/margins/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:key/margins/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item_margin_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:key/pricing",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "pricing",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Get the pricing settings for this experience"
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/experiences/:key/pricing",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "pricing",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Update the pricing settings for this experience",
+          "body": {
+            "type": "pricing",
             "attributes": []
           }
         },
@@ -11203,6 +11937,396 @@
         },
         {
           "method": "GET",
+          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/functions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "subcatalog_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[subcatalog_function]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Gets the ordered list of item functions for this subcatalog"
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/functions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "subcatalog_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "subcatalog_function",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Associates a function with this subcatalog",
+          "body": {
+            "type": "subcatalog_function_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/functions/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "subcatalog_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "subcatalog_function",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/functions/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "subcatalog_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Deletes the subcatalog item function - note that this removes the association between the function and subcatalog / does not actually delete the function itself."
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/catalog/subcatalogs/:subcatalog_id/functions/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "subcatalog_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[subcatalog_function_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Provides visibility into recent changes of each object, including deletion"
+        },
+        {
+          "method": "GET",
           "path": "/:organization/catalog/subcatalogs/:subcatalog_id/inclusions",
           "parameters": [
             {
@@ -11999,7 +13123,7 @@
               "required": false,
               "minimum": 0,
               "maximum": 1,
-              "example": "function"
+              "example": "item_function"
             }
           ],
           "responses": [
@@ -12229,12 +13353,12 @@
       "description": "Represents information specific to an item in a given subcatalog"
     },
     {
-      "type": "function",
-      "plural": "functions",
+      "type": "item_function",
+      "plural": "item_functions",
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/functions",
+          "path": "/:organization/item-functions",
           "parameters": [
             {
               "name": "organization",
@@ -12252,8 +13376,8 @@
               "maximum": 100
             },
             {
-              "name": "subcatalog",
-              "type": "string",
+              "name": "key",
+              "type": "[string]",
               "location": "Query",
               "required": false,
               "maximum": 100
@@ -12282,7 +13406,7 @@
               "type": "string",
               "location": "Query",
               "required": true,
-              "default": "name"
+              "default": "-created_at"
             }
           ],
           "responses": [
@@ -12292,7 +13416,7 @@
                   "value": 200
                 }
               },
-              "type": "[function]",
+              "type": "[item_function]",
               "description": "Successful response"
             },
             {
@@ -12323,10 +13447,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "name"
-                  },
-                  {
-                    "value": "position"
+                    "value": "key"
                   },
                   {
                     "value": "created_at"
@@ -12335,11 +13456,11 @@
               }
             }
           ],
-          "description": "Search functions. Always paginated."
+          "description": "Search item functions. Always paginated."
         },
         {
           "method": "POST",
-          "path": "/:organization/functions",
+          "path": "/:organization/item-functions",
           "parameters": [
             {
               "name": "organization",
@@ -12356,7 +13477,7 @@
                   "value": 201
                 }
               },
-              "type": "function",
+              "type": "item_function",
               "description": "Operation succeeded and the resource was created"
             },
             {
@@ -12388,15 +13509,15 @@
             }
           ],
           "attributes": [],
-          "description": "Add function",
+          "description": "Create item function",
           "body": {
-            "type": "function_form",
+            "type": "item_function_post_form",
             "attributes": []
           }
         },
         {
           "method": "GET",
-          "path": "/:organization/functions/:id",
+          "path": "/:organization/item-functions/:key",
           "parameters": [
             {
               "name": "organization",
@@ -12406,11 +13527,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -12420,7 +13540,7 @@
                   "value": 200
                 }
               },
-              "type": "function",
+              "type": "item_function",
               "description": "Successful response"
             },
             {
@@ -12443,11 +13563,11 @@
             }
           ],
           "attributes": [],
-          "description": "Returns information about a specific function."
+          "description": "Returns information about a specific item function."
         },
         {
           "method": "PUT",
-          "path": "/:organization/functions/:id",
+          "path": "/:organization/item-functions/:key",
           "parameters": [
             {
               "name": "organization",
@@ -12457,11 +13577,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -12471,8 +13590,17 @@
                   "value": 200
                 }
               },
-              "type": "function",
+              "type": "item_function",
               "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "item_function",
+              "description": "Operation succeeded and the resource was created"
             },
             {
               "code": {
@@ -12503,15 +13631,15 @@
             }
           ],
           "attributes": [],
-          "description": "Update an existing function",
+          "description": "Upsert item function",
           "body": {
-            "type": "function_form",
+            "type": "item_function_put_form",
             "attributes": []
           }
         },
         {
           "method": "DELETE",
-          "path": "/:organization/functions/:id",
+          "path": "/:organization/item-functions/:key",
           "parameters": [
             {
               "name": "organization",
@@ -12521,11 +13649,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -12558,11 +13685,11 @@
             }
           ],
           "attributes": [],
-          "description": "Delete the function with this id"
+          "description": "Delete the item function with this key"
         },
         {
           "method": "GET",
-          "path": "/:organization/functions/versions",
+          "path": "/:organization/item-functions/versions",
           "parameters": [
             {
               "name": "organization",
@@ -12613,7 +13740,7 @@
                   "value": 200
                 }
               },
-              "type": "[function_version]",
+              "type": "[item_function_version]",
               "description": "Successful response"
             },
             {
@@ -12661,8 +13788,8 @@
           }
         }
       ],
-      "path": "/:organization/functions",
-      "description": "Functions are used to calculate the localized price of an additional item based on settings (e.g. include VAT) and any rules (adding margin, rounding, etc.). Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Ultimately the function executes in pure javascript (the 'code' field) - allowing you to create fully custom functions if needed."
+      "path": "/:organization/item-functions",
+      "description": "Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created."
     },
     {
       "type": "duty",

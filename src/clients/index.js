@@ -5,7 +5,7 @@ import Items from './items';
 import Orders from './orders';
 import Subcatalogs from './subcatalogs';
 import SubcatalogItems from './subcatalog-items';
-import Functions from './functions';
+import ItemFunctions from './item-functions';
 import Duties from './duties';
 import HarmonizationSettings from './harmonization-settings';
 import HarmonizedItems from './harmonized-items';
@@ -69,7 +69,7 @@ export default class ApiClient {
     this.orders = new Orders(options);
     this.subcatalogs = new Subcatalogs(options);
     this.subcatalog_items = new SubcatalogItems(options);
-    this.functions = new Functions(options);
+    this.item_functions = new ItemFunctions(options);
     this.duties = new Duties(options);
     this.harmonization_settings = new HarmonizationSettings(options);
     this.harmonized_items = new HarmonizedItems(options);
