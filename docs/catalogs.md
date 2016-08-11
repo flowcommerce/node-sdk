@@ -21,3 +21,12 @@ const catalogs = client().catalogs;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`getCatalogAndStatistics(organization, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+

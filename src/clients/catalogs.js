@@ -14,4 +14,8 @@ export default class Catalogs extends Client {
     return this.makeRequest(`${this.host}/${organization}/catalog`, options);
   }
 
+  getCatalogAndStatistics(organization, options) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/statistics`, options);
+  }
+
 }

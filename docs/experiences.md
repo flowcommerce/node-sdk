@@ -123,6 +123,17 @@ const experiences = client().experiences;
 | id | string | Filter by one or more IDs of this resource |
 
 
+##`putMarginsByKeyAndId(organization, key, id, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
 ##`deleteMarginsByKeyAndId(organization, key, id, options)`
 
 ### Function Parameters

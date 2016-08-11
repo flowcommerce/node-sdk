@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Addresses extends Client {
+export default class SpotRates extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -11,7 +11,11 @@ export default class Addresses extends Client {
   }
 
   get(options) {
-    return this.makeRequest(`${this.host}/addresses`, options);
+    return this.makeRequest(`${this.host}/spot_rates`, options);
+  }
+
+  getVersions(options) {
+    return this.makeRequest(`${this.host}/spot_rates/versions`, options);
   }
 
 }
