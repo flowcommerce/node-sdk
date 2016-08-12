@@ -14,7 +14,6 @@ These resources mirror the official documentation located at
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing. |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
-| [flowCurrencySettings](flowCurrencySettings.md) |  |
 | [itemFunctions](itemFunctions.md) | Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created. |
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
@@ -44,6 +43,7 @@ These resources mirror the official documentation located at
 | [lanes](lanes.md) | Available origin/destination mapping and available metadata for lanes of a carrier Service. e.g. UPS Ground only US-US, UPS Intl only US-Intl, etc |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
 | [ratecards](ratecards.md) | Snapshot of all lanes and rows across all service levels of an organization |
+| [ratecardEstimates](ratecardEstimates.md) | Represents a summary of a cost estimate based on rate card data for an origin/destination and weight, either gravitational or dimensional |
 | [ratecardLanes](ratecardLanes.md) | Describe list of rates applicable for a lane on the ratecard - defined by origin and destination zone |
 | [ratecardRates](ratecardRates.md) | Specific line item in a ratecard lane with information on a weight threshold and corresponding amount to charge |
 | [services](services.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |

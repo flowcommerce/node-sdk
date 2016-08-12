@@ -11,21 +11,21 @@ export default class OrganizationCurrencySettings extends Client {
   }
 
   get(organization, options) {
-    return this.makeRequest(`${this.host}/${organization}/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/settings`, options);
   }
 
   post(organization, options) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/settings`, options);
   }
 
   put(organization, options) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/settings`, options);
   }
 
   getVersions(organization, options) {
-    return this.makeRequest(`${this.host}/${organization}/settings/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/settings/versions`, options);
   }
 
 }
