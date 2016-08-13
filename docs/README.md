@@ -54,6 +54,7 @@ These resources mirror the official documentation located at
 | [tierRules](tierRules.md) | System to filter incoming quote for a shipment request based on a query and output corresponding outcomes. |
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
 | [addresses](addresses.md) |  |
+| [countryDefaults](countryDefaults.md) | Provides country level defaults, incl language and currency. This resource allows you to provide geo info (e.g. IP, address, country) and will geolocate the request, returning the matching country level defaults. For example, if a user lands on your website and you do not have any stored preferences, you can use this API to retrieve the best default preferences based on the location of the user by providing their IP Address. |
 | [countries](countries.md) |  |
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies |
 | [languages](languages.md) | ISO 639 2-character language code. See https://api.flow.io/reference/languages |

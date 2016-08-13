@@ -21,6 +21,4 @@ const addresses = client().addresses;
 | ---- | ---- | ---- |
 | address | string |  |
 | ip | string |  |
-| latitude | string |  |
-| longitude | string |  |
 

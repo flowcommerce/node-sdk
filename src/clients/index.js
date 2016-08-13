@@ -45,6 +45,7 @@ import TierDefaults from './tier-defaults';
 import TierRules from './tier-rules';
 import Trackings from './trackings';
 import Addresses from './addresses';
+import CountryDefaults from './country-defaults';
 import Countries from './countries';
 import Currencies from './currencies';
 import Languages from './languages';
@@ -116,6 +117,7 @@ export default class ApiClient {
     this.tier_rules = new TierRules(options);
     this.trackings = new Trackings(options);
     this.addresses = new Addresses(options);
+    this.country_defaults = new CountryDefaults(options);
     this.countries = new Countries(options);
     this.currencies = new Currencies(options);
     this.languages = new Languages(options);
