@@ -32,7 +32,6 @@ These resources mirror the official documentation located at
 | [refunds](refunds.md) | Refunds are used to issue refunds against a prior capture. |
 | [bookings](bookings.md) | Represents second step of two-step purchase of Flow services. |
 | [carriers](carriers.md) | Partner that actually take a shipment between places (ex: FedEx, DHL, SF Express) |
-| [carrierAccounts](carrierAccounts.md) | carrier_account an organization has with a carrier. A carrier can have multiple carrier_accounts with a single carrier. This represents the many-to-many relationship between organizations and carriers. |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) |  |
 | [inventoryRules](inventoryRules.md) | Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization |
@@ -40,7 +39,6 @@ These resources mirror the official documentation located at
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
 | [labels](labels.md) | Represents a specific label being tracked as part of the tracking bucket |
 | [labelEvents](labelEvents.md) |  |
-| [lanes](lanes.md) | Available origin/destination mapping and available metadata for lanes of a carrier Service. e.g. UPS Ground only US-US, UPS Intl only US-Intl, etc |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
 | [ratecards](ratecards.md) | Snapshot of all lanes and rows across all service levels of an organization |
 | [ratecardEstimates](ratecardEstimates.md) | Represents a summary of a cost estimate based on rate card data for an origin/destination and weight, either gravitational or dimensional |
