@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.91",
+  "version": "0.0.92",
   "info": {
     "license": {
       "name": "MIT",
@@ -177,6 +177,38 @@
         },
         {
           "name": "subcatalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "name": "flow_currency_setting_deleted",
+          "attributes": []
+        },
+        {
+          "name": "flow_currency_setting_upserted",
+          "attributes": []
+        },
+        {
+          "name": "rate_deleted",
+          "attributes": []
+        },
+        {
+          "name": "rate_upserted",
+          "attributes": []
+        },
+        {
+          "name": "spot_rate_deleted",
+          "attributes": []
+        },
+        {
+          "name": "spot_rate_upserted",
+          "attributes": []
+        },
+        {
+          "name": "organization_currency_setting_deleted",
+          "attributes": []
+        },
+        {
+          "name": "organization_currency_setting_upserted",
           "attributes": []
         },
         {
@@ -867,6 +899,38 @@
         },
         {
           "type": "subcatalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "type": "flow_currency_setting_deleted",
+          "attributes": []
+        },
+        {
+          "type": "flow_currency_setting_upserted",
+          "attributes": []
+        },
+        {
+          "type": "rate_deleted",
+          "attributes": []
+        },
+        {
+          "type": "rate_upserted",
+          "attributes": []
+        },
+        {
+          "type": "spot_rate_deleted",
+          "attributes": []
+        },
+        {
+          "type": "spot_rate_upserted",
+          "attributes": []
+        },
+        {
+          "type": "organization_currency_setting_deleted",
+          "attributes": []
+        },
+        {
+          "type": "organization_currency_setting_upserted",
           "attributes": []
         },
         {
@@ -3708,6 +3772,92 @@
       "description": "Rule outcome where shipping surfaced in quote is pre-defined flat rate"
     },
     {
+      "name": "flow_currency_setting_deleted",
+      "plural": "flow_currency_setting_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "flow_currency_setting_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "flow_currency_setting_upserted",
+      "plural": "flow_currency_setting_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "flow_currency_setting_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "margin",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rate_lock_unit",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rate_lock_value",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "flow_item_index_metadata",
       "plural": "flow_item_index_metadata",
       "fields": [
@@ -5493,77 +5643,6 @@
       "attributes": []
     },
     {
-      "name": "item_price_details",
-      "plural": "item_price_detailses",
-      "fields": [
-        {
-          "name": "base",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The item's base price from the master catalog"
-        },
-        {
-          "name": "local",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The item's price in the currency of the experience. If the currency differs, your contracted FX rate with flow is used to convert the base price to the local price."
-        },
-        {
-          "name": "currency_margin",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "If you have configured FX margin, this will be the total amount of that margin as applied to the conversion from the base to local price."
-        },
-        {
-          "name": "item_margin",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The amount of margin from the experience's settings"
-        },
-        {
-          "name": "vat",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The total amount of VAT applied. VAT is applied to the item price and optionally to the duty/shipping prices based on the destination country."
-        },
-        {
-          "name": "duty",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The total amount of DUTY applied. Duty is applied to the item price and optionally to the shipping prices based on the destination country, and also will take into account deminimus (thus amount may be zero if deminimus applies)."
-        },
-        {
-          "name": "shipping",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The total shipping amount"
-        },
-        {
-          "name": "rounding",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The amount required to meet the rounding requirements from the experience's settings. For example, if an item price is 121.50, and the rounding setting is up to the nearest '1.00', rounding would return .50 here."
-        },
-        {
-          "name": "total",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The total price (local + currency margin + item margin + vat + duty + shipping + rounding)"
-        }
-      ],
-      "attributes": [],
-      "description": "Detailed information for the pricing of a given item within an experience"
-    },
-    {
       "name": "item_statistics",
       "plural": "item_statisticses",
       "fields": [
@@ -6548,6 +6627,31 @@
       "description": "Represents organization-specific currency conversion adjustments."
     },
     {
+      "name": "organization_currency_setting_deleted",
+      "plural": "organization_currency_setting_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_currency_setting_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "organization_currency_setting_form",
       "plural": "organization_currency_setting_forms",
       "fields": [
@@ -6575,6 +6679,55 @@
       ],
       "attributes": [],
       "description": "Represents the parts of an organization setting that can be updated."
+    },
+    {
+      "name": "organization_currency_setting_upserted",
+      "plural": "organization_currency_setting_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_currency_setting_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "margin",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "organization_currency_setting_version",
@@ -6904,6 +7057,70 @@
       "description": "Represents an amount-currency pair for a basic price"
     },
     {
+      "name": "price_details",
+      "plural": "price_detailses",
+      "fields": [
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The item's base price from the master catalog"
+        },
+        {
+          "name": "local",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The item's price in the currency of the experience. If the currency differs, your contracted FX rate with Flow is used to convert the base price to the local price."
+        },
+        {
+          "name": "currency_margin",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "If you have configured FX margin, this will be the total amount of that margin as applied to the conversion from the base to local price."
+        },
+        {
+          "name": "margin",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The amount of margin from the experience's settings"
+        },
+        {
+          "name": "vat",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The total amount of VAT applied. VAT is applied to the item price and optionally to the duty/shipping prices based on the destination country."
+        },
+        {
+          "name": "duty",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The total amount of DUTY applied. Duty is applied to the item price and optionally to the shipping prices based on the destination country, and also will take into account deminimus (thus amount may be zero if deminimus applies)."
+        },
+        {
+          "name": "rounding",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The amount required to meet the rounding requirements from the experience's settings. For example, if an item price is 121.50, and the rounding setting is up to the nearest '1.00', rounding would return .50 here."
+        },
+        {
+          "name": "total",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The total price (local + currency margin + item margin + vat + duty + shipping + rounding)"
+        }
+      ],
+      "attributes": [],
+      "description": "Detailed information for the pricing of a given item within an experience"
+    },
+    {
       "name": "price_equation",
       "plural": "price_equations",
       "fields": [
@@ -6915,25 +7132,18 @@
           "description": "The base price of the product."
         },
         {
-          "name": "conversion",
-          "type": "conversion",
+          "name": "contracted_rate",
+          "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "Contains information necessary to convert between currencies."
+          "description": "The value of the contracted currency conversion rate between Flow and an organization."
         },
         {
-          "name": "fixed_margin",
-          "type": "margin",
+          "name": "rate",
+          "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "A fixed margin used to adjust the cost of the product by a given value."
-        },
-        {
-          "name": "percent_margin",
-          "type": "margin",
-          "required": true,
-          "attributes": [],
-          "description": "A relative margin used to adjust the cost of the product by a given percentage."
+          "description": "The value of the currency conversion rate that includes an organization-specific margin if applicable."
         },
         {
           "name": "insurance",
@@ -6950,16 +7160,23 @@
           "description": "The freight information associated with the product."
         },
         {
+          "name": "margins",
+          "type": "[margin]",
+          "required": true,
+          "attributes": [],
+          "description": "A set of margins used to adjust the base price."
+        },
+        {
           "name": "duty",
           "type": "duty",
-          "required": true,
+          "required": false,
           "attributes": [],
           "description": "The duty rate applicable to the product."
         },
         {
           "name": "tax",
           "type": "tax",
-          "required": true,
+          "required": false,
           "attributes": [],
           "description": "The tax rate applicable to the product."
         },
@@ -7229,6 +7446,31 @@
       "description": "Represents an organization-specific currency conversion rate at a point in time."
     },
     {
+      "name": "rate_deleted",
+      "plural": "rate_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rate_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "rate_form",
       "plural": "rate_forms",
       "fields": [
@@ -7256,6 +7498,62 @@
       ],
       "attributes": [],
       "description": "Represents the parts of an organization rate that can be updated."
+    },
+    {
+      "name": "rate_upserted",
+      "plural": "rate_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rate_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "effective_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The actual conversion rate after margins have been applied."
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "rate_version",
@@ -8564,6 +8862,31 @@
       "attributes": []
     },
     {
+      "name": "spot_rate_deleted",
+      "plural": "spot_rate_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "spot_rate_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "spot_rate_form",
       "plural": "spot_rate_forms",
       "fields": [
@@ -8590,6 +8913,56 @@
         {
           "name": "value",
           "type": "decimal",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "spot_rate_upserted",
+      "plural": "spot_rate_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "spot_rate_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The new value of the spot rate."
+        },
+        {
+          "name": "effective_at",
+          "type": "date-time-iso8601",
           "required": true,
           "attributes": []
         }
@@ -11174,7 +11547,7 @@
                   "value": 200
                 }
               },
-              "type": "item_price_details",
+              "type": "price_details",
               "description": "Successful response"
             },
             {
