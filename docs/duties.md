@@ -28,6 +28,4 @@ const duties = client().duties;
 | number | string |  |
 | address | string |  |
 | ip | string |  |
-| latitude | string |  |
-| longitude | string |  |
 

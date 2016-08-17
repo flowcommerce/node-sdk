@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.92",
+  "version": "0.0.94",
   "info": {
     "license": {
       "name": "MIT",
@@ -2276,15 +2276,27 @@
           "attributes": []
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
           "name": "attributes",
           "type": "map[string]",
           "required": true,
           "attributes": []
         },
         {
-          "name": "description",
-          "type": "string",
-          "required": false,
+          "name": "dimensions",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "images",
+          "type": "object",
+          "required": true,
           "attributes": []
         }
       ],
@@ -2847,7 +2859,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": []
         },
@@ -2874,7 +2886,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": []
         },
@@ -2953,7 +2965,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": []
         },
@@ -3078,7 +3090,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": []
         }
@@ -3661,6 +3673,12 @@
           "attributes": []
         },
         {
+          "name": "delivered_duty",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "subcatalog_id",
           "type": "string",
           "required": true,
@@ -3693,6 +3711,12 @@
         {
           "name": "measurement_system",
           "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "long",
           "required": true,
           "attributes": []
         }
@@ -4759,11 +4783,10 @@
       "plural": "inventory_center_references",
       "fields": [
         {
-          "name": "id",
+          "name": "key",
           "type": "string",
           "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
+          "attributes": []
         }
       ],
       "attributes": []
@@ -5595,9 +5618,8 @@
         {
           "name": "q",
           "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Defaults to matching all items (i.e. '*')"
+          "required": true,
+          "attributes": []
         },
         {
           "name": "position",
@@ -5663,28 +5685,6 @@
       ],
       "attributes": [],
       "description": "Statistics covering product catalog item information, including total catalog item count, number of distinct categories, etc."
-    },
-    {
-      "name": "item_summary",
-      "plural": "item_summaries",
-      "fields": [
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "quantity",
-          "type": "long",
-          "required": true,
-          "attributes": [],
-          "minimum": 1
-        }
-      ],
-      "attributes": [],
-      "description": "Summary of product line item"
     },
     {
       "name": "item_version",
@@ -6057,6 +6057,35 @@
       ],
       "attributes": [],
       "description": "ISO 639 2-character language code. See https://api.flow.io/reference/languages"
+    },
+    {
+      "name": "line_item",
+      "plural": "line_items",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "center",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup."
+        }
+      ],
+      "attributes": [],
+      "description": "Summary of product line item"
     },
     {
       "name": "local",
@@ -6445,7 +6474,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -6473,7 +6502,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -7342,7 +7371,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -8461,7 +8490,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": [],
           "description": "Items contained in this shipment"
@@ -8496,7 +8525,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": []
         },
@@ -8733,7 +8762,7 @@
         },
         {
           "name": "items",
-          "type": "[item_summary]",
+          "type": "[line_item]",
           "required": true,
           "attributes": [],
           "description": "Items contained in this shipment"
@@ -17001,18 +17030,6 @@
               "type": "string",
               "location": "Query",
               "required": false
-            },
-            {
-              "name": "latitude",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "longitude",
-              "type": "string",
-              "location": "Query",
-              "required": false
             }
           ],
           "responses": [
@@ -17050,7 +17067,7 @@
                 }
               },
               "type": "[error]",
-              "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address, latitude, longitude or ip address)"
+              "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
             }
           ],
           "attributes": []
@@ -18486,18 +18503,6 @@
               "type": "string",
               "location": "Query",
               "required": false
-            },
-            {
-              "name": "latitude",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "longitude",
-              "type": "string",
-              "location": "Query",
-              "required": false
             }
           ],
           "responses": [
@@ -18535,7 +18540,7 @@
                 }
               },
               "type": "[error]",
-              "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address, latitude, longitude or ip address)"
+              "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
             }
           ],
           "attributes": []

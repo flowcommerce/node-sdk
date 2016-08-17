@@ -26,6 +26,4 @@ const taxes = client().taxes;
 | ---- | ---- | ---- |
 | address | string |  |
 | ip | string |  |
-| latitude | string |  |
-| longitude | string |  |
 
