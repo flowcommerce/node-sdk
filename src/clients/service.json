@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.85",
+  "version": "0.0.91",
   "info": {
     "license": {
       "name": "MIT",
@@ -142,6 +142,76 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "event_type",
+      "plural": "event_types",
+      "values": [
+        {
+          "name": "catalog_upserted",
+          "attributes": []
+        },
+        {
+          "name": "catalog_deleted",
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_upserted",
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_deleted",
+          "attributes": []
+        },
+        {
+          "name": "catalog_item_upserted",
+          "attributes": []
+        },
+        {
+          "name": "catalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_item_upserted",
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "name": "experience_deleted",
+          "attributes": []
+        },
+        {
+          "name": "experience_upserted",
+          "attributes": []
+        },
+        {
+          "name": "hs6_code_upserted",
+          "attributes": []
+        },
+        {
+          "name": "hs6_code_deleted",
+          "attributes": []
+        },
+        {
+          "name": "hs10_code_upserted",
+          "attributes": []
+        },
+        {
+          "name": "hs10_code_deleted",
+          "attributes": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "webhook"
+          }
+        }
+      ]
     },
     {
       "name": "exception_type",
@@ -286,6 +356,18 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "method",
+      "plural": "methods",
+      "values": [
+        {
+          "name": "post",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The available methods by which we deliver each webhook event"
     },
     {
       "name": "pricing_levy_setting",
@@ -684,6 +766,25 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "webhook_request_status",
+      "plural": "webhook_request_statuses",
+      "values": [
+        {
+          "name": "pending",
+          "attributes": []
+        },
+        {
+          "name": "success",
+          "attributes": []
+        },
+        {
+          "name": "failure",
+          "attributes": []
+        }
+      ],
+      "attributes": []
     }
   ],
   "unions": [
@@ -730,6 +831,77 @@
         }
       ],
       "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "event",
+      "plural": "events",
+      "types": [
+        {
+          "type": "catalog_upserted",
+          "attributes": []
+        },
+        {
+          "type": "catalog_deleted",
+          "attributes": []
+        },
+        {
+          "type": "subcatalog_upserted",
+          "attributes": []
+        },
+        {
+          "type": "subcatalog_deleted",
+          "attributes": []
+        },
+        {
+          "type": "catalog_item_upserted",
+          "attributes": []
+        },
+        {
+          "type": "catalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "type": "subcatalog_item_upserted",
+          "attributes": []
+        },
+        {
+          "type": "subcatalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "type": "experience_deleted",
+          "attributes": []
+        },
+        {
+          "type": "experience_upserted",
+          "attributes": []
+        },
+        {
+          "type": "hs6_code_upserted",
+          "attributes": []
+        },
+        {
+          "type": "hs6_code_deleted",
+          "attributes": []
+        },
+        {
+          "type": "hs10_code_upserted",
+          "attributes": []
+        },
+        {
+          "type": "hs10_code_deleted",
+          "attributes": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "webhook"
+          }
+        }
+      ],
       "discriminator": "discriminator"
     },
     {
@@ -1859,6 +2031,79 @@
       "attributes": []
     },
     {
+      "name": "catalog_deleted",
+      "plural": "catalog_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "catalog_item_deleted",
+      "plural": "catalog_item_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "catalog_item_document",
       "plural": "catalog_item_documents",
       "fields": [
@@ -1900,6 +2145,88 @@
       "attributes": []
     },
     {
+      "name": "catalog_item_upserted",
+      "plural": "catalog_item_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "price",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "catalog_statistics",
       "plural": "catalog_statisticses",
       "fields": [
@@ -1920,6 +2247,39 @@
       ],
       "attributes": [],
       "description": "Statistics covering product catalog item information, including total catalog item count, number of distinct categories, etc."
+    },
+    {
+      "name": "catalog_upserted",
+      "plural": "catalog_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "catalog_version",
@@ -1983,6 +2343,13 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The key to use. If not provided, we will generate a unique key based on the name."
         },
         {
           "name": "address",
@@ -2072,6 +2439,13 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The key to use. If not provided, we will generate a unique key based on the name."
         }
       ],
       "attributes": []
@@ -3014,6 +3388,38 @@
       "description": "Experiences define a local experience for a given geographic region"
     },
     {
+      "name": "experience_deleted",
+      "plural": "experience_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "experience_form",
       "plural": "experience_forms",
       "fields": [
@@ -3154,6 +3560,80 @@
       ],
       "attributes": [],
       "description": "Some important fields related to experiences used in various APIs"
+    },
+    {
+      "name": "experience_upserted",
+      "plural": "experience_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "region_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "measurement_system",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "experience_version",
@@ -3714,6 +4194,25 @@
       "description": "Duty and tax information for a given item. Note that the internal implementation supports multiple countries of origin."
     },
     {
+      "name": "header",
+      "plural": "headers",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "healthcheck",
       "plural": "healthchecks",
       "fields": [
@@ -3770,6 +4269,109 @@
       ],
       "attributes": [],
       "description": "The (Harmonized System) HS-10 code assigned to an item with a given origin/destination pair."
+    },
+    {
+      "name": "hs10_code_deleted",
+      "plural": "hs10_code_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 3 character code for country of origin"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 3 character code for destination country"
+        }
+      ],
+      "attributes": [],
+      "description": "Event raised whenever an HS-10 code is unassigned from an item"
+    },
+    {
+      "name": "hs10_code_upserted",
+      "plural": "hs10_code_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 3 character code for country of origin"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 3 character code for destination country"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "6209410000"
+        }
+      ],
+      "attributes": [],
+      "description": "Event raised whenever an HS-10 code is assigned to an item"
     },
     {
       "name": "hs10_version",
@@ -3833,6 +4435,81 @@
       ],
       "attributes": [],
       "description": "The (Harmonized System) HS-6 code assigned to an item."
+    },
+    {
+      "name": "hs6_code_deleted",
+      "plural": "hs6_code_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": [],
+      "description": "Event raised whenever an HS-6 code is deleted"
+    },
+    {
+      "name": "hs6_code_upserted",
+      "plural": "hs6_code_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "620941"
+        }
+      ],
+      "attributes": [],
+      "description": "Event raised whenever an HS-6 code is assigned to an item"
     },
     {
       "name": "hs6_version",
@@ -7979,6 +8656,45 @@
       "description": "A configuration with custom query to select a subset of master catalog items for a localized experience"
     },
     {
+      "name": "subcatalog_deleted",
+      "plural": "subcatalog_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "subcatalog_form",
       "plural": "subcatalog_forms",
       "fields": [
@@ -8121,6 +8837,110 @@
       "description": "Represents information specific to an item in a given subcatalog"
     },
     {
+      "name": "subcatalog_item_deleted",
+      "plural": "subcatalog_item_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "subcatalog_item_upserted",
+      "plural": "subcatalog_item_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "function_id",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "subcatalog_reference",
       "plural": "subcatalog_references",
       "fields": [
@@ -8203,6 +9023,45 @@
       ],
       "attributes": [],
       "description": "Statistics related to the items in this subcatalog, including item count, number of distinct categories, etc."
+    },
+    {
+      "name": "subcatalog_upserted",
+      "plural": "subcatalog_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "subcatalog_version",
@@ -9135,6 +9994,209 @@
       ],
       "attributes": [],
       "description": "Defines the payload of a request to validate a token, with primary goal of preventing the token from being included in an HTTP GET."
+    },
+    {
+      "name": "webhook",
+      "plural": "webhooks",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "events",
+          "type": "[event_type]",
+          "required": true,
+          "attributes": [],
+          "description": "List of events that will trigger data to be sent to the webhook url",
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "webhook_form",
+      "plural": "webhook_forms",
+      "fields": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "events",
+          "type": "[event_type]",
+          "required": true,
+          "attributes": [],
+          "description": "List of events that will trigger data to be sent to the webhook url",
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "webhook_reference",
+      "plural": "webhook_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "webhook_request",
+      "plural": "webhook_requests",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "webhook",
+          "type": "webhook_reference",
+          "required": true,
+          "attributes": [],
+          "description": "The id of the webhook that the request was created for"
+        },
+        {
+          "name": "headers",
+          "type": "[header]",
+          "required": true,
+          "attributes": [],
+          "description": "The headers sent to the webhook URL"
+        },
+        {
+          "name": "method",
+          "type": "method",
+          "required": true,
+          "attributes": [],
+          "description": "The HTTP method, should always be POST"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The event data sent to the webhook URL"
+        },
+        {
+          "name": "status",
+          "type": "webhook_request_status",
+          "required": true,
+          "attributes": [],
+          "description": "Represents status of request. This is a finite state machine that starts in pending and moves to either failure or success"
+        },
+        {
+          "name": "started_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "The timestamp at which we started processing this request"
+        },
+        {
+          "name": "completed_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "The timestamp at which we completed processing of this request"
+        },
+        {
+          "name": "duration_ms",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Duration of milleseconds of the request (completed_at - started_at). Will always be available if completed at is set"
+        },
+        {
+          "name": "response",
+          "type": "webhook_response",
+          "required": false,
+          "attributes": [],
+          "description": "The response from the webhook URL"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Any errors that may have occured while attempting to send the request. E.g, dns resolution or gateway timeouts"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "webhook_request_reference",
+      "plural": "webhook_request_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "webhook_response",
+      "plural": "webhook_responses",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "request",
+          "type": "webhook_request_reference",
+          "required": true,
+          "attributes": [],
+          "description": "The id of the corresponding request"
+        },
+        {
+          "name": "headers",
+          "type": "[header]",
+          "required": true,
+          "attributes": [],
+          "description": "The headers returned from the webhook URL"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The content returned from the webhook URL. This is ignored by Flow but retained for your information."
+        },
+        {
+          "name": "status",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "description": "The HTTP Status Code from the webhook URL"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "zone",
@@ -15030,7 +16092,8 @@
               "type": "[string]",
               "location": "Query",
               "required": false,
-              "description": "Filter by one or more (case-insensitive) base currency ISO 4217 3-character codes, as defined in https://api.flow.io/reference/currencies"
+              "description": "Filter by one or more (case-insensitive) base currency ISO 4217 3-character codes, as defined in https://api.flow.io/reference/currencies",
+              "maximum": 100
             },
             {
               "name": "target",
@@ -19208,6 +20271,13 @@
               "maximum": 100
             },
             {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -19261,6 +20331,9 @@
                 "values": [
                   {
                     "value": "id"
+                  },
+                  {
+                    "value": "key"
                   }
                 ]
               }
@@ -19316,7 +20389,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/centers/:id",
+          "path": "/:organization/centers/:key",
           "parameters": [
             {
               "name": "organization",
@@ -19326,11 +20399,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -19366,7 +20438,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/centers/:id",
+          "path": "/:organization/centers/:key",
           "parameters": [
             {
               "name": "organization",
@@ -19376,11 +20448,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -19437,65 +20508,6 @@
           }
         },
         {
-          "method": "DELETE",
-          "path": "/:organization/centers/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": []
-        },
-        {
           "method": "GET",
           "path": "/:organization/centers/versions",
           "parameters": [
@@ -19515,7 +20527,7 @@
               "maximum": 100
             },
             {
-              "name": "center",
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -19577,7 +20589,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "center"
+                    "value": "key"
                   },
                   {
                     "value": "journal_timestamp"
@@ -25078,6 +26090,565 @@
       ],
       "path": "/:organization/trackings",
       "description": "Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number"
+    },
+    {
+      "type": "webhook",
+      "plural": "webhooks",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/webhooks",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[webhook]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "non-crud",
+              "value": {}
+            }
+          ],
+          "description": "Returns webhooks for an organization"
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/webhooks",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "webhook",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new webhook",
+          "body": {
+            "type": "webhook_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/webhooks/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "webhook",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific webhook"
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/webhooks/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "webhook",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Update an existing webhook",
+          "body": {
+            "type": "webhook_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/webhooks/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Delete a webhook with the specified id"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "webhook"
+          }
+        }
+      ],
+      "path": "/:organization/webhooks"
+    },
+    {
+      "type": "webhook_request",
+      "plural": "webhook_requests",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/webhook/requests",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "webhook_id",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[webhook_request]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "webhook_id"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "non-crud",
+              "value": {}
+            }
+          ],
+          "description": "Returns requests for an organization's webhook"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/webhook/requests/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "webhook_request",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific webhook request"
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/webhook/requests/:id/redeliveries",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "webhook_request",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Redeliver a webhook request. This created a new webhook request to requeue delivery"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "webhook"
+          }
+        }
+      ],
+      "path": "/:organization/webhook/requests"
     },
     {
       "type": "address",

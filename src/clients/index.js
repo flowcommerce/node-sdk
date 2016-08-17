@@ -42,6 +42,8 @@ import Tiers from './tiers';
 import TierDefaults from './tier-defaults';
 import TierRules from './tier-rules';
 import Trackings from './trackings';
+import Webhooks from './webhooks';
+import WebhookRequests from './webhook-requests';
 import Addresses from './addresses';
 import CountryDefaults from './country-defaults';
 import Countries from './countries';
@@ -112,6 +114,8 @@ export default class ApiClient {
     this.tier_defaults = new TierDefaults(options);
     this.tier_rules = new TierRules(options);
     this.trackings = new Trackings(options);
+    this.webhooks = new Webhooks(options);
+    this.webhook_requests = new WebhookRequests(options);
     this.addresses = new Addresses(options);
     this.country_defaults = new CountryDefaults(options);
     this.countries = new Countries(options);

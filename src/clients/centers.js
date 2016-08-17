@@ -19,18 +19,13 @@ export default class Centers extends Client {
     return this.makeRequest(`${this.host}/${organization}/centers`, options);
   }
 
-  getById(organization, id, options) {
-    return this.makeRequest(`${this.host}/${organization}/centers/${id}`, options);
+  getByKey(organization, key, options) {
+    return this.makeRequest(`${this.host}/${organization}/centers/${key}`, options);
   }
 
-  putById(organization, id, options) {
+  putByKey(organization, key, options) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/centers/${id}`, options);
-  }
-
-  deleteById(organization, id, options) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/centers/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/centers/${key}`, options);
   }
 
   getVersions(organization, options) {

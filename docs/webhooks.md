@@ -1,13 +1,13 @@
-# [API](README.md).centers - Flow Commerce API - Node SDK Documentation
+# [API](README.md).webhooks - Flow Commerce API - Node SDK Documentation
 
-Represents a facility capable of fulfilling a shipment
+
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const centers = client().centers;
+const webhooks = client().webhooks;
 ```
 
 ## Operations
@@ -25,7 +25,6 @@ const centers = client().centers;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -39,41 +38,33 @@ const centers = client().centers;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByKey(organization, key, options)`
+##`getById(organization, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 
-##`putByKey(organization, key, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-
-
-##`getVersions(organization, options)`
+##`putById(organization, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
 
-### Query Parameters
+
+##`deleteById(organization, id, options)`
+
+### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
+
 
