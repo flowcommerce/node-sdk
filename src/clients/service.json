@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.94",
+  "version": "0.0.95",
   "info": {
     "license": {
       "name": "MIT",
@@ -2295,7 +2295,7 @@
         },
         {
           "name": "images",
-          "type": "object",
+          "type": "[object]",
           "required": true,
           "attributes": []
         }
@@ -16800,7 +16800,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/spot_rates",
+          "path": "/currency/spot-rates",
           "parameters": [
             {
               "name": "id",
@@ -16896,7 +16896,7 @@
         },
         {
           "method": "GET",
-          "path": "/spot_rates/versions",
+          "path": "/currency/spot-rates/versions",
           "parameters": [
             {
               "name": "id",
@@ -16985,7 +16985,7 @@
           }
         }
       ],
-      "path": "/spot_rates"
+      "path": "/currency/spot-rates"
     },
     {
       "type": "duty",

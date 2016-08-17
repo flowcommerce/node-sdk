@@ -11,11 +11,11 @@ export default class SpotRates extends Client {
   }
 
   get(options) {
-    return this.makeRequest(`${this.host}/spot_rates`, options);
+    return this.makeRequest(`${this.host}/currency/spot-rates`, options);
   }
 
   getVersions(options) {
-    return this.makeRequest(`${this.host}/spot_rates/versions`, options);
+    return this.makeRequest(`${this.host}/currency/spot-rates/versions`, options);
   }
 
 }
