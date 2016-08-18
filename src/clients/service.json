@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.0.100",
+  "version": "0.1.3",
   "info": {
     "license": {
       "name": "MIT",
@@ -233,6 +233,14 @@
         },
         {
           "name": "hs10_code_deleted",
+          "attributes": []
+        },
+        {
+          "name": "localized_item_upserted",
+          "attributes": []
+        },
+        {
+          "name": "localized_item_deleted",
           "attributes": []
         }
       ],
@@ -959,6 +967,14 @@
         },
         {
           "type": "hs10_code_deleted",
+          "attributes": []
+        },
+        {
+          "type": "localized_item_upserted",
+          "attributes": []
+        },
+        {
+          "type": "localized_item_deleted",
           "attributes": []
         }
       ],
@@ -5980,6 +5996,13 @@
           "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup."
         },
         {
+          "name": "price",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The price of this item for this order. If not specified, we will use the item price from the experience"
+        },
+        {
           "name": "discount",
           "type": "money",
           "required": false,
@@ -5997,6 +6020,146 @@
         {
           "name": "prices",
           "type": "[localized_price]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "localized_item_deleted",
+      "plural": "localized_item_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "localized_item_upserted",
+      "plural": "localized_item_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "price",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "dimensions",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "images",
+          "type": "[object]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "local",
+          "type": "object",
           "required": true,
           "attributes": []
         }
