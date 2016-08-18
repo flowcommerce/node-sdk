@@ -40,10 +40,6 @@ These resources mirror the official documentation located at
 | [labels](labels.md) | Represents a specific label being tracked as part of the tracking bucket |
 | [labelEvents](labelEvents.md) |  |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
-| [ratecards](ratecards.md) | Snapshot of all lanes and rows across all service levels of an organization |
-| [ratecardEstimates](ratecardEstimates.md) | Represents a summary of a cost estimate based on rate card data for an origin/destination and weight, either gravitational or dimensional |
-| [ratecardLanes](ratecardLanes.md) | Describe list of rates applicable for a lane on the ratecard - defined by origin and destination zone |
-| [ratecardRates](ratecardRates.md) | Specific line item in a ratecard lane with information on a weight threshold and corresponding amount to charge |
 | [services](services.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |
 | [shipments](shipments.md) | Represents a subset of items from an order grouped into a single physical shipment. Flow provides a generated tracking number to track this shipment across multiple possible hops and carriers. |
 | [shipmentLabels](shipmentLabels.md) | Top-level information on shipment tracking shipment_label and number |
