@@ -14,27 +14,8 @@ export default class Carriers extends Client {
     return this.makeRequest(`${this.host}/carriers`, options);
   }
 
-  post(options) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/carriers`, options);
-  }
-
   getById(id, options) {
     return this.makeRequest(`${this.host}/carriers/${id}`, options);
-  }
-
-  putById(id, options) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/carriers/${id}`, options);
-  }
-
-  deleteById(id, options) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/carriers/${id}`, options);
-  }
-
-  getVersions(options) {
-    return this.makeRequest(`${this.host}/carriers/versions`, options);
   }
 
 }
