@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "info": {
     "license": {
       "name": "MIT",
@@ -6167,6 +6167,55 @@
       "attributes": []
     },
     {
+      "name": "localized_line_item",
+      "plural": "localized_line_items",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "center",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup."
+        },
+        {
+          "name": "price",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The price of this item for this order. If not specified, we will use the item price from the experience"
+        },
+        {
+          "name": "discount",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here"
+        },
+        {
+          "name": "local",
+          "type": "local",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Line items on the order, with localized pricing information"
+    },
+    {
       "name": "localized_price",
       "plural": "localized_prices",
       "fields": [
@@ -6474,7 +6523,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[localized_line_item]",
           "required": true,
           "attributes": []
         },
