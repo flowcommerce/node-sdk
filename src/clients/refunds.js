@@ -19,8 +19,8 @@ export default class Refunds extends Client {
     return this.makeRequest(`${this.host}/${organization}/refunds`, options);
   }
 
-  getById(organization, id, options) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/${id}`, options);
+  getByKey(organization, key, options) {
+    return this.makeRequest(`${this.host}/${organization}/refunds/${key}`, options);
   }
 
   getVersions(organization, options) {

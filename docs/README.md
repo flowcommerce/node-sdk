@@ -28,7 +28,7 @@ These resources mirror the official documentation located at
 | [taxes](taxes.md) |  |
 | [authorizations](authorizations.md) | An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization. |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
-| [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;id&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. |
+| [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. |
 | [refunds](refunds.md) | Refunds are used to issue refunds against a prior capture. |
 | [bookings](bookings.md) | Represents second step of two-step purchase of Flow services. |
 | [carriers](carriers.md) | Partner that actually take a shipment between places (ex: FedEx, DHL, SF Express) |

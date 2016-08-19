@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.4",
+  "version": "0.1.8",
   "info": {
     "license": {
       "name": "MIT",
@@ -23,6 +23,28 @@
   "headers": [],
   "imports": [],
   "enums": [
+    {
+      "name": "avs_code",
+      "plural": "avs_codes",
+      "values": [
+        {
+          "name": "match",
+          "attributes": [],
+          "description": "Address matches expected values"
+        },
+        {
+          "name": "no_match",
+          "attributes": [],
+          "description": "Address does not match expected card values"
+        },
+        {
+          "name": "not_supported",
+          "attributes": [],
+          "description": "Issuer does not support address verification"
+        }
+      ],
+      "attributes": []
+    },
     {
       "name": "calendar",
       "plural": "calendars",
@@ -101,6 +123,28 @@
         {
           "name": "delete",
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "cvv_code",
+      "plural": "cvv_codes",
+      "values": [
+        {
+          "name": "match",
+          "attributes": [],
+          "description": "CVV matches"
+        },
+        {
+          "name": "no_match",
+          "attributes": [],
+          "description": "CVV did not match"
+        },
+        {
+          "name": "not_supported",
+          "attributes": [],
+          "description": "Issuer does not support card verification numbers"
         }
       ],
       "attributes": []
@@ -241,6 +285,14 @@
         },
         {
           "name": "localized_item_deleted",
+          "attributes": []
+        },
+        {
+          "name": "organization_upserted",
+          "attributes": []
+        },
+        {
+          "name": "organization_deleted",
           "attributes": []
         }
       ],
@@ -850,6 +902,23 @@
       "description": "Represents all possible responses from an authorization attempt"
     },
     {
+      "name": "authorization_form",
+      "plural": "authorization_forms",
+      "types": [
+        {
+          "type": "direct_authorization_form",
+          "attributes": []
+        },
+        {
+          "type": "merchant_of_record_authorization_form",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Flow provides several different options for creating an authorization"
+    },
+    {
       "name": "deminimus",
       "plural": "deminimuses",
       "types": [
@@ -975,6 +1044,14 @@
         },
         {
           "type": "localized_item_deleted",
+          "attributes": []
+        },
+        {
+          "type": "organization_upserted",
+          "attributes": []
+        },
+        {
+          "type": "organization_deleted",
           "attributes": []
         }
       ],
@@ -1327,11 +1404,10 @@
           "description": "Globally unique identifier"
         },
         {
-          "name": "reference",
+          "name": "key",
           "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Unique client reference number for this authorization"
+          "required": true,
+          "attributes": []
         },
         {
           "name": "card",
@@ -1353,7 +1429,7 @@
           "required": true,
           "attributes": [],
           "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "USD"
+          "example": "CAD"
         },
         {
           "name": "customer",
@@ -1449,80 +1525,6 @@
       "description": "Represents a successful authorization"
     },
     {
-      "name": "authorization_form",
-      "plural": "authorization_forms",
-      "fields": [
-        {
-          "name": "reference",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Unique client reference number for this authorization"
-        },
-        {
-          "name": "token",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The token of the payment method to use when authorizing this transaction"
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The amount to authorize",
-          "example": "120.38"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "USD"
-        },
-        {
-          "name": "customer",
-          "type": "customer",
-          "required": true,
-          "attributes": [],
-          "description": "The customer who is actually making the purchase. Providing name and email at a minimum will significantly increase the acceptance rate."
-        },
-        {
-          "name": "cvv",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
-        },
-        {
-          "name": "shipping",
-          "type": "address",
-          "required": false,
-          "attributes": [],
-          "description": "Shipping address, if relevant"
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The IP address of the consumer",
-          "example": "96.242.151.245"
-        }
-      ],
-      "attributes": [],
-      "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
-    },
-    {
       "name": "authorization_reference",
       "plural": "authorization_references",
       "fields": [
@@ -1590,19 +1592,19 @@
       "fields": [
         {
           "name": "code",
-          "type": "string",
+          "type": "avs_code",
           "required": true,
           "attributes": []
         },
         {
-          "name": "message",
+          "name": "description",
           "type": "string",
           "required": true,
           "attributes": []
         }
       ],
       "attributes": [],
-      "description": "Represents data from the address verification check"
+      "description": "Represents the address verification results"
     },
     {
       "name": "booking",
@@ -1727,11 +1729,10 @@
           "description": "Globally unique identifier"
         },
         {
-          "name": "reference",
+          "name": "key",
           "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Unique client reference number for this capture"
+          "required": true,
+          "attributes": []
         },
         {
           "name": "authorization",
@@ -1753,7 +1754,7 @@
           "required": true,
           "attributes": [],
           "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "USD"
+          "example": "CAD"
         }
       ],
       "attributes": [],
@@ -1764,17 +1765,17 @@
       "plural": "capture_forms",
       "fields": [
         {
-          "name": "reference",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Unique client reference number for this capture"
-        },
-        {
           "name": "authorization_id",
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
         },
         {
           "name": "amount",
@@ -1790,7 +1791,7 @@
           "required": false,
           "attributes": [],
           "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "USD"
+          "example": "CAD"
         }
       ],
       "attributes": [],
@@ -1840,6 +1841,12 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "type",
           "type": "card_type",
           "required": true,
@@ -1874,7 +1881,7 @@
         }
       ],
       "attributes": [],
-      "description": "Card represents the metadata about a secure, tokenized card. The card 'id' is a unique, cryptographically secure token by which this card can be identified in the future."
+      "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future."
     },
     {
       "name": "card_form",
@@ -1933,6 +1940,12 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -2369,7 +2382,8 @@
           "name": "address",
           "type": "shipping_address",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Shipping address used for the 'from' field in generating carrier labels and customs-related documentation such as the CN22 or commercial invoice."
         },
         {
           "name": "packaging",
@@ -2403,7 +2417,8 @@
           "name": "timezone",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The timezone name. Case insensitive. See https://api.flow.io/reference/timezones"
         }
       ],
       "attributes": [],
@@ -2417,7 +2432,8 @@
           "name": "address",
           "type": "shipping_address",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Shipping address used for the 'from' field in generating carrier labels and customs-related documentation such as the CN22 or commercial invoice."
         },
         {
           "name": "packaging",
@@ -2451,8 +2467,9 @@
         {
           "name": "timezone",
           "type": "string",
-          "required": true,
-          "attributes": []
+          "required": false,
+          "attributes": [],
+          "description": "The timezone name. Case insensitive. See https://api.flow.io/reference/timezones. If not explicitly provided, Flow will estimate the timezone based on address of the Center."
         },
         {
           "name": "key",
@@ -2533,7 +2550,15 @@
           "name": "name",
           "type": "name",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Personal information of point-of-contact"
+        },
+        {
+          "name": "company",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Busisiness entity or organization name of this contact"
         },
         {
           "name": "email",
@@ -2631,6 +2656,14 @@
           "attributes": [],
           "description": "ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies",
           "example": "USD"
+        },
+        {
+          "name": "timezones",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A list of canonical timezone IDs for the country. See http://joda-time.sourceforge.net/timezones.html",
+          "example": "America/New_York"
         }
       ],
       "attributes": []
@@ -2738,19 +2771,19 @@
       "fields": [
         {
           "name": "code",
-          "type": "string",
+          "type": "cvv_code",
           "required": true,
           "attributes": []
         },
         {
-          "name": "message",
+          "name": "description",
           "type": "string",
           "required": true,
           "attributes": []
         }
       ],
       "attributes": [],
-      "description": "Represents data from the card verification number check"
+      "description": "Represents the card verification results"
     },
     {
       "name": "datetime_range",
@@ -3164,6 +3197,80 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "direct_authorization_form",
+      "plural": "direct_authorization_forms",
+      "fields": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The token of the payment method to use when authorizing this transaction"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "required": true,
+          "attributes": [],
+          "description": "The customer who is actually making the purchase. Providing name and email at a minimum will significantly increase the acceptance rate."
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "cvv",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "shipping",
+          "type": "address",
+          "required": false,
+          "attributes": [],
+          "description": "Shipping address, if relevant"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        }
+      ],
+      "attributes": [],
+      "description": "Creates an authorization for a transaction in which you remain the merchant of record. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
     },
     {
       "name": "duration",
@@ -6397,6 +6504,57 @@
       "attributes": []
     },
     {
+      "name": "merchant_of_record_authorization_form",
+      "plural": "merchant_of_record_authorization_forms",
+      "fields": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The token of the payment method to use when authorizing this transaction"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Your order number for a valid Flow order. We will verify this order and authorize the total amount of the order in the currency of the order."
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "cvv",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        }
+      ],
+      "attributes": [],
+      "description": "Creates an authorization for a transaction for which Flow is the merchant of record. In this case, you must provide your order number for a valid Flow order. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization"
+    },
+    {
       "name": "money",
       "plural": "moneys",
       "fields": [
@@ -6948,6 +7106,32 @@
       "attributes": []
     },
     {
+      "name": "organization_deleted",
+      "plural": "organization_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "organization_form",
       "plural": "organization_forms",
       "fields": [
@@ -7044,6 +7228,50 @@
           "name": "name",
           "type": "string",
           "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization_upserted",
+      "plural": "organization_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "environment",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "parent_id",
+          "type": "string",
+          "required": false,
           "attributes": []
         }
       ],
@@ -7752,11 +7980,10 @@
           "description": "Globally unique identifier"
         },
         {
-          "name": "reference",
+          "name": "key",
           "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Unique client reference number for this refund"
+          "required": true,
+          "attributes": []
         },
         {
           "name": "capture",
@@ -7778,7 +8005,7 @@
           "required": true,
           "attributes": [],
           "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "USD"
+          "example": "CAD"
         }
       ],
       "attributes": [],
@@ -7796,11 +8023,11 @@
           "description": "The ID of the capture against which to issue the refund."
         },
         {
-          "name": "reference",
+          "name": "key",
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "Unique client reference number for this refund"
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
         },
         {
           "name": "amount",
@@ -7816,7 +8043,7 @@
           "required": false,
           "attributes": [],
           "description": "The ISO 4217-3 code for the currency. Required if amount is specified. Case insensitive. Note you will get an error if the currency does not match the related authrization's currency. See https://api.flow.io/reference/currencies",
-          "example": "USD"
+          "example": "CAD"
         }
       ],
       "attributes": [],
@@ -7903,6 +8130,14 @@
           "attributes": [],
           "description": "A list of the measurement systems in use in this region (metric or imperial)",
           "minimum": 0
+        },
+        {
+          "name": "timezones",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A list of canonical timezone IDs for the region. See http://joda-time.sourceforge.net/timezones.html",
+          "example": "America/New_York"
         }
       ],
       "attributes": [],
@@ -11755,6 +11990,15 @@
               "maximum": 100
             },
             {
+              "name": "status",
+              "type": "[subcatalog_item_status]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to items based on their status within this subcatalog",
+              "maximum": 3,
+              "example": "included"
+            },
+            {
               "name": "experience",
               "type": "string",
               "location": "Query",
@@ -15025,6 +15269,15 @@
               "maximum": 100
             },
             {
+              "name": "status",
+              "type": "[subcatalog_item_status]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to items with a status as defined in https://docs.flow.io/types.html#type-subcatalog-item-status",
+              "maximum": 3,
+              "example": "included"
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -15197,6 +15450,15 @@
               "required": false,
               "description": "Filter to items with any one of these numbers.",
               "maximum": 100
+            },
+            {
+              "name": "status",
+              "type": "[subcatalog_item_status]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to items based on their status within this subcatalog",
+              "maximum": 3,
+              "example": "included"
             },
             {
               "name": "limit",
@@ -18152,7 +18414,7 @@
               "maximum": 100
             },
             {
-              "name": "reference",
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -18214,7 +18476,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "reference"
+                    "value": "key"
                   },
                   {
                     "value": "created_at"
@@ -18274,7 +18536,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/authorizations/:id",
+          "path": "/:organization/authorizations/:key",
           "parameters": [
             {
               "name": "organization",
@@ -18284,11 +18546,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -18325,7 +18586,7 @@
         },
         {
           "method": "DELETE",
-          "path": "/:organization/authorizations/:id",
+          "path": "/:organization/authorizations/:key",
           "parameters": [
             {
               "name": "organization",
@@ -18335,11 +18596,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -18513,7 +18773,7 @@
               "maximum": 100
             },
             {
-              "name": "reference",
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -18526,7 +18786,7 @@
               "required": false
             },
             {
-              "name": "authorization_reference",
+              "name": "authorization_key",
               "type": "string",
               "location": "Query",
               "required": false
@@ -18587,7 +18847,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "reference"
+                    "value": "key"
                   },
                   {
                     "value": "created_at"
@@ -18647,7 +18907,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/captures/:id",
+          "path": "/:organization/captures/:key",
           "parameters": [
             {
               "name": "organization",
@@ -18657,11 +18917,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -18826,6 +19085,13 @@
               "maximum": 100
             },
             {
+              "name": "token",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -18946,7 +19212,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/cards/:id",
+          "path": "/:organization/cards/:token",
           "parameters": [
             {
               "name": "organization",
@@ -18956,11 +19222,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "token",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -18997,7 +19262,7 @@
         },
         {
           "method": "DELETE",
-          "path": "/:organization/cards/:id",
+          "path": "/:organization/cards/:token",
           "parameters": [
             {
               "name": "organization",
@@ -19007,11 +19272,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "token",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -19044,11 +19308,11 @@
             }
           ],
           "attributes": [],
-          "description": "Deletes the card with the specified ID."
+          "description": "Deletes the specified card"
         },
         {
           "method": "POST",
-          "path": "/:organization/cards/:id/updates",
+          "path": "/:organization/cards/:token/updates",
           "parameters": [
             {
               "name": "organization",
@@ -19058,11 +19322,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "token",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -19104,7 +19367,7 @@
             }
           ],
           "attributes": [],
-          "description": "Updates are implemented as copy on write. This method is a convenience method that will transactionally DELETE the card with the specified ID, then CREATE a new card with the data from this request. Note that this means the returned credit card token will be DIFFERENT from the one used in the request.",
+          "description": "Updates are implemented as copy on write. This method is a convenience method that will transactionally DELETE the card with the specified token, then CREATE a new card with the data from this request. Note that this means the returned credit card token will be DIFFERENT from the one used in the request.",
           "body": {
             "type": "card_form",
             "attributes": []
@@ -19135,6 +19398,13 @@
               "location": "Query",
               "required": false,
               "description": "Filter to cards with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "card_token",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
               "maximum": 100
             },
             {
@@ -19214,7 +19484,7 @@
         }
       ],
       "path": "/:organization/cards",
-      "description": "Card represents the metadata about a secure, tokenized card. The card 'id' is a unique, cryptographically secure token by which this card can be identified in the future."
+      "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future."
     },
     {
       "type": "refund",
@@ -19240,7 +19510,7 @@
               "maximum": 100
             },
             {
-              "name": "reference",
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -19253,7 +19523,7 @@
               "required": false
             },
             {
-              "name": "authorization_reference",
+              "name": "authorization_key",
               "type": "string",
               "location": "Query",
               "required": false
@@ -19265,7 +19535,7 @@
               "required": false
             },
             {
-              "name": "capture_reference",
+              "name": "capture_key",
               "type": "string",
               "location": "Query",
               "required": false
@@ -19326,7 +19596,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "reference"
+                    "value": "key"
                   },
                   {
                     "value": "created_at"
@@ -19386,7 +19656,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/refunds/:id",
+          "path": "/:organization/refunds/:key",
           "parameters": [
             {
               "name": "organization",
@@ -19396,11 +19666,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [

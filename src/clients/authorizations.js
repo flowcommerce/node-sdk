@@ -19,13 +19,13 @@ export default class Authorizations extends Client {
     return this.makeRequest(`${this.host}/${organization}/authorizations`, options);
   }
 
-  getById(organization, id, options) {
-    return this.makeRequest(`${this.host}/${organization}/authorizations/${id}`, options);
+  getByKey(organization, key, options) {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, options);
   }
 
-  deleteById(organization, id, options) {
+  deleteByKey(organization, key, options) {
     Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/authorizations/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, options);
   }
 
   getVersions(organization, options) {

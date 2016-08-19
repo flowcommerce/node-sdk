@@ -19,8 +19,8 @@ export default class Captures extends Client {
     return this.makeRequest(`${this.host}/${organization}/captures`, options);
   }
 
-  getById(organization, id, options) {
-    return this.makeRequest(`${this.host}/${organization}/captures/${id}`, options);
+  getByKey(organization, key, options) {
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}`, options);
   }
 
   getVersions(organization, options) {

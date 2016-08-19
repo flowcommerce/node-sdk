@@ -196,6 +196,7 @@ const experiences = client().experiences;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | number | [string] |  |
+| status | [subcatalog_item_status] | Filter to items based on their status within this subcatalog |
 | experience | string | If specified, we will render the items in the context of the experience with this key. |
 | country | string | If specified, we will select the experience matching this country. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries |
 | ip | string | If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address. |

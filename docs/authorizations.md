@@ -25,7 +25,7 @@ const authorizations = client().authorizations;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| reference | [string] |  |
+| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -39,24 +39,24 @@ const authorizations = client().authorizations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getById(organization, id, options)`
+##`getByKey(organization, key, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
+| key | string |  |
 
 
-##`deleteById(organization, id, options)`
+##`deleteByKey(organization, key, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
+| key | string |  |
 
 
 ##`getVersions(organization, options)`

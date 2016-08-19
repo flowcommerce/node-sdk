@@ -25,11 +25,11 @@ const refunds = client().refunds;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| reference | [string] |  |
+| key | [string] |  |
 | authorization_id | string |  |
-| authorization_reference | string |  |
+| authorization_key | string |  |
 | capture_id | string |  |
-| capture_reference | string |  |
+| capture_key | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -43,14 +43,14 @@ const refunds = client().refunds;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getById(organization, id, options)`
+##`getByKey(organization, key, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
+| key | string |  |
 
 
 ##`getVersions(organization, options)`

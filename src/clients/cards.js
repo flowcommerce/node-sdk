@@ -19,18 +19,18 @@ export default class Cards extends Client {
     return this.makeRequest(`${this.host}/${organization}/cards`, options);
   }
 
-  getById(organization, id, options) {
-    return this.makeRequest(`${this.host}/${organization}/cards/${id}`, options);
+  getByToken(organization, token, options) {
+    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, options);
   }
 
-  deleteById(organization, id, options) {
+  deleteByToken(organization, token, options) {
     Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/cards/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, options);
   }
 
-  postUpdatesById(organization, id, options) {
+  postUpdatesByToken(organization, token, options) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/cards/${id}/updates`, options);
+    return this.makeRequest(`${this.host}/${organization}/cards/${token}/updates`, options);
   }
 
   getVersions(organization, options) {
