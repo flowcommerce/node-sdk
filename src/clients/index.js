@@ -42,6 +42,7 @@ import Webhooks from './webhooks';
 import WebhookRequests from './webhook-requests';
 import Addresses from './addresses';
 import CountryDefaults from './country-defaults';
+import Timezones from './timezones';
 import Countries from './countries';
 import Currencies from './currencies';
 import Languages from './languages';
@@ -110,6 +111,7 @@ export default class ApiClient {
     this.webhook_requests = new WebhookRequests(options);
     this.addresses = new Addresses(options);
     this.country_defaults = new CountryDefaults(options);
+    this.timezones = new Timezones(options);
     this.countries = new Countries(options);
     this.currencies = new Currencies(options);
     this.languages = new Languages(options);
