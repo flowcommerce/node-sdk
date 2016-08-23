@@ -11,6 +11,7 @@ import Rates from './rates';
 import SpotRates from './spot-rates';
 import Duties from './duties';
 import HarmonizationSettings from './harmonization-settings';
+import HarmonizedCategories from './harmonized-categories';
 import HarmonizedItems from './harmonized-items';
 import HarmonizedItemDuties from './harmonized-item-duties';
 import HarmonizedLandedCosts from './harmonized-landed-costs';
@@ -80,6 +81,7 @@ export default class ApiClient {
     this.spot_rates = new SpotRates(options);
     this.duties = new Duties(options);
     this.harmonization_settings = new HarmonizationSettings(options);
+    this.harmonized_categories = new HarmonizedCategories(options);
     this.harmonized_items = new HarmonizedItems(options);
     this.harmonized_item_duties = new HarmonizedItemDuties(options);
     this.harmonized_landed_costs = new HarmonizedLandedCosts(options);

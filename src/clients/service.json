@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.11",
+  "version": "0.1.13",
   "info": {
     "license": {
       "name": "MIT",
@@ -23,6 +23,28 @@
   "headers": [],
   "imports": [],
   "enums": [
+    {
+      "name": "authorization_status",
+      "plural": "authorization_statuses",
+      "values": [
+        {
+          "name": "accepted",
+          "attributes": [],
+          "description": "Authorization was successful"
+        },
+        {
+          "name": "declined",
+          "attributes": [],
+          "description": "Unable to authorize funds"
+        },
+        {
+          "name": "pending",
+          "attributes": [],
+          "description": "If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)"
+        }
+      ],
+      "attributes": []
+    },
     {
       "name": "avs_code",
       "plural": "avs_codes",
@@ -78,15 +100,11 @@
       "plural": "card_types",
       "values": [
         {
-          "name": "visa",
-          "attributes": []
-        },
-        {
-          "name": "mastercard",
-          "attributes": []
-        },
-        {
           "name": "american_express",
+          "attributes": []
+        },
+        {
+          "name": "china_union_pay",
           "attributes": []
         },
         {
@@ -106,7 +124,15 @@
           "attributes": []
         },
         {
-          "name": "china_union_pay",
+          "name": "maestro",
+          "attributes": []
+        },
+        {
+          "name": "mastercard",
+          "attributes": []
+        },
+        {
+          "name": "visa",
           "attributes": []
         }
       ],
@@ -889,23 +915,6 @@
   ],
   "unions": [
     {
-      "name": "authorization_details",
-      "plural": "authorization_detailses",
-      "types": [
-        {
-          "type": "authorization_details_decline",
-          "attributes": []
-        },
-        {
-          "type": "authorization_details_success",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator",
-      "description": "Represents all possible responses from an authorization attempt"
-    },
-    {
       "name": "authorization_form",
       "plural": "authorization_forms",
       "types": [
@@ -1472,61 +1481,14 @@
           "description": "The card verification number for the payment method for which you are requesting an authorization. PCI prevents us from storing the verification value, but if you present as part of the authorization you may improve your acceptance rates."
         },
         {
-          "name": "details",
-          "type": "authorization_details",
+          "name": "result",
+          "type": "authorization_result",
           "required": true,
           "attributes": []
         }
       ],
       "attributes": [],
       "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
-    },
-    {
-      "name": "authorization_details_decline",
-      "plural": "authorization_details_declines",
-      "fields": [
-        {
-          "name": "reason",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Reason for the decline"
-        },
-        {
-          "name": "avs",
-          "type": "avs",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "cvv",
-          "type": "cvv",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a declined authorization"
-    },
-    {
-      "name": "authorization_details_success",
-      "plural": "authorization_details_successes",
-      "fields": [
-        {
-          "name": "avs",
-          "type": "avs",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "cvv",
-          "type": "cvv",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a successful authorization"
     },
     {
       "name": "authorization_reference",
@@ -1541,6 +1503,32 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "authorization_result",
+      "plural": "authorization_results",
+      "fields": [
+        {
+          "name": "status",
+          "type": "authorization_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "avs",
+          "type": "avs",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "cvv",
+          "type": "cvv",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Contains the result of the authorization. Each authorization will eventually end in a status of 'accepted' or 'declined'. If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)."
     },
     {
       "name": "authorization_version",
@@ -1923,6 +1911,13 @@
           "required": true,
           "attributes": [],
           "description": "Cardholder name."
+        },
+        {
+          "name": "cvv",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The card verification number for the card. PCI prevents us from storing the verification value, but if you present as part of card creation we use the CVV as part of card verification."
         },
         {
           "name": "address",
@@ -4033,6 +4028,47 @@
           "type": "levy_strategy",
           "required": false,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "harmonized_category",
+      "plural": "harmonized_categories",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "parent",
+          "type": "harmonized_category_reference",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Categories optimized for harmonization"
+    },
+    {
+      "name": "harmonized_category_reference",
+      "plural": "harmonized_category_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
         }
       ],
       "attributes": []
@@ -17017,6 +17053,116 @@
       ],
       "path": "/:organization/harmonization/settings",
       "description": "Organization level settings."
+    },
+    {
+      "type": "harmonized_category",
+      "plural": "harmonized_categories",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/harmonization/categories",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "parent_id",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[harmonized_category]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "sort"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "linter",
+          "value": {
+            "ignore": [
+              "versions"
+            ]
+          }
+        },
+        {
+          "name": "docs",
+          "value": {
+            "module": "landed cost"
+          }
+        }
+      ],
+      "path": "/:organization/harmonization/categories",
+      "description": "Categories optimized for harmonization"
     },
     {
       "type": "harmonized_item",

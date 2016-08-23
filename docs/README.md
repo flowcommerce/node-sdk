@@ -20,6 +20,7 @@ These resources mirror the official documentation located at
 | [spotRates](spotRates.md) |  |
 | [duties](duties.md) |  |
 | [harmonizationSettings](harmonizationSettings.md) | Organization level settings. |
+| [harmonizedCategories](harmonizedCategories.md) | Categories optimized for harmonization |
 | [harmonizedItems](harmonizedItems.md) | A harmonized item stores explicit information about this item for the purposes of harmonization / classification. The harmonization process begins by creating a harmonized item; this kicks off the internal processes. Once assigned, codes will be available via the hs6 and hs10 resources |
 | [harmonizedItemDuties](harmonizedItemDuties.md) | Used to specifically set an item&#x27;s duty rate for a given trade lane. |
 | [harmonizedLandedCosts](harmonizedLandedCosts.md) | Summary of landed cost data (taxes and duties) for 1 or more items going to a single destination country. Records are unique based on (item.number, country of origin). |
