@@ -40,13 +40,14 @@ const rates = client().rates;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`put(organization, options)`
+##`putById(organization, id, options)`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
 
 
 ##`getVersions(organization, options)`

@@ -1,13 +1,13 @@
-# [API](README.md).organizationCurrencySettings - Flow Commerce API - Node SDK Documentation
+# [API](README.md).shippingLabels - Flow Commerce API - Node SDK Documentation
 
-Represents organization-specific currency conversion adjustments.
+Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const organizationCurrencySettings = client().organizationCurrencySettings;
+const shippingLabels = client().shippingLabels;
 ```
 
 ## Operations
@@ -25,8 +25,9 @@ const organizationCurrencySettings = client().organizationCurrencySettings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| base | string | Filter by the (case-insensitive) base currency&#x27;s ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies |
-| target | string | Filter by the (case-insensitive) target currency&#x27;s ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies |
+| carrier_tracking_number | [string] |  |
+| flow_tracking_number | [string] |  |
+| service | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -50,26 +51,6 @@ const organizationCurrencySettings = client().organizationCurrencySettings;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`putById(organization, id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`deleteById(organization, id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
-
-
 ##`getVersions(organization, options)`
 
 ### Function Parameters
@@ -83,6 +64,7 @@ const organizationCurrencySettings = client().organizationCurrencySettings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
+| label | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

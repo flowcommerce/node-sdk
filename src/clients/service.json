@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.13",
+  "version": "0.1.23",
   "info": {
     "license": {
       "name": "MIT",
@@ -286,11 +286,23 @@
           "attributes": []
         },
         {
+          "name": "contracted_rate_upserted",
+          "attributes": []
+        },
+        {
           "name": "experience_deleted",
           "attributes": []
         },
         {
           "name": "experience_upserted",
+          "attributes": []
+        },
+        {
+          "name": "item_margin_deleted",
+          "attributes": []
+        },
+        {
+          "name": "item_margin_upserted",
           "attributes": []
         },
         {
@@ -1028,11 +1040,23 @@
           "attributes": []
         },
         {
+          "type": "contracted_rate_upserted",
+          "attributes": []
+        },
+        {
           "type": "experience_deleted",
           "attributes": []
         },
         {
           "type": "experience_upserted",
+          "attributes": []
+        },
+        {
+          "type": "item_margin_deleted",
+          "attributes": []
+        },
+        {
+          "type": "item_margin_upserted",
           "attributes": []
         },
         {
@@ -1599,117 +1623,6 @@
       "description": "Represents the address verification results"
     },
     {
-      "name": "booking",
-      "plural": "bookings",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "shipments",
-          "type": "[shipment_reference]",
-          "required": true,
-          "attributes": [],
-          "description": "Shipments created as a result of booking the quote options"
-        }
-      ],
-      "attributes": [],
-      "description": "Represents second step of two-step purchase of Flow services."
-    },
-    {
-      "name": "booking_form",
-      "plural": "booking_forms",
-      "fields": [
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "quote",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Reference to quote being booked by the organization"
-        },
-        {
-          "name": "options",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "description": "Selected list of options for the quote"
-        }
-      ],
-      "attributes": [],
-      "description": "Represents second step of two-step purchase of Flow services."
-    },
-    {
-      "name": "booking_summary",
-      "plural": "booking_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "booking_version",
-      "plural": "booking_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "booking",
-          "type": "booking_summary",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "capture",
       "plural": "captures",
       "fields": [
@@ -1882,10 +1795,17 @@
         {
           "name": "number",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "Cleartext card number. May contain integers only or integers with dashes. If dashes are provided, we will remove them, storing only the raw number.",
+          "description": "Cleartext card number. You must provide either this field or 'cipher', but not both. May contain integers only or integers with dashes. If dashes are provided, we will remove them, storing only the raw number.",
           "example": "4111111111111111 or 4111-1111-1111-1111"
+        },
+        {
+          "name": "cipher",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Card number encrypted using your assigned public key. You must provide either this field or 'number', but not both. Card number itself may contain integers only or integers with dashes. If dashes are provided, we will remove them, storing only the raw number."
         },
         {
           "name": "expiration_month",
@@ -2154,6 +2074,40 @@
           "required": true,
           "attributes": [],
           "minimum": 0
+        },
+        {
+          "name": "images",
+          "type": "catalog_item_document_images",
+          "required": true,
+          "attributes": [],
+          "description": "Available images"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "catalog_item_document_image",
+      "plural": "catalog_item_document_images",
+      "fields": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "catalog_item_document_images",
+      "plural": "catalog_item_document_images",
+      "fields": [
+        {
+          "name": "thumbnail",
+          "type": "catalog_item_document_image",
+          "required": false,
+          "attributes": [],
+          "description": "The thumbnail image is the first image associated with the item that has a tag named 'thumbnail'"
         }
       ],
       "attributes": []
@@ -2574,6 +2528,56 @@
       ],
       "attributes": [],
       "description": "Defines structured fields for a contact person. Typically used for specifying contact person for an account, shipment, or organization representative"
+    },
+    {
+      "name": "contracted_rate_upserted",
+      "plural": "contracted_rate_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "effective_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The contracted currency rate between Flow and the organization for the given base/target currency pair."
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "conversion",
@@ -3519,6 +3523,12 @@
         },
         {
           "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_id",
           "type": "string",
           "required": true,
           "attributes": []
@@ -5659,6 +5669,31 @@
       "description": "A list of margin to apply to items based on query."
     },
     {
+      "name": "item_margin_deleted",
+      "plural": "item_margin_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_margin_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "item_margin_form",
       "plural": "item_margin_forms",
       "fields": [
@@ -5690,6 +5725,73 @@
       ],
       "attributes": [],
       "description": "A list of margin to apply to items based on query."
+    },
+    {
+      "name": "item_margin_upserted",
+      "plural": "item_margin_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_margin_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "margin_type",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "margin_value",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "item_margin_version",
@@ -7309,6 +7411,14 @@
           "attributes": []
         },
         {
+          "name": "currencies",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "The list of base currencies that this organization operates in",
+          "minimum": 0
+        },
+        {
           "name": "parent_id",
           "type": "string",
           "required": false,
@@ -7661,6 +7771,21 @@
       ],
       "attributes": [],
       "description": "Pricing determines how the item price is calculated when items are requests via the experience."
+    },
+    {
+      "name": "public_key",
+      "plural": "public_keys",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "RSA Public Key, base 64 encoded"
+        }
+      ],
+      "attributes": [],
+      "description": "A public key is used to encrypt cards client side prior to submitting to the Flow vault."
     },
     {
       "name": "query",
@@ -8330,352 +8455,6 @@
       "attributes": []
     },
     {
-      "name": "shipment",
-      "plural": "shipments",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "commercial_invoice",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "S3 URL containing generated PDF commercial invoice required for international shipments"
-        },
-        {
-          "name": "destination",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "description": "Final destination of this shipment"
-        },
-        {
-          "name": "items",
-          "type": "[line_item]",
-          "required": true,
-          "attributes": [],
-          "description": "Items contained in this shipment"
-        },
-        {
-          "name": "shipment_labels",
-          "type": "[shipment_label]",
-          "required": true,
-          "attributes": [],
-          "description": "List of one or more carrier-generated shipping label(s) associated with this shipment"
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Flow-generated tracking number for use in Flow tracking service. Starts with F70."
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a subset of items from an order grouped into a single physical shipment. Flow provides a generated tracking number to track this shipment across multiple possible hops and carriers."
-    },
-    {
-      "name": "shipment_form",
-      "plural": "shipment_forms",
-      "fields": [
-        {
-          "name": "destination",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "items",
-          "type": "[line_item]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "shipment_labels",
-          "type": "[shipment_label_form]",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a subset of items from an order grouped into a single physical shipment."
-    },
-    {
-      "name": "shipment_label",
-      "plural": "shipment_labels",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "service",
-          "type": "service_summary",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "window",
-          "type": "datetime_range",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "pdf",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed S3 URL containing PDF copy of the shipping label. This is generated asynchronously and may not initially be available."
-        },
-        {
-          "name": "zpl",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed S3 URL containing ZPL copy of the shipping label. This is generated asynchronously and may not initially be available."
-        }
-      ],
-      "attributes": [],
-      "description": "Top-level information on shipment tracking shipment_label and number"
-    },
-    {
-      "name": "shipment_label_form",
-      "plural": "shipment_label_forms",
-      "fields": [
-        {
-          "name": "service",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Service associated with this shipment_label."
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Carrier-issued reference number used to track a shipment."
-        },
-        {
-          "name": "window",
-          "type": "datetime_range",
-          "required": false,
-          "attributes": [],
-          "description": "Carrier-provided information on actual delivery date range."
-        },
-        {
-          "name": "data",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Actual zpl contents of the shipment_label to be generated, if available."
-        },
-        {
-          "name": "shipment",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Shipment ID of the shipment_label, if shipment_label is generated after initial shipment is created"
-        }
-      ],
-      "attributes": [],
-      "description": "Top-level information on shipment tracking shipment_label and number"
-    },
-    {
-      "name": "shipment_label_reference",
-      "plural": "shipment_label_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "shipment_label_summary",
-      "plural": "shipment_label_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "service",
-          "type": "service_reference",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "window",
-          "type": "datetime_range",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "pdf",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed S3 URL containing PDF copy of the shipping label. This is generated asynchronously and may not initially be available."
-        },
-        {
-          "name": "zpl",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed S3 URL containing ZPL copy of the shipping label. This is generated asynchronously and may not initially be available."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "shipment_label_version",
-      "plural": "shipment_label_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "shipment_label",
-          "type": "shipment_label_summary",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "shipment_reference",
-      "plural": "shipment_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "shipment_summary",
-      "plural": "shipment_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "commercial_invoice",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "S3 URL containing generated PDF commercial invoice required for international shipments"
-        },
-        {
-          "name": "destination",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "description": "Final destination of this shipment"
-        },
-        {
-          "name": "items",
-          "type": "[line_item]",
-          "required": true,
-          "attributes": [],
-          "description": "Items contained in this shipment"
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Flow-generated tracking number for use in Flow tracking service. Starts with F70."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "shipment_version",
-      "plural": "shipment_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "shipment",
-          "type": "shipment_summary",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "shipping_address",
       "plural": "shipping_addresses",
       "fields": [
@@ -8692,6 +8471,197 @@
           "required": true,
           "attributes": [],
           "description": "Attributes of the physical location"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shipping_label",
+      "plural": "shipping_labels",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
+        },
+        {
+          "name": "commercial_invoice",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Pre-signed URL containing generated PDF commercial invoice required for international shipments"
+        },
+        {
+          "name": "data",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Pre-signed URL containing ZPL2-formatted data of the shipping label"
+        },
+        {
+          "name": "destination",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Destination contact information and structured address"
+        },
+        {
+          "name": "flow_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Flow-generated tracking number. 13 digit tracking number that begins with F70."
+        },
+        {
+          "name": "origin",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Origin contact information and structured address"
+        },
+        {
+          "name": "service",
+          "type": "service_summary",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier service level used for generation and shipment of this label",
+          "example": "ups-ground, dhl-express-worldwide"
+        },
+        {
+          "name": "window",
+          "type": "datetime_range",
+          "required": true,
+          "attributes": [],
+          "description": "Estimated date range until delivery"
+        },
+        {
+          "name": "pdf",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Pre-signed URL containing PDF copy of the shipping label. This is generated asynchronously and may not be immediately available."
+        },
+        {
+          "name": "png",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Pre-signed URL containing PNG copy of the shipping label. This is generated asynchronously and may not be immediately available."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination"
+    },
+    {
+      "name": "shipping_label_form",
+      "plural": "shipping_label_forms",
+      "fields": [
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Desired carrier service level to use for this label"
+        },
+        {
+          "name": "destination",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Destination contact information and structured address"
+        },
+        {
+          "name": "origin",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Origin contact information and structured address"
+        },
+        {
+          "name": "packages",
+          "type": "[shipping_label_package]",
+          "required": true,
+          "attributes": [],
+          "description": "Packages to be shipped, including dimensions and items included",
+          "minimum": 1
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
+        },
+        {
+          "name": "insurance",
+          "type": "price",
+          "required": false,
+          "attributes": [],
+          "description": "Desired insurance amount on the items in the package."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shipping_label_package",
+      "plural": "shipping_label_packages",
+      "fields": [
+        {
+          "name": "dimensions",
+          "type": "dimension",
+          "required": true,
+          "attributes": [],
+          "description": "Packaging dimensions for the shipment using the requested shipping label"
+        },
+        {
+          "name": "items",
+          "type": "[line_item]",
+          "required": true,
+          "attributes": [],
+          "description": "List of items and quantities going into this shipment",
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "Describes a package to be shipped, including dimensions and items included"
+    },
+    {
+      "name": "shipping_label_version",
+      "plural": "shipping_label_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "shipping_label",
+          "type": "shipping_label",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -11570,11 +11540,11 @@
             {
               "code": {
                 "integer": {
-                  "value": 200
+                  "value": 201
                 }
               },
               "type": "item_margin",
-              "description": "Successful response"
+              "description": "Operation succeeded and the resource was created"
             },
             {
               "code": {
@@ -16183,8 +16153,8 @@
           }
         },
         {
-          "method": "PUT",
-          "path": "/:organization/currency/settings",
+          "method": "GET",
+          "path": "/:organization/currency/settings/:id",
           "parameters": [
             {
               "name": "organization",
@@ -16192,6 +16162,13 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
             }
           ],
           "responses": [
@@ -16207,11 +16184,52 @@
             {
               "code": {
                 "integer": {
-                  "value": 201
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/currency/settings/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
                 }
               },
               "type": "organization_currency_setting",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Successful response"
             },
             {
               "code": {
@@ -16233,11 +16251,62 @@
             }
           ],
           "attributes": [],
-          "description": "Create organization currency settings, or update if they already exist.",
+          "description": "Update an existing organization currency setting by id.",
           "body": {
             "type": "organization_currency_setting_form",
             "attributes": []
           }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/currency/settings/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Delete the organization currency setting with this id."
         },
         {
           "method": "GET",
@@ -16498,7 +16567,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/currency/rates",
+          "path": "/:organization/currency/rates/:id",
           "parameters": [
             {
               "name": "organization",
@@ -16506,6 +16575,13 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
             }
           ],
           "responses": [
@@ -16517,15 +16593,6 @@
               },
               "type": "rate",
               "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "rate",
-              "description": "Operation succeeded and the resource was created"
             },
             {
               "code": {
@@ -16547,7 +16614,7 @@
             }
           ],
           "attributes": [],
-          "description": "Create a currency conversion rate for an organization, or update the rate if it already exists.",
+          "description": "Update an existing rate by id.",
           "body": {
             "type": "rate_form",
             "attributes": []
@@ -19354,7 +19421,7 @@
             }
           ],
           "attributes": [],
-          "description": "Create a new card.",
+          "description": "Create a new card. Note that when using JSONP to submit a card, you do not need to authenticate.",
           "body": {
             "type": "card_form",
             "attributes": []
@@ -19635,6 +19702,110 @@
       ],
       "path": "/:organization/cards",
       "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future."
+    },
+    {
+      "type": "public_key",
+      "plural": "public_keys",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/encryption/keys",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[public_key]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Returns your public keys"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "linter",
+          "value": {
+            "ignore": [
+              "versions"
+            ]
+          }
+        },
+        {
+          "name": "docs",
+          "value": {
+            "module": "payment"
+          }
+        }
+      ],
+      "path": "/:organization/encryption/keys",
+      "description": "A public key is used to encrypt cards client side prior to submitting to the Flow vault."
     },
     {
       "type": "refund",
@@ -19959,299 +20130,6 @@
       ],
       "path": "/:organization/refunds",
       "description": "Refunds are used to issue refunds against a prior capture."
-    },
-    {
-      "type": "booking",
-      "plural": "bookings",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/bookings",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "number",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[booking]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "number"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/bookings",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "booking",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "booking_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/bookings/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "booking",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/bookings/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "booking",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[booking_version]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "booking"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "logistics"
-          }
-        }
-      ],
-      "path": "/:organization/bookings",
-      "description": "Represents second step of two-step purchase of Flow services."
     },
     {
       "type": "carrier",
@@ -22676,12 +22554,12 @@
       "description": "Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc)"
     },
     {
-      "type": "shipment",
-      "plural": "shipments",
+      "type": "shipping_label",
+      "plural": "shipping_labels",
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/shipments",
+          "path": "/:organization/shipping_label",
           "parameters": [
             {
               "name": "organization",
@@ -22699,10 +22577,25 @@
               "maximum": 100
             },
             {
-              "name": "number",
-              "type": "string",
+              "name": "carrier_tracking_number",
+              "type": "[string]",
               "location": "Query",
-              "required": false
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "flow_tracking_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "service",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
             },
             {
               "name": "limit",
@@ -22738,7 +22631,7 @@
                   "value": 200
                 }
               },
-              "type": "[shipment]",
+              "type": "[shipping_label]",
               "description": "Successful response"
             },
             {
@@ -22749,6 +22642,24 @@
               },
               "type": "unit",
               "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [
@@ -22760,7 +22671,13 @@
                     "value": "id"
                   },
                   {
-                    "value": "number"
+                    "value": "carrier_tracking_number"
+                  },
+                  {
+                    "value": "flow_tracking_number"
+                  },
+                  {
+                    "value": "service"
                   }
                 ]
               }
@@ -22769,7 +22686,7 @@
         },
         {
           "method": "POST",
-          "path": "/:organization/shipments",
+          "path": "/:organization/shipping_label",
           "parameters": [
             {
               "name": "organization",
@@ -22786,7 +22703,7 @@
                   "value": 201
                 }
               },
-              "type": "shipment",
+              "type": "shipping_label",
               "description": "Operation succeeded and the resource was created"
             },
             {
@@ -22810,13 +22727,13 @@
           ],
           "attributes": [],
           "body": {
-            "type": "shipment_form",
+            "type": "shipping_label_form",
             "attributes": []
           }
         },
         {
           "method": "GET",
-          "path": "/:organization/shipments/:id",
+          "path": "/:organization/shipping_label/:id",
           "parameters": [
             {
               "name": "organization",
@@ -22840,7 +22757,7 @@
                   "value": 200
                 }
               },
-              "type": "shipment",
+              "type": "shipping_label",
               "description": "Successful response"
             },
             {
@@ -22866,7 +22783,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/shipments/versions",
+          "path": "/:organization/shipping_label/versions",
           "parameters": [
             {
               "name": "organization",
@@ -22881,6 +22798,13 @@
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "label",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
               "maximum": 100
             },
             {
@@ -22917,7 +22841,7 @@
                   "value": 200
                 }
               },
-              "type": "[shipment_version]",
+              "type": "[shipping_label_version]",
               "description": "Successful response"
             },
             {
@@ -22939,246 +22863,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "logistics"
-          }
-        }
-      ],
-      "path": "/:organization/shipments",
-      "description": "Represents a subset of items from an order grouped into a single physical shipment. Flow provides a generated tracking number to track this shipment across multiple possible hops and carriers."
-    },
-    {
-      "type": "shipment_label",
-      "plural": "shipment_labels",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/shipments/:tracking_number/labels",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "tracking_number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[shipment_label]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/shipments/:tracking_number/labels",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "tracking_number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "shipment_label",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "shipment_label_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/shipments/:tracking_number/labels/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "tracking_number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[shipment_label_version]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
+                    "value": "label"
                   },
                   {
                     "value": "journal_timestamp"
@@ -23197,8 +22882,8 @@
           }
         }
       ],
-      "path": "/:organization/shipments/:tracking_number/labels",
-      "description": "Top-level information on shipment tracking shipment_label and number"
+      "path": "/:organization/shipping_label",
+      "description": "Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination"
     },
     {
       "type": "tier",

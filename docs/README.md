@@ -30,8 +30,8 @@ These resources mirror the official documentation located at
 | [authorizations](authorizations.md) | An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization. |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. |
+| [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds are used to issue refunds against a prior capture. |
-| [bookings](bookings.md) | Represents second step of two-step purchase of Flow services. |
 | [carriers](carriers.md) | Partner that actually take a shipment between places (ex: FedEx, DHL, SF Express) |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) |  |
@@ -42,8 +42,7 @@ These resources mirror the official documentation located at
 | [labelEvents](labelEvents.md) |  |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
 | [services](services.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |
-| [shipments](shipments.md) | Represents a subset of items from an order grouped into a single physical shipment. Flow provides a generated tracking number to track this shipment across multiple possible hops and carriers. |
-| [shipmentLabels](shipmentLabels.md) | Top-level information on shipment tracking shipment_label and number |
+| [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [tiers](tiers.md) | Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier |
 | [tierDefaults](tierDefaults.md) | Grouping of shipping tiers by experience to provide logical default functionality. |
 | [tierRules](tierRules.md) | System to filter incoming quote for a shipment request based on a query and output corresponding outcomes. |

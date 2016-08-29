@@ -19,9 +19,9 @@ export default class Rates extends Client {
     return this.makeRequest(`${this.host}/${organization}/currency/rates`, options);
   }
 
-  put(organization, options) {
+  putById(organization, id, options) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/currency/rates`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/rates/${id}`, options);
   }
 
   getVersions(organization, options) {
