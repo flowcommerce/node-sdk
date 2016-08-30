@@ -19,5 +19,15 @@ const timezones = client().timezones;
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
+| address | string |  |
+| ip | string |  |
+
+##`getReferenceAndTimezones(options)`
+
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
 | q | string | Free text search on name for a single matching timezone. Case insensitive |
 

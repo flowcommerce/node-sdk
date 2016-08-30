@@ -51,12 +51,11 @@ These resources mirror the official documentation located at
 | [webhookRequests](webhookRequests.md) |  |
 | [addresses](addresses.md) |  |
 | [countryDefaults](countryDefaults.md) | Provides country level defaults, incl language and currency. This resource allows you to provide geo info (e.g. IP, address, country) and will geolocate the request, returning the matching country level defaults. For example, if a user lands on your website and you do not have any stored preferences, you can use this API to retrieve the best default preferences based on the location of the user by providing their IP Address. |
-| [timezones](timezones.md) |  |
+| [timezones](timezones.md) | Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones |
 | [countries](countries.md) |  |
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies |
 | [languages](languages.md) | ISO 639 2-character language code. See https://api.flow.io/reference/languages |
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). |
-| [timezones](timezones.md) | Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [healthchecks](healthchecks.md) |  |

@@ -47,7 +47,6 @@ import Countries from './countries';
 import Currencies from './currencies';
 import Languages from './languages';
 import Regions from './regions';
-import Timezones from './timezones';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Healthchecks from './healthchecks';
@@ -116,7 +115,6 @@ export default class ApiClient {
     this.currencies = new Currencies(options);
     this.languages = new Languages(options);
     this.regions = new Regions(options);
-    this.timezones = new Timezones(options);
     this.documents = new Documents(options);
     this.email_verifications = new EmailVerifications(options);
     this.healthchecks = new Healthchecks(options);

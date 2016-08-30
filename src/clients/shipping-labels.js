@@ -11,20 +11,20 @@ export default class ShippingLabels extends Client {
   }
 
   get(organization, options) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_label`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping_labels`, options);
   }
 
   post(organization, options) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/shipping_label`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping_labels`, options);
   }
 
   getById(organization, id, options) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_label/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping_labels/${id}`, options);
   }
 
   getVersions(organization, options) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_label/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping_labels/versions`, options);
   }
 
 }

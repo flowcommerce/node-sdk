@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.23",
+  "version": "0.1.26",
   "info": {
     "license": {
       "name": "MIT",
@@ -24,23 +24,86 @@
   "imports": [],
   "enums": [
     {
+      "name": "authorization_decline_code",
+      "plural": "authorization_decline_codes",
+      "values": [
+        {
+          "name": "expired",
+          "attributes": [],
+          "description": "Payment method has expired"
+        },
+        {
+          "name": "invalid_number",
+          "attributes": [],
+          "description": "Invalid payment number"
+        },
+        {
+          "name": "invalid_expiration",
+          "attributes": [],
+          "description": "Invalid expiration date"
+        },
+        {
+          "name": "no_account",
+          "attributes": [],
+          "description": "The provided payment method is not known by the issuing bank (the account does not exist)"
+        },
+        {
+          "name": "avs",
+          "attributes": [],
+          "description": "Declined due to avs mismatch)"
+        },
+        {
+          "name": "cvv",
+          "attributes": [],
+          "description": "Declined due to cvv mismatch)"
+        },
+        {
+          "name": "fraud",
+          "attributes": [],
+          "description": "Declined due to suspected fraud"
+        },
+        {
+          "name": "duplicate",
+          "attributes": [],
+          "description": "Declined due to suspected duplicate transaction"
+        },
+        {
+          "name": "unknown",
+          "attributes": [],
+          "description": "Declined due to another reason (details not known)"
+        }
+      ],
+      "attributes": [],
+      "description": "Contains more detail related to the reason for which an authorization was declined."
+    },
+    {
       "name": "authorization_status",
       "plural": "authorization_statuses",
       "values": [
         {
-          "name": "accepted",
+          "name": "pending",
+          "attributes": [],
+          "description": "If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)"
+        },
+        {
+          "name": "pending_call_bank",
+          "attributes": [],
+          "description": "Bank is requesting consumer contact them directly to authorize the transaction"
+        },
+        {
+          "name": "authorized",
           "attributes": [],
           "description": "Authorization was successful"
         },
         {
           "name": "declined",
           "attributes": [],
-          "description": "Unable to authorize funds"
+          "description": "Indicates the authorization has been declined by the issuing bank. See the authorization decline code for more details as to the reason for decline."
         },
         {
-          "name": "pending",
+          "name": "voided",
           "attributes": [],
-          "description": "If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)"
+          "description": "Indicates the authorization has been voided. You can void an authorization up until the moment you capture funds; once you have captured funds you must create refunds."
         }
       ],
       "attributes": []
@@ -1539,6 +1602,13 @@
           "attributes": []
         },
         {
+          "name": "decline_code",
+          "type": "authorization_decline_code",
+          "required": false,
+          "attributes": [],
+          "description": "If status is declined, will contain the details behind the decline"
+        },
+        {
           "name": "avs",
           "type": "avs",
           "required": false,
@@ -1552,7 +1622,7 @@
         }
       ],
       "attributes": [],
-      "description": "Contains the result of the authorization. Each authorization will eventually end in a status of 'accepted' or 'declined'. If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)."
+      "description": "Contains the result of the authorization. If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)."
     },
     {
       "name": "authorization_version",
@@ -1615,7 +1685,7 @@
         {
           "name": "description",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -1845,6 +1915,13 @@
           "required": false,
           "attributes": [],
           "description": "Cardholder billing address"
+        },
+        {
+          "name": "challenge",
+          "type": "challenge",
+          "required": false,
+          "attributes": [],
+          "description": "When providing a cipher, you can optionally provide a challenge text and cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases"
         }
       ],
       "attributes": []
@@ -2481,6 +2558,26 @@
       "attributes": []
     },
     {
+      "name": "challenge",
+      "plural": "challenges",
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "cipher",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Challenge provides a text string and an encryption of that string which is used server side to verify that encryption worked as expected."
+    },
+    {
       "name": "cleartext",
       "plural": "cleartexts",
       "fields": [
@@ -2781,7 +2878,7 @@
         {
           "name": "description",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -22559,7 +22656,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/shipping_label",
+          "path": "/:organization/shipping_labels",
           "parameters": [
             {
               "name": "organization",
@@ -22686,7 +22783,7 @@
         },
         {
           "method": "POST",
-          "path": "/:organization/shipping_label",
+          "path": "/:organization/shipping_labels",
           "parameters": [
             {
               "name": "organization",
@@ -22733,7 +22830,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/shipping_label/:id",
+          "path": "/:organization/shipping_labels/:id",
           "parameters": [
             {
               "name": "organization",
@@ -22783,7 +22880,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/shipping_label/versions",
+          "path": "/:organization/shipping_labels/versions",
           "parameters": [
             {
               "name": "organization",
@@ -22882,7 +22979,7 @@
           }
         }
       ],
-      "path": "/:organization/shipping_label",
+      "path": "/:organization/shipping_labels",
       "description": "Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination"
     },
     {
@@ -25159,6 +25256,41 @@
           ],
           "attributes": [],
           "description": "Provides timezone based on address or geolocated IP."
+        },
+        {
+          "method": "GET",
+          "path": "/reference/timezones",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search on name for a single matching timezone. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[timezone]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns a list of timezones."
         }
       ],
       "attributes": [
@@ -25169,7 +25301,8 @@
           }
         }
       ],
-      "path": "/geolocation/timezones"
+      "path": "/geolocation/timezones",
+      "description": "Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones"
     },
     {
       "type": "country",
@@ -25417,57 +25550,6 @@
       ],
       "path": "/reference/regions",
       "description": "A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone)."
-    },
-    {
-      "type": "timezone",
-      "plural": "timezones",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/reference/timezones",
-          "parameters": [
-            {
-              "name": "q",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "description": "Free text search on name for a single matching timezone. Case insensitive"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[timezone]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [],
-          "description": "Returns a list of timezones."
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "reference"
-          }
-        }
-      ],
-      "path": "/reference/timezones",
-      "description": "Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones"
     },
     {
       "type": "document",
