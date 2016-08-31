@@ -33,6 +33,10 @@ export default class Organizations extends Client {
     return this.makeRequest(`${this.host}/organizations/${id}`, options);
   }
 
+  getSettingsAndCurrenciesByOrganizationId(organizationId, options) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/currencies`, options);
+  }
+
   getVersions(options) {
     return this.makeRequest(`${this.host}/organizations/versions`, options);
   }

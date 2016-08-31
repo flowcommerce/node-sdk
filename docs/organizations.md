@@ -58,6 +58,15 @@ const organizations = client().organizations;
 | id | string | Filter by one or more IDs of this resource |
 
 
+##`getSettingsAndCurrenciesByOrganizationId(organizationId, options)`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization_id | string |  |
+
+
 ##`getVersions(options)`
 
 

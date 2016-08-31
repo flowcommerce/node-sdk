@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "info": {
     "license": {
       "name": "MIT",
@@ -115,17 +115,22 @@
         {
           "name": "match",
           "attributes": [],
-          "description": "Address matches expected values"
+          "description": "Full match"
+        },
+        {
+          "name": "partial",
+          "attributes": [],
+          "description": "Partial match; see details in 'avs' model to undestand which components matched"
+        },
+        {
+          "name": "unsupported",
+          "attributes": [],
+          "description": "Issuer does not support address verification"
         },
         {
           "name": "no_match",
           "attributes": [],
           "description": "Address does not match expected card values"
-        },
-        {
-          "name": "not_supported",
-          "attributes": [],
-          "description": "Issuer does not support address verification"
         }
       ],
       "attributes": []
@@ -230,14 +235,19 @@
           "description": "CVV matches"
         },
         {
-          "name": "no_match",
+          "name": "suspicious",
           "attributes": [],
-          "description": "CVV did not match"
+          "description": "CVV did not match; Transaction is possibly fraudulent"
         },
         {
-          "name": "not_supported",
+          "name": "unsupported",
           "attributes": [],
-          "description": "Issuer does not support card verification numbers"
+          "description": "CVV did not match; Issuer does not support card verification numbers"
+        },
+        {
+          "name": "no_match",
+          "attributes": [],
+          "description": "CVV did not match; Specific reason not available"
         }
       ],
       "attributes": []
@@ -1681,6 +1691,27 @@
           "type": "avs_code",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "If available, indicates whether the cardholder's name matches."
+        },
+        {
+          "name": "street",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "If available, indicates whether the cardholder's street address matches."
+        },
+        {
+          "name": "postal",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "If available, indicates whether the cardholder's postal code matches."
         },
         {
           "name": "description",
@@ -8670,6 +8701,13 @@
           "description": "Desired carrier service level to use for this label"
         },
         {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": [],
+          "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
+        },
+        {
           "name": "destination",
           "type": "shipping_address",
           "required": true,
@@ -8690,13 +8728,6 @@
           "attributes": [],
           "description": "Packages to be shipped, including dimensions and items included",
           "minimum": 1
-        },
-        {
-          "name": "delivered_duty",
-          "type": "delivered_duty",
-          "required": false,
-          "attributes": [],
-          "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
         },
         {
           "name": "insurance",
@@ -27069,6 +27100,54 @@
           ],
           "attributes": [],
           "description": "Delete the organization with this id"
+        },
+        {
+          "method": "GET",
+          "path": "/organizations/:organization_id/settings/currencies",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[currency]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "non-crud",
+              "value": {}
+            }
+          ],
+          "description": "Returns currencies for a specific organization."
         },
         {
           "method": "GET",
