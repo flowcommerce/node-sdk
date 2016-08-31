@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "info": {
     "license": {
       "name": "MIT",
@@ -1948,11 +1948,18 @@
           "description": "Cardholder billing address"
         },
         {
-          "name": "challenge",
-          "type": "challenge",
+          "name": "challenge_text",
+          "type": "string",
           "required": false,
           "attributes": [],
-          "description": "When providing a cipher, you can optionally provide a challenge text and cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases"
+          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases"
+        },
+        {
+          "name": "challenge_cipher",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases"
         }
       ],
       "attributes": []
@@ -2587,26 +2594,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "challenge",
-      "plural": "challenges",
-      "fields": [
-        {
-          "name": "text",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "cipher",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Challenge provides a text string and an encryption of that string which is used server side to verify that encryption worked as expected."
     },
     {
       "name": "cleartext",
