@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "info": {
     "license": {
       "name": "MIT",
@@ -1700,11 +1700,11 @@
           "description": "If available, indicates whether the cardholder's name matches."
         },
         {
-          "name": "street",
+          "name": "address",
           "type": "boolean",
           "required": false,
           "attributes": [],
-          "description": "If available, indicates whether the cardholder's street address matches."
+          "description": "If available, indicates whether the cardholder's address matches."
         },
         {
           "name": "postal",
