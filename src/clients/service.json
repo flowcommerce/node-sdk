@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.29",
+  "version": "0.1.30",
   "info": {
     "license": {
       "name": "MIT",
@@ -408,6 +408,10 @@
         },
         {
           "name": "organization_deleted",
+          "attributes": []
+        },
+        {
+          "name": "tracking_label_event_upserted",
           "attributes": []
         }
       ],
@@ -1162,6 +1166,10 @@
         },
         {
           "type": "organization_deleted",
+          "attributes": []
+        },
+        {
+          "type": "tracking_label_event_upserted",
           "attributes": []
         }
       ],
@@ -10101,6 +10109,85 @@
       ],
       "attributes": [],
       "description": "Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number"
+    },
+    {
+      "name": "tracking_label_event_upserted",
+      "plural": "tracking_label_event_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "address",
+          "type": "object",
+          "required": true,
+          "attributes": [],
+          "description": "Location of the label tracking event"
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "ups, dhl"
+        },
+        {
+          "name": "carrier_timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "description": "Actual carrier-reported timestamp for event"
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "flow_tracking_numnber",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "pending, info_received"
+        },
+        {
+          "name": "delivery_estimate",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "Carrier-provided delivered estimate when available"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tracking_summary",
