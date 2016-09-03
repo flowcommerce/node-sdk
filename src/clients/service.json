@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.30",
+  "version": "0.1.32",
   "info": {
     "license": {
       "name": "MIT",
@@ -6003,6 +6003,35 @@
       "attributes": []
     },
     {
+      "name": "jsonp_response",
+      "plural": "jsonp_responses",
+      "fields": [
+        {
+          "name": "status",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "description": "The HTTP response code"
+        },
+        {
+          "name": "headers",
+          "type": "map[[string]]",
+          "required": true,
+          "attributes": [],
+          "description": "The HTTP response headers"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "required": true,
+          "attributes": [],
+          "description": "The HTTP response body as a JSON object"
+        }
+      ],
+      "attributes": [],
+      "description": "The jsonp_response defines the schema for all Flow APIs calls made over JSONP, providing access to the specific response status, headers, and body from the underlying service.  See https://docs.flow.io/#jsonp for details"
+    },
+    {
       "name": "label",
       "plural": "labels",
       "fields": [
@@ -10161,7 +10190,7 @@
           "attributes": []
         },
         {
-          "name": "flow_tracking_numnber",
+          "name": "flow_tracking_number",
           "type": "string",
           "required": true,
           "attributes": []
