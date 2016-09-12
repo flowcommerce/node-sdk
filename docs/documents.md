@@ -25,8 +25,6 @@ const documents = client().documents;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | q | string |  |
-| experience | string |  |
-| attributes | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -44,7 +42,6 @@ const documents = client().documents;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | q | string |  |
-| destination | string | ISO 3166 3-character country code. See https://api.flow.io/reference/countries |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

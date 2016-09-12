@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.32",
+  "version": "0.1.44",
   "info": {
     "license": {
       "name": "MIT",
@@ -162,6 +162,24 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "capture_decline_code",
+      "plural": "capture_decline_codes",
+      "values": [
+        {
+          "name": "expired",
+          "attributes": [],
+          "description": "Payment authorization has expired"
+        },
+        {
+          "name": "unknown",
+          "attributes": [],
+          "description": "Failed due to another reason (details not known)"
+        }
+      ],
+      "attributes": [],
+      "description": "Contains detail related to the reason for which a capture failed."
     },
     {
       "name": "card_type",
@@ -1288,10 +1306,6 @@
         },
         {
           "type": "flat_rate",
-          "attributes": []
-        },
-        {
-          "type": "free_shipping",
           "attributes": []
         },
         {
@@ -3013,7 +3027,7 @@
           "type": "price",
           "required": true,
           "attributes": [],
-          "description": "Price of shipping to be used for the end-customer selecting this option. Can be actual cost, free shipping, etc."
+          "description": "Price of shipping to be used for the end-customer selecting this option. Can be actual cost, etc."
         },
         {
           "name": "service",
@@ -3106,7 +3120,7 @@
           "type": "price",
           "required": true,
           "attributes": [],
-          "description": "Price of shipping to be used for the end-customer selecting this option. Can be actual cost, free shipping, etc."
+          "description": "Price of shipping to be used for the end-customer selecting this option. Can be actual cost, etc."
         },
         {
           "name": "service",
@@ -4057,20 +4071,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "free_shipping",
-      "plural": "free_shippings",
-      "fields": [
-        {
-          "name": "ignore",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Rule outcome where shipping surfaced in quote is free"
     },
     {
       "name": "fulfillment_experience_reference",
@@ -5812,6 +5812,18 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -6419,8 +6431,26 @@
       "plural": "locals",
       "fields": [
         {
+          "name": "experience",
+          "type": "experience_summary",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "prices",
           "type": "[localized_price]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rates",
+          "type": "[rate]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "spot_rates",
+          "type": "[spot_rate]",
           "required": true,
           "attributes": []
         }
@@ -6641,6 +6671,12 @@
         {
           "name": "label",
           "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "price",
           "required": true,
           "attributes": []
         }
@@ -8646,13 +8682,6 @@
           "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
         },
         {
-          "name": "commercial_invoice",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Pre-signed URL containing generated PDF commercial invoice required for international shipments"
-        },
-        {
           "name": "data",
           "type": "string",
           "required": true,
@@ -8694,6 +8723,13 @@
           "required": true,
           "attributes": [],
           "description": "Estimated date range until delivery"
+        },
+        {
+          "name": "commercial_invoice",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Pre-signed URL containing generated PDF commercial invoice required for international shipments"
         },
         {
           "name": "pdf",
@@ -9785,7 +9821,7 @@
           "type": "tier_rule_outcome",
           "required": true,
           "attributes": [],
-          "description": "Resulting cost function applied if query is met. e.g. service cost, free shipping, flat rate"
+          "description": "Resulting cost function applied if query is met. e.g. service cost, flat rate"
         }
       ],
       "attributes": [],
@@ -16723,6 +16759,15 @@
               },
               "type": "unit",
               "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [
@@ -25708,19 +25753,6 @@
               "example": "gucci category:handbag price:10"
             },
             {
-              "name": "experience",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "attributes",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -25808,14 +25840,6 @@
               "location": "Query",
               "required": false,
               "example": "gucci category:handbag price:10"
-            },
-            {
-              "name": "destination",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "description": "ISO 3166 3-character country code. See https://api.flow.io/reference/countries",
-              "example": "USA"
             },
             {
               "name": "limit",
