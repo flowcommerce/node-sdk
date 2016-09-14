@@ -10,11 +10,11 @@ export default class Services extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/services`, options);
   }
 
-  getById(id, options) {
+  getById(id, options = {}) {
     return this.makeRequest(`${this.host}/services/${id}`, options);
   }
 

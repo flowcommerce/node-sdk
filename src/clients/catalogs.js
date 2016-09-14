@@ -10,11 +10,11 @@ export default class Catalogs extends Client {
     super(options);
   }
 
-  getCatalog(organization, options) {
+  getCatalog(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog`, options);
   }
 
-  getCatalogAndStatistics(organization, options) {
+  getCatalogAndStatistics(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/statistics`, options);
   }
 

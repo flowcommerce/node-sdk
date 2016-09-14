@@ -12,7 +12,7 @@ const timezones = client().timezones;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -22,7 +22,7 @@ const timezones = client().timezones;
 | address | string |  |
 | ip | string |  |
 
-##`getReferenceAndTimezones(options)`
+##`getReferenceAndTimezones(options = {})`
 
 
 ### Query Parameters

@@ -12,7 +12,7 @@ const countries = client().countries;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters

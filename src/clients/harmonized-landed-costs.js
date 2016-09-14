@@ -10,7 +10,7 @@ export default class HarmonizedLandedCosts extends Client {
     super(options);
   }
 
-  post(organization, options) {
+  post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/harmonization/landed-costs`, options);
   }

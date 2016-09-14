@@ -10,21 +10,21 @@ export default class Rates extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/currency/rates`, options);
   }
 
-  post(organization, options) {
+  post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/currency/rates`, options);
   }
 
-  putById(organization, id, options) {
+  putById(organization, id, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/currency/rates/${id}`, options);
   }
 
-  getVersions(organization, options) {
+  getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/currency/rates/versions`, options);
   }
 

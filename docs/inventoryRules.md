@@ -12,7 +12,7 @@ const inventoryRules = client().inventoryRules;
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
@@ -29,7 +29,7 @@ const inventoryRules = client().inventoryRules;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options)`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
@@ -38,7 +38,7 @@ const inventoryRules = client().inventoryRules;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getVersions(organization, options)`
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 

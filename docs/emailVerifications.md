@@ -12,7 +12,7 @@ const emailVerifications = client().emailVerifications;
 
 ## Operations
 
-##`postByToken(token, options)`
+##`postByToken(token, options = {})`
 
 ### Function Parameters
 

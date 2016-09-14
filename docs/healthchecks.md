@@ -12,7 +12,7 @@ const healthchecks = client().healthchecks;
 
 ## Operations
 
-##`getHealthcheck(options)`
+##`getHealthcheck(options = {})`
 
 
 

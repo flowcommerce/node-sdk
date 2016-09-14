@@ -12,7 +12,7 @@ const addresses = client().addresses;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters

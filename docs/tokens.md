@@ -12,7 +12,7 @@ const tokens = client().tokens;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -25,20 +25,11 @@ const tokens = client().tokens;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(options)`
+##`post(options = {})`
 
 
 
-##`getById(id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`deleteById(id, options)`
+##`getById(id, options = {})`
 
 ### Function Parameters
 
@@ -47,7 +38,7 @@ const tokens = client().tokens;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getCleartextById(id, options)`
+##`deleteById(id, options = {})`
 
 ### Function Parameters
 
@@ -56,11 +47,20 @@ const tokens = client().tokens;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`postAuthentications(options)`
+##`getCleartextById(id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`postAuthentications(options = {})`
 
 
 
-##`getVersions(options)`
+##`getVersions(options = {})`
 
 
 ### Query Parameters

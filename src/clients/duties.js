@@ -10,7 +10,7 @@ export default class Duties extends Client {
     super(options);
   }
 
-  get(organization, origin, options) {
+  get(organization, origin, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/harmonization/duties/${origin}`, options);
   }
 

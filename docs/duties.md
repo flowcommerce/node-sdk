@@ -12,7 +12,7 @@ const duties = client().duties;
 
 ## Operations
 
-##`get(organization, origin, options)`
+##`get(organization, origin, options = {})`
 
 ### Function Parameters
 

@@ -10,11 +10,11 @@ export default class Carriers extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/carriers`, options);
   }
 
-  getById(id, options) {
+  getById(id, options = {}) {
     return this.makeRequest(`${this.host}/carriers/${id}`, options);
   }
 

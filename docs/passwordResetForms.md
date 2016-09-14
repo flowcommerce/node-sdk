@@ -12,7 +12,7 @@ const passwordResetForms = client().passwordResetForms;
 
 ## Operations
 
-##`post(options)`
+##`post(options = {})`
 
 
 ### Query Parameters
@@ -21,7 +21,7 @@ const passwordResetForms = client().passwordResetForms;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
-##`postResets(options)`
+##`postResets(options = {})`
 
 
 

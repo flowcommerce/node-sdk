@@ -10,7 +10,7 @@ export default class Validations extends Client {
     super(options);
   }
 
-  post(options) {
+  post(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/token-validations`, options);
   }

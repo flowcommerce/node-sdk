@@ -12,7 +12,7 @@ const labelEvents = client().labelEvents;
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
@@ -31,7 +31,7 @@ const labelEvents = client().labelEvents;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`getById(organization, id, options)`
+##`getById(organization, id, options = {})`
 
 ### Function Parameters
 
@@ -41,7 +41,7 @@ const labelEvents = client().labelEvents;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getVersions(organization, options)`
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 

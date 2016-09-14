@@ -10,7 +10,7 @@ export default class DeliveryWindows extends Client {
     super(options);
   }
 
-  getSummary(organization, options) {
+  getSummary(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/delivery-windows/summary`, options);
   }
 

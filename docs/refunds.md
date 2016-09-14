@@ -12,7 +12,7 @@ const refunds = client().refunds;
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
@@ -34,7 +34,7 @@ const refunds = client().refunds;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options)`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
@@ -43,7 +43,7 @@ const refunds = client().refunds;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByKey(organization, key, options)`
+##`getByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -53,7 +53,7 @@ const refunds = client().refunds;
 | key | string |  |
 
 
-##`getVersions(organization, options)`
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 

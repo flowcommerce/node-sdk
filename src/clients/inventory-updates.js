@@ -10,20 +10,20 @@ export default class InventoryUpdates extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_updates`, options);
   }
 
-  post(organization, options) {
+  post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/inventory_updates`, options);
   }
 
-  getById(organization, id, options) {
+  getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_updates/${id}`, options);
   }
 
-  getVersions(organization, options) {
+  getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_updates/versions`, options);
   }
 

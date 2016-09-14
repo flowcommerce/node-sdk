@@ -12,7 +12,7 @@ const regions = client().regions;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -21,7 +21,7 @@ const regions = client().regions;
 | ---- | ---- | ---- |
 | q | string | Free text search on name for a single matching region. Case insensitive |
 
-##`getById(id, options)`
+##`getById(id, options = {})`
 
 ### Function Parameters
 

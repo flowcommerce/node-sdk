@@ -10,11 +10,11 @@ export default class Suggestions extends Client {
     super(options);
   }
 
-  getCatalog(organization, options) {
+  getCatalog(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/suggestion/catalog`, options);
   }
 
-  getHarmonization(organization, options) {
+  getHarmonization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/suggestion/harmonization`, options);
   }
 

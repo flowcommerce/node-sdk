@@ -10,15 +10,15 @@ export default class InventorySnapshots extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_snapshots`, options);
   }
 
-  getById(organization, id, options) {
+  getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_snapshots/${id}`, options);
   }
 
-  getVersions(organization, options) {
+  getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_snapshots/versions`, options);
   }
 

@@ -12,7 +12,7 @@ const languages = client().languages;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters

@@ -10,7 +10,7 @@ export default class Currencies extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/reference/currencies`, options);
   }
 

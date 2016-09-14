@@ -12,7 +12,7 @@ const services = client().services;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -24,7 +24,7 @@ const services = client().services;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`getById(id, options)`
+##`getById(id, options = {})`
 
 ### Function Parameters
 

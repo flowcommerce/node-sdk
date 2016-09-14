@@ -10,25 +10,25 @@ export default class Webhooks extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/webhooks`, options);
   }
 
-  post(organization, options) {
+  post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/webhooks`, options);
   }
 
-  getById(organization, id, options) {
+  getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, options);
   }
 
-  putById(organization, id, options) {
+  putById(organization, id, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, options);
   }
 
-  deleteById(organization, id, options) {
+  deleteById(organization, id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, options);
   }

@@ -10,30 +10,30 @@ export default class Memberships extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/memberships`, options);
   }
 
-  post(options) {
+  post(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/memberships`, options);
   }
 
-  getById(id, options) {
+  getById(id, options = {}) {
     return this.makeRequest(`${this.host}/memberships/${id}`, options);
   }
 
-  putById(id, options) {
+  putById(id, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/memberships/${id}`, options);
   }
 
-  deleteById(id, options) {
+  deleteById(id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/memberships/${id}`, options);
   }
 
-  getVersions(options) {
+  getVersions(options = {}) {
     return this.makeRequest(`${this.host}/memberships/versions`, options);
   }
 

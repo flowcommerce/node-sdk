@@ -10,34 +10,34 @@ export default class Organizations extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/organizations`, options);
   }
 
-  post(options) {
+  post(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/organizations`, options);
   }
 
-  getById(id, options) {
+  getById(id, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${id}`, options);
   }
 
-  putById(id, options) {
+  putById(id, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/organizations/${id}`, options);
   }
 
-  deleteById(id, options) {
+  deleteById(id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/organizations/${id}`, options);
   }
 
-  getSettingsAndCurrenciesByOrganizationId(organizationId, options) {
+  getSettingsAndCurrenciesByOrganizationId(organizationId, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/currencies`, options);
   }
 
-  getVersions(options) {
+  getVersions(options = {}) {
     return this.makeRequest(`${this.host}/organizations/versions`, options);
   }
 

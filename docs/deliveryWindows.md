@@ -12,7 +12,7 @@ const deliveryWindows = client().deliveryWindows;
 
 ## Operations
 
-##`getSummary(organization, options)`
+##`getSummary(organization, options = {})`
 
 ### Function Parameters
 

@@ -10,25 +10,25 @@ export default class Centers extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/centers`, options);
   }
 
-  post(organization, options) {
+  post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/centers`, options);
   }
 
-  getByKey(organization, key, options) {
+  getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/centers/${key}`, options);
   }
 
-  putByKey(organization, key, options) {
+  putByKey(organization, key, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/centers/${key}`, options);
   }
 
-  getVersions(organization, options) {
+  getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/centers/versions`, options);
   }
 

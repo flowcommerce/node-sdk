@@ -10,40 +10,40 @@ export default class Users extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/users`, options);
   }
 
-  post(options) {
+  post(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/users`, options);
   }
 
-  getById(id, options) {
+  getById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/${id}`, options);
   }
 
-  putById(id, options) {
+  putById(id, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/users/${id}`, options);
   }
 
-  patchPasswordsById(id, options) {
+  patchPasswordsById(id, options = {}) {
     Object.assign(options, { method: 'PATCH' });
     return this.makeRequest(`${this.host}/users/${id}/passwords`, options);
   }
 
-  deletePasswordsById(id, options) {
+  deletePasswordsById(id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/users/${id}/passwords`, options);
   }
 
-  postAuthenticate(options) {
+  postAuthenticate(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/users/authenticate`, options);
   }
 
-  getVersions(options) {
+  getVersions(options = {}) {
     return this.makeRequest(`${this.host}/users/versions`, options);
   }
 

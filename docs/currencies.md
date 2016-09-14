@@ -12,7 +12,7 @@ const currencies = client().currencies;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters

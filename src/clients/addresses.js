@@ -10,7 +10,7 @@ export default class Addresses extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/addresses`, options);
   }
 

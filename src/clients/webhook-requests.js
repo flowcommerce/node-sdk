@@ -10,15 +10,15 @@ export default class WebhookRequests extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/webhook/requests`, options);
   }
 
-  getById(organization, id, options) {
+  getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/webhook/requests/${id}`, options);
   }
 
-  postRedeliveriesById(organization, id, options) {
+  postRedeliveriesById(organization, id, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/webhook/requests/${id}/redeliveries`, options);
   }

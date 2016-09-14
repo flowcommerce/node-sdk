@@ -10,12 +10,12 @@ export default class PasswordResetForms extends Client {
     super(options);
   }
 
-  post(options) {
+  post(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/users/passwords`, options);
   }
 
-  postResets(options) {
+  postResets(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/users/passwords/resets`, options);
   }

@@ -12,7 +12,7 @@ const harmonizedLandedCosts = client().harmonizedLandedCosts;
 
 ## Operations
 
-##`post(organization, options)`
+##`post(organization, options = {})`
 
 ### Function Parameters
 

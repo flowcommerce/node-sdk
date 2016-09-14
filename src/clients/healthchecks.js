@@ -10,7 +10,7 @@ export default class Healthchecks extends Client {
     super(options);
   }
 
-  getHealthcheck(options) {
+  getHealthcheck(options = {}) {
     return this.makeRequest(`${this.host}/_internal_/healthcheck`, options);
   }
 

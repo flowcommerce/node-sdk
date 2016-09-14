@@ -12,7 +12,7 @@ const organizationAuthorizations = client().organizationAuthorizations;
 
 ## Operations
 
-##`getByOrganization(organization, options)`
+##`getByOrganization(organization, options = {})`
 
 ### Function Parameters
 

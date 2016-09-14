@@ -10,30 +10,30 @@ export default class Items extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items`, options);
   }
 
-  post(organization, options) {
+  post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/catalog/items`, options);
   }
 
-  getByNumber(organization, number, options) {
+  getByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, options);
   }
 
-  putByNumber(organization, number, options) {
+  putByNumber(organization, number, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, options);
   }
 
-  deleteByNumber(organization, number, options) {
+  deleteByNumber(organization, number, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, options);
   }
 
-  getVersions(organization, options) {
+  getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items/versions`, options);
   }
 

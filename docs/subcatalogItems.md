@@ -12,7 +12,7 @@ const subcatalogItems = client().subcatalogItems;
 
 ## Operations
 
-##`get(organization, subcatalogId, options)`
+##`get(organization, subcatalogId, options = {})`
 
 ### Function Parameters
 
@@ -33,7 +33,7 @@ const subcatalogItems = client().subcatalogItems;
 | sort | string |  |
 | expand | [string] |  |
 
-##`getByNumber(organization, subcatalogId, number, options)`
+##`getByNumber(organization, subcatalogId, number, options = {})`
 
 ### Function Parameters
 
@@ -44,7 +44,7 @@ const subcatalogItems = client().subcatalogItems;
 | number | string |  |
 
 
-##`getVersions(organization, subcatalogId, options)`
+##`getVersions(organization, subcatalogId, options = {})`
 
 ### Function Parameters
 

@@ -10,7 +10,7 @@ export default class Countries extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/reference/countries`, options);
   }
 

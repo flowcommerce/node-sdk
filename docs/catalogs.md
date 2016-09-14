@@ -12,7 +12,7 @@ const catalogs = client().catalogs;
 
 ## Operations
 
-##`getCatalog(organization, options)`
+##`getCatalog(organization, options = {})`
 
 ### Function Parameters
 
@@ -21,7 +21,7 @@ const catalogs = client().catalogs;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getCatalogAndStatistics(organization, options)`
+##`getCatalogAndStatistics(organization, options = {})`
 
 ### Function Parameters
 

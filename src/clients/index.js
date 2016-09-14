@@ -60,12 +60,59 @@ import Tokens from './tokens';
 import Users from './users';
 import Validations from './validations';
 
+
+const enums = {
+  authorizationDeclineCode: ['expired', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'unknown'],
+  authorizationStatus: ['pending', 'pending_call_bank', 'authorized', 'declined', 'voided'],
+  avsCode: ['match', 'partial', 'unsupported', 'no_match'],
+  calendar: ['weekdays', 'everyday'],
+  capability: ['crossdock'],
+  captureDeclineCode: ['expired', 'unknown'],
+  cardType: ['american_express', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
+  changeType: ['insert', 'update', 'delete'],
+  cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
+  deliveredDuty: ['paid', 'unpaid', 'choice'],
+  environment: ['sandbox', 'production'],
+  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'localized_item_upserted', 'localized_item_deleted', 'organization_upserted', 'organization_deleted', 'tracking_label_event_upserted'],
+  exceptionType: ['open', 'closed'],
+  holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
+  levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
+  levyStrategy: ['minimum', 'average', 'maximum'],
+  localizedPriceKey: ['price', 'subtotal', 'vat', 'duty', 'discount', 'shipping', 'total'],
+  marginType: ['fixed', 'percent'],
+  measurementSystem: ['imperial', 'metric'],
+  method: ['post'],
+  pricingLevySetting: ['included', 'displayed', 'ignored'],
+  queryType: ['exclusion', 'inclusion'],
+  role: ['admin', 'member'],
+  roundingMethod: ['up', 'down', 'nearest'],
+  roundingType: ['pattern', 'multiple'],
+  scheduleExceptionStatus: ['Open', 'Closed'],
+  shipmentIntegrationType: ['direct', 'information', 'preadvice'],
+  sortDirection: ['ascending', 'descending'],
+  strategy: ['range', 'from', 'to'],
+  subcatalogItemStatus: ['excluded', 'included', 'restricted'],
+  tierStrategy: ['fastest', 'lowest_cost'],
+  trackingStatus: ['pending', 'info_received', 'in_transit', 'out_for_delivery', 'attempt_fail', 'delivered', 'exception', 'expired'],
+  unitOfMeasurement: ['millimeter', 'centimeter', 'inch', 'foot', 'cubic_inch', 'cubic_meter', 'gram', 'kilogram', 'meter', 'ounce', 'pound'],
+  unitOfTime: ['day', 'hour', 'minute'],
+  updatePolicy: ['auto', 'queue', 'discard'],
+  updateType: ['change', 'set'],
+  valueAddedService: ['Hazardous Material'],
+  visibility: ['public', 'private'],
+  webhookRequestStatus: ['pending', 'success', 'failure'],
+};
+
+
 export default class ApiClient {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
+    this.enums = enums;
+
     this.attributes = new Attributes(options);
     this.catalogs = new Catalogs(options);
     this.experiences = new Experiences(options);

@@ -12,7 +12,7 @@ const countryDefaults = client().countryDefaults;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -23,7 +23,7 @@ const countryDefaults = client().countryDefaults;
 | address | string |  |
 | ip | string |  |
 
-##`getByCountry(country, options)`
+##`getByCountry(country, options = {})`
 
 ### Function Parameters
 

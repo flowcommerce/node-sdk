@@ -10,30 +10,30 @@ export default class TierRules extends Client {
     super(options);
   }
 
-  get(organization, tierId, options) {
+  get(organization, tierId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules`, options);
   }
 
-  post(organization, tierId, options) {
+  post(organization, tierId, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules`, options);
   }
 
-  getById(organization, tierId, id, options) {
+  getById(organization, tierId, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, options);
   }
 
-  putById(organization, tierId, id, options) {
+  putById(organization, tierId, id, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, options);
   }
 
-  deleteById(organization, tierId, id, options) {
+  deleteById(organization, tierId, id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, options);
   }
 
-  getVersions(organization, tierId, options) {
+  getVersions(organization, tierId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/versions`, options);
   }
 

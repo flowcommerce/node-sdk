@@ -12,7 +12,7 @@ const cards = client().cards;
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
@@ -30,7 +30,7 @@ const cards = client().cards;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options)`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
@@ -39,17 +39,7 @@ const cards = client().cards;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByToken(organization, token, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| token | string |  |
-
-
-##`deleteByToken(organization, token, options)`
+##`getByToken(organization, token, options = {})`
 
 ### Function Parameters
 
@@ -59,7 +49,7 @@ const cards = client().cards;
 | token | string |  |
 
 
-##`postUpdatesByToken(organization, token, options)`
+##`deleteByToken(organization, token, options = {})`
 
 ### Function Parameters
 
@@ -69,7 +59,17 @@ const cards = client().cards;
 | token | string |  |
 
 
-##`getVersions(organization, options)`
+##`postUpdatesByToken(organization, token, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| token | string |  |
+
+
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 

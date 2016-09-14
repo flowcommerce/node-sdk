@@ -10,11 +10,11 @@ export default class HarmonizationSettings extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/harmonization/settings`, options);
   }
 
-  put(organization, options) {
+  put(organization, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/harmonization/settings`, options);
   }

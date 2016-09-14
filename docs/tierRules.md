@@ -12,7 +12,7 @@ const tierRules = client().tierRules;
 
 ## Operations
 
-##`get(organization, tierId, options)`
+##`get(organization, tierId, options = {})`
 
 ### Function Parameters
 
@@ -30,7 +30,7 @@ const tierRules = client().tierRules;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, tierId, options)`
+##`post(organization, tierId, options = {})`
 
 ### Function Parameters
 
@@ -40,18 +40,7 @@ const tierRules = client().tierRules;
 | tier_id | string |  |
 
 
-##`getById(organization, tierId, id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| tier_id | string |  |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`putById(organization, tierId, id, options)`
+##`getById(organization, tierId, id, options = {})`
 
 ### Function Parameters
 
@@ -62,7 +51,7 @@ const tierRules = client().tierRules;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`deleteById(organization, tierId, id, options)`
+##`putById(organization, tierId, id, options = {})`
 
 ### Function Parameters
 
@@ -73,7 +62,18 @@ const tierRules = client().tierRules;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getVersions(organization, tierId, options)`
+##`deleteById(organization, tierId, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`getVersions(organization, tierId, options = {})`
 
 ### Function Parameters
 

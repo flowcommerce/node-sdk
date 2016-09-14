@@ -10,7 +10,7 @@ export default class Languages extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/reference/languages`, options);
   }
 

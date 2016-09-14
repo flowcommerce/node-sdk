@@ -10,34 +10,34 @@ export default class Tokens extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/tokens`, options);
   }
 
-  post(options) {
+  post(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/tokens`, options);
   }
 
-  getById(id, options) {
+  getById(id, options = {}) {
     return this.makeRequest(`${this.host}/tokens/${id}`, options);
   }
 
-  deleteById(id, options) {
+  deleteById(id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/tokens/${id}`, options);
   }
 
-  getCleartextById(id, options) {
+  getCleartextById(id, options = {}) {
     return this.makeRequest(`${this.host}/tokens/${id}/cleartext`, options);
   }
 
-  postAuthentications(options) {
+  postAuthentications(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/tokens/authentications`, options);
   }
 
-  getVersions(options) {
+  getVersions(options = {}) {
     return this.makeRequest(`${this.host}/tokens/versions`, options);
   }
 

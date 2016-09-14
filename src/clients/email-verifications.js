@@ -10,7 +10,7 @@ export default class EmailVerifications extends Client {
     super(options);
   }
 
-  postByToken(token, options) {
+  postByToken(token, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/users/emails/verifications/${token}`, options);
   }

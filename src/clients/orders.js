@@ -10,35 +10,35 @@ export default class Orders extends Client {
     super(options);
   }
 
-  get(organization, options) {
+  get(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders`, options);
   }
 
-  post(organization, options) {
+  post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/${organization}/orders`, options);
   }
 
-  getByNumber(organization, number, options) {
+  getByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
   }
 
-  putByNumber(organization, number, options) {
+  putByNumber(organization, number, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
   }
 
-  deleteByNumber(organization, number, options) {
+  deleteByNumber(organization, number, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
   }
 
-  putBookingsByNumber(organization, number, options) {
+  putBookingsByNumber(organization, number, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/bookings`, options);
   }
 
-  getVersions(organization, options) {
+  getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/versions`, options);
   }
 

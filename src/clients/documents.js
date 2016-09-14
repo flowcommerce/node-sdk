@@ -10,11 +10,11 @@ export default class Documents extends Client {
     super(options);
   }
 
-  getCatalog(organization, options) {
+  getCatalog(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/search/catalog`, options);
   }
 
-  getHarmonization(organization, options) {
+  getHarmonization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/search/harmonization`, options);
   }
 

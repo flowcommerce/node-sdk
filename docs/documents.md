@@ -12,7 +12,7 @@ const documents = client().documents;
 
 ## Operations
 
-##`getCatalog(organization, options)`
+##`getCatalog(organization, options = {})`
 
 ### Function Parameters
 
@@ -29,7 +29,7 @@ const documents = client().documents;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`getHarmonization(organization, options)`
+##`getHarmonization(organization, options = {})`
 
 ### Function Parameters
 

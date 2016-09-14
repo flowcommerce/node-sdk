@@ -12,7 +12,7 @@ const orders = client().orders;
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
@@ -30,7 +30,7 @@ const orders = client().orders;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options)`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
@@ -48,7 +48,7 @@ const orders = client().orders;
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 
-##`getByNumber(organization, number, options)`
+##`getByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
@@ -58,7 +58,7 @@ const orders = client().orders;
 | number | string |  |
 
 
-##`putByNumber(organization, number, options)`
+##`putByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
@@ -77,7 +77,7 @@ const orders = client().orders;
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 
-##`deleteByNumber(organization, number, options)`
+##`deleteByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
@@ -87,7 +87,7 @@ const orders = client().orders;
 | number | string |  |
 
 
-##`putBookingsByNumber(organization, number, options)`
+##`putBookingsByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
@@ -97,7 +97,7 @@ const orders = client().orders;
 | number | string |  |
 
 
-##`getVersions(organization, options)`
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 

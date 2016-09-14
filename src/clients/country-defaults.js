@@ -10,11 +10,11 @@ export default class CountryDefaults extends Client {
     super(options);
   }
 
-  get(options) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/geolocation/defaults`, options);
   }
 
-  getByCountry(country, options) {
+  getByCountry(country, options = {}) {
     return this.makeRequest(`${this.host}/geolocation/defaults/${country}`, options);
   }
 

@@ -10,15 +10,15 @@ export default class SubcatalogItems extends Client {
     super(options);
   }
 
-  get(organization, subcatalogId, options) {
+  get(organization, subcatalogId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items`, options);
   }
 
-  getByNumber(organization, subcatalogId, number, options) {
+  getByNumber(organization, subcatalogId, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items/${number}`, options);
   }
 
-  getVersions(organization, subcatalogId, options) {
+  getVersions(organization, subcatalogId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/items/versions`, options);
   }
 

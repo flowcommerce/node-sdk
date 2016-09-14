@@ -12,7 +12,7 @@ const hs6 = client().hs6;
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
@@ -31,7 +31,7 @@ const hs6 = client().hs6;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`getVersions(organization, options)`
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 

@@ -12,7 +12,7 @@ const experiences = client().experiences;
 
 ## Operations
 
-##`get(organization, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
@@ -34,7 +34,7 @@ const experiences = client().experiences;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options)`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
@@ -43,17 +43,7 @@ const experiences = client().experiences;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByKey(organization, key, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-
-
-##`putByKey(organization, key, options)`
+##`getByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -63,7 +53,7 @@ const experiences = client().experiences;
 | key | string |  |
 
 
-##`deleteByKey(organization, key, options)`
+##`putByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -73,7 +63,17 @@ const experiences = client().experiences;
 | key | string |  |
 
 
-##`getItemsAndPriceByKeyAndNumber(organization, key, number, options)`
+##`deleteByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+
+##`getItemsAndPriceByKeyAndNumber(organization, key, number, options = {})`
 
 ### Function Parameters
 
@@ -84,7 +84,7 @@ const experiences = client().experiences;
 | number | string |  |
 
 
-##`getMarginsByKey(organization, key, options)`
+##`getMarginsByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -102,7 +102,7 @@ const experiences = client().experiences;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`postMarginsByKey(organization, key, options)`
+##`postMarginsByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -112,18 +112,7 @@ const experiences = client().experiences;
 | key | string |  |
 
 
-##`getMarginsByKeyAndId(organization, key, id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`putMarginsByKeyAndId(organization, key, id, options)`
+##`getMarginsByKeyAndId(organization, key, id, options = {})`
 
 ### Function Parameters
 
@@ -134,7 +123,7 @@ const experiences = client().experiences;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`deleteMarginsByKeyAndId(organization, key, id, options)`
+##`putMarginsByKeyAndId(organization, key, id, options = {})`
 
 ### Function Parameters
 
@@ -145,7 +134,18 @@ const experiences = client().experiences;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getMarginsAndVersionsByKey(organization, key, options)`
+##`deleteMarginsByKeyAndId(organization, key, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`getMarginsAndVersionsByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -163,7 +163,7 @@ const experiences = client().experiences;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`getPricingByKey(organization, key, options)`
+##`getPricingByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -173,7 +173,7 @@ const experiences = client().experiences;
 | key | string |  |
 
 
-##`putPricingByKey(organization, key, options)`
+##`putPricingByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -183,7 +183,7 @@ const experiences = client().experiences;
 | key | string |  |
 
 
-##`getItems(organization, options)`
+##`getItems(organization, options = {})`
 
 ### Function Parameters
 
@@ -206,7 +206,7 @@ const experiences = client().experiences;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`getItemsByNumber(organization, number, options)`
+##`getItemsByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
@@ -225,7 +225,7 @@ const experiences = client().experiences;
 | currency | string |  |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages |
 
-##`getVersions(organization, options)`
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 

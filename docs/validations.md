@@ -12,7 +12,7 @@ const validations = client().validations;
 
 ## Operations
 
-##`post(options)`
+##`post(options = {})`
 
 
 

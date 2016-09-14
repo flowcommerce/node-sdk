@@ -12,7 +12,7 @@ const spotRates = client().spotRates;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -26,7 +26,7 @@ const spotRates = client().spotRates;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`getVersions(options)`
+##`getVersions(options = {})`
 
 
 ### Query Parameters

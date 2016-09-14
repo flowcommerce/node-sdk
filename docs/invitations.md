@@ -12,7 +12,7 @@ const invitations = client().invitations;
 
 ## Operations
 
-##`get(options)`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -28,11 +28,11 @@ const invitations = client().invitations;
 | sort | string |  |
 | expand | [string] |  |
 
-##`post(options)`
+##`post(options = {})`
 
 
 
-##`getById(id, options)`
+##`getById(id, options = {})`
 
 ### Function Parameters
 
@@ -46,7 +46,7 @@ const invitations = client().invitations;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
-##`deleteById(id, options)`
+##`deleteById(id, options = {})`
 
 ### Function Parameters
 
@@ -55,7 +55,7 @@ const invitations = client().invitations;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getTokensByToken(token, options)`
+##`getTokensByToken(token, options = {})`
 
 ### Function Parameters
 
@@ -69,7 +69,7 @@ const invitations = client().invitations;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
-##`putTokensByToken(token, options)`
+##`putTokensByToken(token, options = {})`
 
 ### Function Parameters
 
@@ -78,7 +78,7 @@ const invitations = client().invitations;
 | token | string |  |
 
 
-##`getVersions(options)`
+##`getVersions(options = {})`
 
 
 ### Query Parameters
