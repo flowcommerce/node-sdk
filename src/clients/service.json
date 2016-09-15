@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.44",
+  "version": "0.1.46",
   "info": {
     "license": {
       "name": "MIT",
@@ -5773,13 +5773,22 @@
           "name": "q",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The query used to select items to which the margins are applied."
         },
         {
-          "name": "margin",
-          "type": "margin",
+          "name": "fixed",
+          "type": "decimal",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "A fixed amount to add to an item in the base currency, e.g $1.25."
+        },
+        {
+          "name": "percent",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "A percent of the base cost to add, e.g. 0.52 (52%)."
         },
         {
           "name": "position",
@@ -5789,7 +5798,7 @@
         }
       ],
       "attributes": [],
-      "description": "A list of margin to apply to items based on query."
+      "description": "Defines a fixed and percent margin to apply to items matching a query."
     },
     {
       "name": "item_margin_deleted",
@@ -5839,16 +5848,24 @@
           "attributes": []
         },
         {
-          "name": "margin",
-          "type": "margin",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "q",
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "fixed",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "A fixed amount to add to an item in the base currency, e.g $1.25."
+        },
+        {
+          "name": "percent",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "A percent of the base cost to add, e.g. 0.52 (52%)."
         },
         {
           "name": "position",
@@ -5859,7 +5876,7 @@
         }
       ],
       "attributes": [],
-      "description": "A list of margin to apply to items based on query."
+      "description": "A percent and/or fixed margin to apply to items based on query."
     },
     {
       "name": "item_margin_upserted",
@@ -5908,13 +5925,13 @@
           "attributes": []
         },
         {
-          "name": "margin_type",
-          "type": "string",
+          "name": "fixed",
+          "type": "decimal",
           "required": true,
           "attributes": []
         },
         {
-          "name": "margin_value",
+          "name": "percent",
           "type": "decimal",
           "required": true,
           "attributes": []
