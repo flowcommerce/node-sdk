@@ -12,6 +12,7 @@ These resources mirror the official documentation located at
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing. |
+| [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
 | [itemFunctions](itemFunctions.md) | Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created. |
@@ -31,7 +32,7 @@ These resources mirror the official documentation located at
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. |
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
-| [refunds](refunds.md) | Refunds are used to issue refunds against a prior capture. |
+| [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
 | [carriers](carriers.md) | Partner that actually take a shipment between places (ex: FedEx, DHL, SF Express) |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) |  |
@@ -41,6 +42,7 @@ These resources mirror the official documentation located at
 | [labels](labels.md) | Represents a specific label being tracked as part of the tracking bucket |
 | [labelEvents](labelEvents.md) |  |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
+| [quoteEstimates](quoteEstimates.md) |  |
 | [services](services.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [tiers](tiers.md) | Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier |
@@ -58,6 +60,7 @@ These resources mirror the official documentation located at
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
+| [exports](exports.md) |  |
 | [healthchecks](healthchecks.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |

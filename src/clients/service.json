@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.46",
+  "version": "0.1.54",
   "info": {
     "license": {
       "name": "MIT",
@@ -421,6 +421,10 @@
           "attributes": []
         },
         {
+          "name": "localized_item_snapshot",
+          "attributes": []
+        },
+        {
           "name": "organization_upserted",
           "attributes": []
         },
@@ -456,6 +460,30 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "export_status",
+      "plural": "export_statuses",
+      "values": [
+        {
+          "name": "created",
+          "attributes": []
+        },
+        {
+          "name": "processing",
+          "attributes": []
+        },
+        {
+          "name": "completed",
+          "attributes": []
+        },
+        {
+          "name": "failed",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Export status is a finite state machine with valid transitions of created to processing, processing to completed or failed"
     },
     {
       "name": "holiday_calendar",
@@ -601,6 +629,140 @@
       ],
       "attributes": [],
       "description": "The available methods by which we deliver each webhook event"
+    },
+    {
+      "name": "order_price_detail_component_key",
+      "plural": "order_price_detail_component_keys",
+      "values": [
+        {
+          "name": "adjustment",
+          "attributes": [],
+          "description": "A general purpose adjustment applied to the order."
+        },
+        {
+          "name": "tax_deminimus",
+          "attributes": [],
+          "description": "An adjustment based on whether the tax deminimus applies to the order."
+        },
+        {
+          "name": "duty_deminimus",
+          "attributes": [],
+          "description": "An adjustment based on whether the duty deminimus applies to the order."
+        },
+        {
+          "name": "duties_item_price",
+          "attributes": [],
+          "description": "The VAT owed on the price of the order's items, including any added margins and rounding."
+        },
+        {
+          "name": "duties_freight",
+          "attributes": [],
+          "description": "The duty owed on the freight cost of the order."
+        },
+        {
+          "name": "duties_insurance",
+          "attributes": [],
+          "description": "The duty owed on the insurance cost of the order."
+        },
+        {
+          "name": "vat_item_price",
+          "attributes": [],
+          "description": "The VAT owed on the price of the order's items, including any added margins and rounding."
+        },
+        {
+          "name": "vat_freight",
+          "attributes": [],
+          "description": "The VAT owed on the freight cost of the order."
+        },
+        {
+          "name": "vat_insurance",
+          "attributes": [],
+          "description": "The VAT owed on the insurance cost of the order."
+        },
+        {
+          "name": "vat_duties_item_price",
+          "attributes": [],
+          "description": "The VAT owed on the duties on the price of the order's items, including any added margins and rounding."
+        },
+        {
+          "name": "vat_duties_freight",
+          "attributes": [],
+          "description": "The VAT owed on the duties on the freight cost of the order."
+        },
+        {
+          "name": "vat_duties_insurance",
+          "attributes": [],
+          "description": "The VAT owed on the duties on the insurance cost of the order."
+        },
+        {
+          "name": "item_price",
+          "attributes": [],
+          "description": "The sum of the price of the order's items with their currency margins, percent margins, and fixed margins included."
+        },
+        {
+          "name": "rounding",
+          "attributes": [],
+          "description": "The sum of any rounding applied to the order's items."
+        },
+        {
+          "name": "insurance",
+          "attributes": [],
+          "description": "The insurance cost for the order."
+        },
+        {
+          "name": "shipping",
+          "attributes": [],
+          "description": "The shipping cost for the order."
+        },
+        {
+          "name": "order_discount",
+          "attributes": [],
+          "description": "A discount applied to the entire order."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_price_detail_key",
+      "plural": "order_price_detail_keys",
+      "values": [
+        {
+          "name": "adjustment",
+          "attributes": [],
+          "description": "The details of any adjustments made to the order."
+        },
+        {
+          "name": "subtotal",
+          "attributes": [],
+          "description": "The details of the subtotal for the order, including item prices, margins, and rounding."
+        },
+        {
+          "name": "vat",
+          "attributes": [],
+          "description": "The details of any VAT owed on the order."
+        },
+        {
+          "name": "duty",
+          "attributes": [],
+          "description": "The details of any duties owed on the order."
+        },
+        {
+          "name": "shipping",
+          "attributes": [],
+          "description": "The details of shipping costs for the order."
+        },
+        {
+          "name": "insurance",
+          "attributes": [],
+          "description": "The details of insurance costs for the order."
+        },
+        {
+          "name": "discount",
+          "attributes": [],
+          "description": "The details of any discount applied to the order."
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "pricing_levy_setting",
@@ -1179,6 +1341,10 @@
           "attributes": []
         },
         {
+          "type": "localized_item_snapshot",
+          "attributes": []
+        },
+        {
           "type": "organization_upserted",
           "attributes": []
         },
@@ -1266,6 +1432,40 @@
       ],
       "attributes": [],
       "discriminator": "discriminator"
+    },
+    {
+      "name": "export_delivery",
+      "plural": "export_deliveries",
+      "types": [
+        {
+          "type": "export_delivery_email",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Export deliveries represent actions to take once a requested export has completed. A common pattern would be to request delivery of the export via email - you will then receive an email notification once the requested export is ready"
+    },
+    {
+      "name": "export_type",
+      "plural": "export_types",
+      "types": [
+        {
+          "type": "catalog_item_export_type",
+          "attributes": []
+        },
+        {
+          "type": "solidus_product_export_type",
+          "attributes": []
+        },
+        {
+          "type": "solidus_variant_export_type",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Defines the specific export data that defines which records are exported and into which format"
     },
     {
       "name": "inventory_strategy",
@@ -2250,6 +2450,35 @@
       "attributes": []
     },
     {
+      "name": "catalog_item_export_type",
+      "plural": "catalog_item_export_types",
+      "fields": [
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The specific list of item numbers to export"
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, we select items by executing this search query"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "default": "number"
+        }
+      ],
+      "attributes": [],
+      "description": "Defines the filters that can be applied when requesting a catalog item data export"
+    },
+    {
       "name": "catalog_item_upserted",
       "plural": "catalog_item_upserteds",
       "fields": [
@@ -2973,6 +3202,25 @@
       "description": "Represents a collection of items, the available delivery option tier for that collection of items, and metadata about those options"
     },
     {
+      "name": "delivery_estimate",
+      "plural": "delivery_estimates",
+      "fields": [
+        {
+          "name": "items",
+          "type": "[line_item]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "options",
+          "type": "[delivery_option_estimate]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "delivery_form",
       "plural": "delivery_forms",
       "fields": [
@@ -3050,6 +3298,51 @@
       ],
       "attributes": [],
       "description": "Represents a way to fulfill a delivery, including an estimates for the date range and cost"
+    },
+    {
+      "name": "delivery_option_estimate",
+      "plural": "delivery_option_estimates",
+      "fields": [
+        {
+          "name": "cost",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "Actual shipping cost to be charged to the merchant by Flow"
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "price",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "Price of shipping to be used for the end-customer selecting this option. Can be actual cost, etc."
+        },
+        {
+          "name": "service",
+          "type": "service_summary",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tier",
+          "type": "tier_summary",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "window",
+          "type": "datetime_range",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "delivery_option_form",
@@ -3794,22 +4087,6 @@
           "type": "string",
           "required": true,
           "attributes": []
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "CAD"
-        },
-        {
-          "name": "country",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The ISO 3166-3 code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
         }
       ],
       "attributes": [],
@@ -3958,6 +4235,132 @@
       ],
       "attributes": [],
       "description": "The month and year at which a card expires"
+    },
+    {
+      "name": "export",
+      "plural": "exports",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "type",
+          "type": "export_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "export_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "started_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "completed_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Once this export is complete, this will be the URL at which the data are available for download. URLs are in s3 and will expire (currently after 7 days)"
+        },
+        {
+          "name": "deliveries",
+          "type": "[export_delivery]",
+          "required": true,
+          "attributes": [],
+          "description": "Optionally specify 1 or more delivery mechanisms for the export - e.g. send an email once ready"
+        }
+      ],
+      "attributes": [],
+      "description": "Exports represent data extraction requests (e.g. download my catalog items to a CSV file)"
+    },
+    {
+      "name": "export_delivery_email",
+      "plural": "export_delivery_emails",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Triggers an email notification once the requested export is ready"
+    },
+    {
+      "name": "export_form",
+      "plural": "export_forms",
+      "fields": [
+        {
+          "name": "type",
+          "type": "export_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "emails",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Once the export has completed, we will send an email notification to all of the emails provided."
+        }
+      ],
+      "attributes": [],
+      "description": "Export forms are used to create exports. The export type defines both the type of the export (e.g. the CSV File format) and the available parameters for each export (e.g. the filters to apply to select the desired data)."
+    },
+    {
+      "name": "export_version",
+      "plural": "export_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "export",
+          "type": "export",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "flat_rate",
@@ -6515,6 +6918,44 @@
       "attributes": []
     },
     {
+      "name": "localized_item_snapshot",
+      "plural": "localized_item_snapshots",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "localized_item_upserted",
       "plural": "localized_item_upserteds",
       "fields": [
@@ -7097,6 +7538,66 @@
       "description": "Represents an order that has been booked. Booked orders can no longer be deleted as they represent transactions in the real world."
     },
     {
+      "name": "order_estimate",
+      "plural": "order_estimates",
+      "fields": [
+        {
+          "name": "items",
+          "type": "[localized_line_item]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "address",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "deliveries",
+          "type": "[delivery_estimate]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "prices",
+          "type": "[localized_price]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "total",
+          "type": "localized_price",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties."
+    },
+    {
+      "name": "order_estimate_form",
+      "plural": "order_estimate_forms",
+      "fields": [
+        {
+          "name": "destination",
+          "type": "address",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "items",
+          "type": "[line_item]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "Form to get a lightweight estimate of an order."
+    },
+    {
       "name": "order_form",
       "plural": "order_forms",
       "fields": [
@@ -7137,6 +7638,153 @@
       ],
       "attributes": [],
       "description": "The order form is used to create an open order, providing the details on pricing and delivery options for destination and items/quantities specified"
+    },
+    {
+      "name": "order_price_detail",
+      "plural": "order_price_details",
+      "fields": [
+        {
+          "name": "key",
+          "type": "order_price_detail_key",
+          "required": true,
+          "attributes": [],
+          "description": "The key indicating what this price detail represents."
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The localized label of the amount and currency",
+          "example": "$125.00 CAD"
+        },
+        {
+          "name": "components",
+          "type": "[order_price_detail_component]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a top-level order price detail, e.g. 'Subtotal' or 'VAT'."
+    },
+    {
+      "name": "order_price_detail_component",
+      "plural": "order_price_detail_components",
+      "fields": [
+        {
+          "name": "key",
+          "type": "order_price_detail_component_key",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The localized label of the amount and currency",
+          "example": "$125.00 CAD"
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_price_details",
+      "plural": "order_price_detailses",
+      "fields": [
+        {
+          "name": "subtotal",
+          "type": "order_price_detail",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "vat",
+          "type": "order_price_detail",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all of the VAT charges for the order."
+        },
+        {
+          "name": "duty",
+          "type": "order_price_detail",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all of the duty charges for the order."
+        },
+        {
+          "name": "shipping",
+          "type": "order_price_detail",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all of the shipping charges for the order."
+        },
+        {
+          "name": "insurance",
+          "type": "order_price_detail",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all of the insurance charges for the order."
+        },
+        {
+          "name": "discounts",
+          "type": "order_price_detail",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all discounts applied to the order."
+        },
+        {
+          "name": "adjustments",
+          "type": "order_price_detail",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all adjustments made to the order."
+        },
+        {
+          "name": "total",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": [],
+          "description": "The total cost of the order."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents the price details for the entire order."
     },
     {
       "name": "order_put_form",
@@ -7949,6 +8597,41 @@
       "description": "Amount-currency paid for a basic price to be used in model forms, before a price label is created. Label in the main price model is created by the implementing api."
     },
     {
+      "name": "price_with_base",
+      "plural": "price_with_bases",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The localized label of the amount and currency",
+          "example": "$125.00 CAD"
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "pricing",
       "plural": "pricings",
       "fields": [
@@ -8073,6 +8756,52 @@
       ],
       "attributes": [],
       "description": "Represents a collection of deliveries and available options for fulfillment of that delivery"
+    },
+    {
+      "name": "quote_estimate",
+      "plural": "quote_estimates",
+      "fields": [
+        {
+          "name": "destination",
+          "type": "address",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "deliveries",
+          "type": "[delivery_estimate]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "quote_estimate_form",
+      "plural": "quote_estimate_forms",
+      "fields": [
+        {
+          "name": "destination",
+          "type": "address",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Experience to use for the region of this quote"
+        },
+        {
+          "name": "items",
+          "type": "[line_item]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "quote_form",
@@ -8356,8 +9085,8 @@
           "attributes": []
         },
         {
-          "name": "capture",
-          "type": "capture",
+          "name": "authorization",
+          "type": "authorization_reference",
           "required": true,
           "attributes": []
         },
@@ -8376,21 +9105,58 @@
           "attributes": [],
           "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "CAD"
+        },
+        {
+          "name": "captures",
+          "type": "[refund_capture]",
+          "required": true,
+          "attributes": [],
+          "description": "The specific captures and the amounts refunded against each to match the total refund amount.",
+          "minimum": 1
         }
       ],
       "attributes": [],
-      "description": "Refunds are used to issue refunds against a prior capture."
+      "description": "Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund)."
+    },
+    {
+      "name": "refund_capture",
+      "plural": "refund_captures",
+      "fields": [
+        {
+          "name": "capture",
+          "type": "capture",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount refunded against this capture, in the currency of the refund",
+          "example": "120.38"
+        }
+      ],
+      "attributes": [],
+      "description": "Refund captures provide the detailed information on the amount refunded against a specific capture"
     },
     {
       "name": "refund_form",
       "plural": "refund_forms",
       "fields": [
         {
+          "name": "authorization_id",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The Id of the authorization against which to issue the refund. If specified, we will look at all captures for this authorization, selecting 1 or more captures against which to issue the refund of the requested amount."
+        },
+        {
           "name": "capture_id",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "The ID of the capture against which to issue the refund."
+          "description": "The Id of the capture against which to issue the refund. If specified, we will only consider this capture."
         },
         {
           "name": "key",
@@ -8417,7 +9183,7 @@
         }
       ],
       "attributes": [],
-      "description": "Refund actually transfers funds. You can refund as many times as you'd like up until the total amount of the capture has been refunded."
+      "description": "Refund actually transfers funds. You can refund as many times as you'd like up until the total amount of captured funds has been refunded. Note when creating a refund you can specify either an authorization id or a capture id (or both as long as they match)."
     },
     {
       "name": "refund_version",
@@ -8870,6 +9636,50 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "solidus_product_export_type",
+      "plural": "solidus_product_export_types",
+      "fields": [
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The specific list of item numbers to export"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "default": "number"
+        }
+      ],
+      "attributes": [],
+      "description": "Exports product level data for import into solidus"
+    },
+    {
+      "name": "solidus_variant_export_type",
+      "plural": "solidus_variant_export_types",
+      "fields": [
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The specific list of item numbers to export"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "default": "number"
+        }
+      ],
+      "attributes": [],
+      "description": "Exports variant level data for import into solidus"
     },
     {
       "name": "spot_rate",
@@ -10406,32 +11216,6 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "user_summary",
-      "plural": "user_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "email",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
         }
       ],
       "attributes": []
@@ -13677,6 +14461,116 @@
       ],
       "path": "/:organization/orders",
       "description": "An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing."
+    },
+    {
+      "type": "order_estimate",
+      "plural": "order_estimates",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/:organization/order-estimates",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will render the items in the context of the experience with this key."
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will select the experience matching this country. ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+              "example": "CAN"
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience."
+            },
+            {
+              "name": "language",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
+              "example": "en"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "order_estimate",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create an order estimate, using the localized information from the experience selected by the query parameters. This is similar to the POST orders endpoint, except this just returns an estimate and cannot be booked.",
+          "body": {
+            "type": "order_estimate_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/order-estimates",
+      "description": "Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties."
     },
     {
       "type": "subcatalog",
@@ -20422,7 +21316,7 @@
         }
       ],
       "path": "/:organization/refunds",
-      "description": "Refunds are used to issue refunds against a prior capture."
+      "description": "Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund)."
     },
     {
       "type": "carrier",
@@ -22710,6 +23604,68 @@
       ],
       "path": "/:organization/quotes",
       "description": "Represents a collection of deliveries and available options for fulfillment of that delivery"
+    },
+    {
+      "type": "quote_estimate",
+      "plural": "quote_estimates",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/:organization/quote-estimates",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "quote_estimate",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "quote_estimate_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/quote-estimates"
     },
     {
       "type": "service",
@@ -25994,6 +26950,371 @@
       ],
       "path": "/users/emails/verifications",
       "description": "Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified."
+    },
+    {
+      "type": "export",
+      "plural": "exports",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/exports",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "created_by_user_id",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "discriminator",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[export]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  },
+                  {
+                    "value": "type"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Search exports. Always paginated."
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/exports",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "export",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create an export.",
+          "body": {
+            "type": "export_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/exports/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "export",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Get a single export."
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/exports/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/exports/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "export_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[export_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "type"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Provides visibility into recent changes of each export, including deletion."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/:organization/exports"
     },
     {
       "type": "healthcheck",

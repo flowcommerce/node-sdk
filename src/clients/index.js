@@ -3,6 +3,7 @@ import Catalogs from './catalogs';
 import Experiences from './experiences';
 import Items from './items';
 import Orders from './orders';
+import OrderEstimates from './order-estimates';
 import Subcatalogs from './subcatalogs';
 import SubcatalogItems from './subcatalog-items';
 import ItemFunctions from './item-functions';
@@ -32,6 +33,7 @@ import InventoryUpdates from './inventory-updates';
 import Labels from './labels';
 import LabelEvents from './label-events';
 import Quotes from './quotes';
+import QuoteEstimates from './quote-estimates';
 import Services from './services';
 import ShippingLabels from './shipping-labels';
 import Tiers from './tiers';
@@ -49,6 +51,7 @@ import Languages from './languages';
 import Regions from './regions';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
+import Exports from './exports';
 import Healthchecks from './healthchecks';
 import Invitations from './invitations';
 import Memberships from './memberships';
@@ -73,8 +76,9 @@ const enums = {
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],
   environment: ['sandbox', 'production'],
-  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'localized_item_upserted', 'localized_item_deleted', 'organization_upserted', 'organization_deleted', 'tracking_label_event_upserted'],
+  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
+  exportStatus: ['created', 'processing', 'completed', 'failed'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
@@ -82,6 +86,8 @@ const enums = {
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
+  orderPriceDetailComponentKey: ['adjustment', 'tax_deminimus', 'duty_deminimus', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount'],
+  orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
   pricingLevySetting: ['included', 'displayed', 'ignored'],
   queryType: ['exclusion', 'inclusion'],
   role: ['admin', 'member'],
@@ -118,6 +124,7 @@ export default class ApiClient {
     this.experiences = new Experiences(options);
     this.items = new Items(options);
     this.orders = new Orders(options);
+    this.order_estimates = new OrderEstimates(options);
     this.subcatalogs = new Subcatalogs(options);
     this.subcatalog_items = new SubcatalogItems(options);
     this.item_functions = new ItemFunctions(options);
@@ -147,6 +154,7 @@ export default class ApiClient {
     this.labels = new Labels(options);
     this.label_events = new LabelEvents(options);
     this.quotes = new Quotes(options);
+    this.quote_estimates = new QuoteEstimates(options);
     this.services = new Services(options);
     this.shipping_labels = new ShippingLabels(options);
     this.tiers = new Tiers(options);
@@ -164,6 +172,7 @@ export default class ApiClient {
     this.regions = new Regions(options);
     this.documents = new Documents(options);
     this.email_verifications = new EmailVerifications(options);
+    this.exports = new Exports(options);
     this.healthchecks = new Healthchecks(options);
     this.invitations = new Invitations(options);
     this.memberships = new Memberships(options);
