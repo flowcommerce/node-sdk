@@ -33,4 +33,13 @@ export default class Webhooks extends Client {
     return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, options);
   }
 
+  getSettings(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/webhooks/settings`, options);
+  }
+
+  putSettings(organization, options = {}) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/webhooks/settings`, options);
+  }
+
 }

@@ -50,14 +50,14 @@ These resources mirror the official documentation located at
 | [tierRules](tierRules.md) | System to filter incoming quote for a shipment request based on a query and output corresponding outcomes. |
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
 | [webhooks](webhooks.md) |  |
-| [webhookRequests](webhookRequests.md) |  |
+| [webhookDeliveries](webhookDeliveries.md) | A webhook delivery represents an event that matched a webhook&#x27;s event types. Each delivery will be attempted one or more times subject to the settings of your webhook. |
 | [addresses](addresses.md) |  |
 | [countryDefaults](countryDefaults.md) | Provides country level defaults, incl language and currency. This resource allows you to provide geo info (e.g. IP, address, country) and will geolocate the request, returning the matching country level defaults. For example, if a user lands on your website and you do not have any stored preferences, you can use this API to retrieve the best default preferences based on the location of the user by providing their IP Address. |
 | [timezones](timezones.md) | Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones |
-| [countries](countries.md) |  |
+| [countries](countries.md) | ISO 3166 country codes. Note Flow APIs will accept either the 2 or 3 character country code, but internally we normalize data and store as the 3 character, upper case ISO code. See https://api.flow.io/reference/countries |
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies |
 | [languages](languages.md) | ISO 639 2-character language code. See https://api.flow.io/reference/languages |
-| [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). |
+| [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |

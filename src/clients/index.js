@@ -41,7 +41,7 @@ import TierDefaults from './tier-defaults';
 import TierRules from './tier-rules';
 import Trackings from './trackings';
 import Webhooks from './webhooks';
-import WebhookRequests from './webhook-requests';
+import WebhookDeliveries from './webhook-deliveries';
 import Addresses from './addresses';
 import CountryDefaults from './country-defaults';
 import Timezones from './timezones';
@@ -76,7 +76,7 @@ const enums = {
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],
   environment: ['sandbox', 'production'],
-  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'tracking_label_event_upserted'],
+  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'order_deleted', 'order_upserted', 'order_booking_deleted', 'order_booking_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'label_upserted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'refund_upserted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
@@ -106,7 +106,7 @@ const enums = {
   updateType: ['change', 'set'],
   valueAddedService: ['Hazardous Material'],
   visibility: ['public', 'private'],
-  webhookRequestStatus: ['pending', 'success', 'failure'],
+  webhookStatus: ['pending', 'success', 'failure'],
 };
 
 
@@ -162,7 +162,7 @@ export default class ApiClient {
     this.tier_rules = new TierRules(options);
     this.trackings = new Trackings(options);
     this.webhooks = new Webhooks(options);
-    this.webhook_requests = new WebhookRequests(options);
+    this.webhook_deliveries = new WebhookDeliveries(options);
     this.addresses = new Addresses(options);
     this.country_defaults = new CountryDefaults(options);
     this.timezones = new Timezones(options);

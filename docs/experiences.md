@@ -112,6 +112,16 @@ const experiences = client().experiences;
 | key | string |  |
 
 
+##`putMarginsByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+
 ##`getMarginsByKeyAndId(organization, key, id, options = {})`
 
 ### Function Parameters

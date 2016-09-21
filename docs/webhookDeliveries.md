@@ -1,13 +1,13 @@
-# [API](README.md).webhooks - Flow Commerce API - Node SDK Documentation
+# [API](README.md).webhookDeliveries - Flow Commerce API - Node SDK Documentation
 
-
+A webhook delivery represents an event that matched a webhook&#x27;s event types. Each delivery will be attempted one or more times subject to the settings of your webhook.
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const webhooks = client().webhooks;
+const webhookDeliveries = client().webhookDeliveries;
 ```
 
 ## Operations
@@ -25,18 +25,10 @@ const webhooks = client().webhooks;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
+| webhook_id | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-
-##`post(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
 
 ##`getById(organization, id, options = {})`
 
@@ -48,7 +40,7 @@ const webhooks = client().webhooks;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`putById(organization, id, options = {})`
+##`postRequestsById(organization, id, options = {})`
 
 ### Function Parameters
 
@@ -56,33 +48,5 @@ const webhooks = client().webhooks;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 | id | string | Filter by one or more IDs of this resource |
-
-
-##`deleteById(organization, id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`getSettings(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`putSettings(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
 
 

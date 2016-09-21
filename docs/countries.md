@@ -1,6 +1,6 @@
 # [API](README.md).countries - Flow Commerce API - Node SDK Documentation
 
-
+ISO 3166 country codes. Note Flow APIs will accept either the 2 or 3 character country code, but internally we normalize data and store as the 3 character, upper case ISO code. See https://api.flow.io/reference/countries
 
 ## Usage
 

@@ -46,6 +46,11 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins`, options);
   }
 
+  putMarginsByKey(organization, key, options = {}) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins`, options);
+  }
+
   getMarginsByKeyAndId(organization, key, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins/${id}`, options);
   }

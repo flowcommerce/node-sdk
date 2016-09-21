@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.54",
+  "version": "0.1.55",
   "info": {
     "license": {
       "name": "MIT",
@@ -277,16 +277,17 @@
         {
           "name": "paid",
           "attributes": [],
-          "description": "DDP"
+          "description": "Delivered Duty Paid (DDP). See https://en.wikipedia.org/wiki/Incoterms for more information"
         },
         {
           "name": "unpaid",
           "attributes": [],
-          "description": "DDU"
+          "description": "Delivered Duty Unpaid (DDU). See https://en.wikipedia.org/wiki/Incoterms for more information"
         },
         {
           "name": "choice",
-          "attributes": []
+          "attributes": [],
+          "description": "Allow the customer to choose whether they would like DDP or DDU"
         }
       ],
       "attributes": []
@@ -298,7 +299,7 @@
         {
           "name": "sandbox",
           "attributes": [],
-          "description": "In sandbox, no external services (e.g. payments, logistics) will generate real transactions"
+          "description": "In sandbox, no external services (e.g. orders, payments, logistics) will generate real transactions"
         },
         {
           "name": "production",
@@ -397,6 +398,22 @@
           "attributes": []
         },
         {
+          "name": "order_deleted",
+          "attributes": []
+        },
+        {
+          "name": "order_upserted",
+          "attributes": []
+        },
+        {
+          "name": "order_booking_deleted",
+          "attributes": []
+        },
+        {
+          "name": "order_booking_upserted",
+          "attributes": []
+        },
+        {
           "name": "hs6_code_upserted",
           "attributes": []
         },
@@ -410,6 +427,10 @@
         },
         {
           "name": "hs10_code_deleted",
+          "attributes": []
+        },
+        {
+          "name": "label_upserted",
           "attributes": []
         },
         {
@@ -430,6 +451,22 @@
         },
         {
           "name": "organization_deleted",
+          "attributes": []
+        },
+        {
+          "name": "authorization_upserted",
+          "attributes": []
+        },
+        {
+          "name": "authorization_deleted",
+          "attributes": []
+        },
+        {
+          "name": "capture_upserted",
+          "attributes": []
+        },
+        {
+          "name": "refund_upserted",
           "attributes": []
         },
         {
@@ -592,12 +629,12 @@
         {
           "name": "fixed",
           "attributes": [],
-          "description": "A fixed amount to add, e.g $1.25."
+          "description": "A fixed amount to add, e.g 2.5 would add an absolute margin of 2.5 in the base currency of your item."
         },
         {
           "name": "percent",
           "attributes": [],
-          "description": "A percent of the base cost to add, e.g. 0.52 (52%)."
+          "description": "A percent of the base cost to add, e.g. 1.2 would represent a 1.2% increase."
         }
       ],
       "attributes": [],
@@ -852,11 +889,11 @@
         {
           "name": "multiple",
           "attributes": [],
-          "description": "Rounds a value to an amount that is the multiple of a value, e.g. rounding to the nearest 1000."
+          "description": "Rounds a value to an amount that is the multiple of a value, e.g. rounding to the nearest 5 would ensure that the resulting number ends in either 0 or 5."
         }
       ],
       "attributes": [],
-      "description": "The type of rounding to perform."
+      "description": "Rounding type determines the rule used to enforce rounding. Common rules will ensure that the final price ends w/ a given number (e.g. ends with .95) or is a multiple of some number (multiples of 5 or 10 are common)."
     },
     {
       "name": "schedule_exception_status",
@@ -1163,8 +1200,8 @@
       "attributes": []
     },
     {
-      "name": "webhook_request_status",
-      "plural": "webhook_request_statuses",
+      "name": "webhook_status",
+      "plural": "webhook_statuses",
       "values": [
         {
           "name": "pending",
@@ -1317,6 +1354,22 @@
           "attributes": []
         },
         {
+          "type": "order_deleted",
+          "attributes": []
+        },
+        {
+          "type": "order_upserted",
+          "attributes": []
+        },
+        {
+          "type": "order_booking_deleted",
+          "attributes": []
+        },
+        {
+          "type": "order_booking_upserted",
+          "attributes": []
+        },
+        {
           "type": "hs6_code_upserted",
           "attributes": []
         },
@@ -1330,6 +1383,10 @@
         },
         {
           "type": "hs10_code_deleted",
+          "attributes": []
+        },
+        {
+          "type": "label_upserted",
           "attributes": []
         },
         {
@@ -1350,6 +1407,22 @@
         },
         {
           "type": "organization_deleted",
+          "attributes": []
+        },
+        {
+          "type": "authorization_upserted",
+          "attributes": []
+        },
+        {
+          "type": "authorization_deleted",
+          "attributes": []
+        },
+        {
+          "type": "capture_upserted",
+          "attributes": []
+        },
+        {
+          "type": "refund_upserted",
           "attributes": []
         },
         {
@@ -1810,6 +1883,38 @@
       "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
     },
     {
+      "name": "authorization_deleted",
+      "plural": "authorization_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "authorization_reference",
       "plural": "authorization_references",
       "fields": [
@@ -1855,6 +1960,92 @@
       ],
       "attributes": [],
       "description": "Contains the result of the authorization. If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)."
+    },
+    {
+      "name": "authorization_upserted",
+      "plural": "authorization_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "card",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "customer",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "object",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "result",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "authorization_version",
@@ -2024,6 +2215,56 @@
       ],
       "attributes": [],
       "description": "Capture actually transfers funds. You can capture as many times as you'd like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires)."
+    },
+    {
+      "name": "capture_upserted",
+      "plural": "capture_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "authorization_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "capture_version",
@@ -2470,9 +2711,8 @@
         {
           "name": "sort",
           "type": "string",
-          "required": true,
-          "attributes": [],
-          "default": "number"
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -3035,7 +3275,8 @@
           "example": "America/New_York"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "ISO 3166 country codes. Note Flow APIs will accept either the 2 or 3 character country code, but internally we normalize data and store as the 3 character, upper case ISO code. See https://api.flow.io/reference/countries"
     },
     {
       "name": "country_defaults",
@@ -3735,9 +3976,9 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "The combined duty rate",
+          "description": "The combined duty rate. A value of 25 indicates a duty rate of 25%",
           "minimum": 0,
-          "example": ".35"
+          "example": "25"
         },
         {
           "name": "components",
@@ -4696,9 +4937,9 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "The actual duty rate, expressed as a decimal (e.g. 10% is represented as .1 not 10)",
+          "description": "The actual duty rate as a percentage. A value of 15, for example, indicates a duty rate of 15%",
           "minimum": 0,
-          "example": ".15"
+          "example": "15.00"
         }
       ],
       "attributes": [],
@@ -4735,7 +4976,10 @@
           "name": "rate",
           "type": "decimal",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The actual duty rate as a percentage. A value of 15, for example, indicates a duty rate of 15%",
+          "minimum": 0,
+          "example": "15.00"
         }
       ],
       "attributes": []
@@ -6184,14 +6428,16 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "A fixed amount to add to an item in the base currency, e.g $1.25."
+          "description": "A fixed amount to add to an item in the base currency, e.g 1.25.",
+          "example": "1.25"
         },
         {
           "name": "percent",
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "A percent of the base cost to add, e.g. 0.52 (52%)."
+          "description": "A percent of the base cost to add, e.g. 2.25 would indicate 2.25%.",
+          "example": "2.25"
         },
         {
           "name": "position",
@@ -6261,14 +6507,16 @@
           "type": "decimal",
           "required": false,
           "attributes": [],
-          "description": "A fixed amount to add to an item in the base currency, e.g $1.25."
+          "description": "A fixed amount to add to an item in the base currency, e.g 1.25.",
+          "example": "1.25"
         },
         {
           "name": "percent",
           "type": "decimal",
           "required": false,
           "attributes": [],
-          "description": "A percent of the base cost to add, e.g. 0.52 (52%)."
+          "description": "A percent of the base cost to add, e.g. 2.25 would indicate 2.25%.",
+          "example": "2.25"
         },
         {
           "name": "position",
@@ -6712,6 +6960,27 @@
       "description": "Represents a specific label being tracked as part of the tracking bucket"
     },
     {
+      "name": "label_order_summary",
+      "plural": "label_order_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "label_summary",
       "plural": "label_summaries",
       "fields": [
@@ -6744,6 +7013,104 @@
           "name": "tracking_number",
           "type": "string",
           "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "label_upserted",
+      "plural": "label_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "label_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "flow_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "data",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "origin",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "commercial_invoice",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "pdf",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "png",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "required": false,
           "attributes": []
         }
       ],
@@ -7538,6 +7905,103 @@
       "description": "Represents an order that has been booked. Booked orders can no longer be deleted as they represent transactions in the real world."
     },
     {
+      "name": "order_booking_deleted",
+      "plural": "order_booking_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_booking_upserted",
+      "plural": "order_booking_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_deleted",
+      "plural": "order_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_estimate",
       "plural": "order_estimates",
       "fields": [
@@ -7844,6 +8308,105 @@
       "attributes": []
     },
     {
+      "name": "order_upserted",
+      "plural": "order_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "environment",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "expires_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "customer",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "selections",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "items",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "deliveries",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "prices",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "discount",
+          "type": "object",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "total",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_version",
       "plural": "order_versions",
       "fields": [
@@ -7959,7 +8522,8 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "A percent of the base currency value added to the base currency before conversion."
+          "description": "A percent of the base currency value added to the base currency before conversion.",
+          "example": "5.0"
         }
       ],
       "attributes": [],
@@ -8013,7 +8577,8 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "A percent of the base currency value added to the base currency before conversion."
+          "description": "A percent of the base currency value added to the base currency before conversion.",
+          "example": "5.0"
         }
       ],
       "attributes": [],
@@ -8555,14 +9120,16 @@
           "type": "duty",
           "required": false,
           "attributes": [],
-          "description": "The duty rate applicable to the product."
+          "description": "The duty rate applicable to the product. A value of 15 indicates a duty rate of 15%.",
+          "example": "15.25"
         },
         {
           "name": "tax",
           "type": "tax",
           "required": false,
           "attributes": [],
-          "description": "The tax rate applicable to the product."
+          "description": "The tax rate applicable to the product. A value of 17 indicates a tax rate of 17%.",
+          "example": "17"
         },
         {
           "name": "rounding",
@@ -9186,6 +9753,62 @@
       "description": "Refund actually transfers funds. You can refund as many times as you'd like up until the total amount of captured funds has been refunded. Note when creating a refund you can specify either an authorization id or a capture id (or both as long as they match)."
     },
     {
+      "name": "refund_upserted",
+      "plural": "refund_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "authorization_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "captures",
+          "type": "[object]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "refund_version",
       "plural": "refund_versions",
       "fields": [
@@ -9277,7 +9900,7 @@
         }
       ],
       "attributes": [],
-      "description": "A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone)."
+      "description": "A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions"
     },
     {
       "name": "region_reference",
@@ -9465,11 +10088,11 @@
           "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
         },
         {
-          "name": "data",
+          "name": "zpl",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Pre-signed URL containing ZPL2-formatted data of the shipping label"
+          "description": "Base64 encoded ZPL2-formatted data of the shipping label"
         },
         {
           "name": "destination",
@@ -9527,6 +10150,13 @@
           "required": false,
           "attributes": [],
           "description": "Pre-signed URL containing PNG copy of the shipping label. This is generated asynchronously and may not be immediately available."
+        },
+        {
+          "name": "order",
+          "type": "label_order_summary",
+          "required": false,
+          "attributes": [],
+          "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a booked order, if applicable."
         }
       ],
       "attributes": [],
@@ -9578,6 +10208,13 @@
           "required": false,
           "attributes": [],
           "description": "Desired insurance amount on the items in the package."
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a booked order, if applicable."
         }
       ],
       "attributes": []
@@ -9651,9 +10288,8 @@
         {
           "name": "sort",
           "type": "string",
-          "required": true,
-          "attributes": [],
-          "default": "number"
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -9673,9 +10309,8 @@
         {
           "name": "sort",
           "type": "string",
-          "required": true,
-          "attributes": [],
-          "default": "number"
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -10367,9 +11002,9 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "The combined tax rate",
+          "description": "The combined tax rate. A value of 17 indicates a tax rate of 17%",
           "minimum": 0,
-          "example": ".35"
+          "example": "17"
         },
         {
           "name": "components",
@@ -10975,6 +11610,13 @@
           "type": "object",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Client organization order number, if available"
         }
       ],
       "attributes": [],
@@ -10991,12 +11633,18 @@
           "attributes": []
         },
         {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Client organization order number, if available"
+        },
+        {
           "name": "metadata",
           "type": "object",
           "required": false,
           "attributes": [],
-          "description": "Additional reference metadata",
-          "example": "{\"order_id\": 123456}"
+          "description": "Additional reference metadata"
         }
       ],
       "attributes": [],
@@ -11077,6 +11725,12 @@
           "type": "string",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -11097,6 +11751,13 @@
           "type": "tracking_status",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Client organization order number, if available"
         }
       ],
       "attributes": []
@@ -11311,6 +11972,53 @@
       "attributes": []
     },
     {
+      "name": "webhook_delivery",
+      "plural": "webhook_deliveries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "webhook",
+          "type": "webhook_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "webhook_status",
+          "required": true,
+          "attributes": [],
+          "description": "Represents status of this delivery. This is a finite state machine that starts in pending and moves to either failure or success"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "latest",
+          "type": "webhook_request",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "next_attempt_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "If the last delivery attempt was not successful, we schedule a retry automatically subject to the webhook settings. If there is a retry scheduled in the future, this field contains the timestamp on which the retry will be initiated."
+        }
+      ],
+      "attributes": [],
+      "description": "A webhook delivery represents an event that matched a webhook's event types. Each delivery will be attempted one or more times subject to the settings of your webhook."
+    },
+    {
       "name": "webhook_form",
       "plural": "webhook_forms",
       "fields": [
@@ -11357,13 +12065,6 @@
           "description": "Globally unique identifier"
         },
         {
-          "name": "webhook",
-          "type": "webhook_reference",
-          "required": true,
-          "attributes": [],
-          "description": "The id of the webhook that the request was created for"
-        },
-        {
           "name": "headers",
           "type": "[header]",
           "required": true,
@@ -11386,7 +12087,7 @@
         },
         {
           "name": "status",
-          "type": "webhook_request_status",
+          "type": "webhook_status",
           "required": true,
           "attributes": [],
           "description": "Represents status of request. This is a finite state machine that starts in pending and moves to either failure or success"
@@ -11481,6 +12182,47 @@
           "required": true,
           "attributes": [],
           "description": "The HTTP Status Code from the webhook URL"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "webhook_settings",
+      "plural": "webhook_settingses",
+      "fields": [
+        {
+          "name": "secret",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The string used to sign webhook requests"
+        },
+        {
+          "name": "retry_max_attempts",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The maxiumum number of times to attempt a delivery until a successful response",
+          "default": "5",
+          "minimum": 1
+        },
+        {
+          "name": "retry_sleep_ms",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The amount of time to wait in milliseconds between failed delivery attempts",
+          "default": "60000",
+          "minimum": 0
+        },
+        {
+          "name": "sleep_ms",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The amount of time to wait between successful delivery attempts. Note this is a global setting, and thus we recommend a low value such as 100ms",
+          "default": "0",
+          "minimum": 0
         }
       ],
       "attributes": []
@@ -12645,6 +13387,68 @@
           "attributes": [],
           "body": {
             "type": "item_margin_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/experiences/:key/margins",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item_margin]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "[item_margin]",
             "attributes": []
           }
         },
@@ -23161,6 +23965,9 @@
                   },
                   {
                     "value": "label_id"
+                  },
+                  {
+                    "value": "timestamp"
                   }
                 ]
               }
@@ -23840,6 +24647,13 @@
               "maximum": 100
             },
             {
+              "name": "order_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "service",
               "type": "[string]",
               "location": "Query",
@@ -23924,6 +24738,9 @@
                   },
                   {
                     "value": "flow_tracking_number"
+                  },
+                  {
+                    "value": "order_number"
                   },
                   {
                     "value": "service"
@@ -25903,6 +26720,121 @@
           ],
           "attributes": [],
           "description": "Delete a webhook with the specified id"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/webhooks/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "webhook_settings",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "non-crud",
+              "value": {}
+            }
+          ],
+          "description": "Returns the webhook settings for an organization"
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/webhooks/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "webhook_settings",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "webhook_settings",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Updates the webhook settings for an organization",
+          "body": {
+            "type": "webhook_settings",
+            "attributes": []
+          }
         }
       ],
       "attributes": [
@@ -25916,12 +26848,12 @@
       "path": "/:organization/webhooks"
     },
     {
-      "type": "webhook_request",
-      "plural": "webhook_requests",
+      "type": "webhook_delivery",
+      "plural": "webhook_deliveries",
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/webhook/requests",
+          "path": "/:organization/webhook/deliveries",
           "parameters": [
             {
               "name": "organization",
@@ -25978,7 +26910,7 @@
                   "value": 200
                 }
               },
-              "type": "[webhook_request]",
+              "type": "[webhook_delivery]",
               "description": "Successful response"
             },
             {
@@ -26010,6 +26942,9 @@
                   },
                   {
                     "value": "webhook_id"
+                  },
+                  {
+                    "value": "created_at"
                   }
                 ]
               }
@@ -26019,11 +26954,11 @@
               "value": {}
             }
           ],
-          "description": "Returns requests for an organization's webhook"
+          "description": "Returns deliveries for an organization's webhook"
         },
         {
           "method": "GET",
-          "path": "/:organization/webhook/requests/:id",
+          "path": "/:organization/webhook/deliveries/:id",
           "parameters": [
             {
               "name": "organization",
@@ -26047,7 +26982,7 @@
                   "value": 200
                 }
               },
-              "type": "webhook_request",
+              "type": "webhook_delivery",
               "description": "Successful response"
             },
             {
@@ -26070,11 +27005,11 @@
             }
           ],
           "attributes": [],
-          "description": "Returns information about a specific webhook request"
+          "description": "Returns information about a specific webhook delivery"
         },
         {
           "method": "POST",
-          "path": "/:organization/webhook/requests/:id/redeliveries",
+          "path": "/:organization/webhook/deliveries/:id/requests",
           "parameters": [
             {
               "name": "organization",
@@ -26141,7 +27076,8 @@
           }
         }
       ],
-      "path": "/:organization/webhook/requests"
+      "path": "/:organization/webhook/deliveries",
+      "description": "A webhook delivery represents an event that matched a webhook's event types. Each delivery will be attempted one or more times subject to the settings of your webhook."
     },
     {
       "type": "address",
@@ -26504,7 +27440,8 @@
           }
         }
       ],
-      "path": "/reference/countries"
+      "path": "/reference/countries",
+      "description": "ISO 3166 country codes. Note Flow APIs will accept either the 2 or 3 character country code, but internally we normalize data and store as the 3 character, upper case ISO code. See https://api.flow.io/reference/countries"
     },
     {
       "type": "currency",
@@ -26701,7 +27638,7 @@
         }
       ],
       "path": "/reference/regions",
-      "description": "A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone)."
+      "description": "A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions"
     },
     {
       "type": "document",

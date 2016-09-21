@@ -27,6 +27,7 @@ const shippingLabels = client().shippingLabels;
 | id | [string] | Filter by one or more IDs of this resource |
 | carrier_tracking_number | [string] |  |
 | flow_tracking_number | [string] |  |
+| order_number | [string] |  |
 | service | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |

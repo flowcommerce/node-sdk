@@ -1,6 +1,6 @@
 # [API](README.md).regions - Flow Commerce API - Node SDK Documentation
 
-A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone).
+A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions
 
 ## Usage
 
