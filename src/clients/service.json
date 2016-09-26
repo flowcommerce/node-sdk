@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.59",
+  "version": "0.1.66",
   "info": {
     "license": {
       "name": "MIT",
@@ -2369,6 +2369,13 @@
           "attributes": []
         },
         {
+          "name": "iin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The issuer identification number (IIN) (formerly known as the Bank Identification Number) which are the leading digits of the card number."
+        },
+        {
           "name": "last4",
           "type": "string",
           "required": true,
@@ -4053,9 +4060,9 @@
         {
           "name": "customer",
           "type": "customer",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "The customer who is actually making the purchase. Providing name and email at a minimum will significantly increase the acceptance rate."
+          "description": "The customer who is actually making the purchase. While optional, providing name and email at a minimum will significantly increase the acceptance rate."
         },
         {
           "name": "key",
@@ -6863,254 +6870,6 @@
       "description": "The jsonp_response defines the schema for all Flow APIs calls made over JSONP, providing access to the specific response status, headers, and body from the underlying service.  See https://docs.flow.io/#jsonp for details"
     },
     {
-      "name": "label",
-      "plural": "labels",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "tracking",
-          "type": "tracking_summary",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "status",
-          "type": "tracking_status",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "carrier",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "delivery_estimate",
-          "type": "date-time-iso8601",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a specific label being tracked as part of the tracking bucket"
-    },
-    {
-      "name": "label_event",
-      "plural": "label_events",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "label",
-          "type": "label_summary",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "address",
-          "type": "address",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "status",
-          "type": "tracking_status",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_event_form",
-      "plural": "label_event_forms",
-      "fields": [
-        {
-          "name": "label_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "status",
-          "type": "tracking_status",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "address",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_event_summary",
-      "plural": "label_event_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "status",
-          "type": "tracking_status",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_event_version",
-      "plural": "label_event_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "label_event",
-          "type": "label_event_summary",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_form",
-      "plural": "label_forms",
-      "fields": [
-        {
-          "name": "tracking_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "status",
-          "type": "tracking_status",
-          "required": true,
-          "attributes": [],
-          "default": "pending"
-        },
-        {
-          "name": "carrier",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "delivery_estimate",
-          "type": "date-time-iso8601",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": false,
-          "attributes": [],
-          "description": "Defaults to now() if not provided"
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a specific label being tracked as part of the tracking bucket"
-    },
-    {
       "name": "label_order_summary",
       "plural": "label_order_summaries",
       "fields": [
@@ -7127,44 +6886,6 @@
           "required": true,
           "attributes": [],
           "description": "Client's unique identifier for this object"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_summary",
-      "plural": "label_summaries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "tracking",
-          "type": "tracking_summary",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "status",
-          "type": "tracking_status",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "carrier",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
         }
       ],
       "attributes": []
@@ -7262,38 +6983,6 @@
           "name": "order",
           "type": "string",
           "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "label_version",
-      "plural": "label_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "label",
-          "type": "label_summary",
-          "required": true,
           "attributes": []
         }
       ],
@@ -8297,9 +7986,9 @@
         {
           "name": "customer",
           "type": "customer",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "The customer who actually is making the purchase. At a minimum, we require the first and last name of the customer, but recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console."
+          "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console."
         },
         {
           "name": "destination",
@@ -8484,13 +8173,6 @@
       "plural": "order_put_forms",
       "fields": [
         {
-          "name": "customer",
-          "type": "customer",
-          "required": true,
-          "attributes": [],
-          "description": "The customer who actually is making the purchase"
-        },
-        {
           "name": "destination",
           "type": "address",
           "required": true,
@@ -8502,6 +8184,13 @@
           "required": true,
           "attributes": [],
           "minimum": 1
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "required": false,
+          "attributes": [],
+          "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console."
         },
         {
           "name": "selections",
@@ -10224,6 +9913,20 @@
           "attributes": [],
           "description": "Daily cutoff time for shipment fulfillment at origin center, if available. 24-hour time",
           "example": "16:45"
+        },
+        {
+          "name": "min_lead_time",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Optional number of days a center takes to make a shipment"
+        },
+        {
+          "name": "max_lead_time",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Optional number of days a center takes to make a shipment"
         }
       ],
       "attributes": [],
@@ -10329,6 +10032,13 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "Reference information included with the label, if carrier provides support for reference information."
+        },
+        {
           "name": "carrier_tracking_number",
           "type": "string",
           "required": true,
@@ -10415,11 +10125,12 @@
       "plural": "shipping_label_forms",
       "fields": [
         {
-          "name": "service",
-          "type": "string",
+          "name": "attributes",
+          "type": "map[string]",
           "required": true,
           "attributes": [],
-          "description": "Desired carrier service level to use for this label"
+          "description": "Reference information included with the label, if carrier provides support for reference information.",
+          "default": "{}"
         },
         {
           "name": "delivered_duty",
@@ -10427,6 +10138,13 @@
           "required": true,
           "attributes": [],
           "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Desired carrier service level to use for this label"
         },
         {
           "name": "destination",
@@ -10449,13 +10167,6 @@
           "attributes": [],
           "description": "Packages to be shipped, including dimensions and items included",
           "minimum": 1
-        },
-        {
-          "name": "insurance",
-          "type": "price",
-          "required": false,
-          "attributes": [],
-          "description": "Desired insurance amount on the items in the package."
         },
         {
           "name": "order_number",
@@ -11848,6 +11559,12 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "labels",
+          "type": "[tracking_label]",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "status",
           "type": "tracking_status",
           "required": true,
@@ -11869,6 +11586,139 @@
       ],
       "attributes": [],
       "description": "Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number"
+    },
+    {
+      "name": "tracking_event",
+      "plural": "tracking_events",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "address",
+          "type": "address",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "tracking_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tracking_event_form",
+      "plural": "tracking_event_forms",
+      "fields": [
+        {
+          "name": "tracking_label_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "tracking_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tracking_event_summary",
+      "plural": "tracking_event_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "status",
+          "type": "tracking_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tracking_event_version",
+      "plural": "tracking_event_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tracking_event",
+          "type": "tracking_event_summary",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tracking_form",
@@ -11897,6 +11747,63 @@
       ],
       "attributes": [],
       "description": "Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number"
+    },
+    {
+      "name": "tracking_label",
+      "plural": "tracking_labels",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "events",
+          "type": "[tracking_event]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "tracking_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "delivery_estimate",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a specific label being tracked as part of the tracking bucket"
     },
     {
       "name": "tracking_label_event_upserted",
@@ -11978,6 +11885,128 @@
           "name": "order_number",
           "type": "string",
           "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tracking_label_form",
+      "plural": "tracking_label_forms",
+      "fields": [
+        {
+          "name": "tracking_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "tracking_status",
+          "required": true,
+          "attributes": [],
+          "default": "pending"
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "delivery_estimate",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "Defaults to now() if not provided"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a specific label being tracked as part of the tracking bucket"
+    },
+    {
+      "name": "tracking_label_summary",
+      "plural": "tracking_label_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "tracking",
+          "type": "tracking_summary",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "tracking_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tracking_label_version",
+      "plural": "tracking_label_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tracking_label",
+          "type": "tracking_label_summary",
+          "required": true,
           "attributes": []
         }
       ],
@@ -23875,556 +23904,6 @@
       "description": "Represents a single update on inventory quantity"
     },
     {
-      "type": "label",
-      "plural": "labels",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/labels",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "tracking_id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[label]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "tracking_id"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/labels",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "label",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "[error]",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "label_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/labels/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "label",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/labels/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "label_id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[label_version]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "label_id"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "logistics"
-          }
-        }
-      ],
-      "path": "/:organization/labels",
-      "description": "Represents a specific label being tracked as part of the tracking bucket"
-    },
-    {
-      "type": "label_event",
-      "plural": "label_events",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/label_events",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "tracking_id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "label_id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[label_event]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "tracking_id"
-                  },
-                  {
-                    "value": "label_id"
-                  },
-                  {
-                    "value": "timestamp"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/label_events/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "label_event",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/label_events/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "label_event_id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[label_event_version]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "label_event_id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "logistics"
-          }
-        }
-      ],
-      "path": "/:organization/label_events"
-    },
-    {
       "type": "quote",
       "plural": "quotes",
       "operations": [
@@ -26420,7 +25899,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/trackings",
+          "path": "/trackings/:organization/trackings",
           "parameters": [
             {
               "name": "organization",
@@ -26499,7 +25978,7 @@
         },
         {
           "method": "POST",
-          "path": "/:organization/trackings",
+          "path": "/trackings/:organization/trackings",
           "parameters": [
             {
               "name": "organization",
@@ -26546,57 +26025,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/trackings/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "tracking",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/trackings/versions",
+          "path": "/trackings/:organization/trackings/versions",
           "parameters": [
             {
               "name": "organization",
@@ -26685,6 +26114,50 @@
               }
             }
           ]
+        },
+        {
+          "method": "GET",
+          "path": "/trackings/trackings/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tracking",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Public endpoint to get all relevant information about a tracking, label(s) under it, and event(s) under those label(s)"
         }
       ],
       "attributes": [
@@ -26695,8 +26168,558 @@
           }
         }
       ],
-      "path": "/:organization/trackings",
+      "path": "/trackings",
       "description": "Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number"
+    },
+    {
+      "type": "tracking_event",
+      "plural": "tracking_events",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/tracking-events",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "tracking_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "tracking_label_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tracking_event]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "tracking_id"
+                  },
+                  {
+                    "value": "tracking_label_id"
+                  },
+                  {
+                    "value": "timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tracking-events/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tracking_event",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tracking-events/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "tracking_event_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tracking_event_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "tracking_event_id"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/tracking-events"
+    },
+    {
+      "type": "tracking_label",
+      "plural": "tracking_labels",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/tracking-labels",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "tracking_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tracking_label]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "tracking_id"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/tracking-labels",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tracking_label",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "tracking_label_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tracking-labels/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tracking_label",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/tracking-labels/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "tracking_label_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tracking_label_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "tracking_label_id"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/tracking-labels",
+      "description": "Represents a specific label being tracked as part of the tracking bucket"
     },
     {
       "type": "webhook",

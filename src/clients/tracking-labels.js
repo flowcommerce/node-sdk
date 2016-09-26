@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Labels extends Client {
+export default class TrackingLabels extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -11,20 +11,20 @@ export default class Labels extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/labels`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels`, options);
   }
 
   post(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/labels`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/labels/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels/${id}`, options);
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/labels/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels/versions`, options);
   }
 
 }

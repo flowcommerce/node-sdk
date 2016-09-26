@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class LabelEvents extends Client {
+export default class TrackingEvents extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -11,15 +11,15 @@ export default class LabelEvents extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/label_events`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-events`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/label_events/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-events/${id}`, options);
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/label_events/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-events/versions`, options);
   }
 
 }
