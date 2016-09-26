@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.55",
+  "version": "0.1.59",
   "info": {
     "license": {
       "name": "MIT",
@@ -463,6 +463,14 @@
         },
         {
           "name": "capture_upserted",
+          "attributes": []
+        },
+        {
+          "name": "card_upserted",
+          "attributes": []
+        },
+        {
+          "name": "card_deleted",
           "attributes": []
         },
         {
@@ -1422,6 +1430,14 @@
           "attributes": []
         },
         {
+          "type": "card_upserted",
+          "attributes": []
+        },
+        {
+          "type": "card_deleted",
+          "attributes": []
+        },
+        {
           "type": "refund_upserted",
           "attributes": []
         },
@@ -1877,6 +1893,12 @@
           "type": "authorization_result",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -2043,6 +2065,12 @@
           "type": "string",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -2174,6 +2202,12 @@
           "attributes": [],
           "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "CAD"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -2262,6 +2296,12 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -2313,7 +2353,8 @@
           "name": "token",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Unique, cryptographically secure token by which this card can be identified in the future. This value should be kept secure in your system's as payment authorizations are created against this token."
         },
         {
           "name": "type",
@@ -2350,7 +2391,39 @@
         }
       ],
       "attributes": [],
-      "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future."
+      "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user's browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces"
+    },
+    {
+      "name": "card_deleted",
+      "plural": "card_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "card_form",
@@ -2415,17 +2488,33 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases"
+          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases. The Flow JavaScript API uses the challenge to verify that the assymetric encryption is working properly in the client."
         },
         {
           "name": "challenge_cipher",
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases"
+          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases. The Flow JavaScript API uses the challenge to verify that the assymetric encryption is working properly in the client."
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "card_nonce_form",
+      "plural": "card_nonce_forms",
+      "fields": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The one time card nonce to exchange for a permanent card token. This value will start with F17",
+          "example": "F17JNt5CXc0TsY8txqTRx9F40Cqn5YuQ30PkIMTTnnJSxLsmGmeDOrJ2wr4h"
+        }
+      ],
+      "attributes": [],
+      "description": "The card nonce form presents a one time token to exchance server side for a permanent, secure tokenized card"
     },
     {
       "name": "card_reference",
@@ -2441,6 +2530,68 @@
         {
           "name": "token",
           "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "card_upserted",
+      "plural": "card_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "expiration",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "last4",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "address",
+          "type": "object",
           "required": true,
           "attributes": []
         }
@@ -3427,7 +3578,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": []
         },
@@ -3448,7 +3599,7 @@
       "fields": [
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": []
         },
@@ -3473,7 +3624,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": []
         },
@@ -3597,7 +3748,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": []
         },
@@ -3722,7 +3873,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": []
         }
@@ -7189,6 +7340,20 @@
           "minimum": 1
         },
         {
+          "name": "price",
+          "type": "money",
+          "required": true,
+          "attributes": [],
+          "description": "The price of this item for this order. If not specified, we will use the item price from the experience. Note that this price represents the price of a single line item - the total price to the consumer will be quantity * price."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
           "name": "center",
           "type": "string",
           "required": false,
@@ -7196,11 +7361,54 @@
           "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup."
         },
         {
+          "name": "discount",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here"
+        }
+      ],
+      "attributes": [],
+      "description": "Line items represent the items a consumer is purchasing, including additional information to complete the transaction. Note that you may pass in as many line items as you like - including repeating item numbers across line items."
+    },
+    {
+      "name": "line_item_form",
+      "plural": "line_item_forms",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
           "name": "price",
           "type": "money",
           "required": false,
           "attributes": [],
           "description": "The price of this item for this order. If not specified, we will use the item price from the experience"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "center",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup."
         },
         {
           "name": "discount",
@@ -7460,6 +7668,13 @@
           "required": false,
           "attributes": [],
           "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
         },
         {
           "name": "local",
@@ -7872,6 +8087,13 @@
           "type": "localized_price",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
         }
       ],
       "attributes": [],
@@ -8052,7 +8274,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -8087,7 +8309,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -8098,6 +8320,13 @@
           "required": false,
           "attributes": [],
           "description": "An optional discount to apply to the entire order"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
         }
       ],
       "attributes": [],
@@ -8269,7 +8498,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -8288,6 +8517,13 @@
           "required": false,
           "attributes": [],
           "description": "An optional discount to apply to the entire order"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
         }
       ],
       "attributes": [],
@@ -8363,13 +8599,13 @@
         },
         {
           "name": "selections",
-          "type": "object",
+          "type": "[string]",
           "required": true,
           "attributes": []
         },
         {
           "name": "items",
-          "type": "object",
+          "type": "[object]",
           "required": true,
           "attributes": []
         },
@@ -8381,13 +8617,13 @@
         },
         {
           "name": "deliveries",
-          "type": "object",
+          "type": "[object]",
           "required": true,
           "attributes": []
         },
         {
           "name": "prices",
-          "type": "object",
+          "type": "[object]",
           "required": true,
           "attributes": []
         },
@@ -9362,7 +9598,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -9389,7 +9625,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": [],
           "minimum": 1
@@ -9680,6 +9916,12 @@
           "attributes": [],
           "description": "The specific captures and the amounts refunded against each to match the total refund amount.",
           "minimum": 1
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -9802,6 +10044,12 @@
         {
           "name": "captures",
           "type": "[object]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
           "required": true,
           "attributes": []
         }
@@ -12203,7 +12451,7 @@
           "required": true,
           "attributes": [],
           "description": "The maxiumum number of times to attempt a delivery until a successful response",
-          "default": "5",
+          "default": "6",
           "minimum": 1
         },
         {
@@ -12225,7 +12473,8 @@
           "minimum": 0
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Sets organization level settings to determine things like how many retries on delivery, how long we wait, etc. By default, we will attempt delivery up to 6 times, using exponential backoff with a see of 1 minute (60k ms) - which means that we will retry over the course of approximately an hour before giving up."
     },
     {
       "name": "zone",
@@ -21582,6 +21831,54 @@
           }
         },
         {
+          "method": "POST",
+          "path": "/:organization/cards/nonces",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "card",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Creates a card from a one time nonce. Each nonce can be used at most once and you will receive a validation error if the nonce has already been exchanged.",
+          "body": {
+            "type": "card_nonce_form",
+            "attributes": []
+          }
+        },
+        {
           "method": "GET",
           "path": "/:organization/cards/versions",
           "parameters": [
@@ -21692,7 +21989,7 @@
         }
       ],
       "path": "/:organization/cards",
-      "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future."
+      "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user's browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces"
     },
     {
       "type": "public_key",

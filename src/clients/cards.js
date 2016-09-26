@@ -33,6 +33,11 @@ export default class Cards extends Client {
     return this.makeRequest(`${this.host}/${organization}/cards/${token}/updates`, options);
   }
 
+  postNonces(organization, options = {}) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/${organization}/cards/nonces`, options);
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/cards/versions`, options);
   }
