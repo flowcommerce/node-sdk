@@ -2,7 +2,7 @@ import Client from './clients';
 
 export default function CreateClient(opts) {
   let options = {
-    url: 'https://api.flow.io',
+    host: 'https://api.flow.io',
   };
 
   if (typeof opts === 'string') {
