@@ -1670,6 +1670,86 @@
       "description": "Defines structured fields for address to be used in user/form input. Either text or the structured input needs to be present."
     },
     {
+      "name": "address_suggestion",
+      "plural": "address_suggestions",
+      "fields": [
+        {
+          "name": "address",
+          "type": "address",
+          "required": true,
+          "attributes": [],
+          "description": "The suggested address"
+        },
+        {
+          "name": "streets",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "description": "True if the streets are updated; false otherwise"
+        },
+        {
+          "name": "city",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "description": "True if the city is updated; false otherwise"
+        },
+        {
+          "name": "province",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "description": "True if the province is updated; false otherwise"
+        },
+        {
+          "name": "postal",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "description": "True if the postal is updated; false otherwise"
+        },
+        {
+          "name": "country",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "description": "True if the country is updated; false otherwise"
+        }
+      ],
+      "attributes": [],
+      "description": "A suggested address (usually providing more accurate information). This object contains both the suggested address as well as metadata on which fields are actually different"
+    },
+    {
+      "name": "address_verification",
+      "plural": "address_verifications",
+      "fields": [
+        {
+          "name": "address",
+          "type": "address",
+          "required": true,
+          "attributes": [],
+          "description": "The address we are verifying"
+        },
+        {
+          "name": "valid",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "description": "True if the address is valid; false otherwise"
+        },
+        {
+          "name": "suggestions",
+          "type": "[address_suggestion]",
+          "required": true,
+          "attributes": [],
+          "description": "Where available, we return a list of suggestions for verified addresses. Each suggestion contains both the suggested address as well as the specific fields that are different",
+          "default": "[]"
+        }
+      ],
+      "attributes": [],
+      "description": "Address verification returns information on whether or not an address is valid and deliverable - meaning carriers will accept this address. Also returns suggestions for address correction, including data to highlight specific fields to correct."
+    },
+    {
       "name": "amount_margin",
       "plural": "amount_margins",
       "fields": [
@@ -2585,6 +2665,12 @@
           "attributes": []
         },
         {
+          "name": "iin",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "last4",
           "type": "string",
           "required": true,
@@ -2599,7 +2685,7 @@
         {
           "name": "address",
           "type": "object",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -7137,6 +7223,13 @@
           "type": "[spot_rate]",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "subcatalog_item_status",
+          "required": true,
+          "attributes": [],
+          "default": "included"
         }
       ],
       "attributes": []
@@ -10036,7 +10129,8 @@
           "type": "map[string]",
           "required": true,
           "attributes": [],
-          "description": "Reference information included with the label, if carrier provides support for reference information."
+          "description": "Reference information included with the label, if carrier provides support for reference information.",
+          "default": "{}"
         },
         {
           "name": "carrier_tracking_number",
@@ -10127,10 +10221,9 @@
         {
           "name": "attributes",
           "type": "map[string]",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "Reference information included with the label, if carrier provides support for reference information.",
-          "default": "{}"
+          "description": "Reference information included with the label, if carrier provides support for reference information."
         },
         {
           "name": "delivered_duty",
@@ -10161,12 +10254,11 @@
           "description": "Origin contact information and structured address"
         },
         {
-          "name": "packages",
-          "type": "[shipping_label_package]",
+          "name": "package",
+          "type": "shipping_label_package",
           "required": true,
           "attributes": [],
-          "description": "Packages to be shipped, including dimensions and items included",
-          "minimum": 1
+          "description": "Package to be shipped, including dimensions and items included"
         },
         {
           "name": "order_number",
@@ -25899,7 +25991,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/trackings/:organization/trackings",
+          "path": "/:organization/trackings",
           "parameters": [
             {
               "name": "organization",
@@ -25978,7 +26070,7 @@
         },
         {
           "method": "POST",
-          "path": "/trackings/:organization/trackings",
+          "path": "/:organization/trackings",
           "parameters": [
             {
               "name": "organization",
@@ -26025,7 +26117,7 @@
         },
         {
           "method": "GET",
-          "path": "/trackings/:organization/trackings/versions",
+          "path": "/:organization/trackings/versions",
           "parameters": [
             {
               "name": "organization",
@@ -26117,7 +26209,7 @@
         },
         {
           "method": "GET",
-          "path": "/trackings/trackings/:id",
+          "path": "/trackings/:id",
           "parameters": [
             {
               "name": "id",
@@ -26168,7 +26260,7 @@
           }
         }
       ],
-      "path": "/trackings",
+      "path": "",
       "description": "Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number"
     },
     {
@@ -27462,6 +27554,45 @@
           ],
           "attributes": [],
           "description": "Geolocates the request based on the provided parameters, returning a list of potential matching addresses."
+        },
+        {
+          "method": "POST",
+          "path": "/addresses/verifications",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "address_verification",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "[error]",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "address",
+            "attributes": []
+          }
         }
       ],
       "attributes": [

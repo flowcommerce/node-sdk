@@ -14,4 +14,9 @@ export default class Addresses extends Client {
     return this.makeRequest(`${this.host}/addresses`, options);
   }
 
+  postVerifications(options = {}) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/addresses/verifications`, options);
+  }
+
 }

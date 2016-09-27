@@ -11,20 +11,20 @@ export default class Trackings extends Client {
   }
 
   getTrackingsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/trackings/${organization}/trackings`, options);
+    return this.makeRequest(`${this.host}/${organization}/trackings`, options);
   }
 
   postTrackingsByOrganization(organization, options = {}) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/trackings/${organization}/trackings`, options);
+    return this.makeRequest(`${this.host}/${organization}/trackings`, options);
   }
 
   getTrackingsAndVersionsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/trackings/${organization}/trackings/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/trackings/versions`, options);
   }
 
   getTrackingsById(id, options = {}) {
-    return this.makeRequest(`${this.host}/trackings/trackings/${id}`, options);
+    return this.makeRequest(`${this.host}/trackings/${id}`, options);
   }
 
 }

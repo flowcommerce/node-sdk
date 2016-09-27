@@ -22,3 +22,7 @@ const addresses = client().addresses;
 | address | string |  |
 | ip | string |  |
 
+##`postVerifications(options = {})`
+
+
+
