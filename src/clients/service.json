@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.66",
+  "version": "0.1.72",
   "info": {
     "license": {
       "name": "MIT",
@@ -1579,6 +1579,22 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Types of rules used to apply on inventory to calculate available quantity"
+    },
+    {
+      "name": "order_error",
+      "plural": "order_errors",
+      "types": [
+        {
+          "type": "order_item_not_available_error",
+          "attributes": []
+        },
+        {
+          "type": "validation_error",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "code"
     },
     {
       "name": "tier_rule_outcome",
@@ -4256,28 +4272,6 @@
       ],
       "attributes": [],
       "description": "Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified."
-    },
-    {
-      "name": "error",
-      "plural": "errors",
-      "fields": [
-        {
-          "name": "code",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Machine readable code for this specific error message"
-        },
-        {
-          "name": "message",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Description of the error"
-        }
-      ],
-      "attributes": [],
-      "description": "Represents an error of some sort (e.g. invalid input). Each error will contain a code and a specific message describing the failure."
     },
     {
       "name": "estimated_window",
@@ -8115,6 +8109,28 @@
       "description": "The order form is used to create an open order, providing the details on pricing and delivery options for destination and items/quantities specified"
     },
     {
+      "name": "order_item_not_available_error",
+      "plural": "order_item_not_available_errors",
+      "fields": [
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "When creating an order, if a particular item is not available in the country / destination (either because it was restricted or excluded from that country), we return this error to highlight the specific item numbers which are not available."
+    },
+    {
       "name": "order_price_detail",
       "plural": "order_price_details",
       "fields": [
@@ -9307,6 +9323,26 @@
       ],
       "attributes": [],
       "description": "Defines a query specifying items to be included or excluded in a subcatalog"
+    },
+    {
+      "name": "query_validation",
+      "plural": "query_validations",
+      "fields": [
+        {
+          "name": "valid",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "invalid",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Indicates valid and invalid queries"
     },
     {
       "name": "quote",
@@ -11663,10 +11699,17 @@
           "attributes": []
         },
         {
-          "name": "metadata",
-          "type": "object",
+          "name": "attributes",
+          "type": "map[string]",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "window",
+          "type": "datetime_range",
+          "required": false,
+          "attributes": [],
+          "description": "Estimated date range until delivery"
         },
         {
           "name": "order_number",
@@ -11830,11 +11873,18 @@
           "description": "Client organization order number, if available"
         },
         {
-          "name": "metadata",
-          "type": "object",
+          "name": "attributes",
+          "type": "map[string]",
           "required": false,
           "attributes": [],
-          "description": "Additional reference metadata"
+          "description": "Additional reference attributes"
+        },
+        {
+          "name": "window",
+          "type": "datetime_range",
+          "required": false,
+          "attributes": [],
+          "description": "Estimated date range until delivery"
         }
       ],
       "attributes": [],
@@ -12296,6 +12346,21 @@
       ],
       "attributes": [],
       "description": "Model used to report whether or not a given token is valid"
+    },
+    {
+      "name": "validation_error",
+      "plural": "validation_errors",
+      "fields": [
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "A validation error of some type has occured. See messages for a detailed description of the specific error or errors"
     },
     {
       "name": "validation_form",
@@ -12780,7 +12845,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -12902,7 +12967,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13359,7 +13424,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13481,7 +13546,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13750,7 +13815,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13812,7 +13877,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13881,7 +13946,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13946,7 +14011,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14211,7 +14276,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14348,7 +14413,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14458,7 +14523,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14735,7 +14800,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14857,7 +14922,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15222,7 +15287,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15381,7 +15446,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15444,7 +15509,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15512,7 +15577,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15723,7 +15788,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15745,6 +15810,78 @@
       ],
       "path": "/:organization/order-estimates",
       "description": "Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties."
+    },
+    {
+      "type": "query",
+      "plural": "queries",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/:organization/query/validations",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "query_validation",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "validation_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "[string]",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/query",
+      "description": "Represents a typed query to indicate which items to include or exclude in a subcatalog"
     },
     {
       "type": "subcatalog",
@@ -15888,7 +16025,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16012,7 +16149,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16178,7 +16315,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16412,7 +16549,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16561,7 +16698,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16634,7 +16771,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16704,7 +16841,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -17088,7 +17225,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -17312,7 +17449,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18062,7 +18199,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18184,7 +18321,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18493,7 +18630,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18598,7 +18735,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18851,7 +18988,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18915,7 +19052,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18970,7 +19107,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19368,7 +19505,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
             }
           ],
@@ -19460,7 +19597,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19725,7 +19862,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19836,7 +19973,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -20098,7 +20235,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -20164,7 +20301,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -20421,7 +20558,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -20951,7 +21088,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
             }
           ],
@@ -21101,7 +21238,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21214,7 +21351,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21472,7 +21609,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21777,7 +21914,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21940,7 +22077,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21988,7 +22125,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -22373,7 +22510,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -22805,7 +22942,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -22925,7 +23062,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23147,7 +23284,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "Unable to resolve delivery window based on parameter entries"
             }
           ],
@@ -23294,7 +23431,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23496,7 +23633,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23771,7 +23908,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23831,7 +23968,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24116,7 +24253,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24321,7 +24458,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24589,7 +24726,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24655,7 +24792,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24945,7 +25082,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25067,7 +25204,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25130,7 +25267,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25370,7 +25507,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25666,7 +25803,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25800,7 +25937,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25869,7 +26006,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -26105,7 +26242,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -26652,7 +26789,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -26956,7 +27093,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27071,7 +27208,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27237,7 +27374,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27472,7 +27609,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27548,7 +27685,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27584,7 +27721,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27670,7 +27807,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27789,7 +27926,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -28321,7 +28458,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -28488,7 +28625,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -28728,7 +28865,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -28890,7 +29027,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29000,7 +29137,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29112,7 +29249,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29372,7 +29509,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29482,7 +29619,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29539,7 +29676,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29798,7 +29935,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29899,7 +30036,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30203,7 +30340,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30242,7 +30379,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30577,7 +30714,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30757,7 +30894,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30985,7 +31122,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31086,7 +31223,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31143,7 +31280,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31200,7 +31337,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31245,7 +31382,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31387,7 +31524,7 @@
                   "value": 422
                 }
               },
-              "type": "[error]",
+              "type": "validation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],

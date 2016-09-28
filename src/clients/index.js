@@ -4,6 +4,7 @@ import Experiences from './experiences';
 import Items from './items';
 import Orders from './orders';
 import OrderEstimates from './order-estimates';
+import Queries from './queries';
 import Subcatalogs from './subcatalogs';
 import SubcatalogItems from './subcatalog-items';
 import ItemFunctions from './item-functions';
@@ -125,6 +126,7 @@ export default class ApiClient {
     this.items = new Items(options);
     this.orders = new Orders(options);
     this.orderEstimates = new OrderEstimates(options);
+    this.queries = new Queries(options);
     this.subcatalogs = new Subcatalogs(options);
     this.subcatalogItems = new SubcatalogItems(options);
     this.itemFunctions = new ItemFunctions(options);
