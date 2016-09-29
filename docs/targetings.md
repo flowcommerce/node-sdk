@@ -1,4 +1,4 @@
-# [API](README.md).organizations - Flow Commerce API - Node SDK Documentation
+# [API](README.md).targetings - Flow Commerce API - Node SDK Documentation
 
 
 
@@ -7,7 +7,7 @@
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const organizations = client().organizations;
+const targetings = client().targetings;
 ```
 
 ## Operations
@@ -20,71 +20,69 @@ const organizations = client().organizations;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 
-
-##`getOrganizations(options = {})`
-
-
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| name | string | Find organizations with this name. Case insensitive. Exact match. |
-| environment | environment | Find organizations with this environment |
-| parent | string | Find organizations that belong to this specified parent organization id. Case insensitive. Exact match. |
+| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`postOrganizations(options = {})`
-
-
-
-##`getOrganizationsById(id, options = {})`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
+| organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`putOrganizationsById(id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`deleteOrganizationsById(id, options = {})`
+##`getByKey(organization, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
 
 
-##`getOrganizationsAndSettingsAndCurrenciesByOrganizationId(organizationId, options = {})`
+##`putByKey(organization, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| organization_id | string |  |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
 
 
-##`getOrganizationsAndVersions(options = {})`
+##`deleteByKey(organization, key, options = {})`
 
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+
+##`getVersions(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
 
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| organization | [string] | Filter to organizations with any one of these ids. |
+| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

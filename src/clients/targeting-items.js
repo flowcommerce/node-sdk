@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Validations extends Client {
+export default class TargetingItems extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -10,9 +10,8 @@ export default class Validations extends Client {
     super(options);
   }
 
-  post(options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/token-validations`, options);
+  get(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/targeting-items`, options);
   }
 
 }

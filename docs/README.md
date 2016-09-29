@@ -13,9 +13,12 @@ These resources mirror the official documentation located at
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing. |
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
+| [organizations](organizations.md) |  |
 | [queries](queries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
+| [targetings](targetings.md) |  |
+| [targetingItems](targetingItems.md) | Represents catalog items where a targeteing query is applicable |
 | [itemFunctions](itemFunctions.md) | Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created. |
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
@@ -44,6 +47,7 @@ These resources mirror the official documentation located at
 | [quoteEstimates](quoteEstimates.md) |  |
 | [services](services.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
+| [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |
 | [tiers](tiers.md) | Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier |
 | [tierDefaults](tierDefaults.md) | Grouping of shipping tiers by experience to provide logical default functionality. |
 | [tierRules](tierRules.md) | System to filter incoming quote for a shipment request based on a query and output corresponding outcomes. |
@@ -65,10 +69,9 @@ These resources mirror the official documentation located at
 | [healthchecks](healthchecks.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |
-| [organizations](organizations.md) |  |
 | [organizationAuthorizations](organizationAuthorizations.md) | Defines the data used for broad authorization of user access to org level data |
 | [passwordResetForms](passwordResetForms.md) |  |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) | All of the metadata associated with a given token. |
+| [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |
 | [users](users.md) |  |
-| [validations](validations.md) | Validations test whether or not a given API token is valid |

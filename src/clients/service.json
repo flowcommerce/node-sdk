@@ -346,6 +346,14 @@
           "attributes": []
         },
         {
+          "name": "targeting_item_upserted",
+          "attributes": []
+        },
+        {
+          "name": "targeting_item_deleted",
+          "attributes": []
+        },
+        {
           "name": "flow_currency_setting_deleted",
           "attributes": []
         },
@@ -431,6 +439,14 @@
         },
         {
           "name": "label_upserted",
+          "attributes": []
+        },
+        {
+          "name": "notification_upserted",
+          "attributes": []
+        },
+        {
+          "name": "notification_deleted",
           "attributes": []
         },
         {
@@ -1310,6 +1326,14 @@
           "attributes": []
         },
         {
+          "type": "targeting_item_upserted",
+          "attributes": []
+        },
+        {
+          "type": "targeting_item_deleted",
+          "attributes": []
+        },
+        {
           "type": "flow_currency_setting_deleted",
           "attributes": []
         },
@@ -1395,6 +1419,14 @@
         },
         {
           "type": "label_upserted",
+          "attributes": []
+        },
+        {
+          "type": "notification_upserted",
+          "attributes": []
+        },
+        {
+          "type": "notification_deleted",
           "attributes": []
         },
         {
@@ -1589,7 +1621,7 @@
           "attributes": []
         },
         {
-          "type": "validation_error",
+          "type": "generic_error",
           "attributes": []
         }
       ],
@@ -4977,6 +5009,21 @@
       "attributes": []
     },
     {
+      "name": "generic_error",
+      "plural": "generic_errors",
+      "fields": [
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "An error of some type has occured. The most common error will be validation on input. See messages for details."
+    },
+    {
       "name": "harmonization_document",
       "plural": "harmonization_documents",
       "fields": [
@@ -7761,6 +7808,166 @@
       "attributes": []
     },
     {
+      "name": "notification_deleted",
+      "plural": "notification_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "notification_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "flow_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "origin",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "package",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "notification_upserted",
+      "plural": "notification_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "notification_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "flow_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "origin",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "package",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "options",
       "plural": "optionses",
       "fields": [
@@ -10362,6 +10569,176 @@
       "attributes": []
     },
     {
+      "name": "shipping_notification",
+      "plural": "shipping_notifications",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "Reference information included with the label, if carrier provides support for reference information.",
+          "default": "{}"
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
+        },
+        {
+          "name": "destination",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Destination contact information and structured address"
+        },
+        {
+          "name": "flow_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Flow-generated tracking number. 13 digit tracking number that begins with F70."
+        },
+        {
+          "name": "origin",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Origin contact information and structured address"
+        },
+        {
+          "name": "package",
+          "type": "shipping_label_package",
+          "required": true,
+          "attributes": [],
+          "description": "Package to be shipped, including dimensions and items included"
+        },
+        {
+          "name": "service",
+          "type": "service_summary",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier service level used for generation and shipment of this label",
+          "example": "ups-ground, dhl-express-worldwide"
+        },
+        {
+          "name": "window",
+          "type": "datetime_range",
+          "required": true,
+          "attributes": [],
+          "description": "Estimated date range until delivery, based on ratecard delivery window days"
+        },
+        {
+          "name": "order",
+          "type": "label_order_summary",
+          "required": false,
+          "attributes": [],
+          "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a booked order, if applicable."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages."
+    },
+    {
+      "name": "shipping_notification_form",
+      "plural": "shipping_notification_forms",
+      "fields": [
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Reference information included with the label, if carrier provides support for reference information."
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
+        },
+        {
+          "name": "destination",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Destination contact information and structured address"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a booked order, if applicable."
+        },
+        {
+          "name": "origin",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "description": "Origin contact information and structured address"
+        },
+        {
+          "name": "package",
+          "type": "shipping_label_package",
+          "required": true,
+          "attributes": [],
+          "description": "Package to be shipped, including dimensions and items included"
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier service level used for generation and shipment of this label",
+          "example": "ups-ground, dhl-express-worldwide"
+        }
+      ],
+      "attributes": [],
+      "description": "Form for information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages."
+    },
+    {
+      "name": "shipping_notification_version",
+      "plural": "shipping_notification_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "shipping_notification",
+          "type": "shipping_notification",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "solidus_product_export_type",
       "plural": "solidus_product_export_types",
       "fields": [
@@ -10777,15 +11154,15 @@
           "attributes": []
         },
         {
-          "name": "item_function",
-          "type": "expandable_item_function",
-          "required": false,
+          "name": "status",
+          "type": "subcatalog_item_status",
+          "required": true,
           "attributes": []
         },
         {
-          "name": "item_status",
-          "type": "subcatalog_item_status",
-          "required": true,
+          "name": "item_function",
+          "type": "expandable_item_function",
+          "required": false,
           "attributes": []
         }
       ],
@@ -11068,6 +11445,302 @@
           "required": true,
           "attributes": [],
           "description": "The number of results for the label"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting",
+      "plural": "targetings",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Unique client-provided identifier indicating uniqueness of the targeting request. Follows the convention: [service]-[model]-[id]. For example: ratecard-dimension-estimate-dst-8eec70ab1f2740e0b46c7c8867cd8e07"
+        },
+        {
+          "name": "queries",
+          "type": "[targeting_query]",
+          "required": true,
+          "attributes": [],
+          "description": "Tuples of valid queries on a catalog and their corresponding output object in the client service"
+        },
+        {
+          "name": "subcatalog",
+          "type": "subcatalog_reference",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting_form",
+      "plural": "targeting_forms",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Unique client-provided identifier indicating uniqueness of the targeting request. Follows the convention: [service]-[model]-[id]. For example: ratecard-dimension-estimate-dst-8eec70ab1f2740e0b46c7c8867cd8e07"
+        },
+        {
+          "name": "queries",
+          "type": "[targeting_query_form]",
+          "required": true,
+          "attributes": [],
+          "description": "Tuples of valid queries on a catalog and their corresponding output object in the client service"
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If a targeting is only for a specific subcatalog, then this needs to be provided"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting_item",
+      "plural": "targeting_items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "targeting",
+          "type": "targeting_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "query",
+          "type": "targeting_query",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents catalog items where a targeteing query is applicable"
+    },
+    {
+      "name": "targeting_item_deleted",
+      "plural": "targeting_item_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Item number"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Targeting key"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting_item_upserted",
+      "plural": "targeting_item_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Item number"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Targeting key"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting_query",
+      "plural": "targeting_queries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Valid query on the organization's catalog items"
+        },
+        {
+          "name": "outcome_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ID of corresponding outcome object in client service (e.g. item margin, dimension estimate, etc)"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting_query_form",
+      "plural": "targeting_query_forms",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Valid query on the organization's catalog items"
+        },
+        {
+          "name": "outcome_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ID of corresponding outcome object in client service (e.g. item margin, dimension estimate, etc)"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting_reference",
+      "plural": "targeting_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "subcatalog",
+          "type": "subcatalog_reference",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "targeting_version",
+      "plural": "targeting_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "targeting",
+          "type": "targeting",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -11642,6 +12315,36 @@
       ],
       "attributes": [],
       "description": "Summary data for a given token"
+    },
+    {
+      "name": "token_validation",
+      "plural": "token_validations",
+      "fields": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Textual description of whether or not token is valid"
+        }
+      ],
+      "attributes": [],
+      "description": "Model used to report whether or not a given token is valid"
+    },
+    {
+      "name": "token_validation_form",
+      "plural": "token_validation_forms",
+      "fields": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The actual token that you are validating"
+        }
+      ],
+      "attributes": [],
+      "description": "Defines the payload of a request to validate a token, with primary goal of preventing the token from being included in an HTTP GET."
     },
     {
       "name": "token_version",
@@ -12333,51 +13036,6 @@
       "attributes": []
     },
     {
-      "name": "validation",
-      "plural": "validations",
-      "fields": [
-        {
-          "name": "status",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Textual description of whether or not token is valid"
-        }
-      ],
-      "attributes": [],
-      "description": "Model used to report whether or not a given token is valid"
-    },
-    {
-      "name": "validation_error",
-      "plural": "validation_errors",
-      "fields": [
-        {
-          "name": "messages",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "minimum": 1
-        }
-      ],
-      "attributes": [],
-      "description": "A validation error of some type has occured. See messages for a detailed description of the specific error or errors"
-    },
-    {
-      "name": "validation_form",
-      "plural": "validation_forms",
-      "fields": [
-        {
-          "name": "token",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The actual token that you are validating"
-        }
-      ],
-      "attributes": [],
-      "description": "Defines the payload of a request to validate a token, with primary goal of preventing the token from being included in an HTTP GET."
-    },
-    {
       "name": "webhook",
       "plural": "webhooks",
       "fields": [
@@ -12845,7 +13503,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -12967,7 +13625,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13424,7 +14082,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13546,7 +14204,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13815,7 +14473,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13877,7 +14535,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -13946,7 +14604,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14011,7 +14669,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14276,7 +14934,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14413,7 +15071,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14523,7 +15181,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14800,7 +15458,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -14922,7 +15580,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15287,7 +15945,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "order_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15446,7 +16104,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "order_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15509,7 +16167,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15577,7 +16235,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15788,7 +16446,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "order_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -15810,6 +16468,501 @@
       ],
       "path": "/:organization/order-estimates",
       "description": "Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties."
+    },
+    {
+      "type": "organization",
+      "plural": "organizations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/countries",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[country]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "sort_parameter_default",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Provides a list of countries that can be shipped to by the organization"
+        },
+        {
+          "method": "GET",
+          "path": "/organizations",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Find organizations with this name. Case insensitive. Exact match."
+            },
+            {
+              "name": "environment",
+              "type": "environment",
+              "location": "Query",
+              "required": false,
+              "description": "Find organizations with this environment"
+            },
+            {
+              "name": "parent",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Find organizations that belong to this specified parent organization id. Case insensitive. Exact match."
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "name"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[organization]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "name"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Search organizations. Always paginated."
+        },
+        {
+          "method": "POST",
+          "path": "/organizations",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new organization.",
+          "body": {
+            "type": "organization_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/organizations/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "organization",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific organization."
+        },
+        {
+          "method": "PUT",
+          "path": "/organizations/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "organization",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Update or create an organization with the specified id.",
+          "body": {
+            "type": "organization_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/organizations/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Delete the organization with this id"
+        },
+        {
+          "method": "GET",
+          "path": "/organizations/:organization_id/settings/currencies",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[currency]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Returns currencies for a specific organization."
+        },
+        {
+          "method": "GET",
+          "path": "/organizations/versions",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "organization",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to organizations with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[organization_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "organization"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Provides visibility into recent changes of each object, including deletion"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/countries"
     },
     {
       "type": "query",
@@ -15861,7 +17014,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16025,7 +17178,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16149,7 +17302,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16315,7 +17468,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16549,7 +17702,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16698,7 +17851,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16771,7 +17924,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -16841,7 +17994,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -17225,7 +18378,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -17449,7 +18602,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18048,6 +19201,566 @@
       "description": "Represents information specific to an item in a given subcatalog"
     },
     {
+      "type": "targeting",
+      "plural": "targetings",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/catalog/targetings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[targeting]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "key"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/catalog/targetings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "targeting",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "targeting_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/catalog/targetings/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "targeting",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/catalog/targetings/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "targeting",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "targeting_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/catalog/targetings/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/catalog/targetings/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[targeting_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "key"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/catalog/targetings"
+    },
+    {
+      "type": "targeting_item",
+      "plural": "targeting_items",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/catalog/targeting-items",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Key of the targeting",
+              "maximum": 100
+            },
+            {
+              "name": "item_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Number of the item",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[targeting_item]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "key"
+                  },
+                  {
+                    "value": "number"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "non-crud",
+              "value": {}
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/catalog/targeting-items",
+      "description": "Represents catalog items where a targeteing query is applicable"
+    },
+    {
       "type": "item_function",
       "plural": "item_functions",
       "operations": [
@@ -18199,7 +19912,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18321,7 +20034,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18630,7 +20343,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18735,7 +20448,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -18988,7 +20701,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19052,7 +20765,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19107,7 +20820,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19505,7 +21218,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
             }
           ],
@@ -19597,7 +21310,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19703,7 +21416,8 @@
               "name": "linter",
               "value": {
                 "ignore": [
-                  "sort"
+                  "sort",
+                  "versions"
                 ]
               }
             }
@@ -19711,14 +21425,6 @@
         }
       ],
       "attributes": [
-        {
-          "name": "linter",
-          "value": {
-            "ignore": [
-              "versions"
-            ]
-          }
-        },
         {
           "name": "docs",
           "value": {
@@ -19862,7 +21568,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -19973,7 +21679,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -20235,7 +21941,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -20301,7 +22007,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -20558,7 +22264,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21088,7 +22794,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
             }
           ],
@@ -21238,7 +22944,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21351,7 +23057,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21609,7 +23315,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -21914,7 +23620,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -22077,7 +23783,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -22125,7 +23831,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -22329,20 +24035,20 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
             }
           ],
           "description": "Returns your public keys"
         }
       ],
       "attributes": [
-        {
-          "name": "linter",
-          "value": {
-            "ignore": [
-              "versions"
-            ]
-          }
-        },
         {
           "name": "docs",
           "value": {
@@ -22510,7 +24216,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -22942,7 +24648,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23062,7 +24768,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23284,7 +24990,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "Unable to resolve delivery window based on parameter entries"
             }
           ],
@@ -23431,7 +25137,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23633,7 +25339,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23908,7 +25614,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -23968,7 +25674,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24253,7 +25959,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24458,7 +26164,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24726,7 +26432,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24792,7 +26498,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24957,6 +26663,461 @@
       "description": "Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination"
     },
     {
+      "type": "shipping_notification",
+      "plural": "shipping_notifications",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/shipping-notifications",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "carrier_tracking_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "flow_tracking_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "order_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "service",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[shipping_notification]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "carrier_tracking_number"
+                  },
+                  {
+                    "value": "flow_tracking_number"
+                  },
+                  {
+                    "value": "order_number"
+                  },
+                  {
+                    "value": "service"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/shipping-notifications",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shipping_notification",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "shipping_notification_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/shipping-notifications/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shipping_notification",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/shipping-notifications/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shipping_notification",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "shipping_notification_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/shipping-notifications/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/shipping-notifications/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "notification",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[shipping_notification_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "label"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/shipping-notifications",
+      "description": "Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages."
+    },
+    {
       "type": "tier",
       "plural": "tiers",
       "operations": [
@@ -25082,7 +27243,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25204,7 +27365,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25267,7 +27428,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25507,7 +27668,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25803,7 +27964,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -25937,7 +28098,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -26006,7 +28167,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -26242,7 +28403,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -26789,7 +28950,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27093,7 +29254,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27208,7 +29369,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27374,7 +29535,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27609,7 +29770,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27685,11 +29846,21 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
           "description": "Geolocates the request based on the provided parameters, returning a list of potential matching addresses."
         },
         {
@@ -27721,7 +29892,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -27807,11 +29978,21 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "GET",
@@ -27855,7 +30036,17 @@
               "description": "Resource was not found"
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ]
         }
       ],
       "attributes": [
@@ -27926,11 +30117,21 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
           "description": "Provides timezone based on address or geolocated IP."
         },
         {
@@ -27965,7 +30166,17 @@
               "description": "Authorization failed"
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
           "description": "Returns a list of timezones."
         }
       ],
@@ -28016,7 +30227,17 @@
               "description": "Authorization failed"
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
           "description": "Returns a list of countries."
         }
       ],
@@ -28067,7 +30288,17 @@
               "description": "Authorization failed"
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
           "description": "Returns a list of currencies."
         }
       ],
@@ -28118,7 +30349,17 @@
               "description": "Authorization failed"
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
           "description": "Returns a list of languages."
         }
       ],
@@ -28169,7 +30410,17 @@
               "description": "Authorization failed"
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
           "description": "Returns a list of regions."
         },
         {
@@ -28317,6 +30568,14 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
             }
           ],
           "description": "Returns items based on search criteria"
@@ -28402,6 +30661,14 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
             }
           ],
           "description": "Returns harmonization information based on search criteria"
@@ -28458,7 +30725,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -28575,6 +30842,14 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
             }
           ],
           "description": "Search exports. Always paginated."
@@ -28625,7 +30900,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -28865,7 +31140,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29027,7 +31302,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29137,7 +31412,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29249,7 +31524,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29509,7 +31784,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29619,7 +31894,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29676,7 +31951,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -29803,441 +32078,6 @@
       "description": "Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization's data and to provide a simple user interface to assign roles and permissions to each member of the organization"
     },
     {
-      "type": "organization",
-      "plural": "organizations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/organizations",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "name",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "description": "Find organizations with this name. Case insensitive. Exact match."
-            },
-            {
-              "name": "environment",
-              "type": "environment",
-              "location": "Query",
-              "required": false,
-              "description": "Find organizations with this environment"
-            },
-            {
-              "name": "parent",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "description": "Find organizations that belong to this specified parent organization id. Case insensitive. Exact match."
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "name"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[organization]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "name"
-                  },
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            }
-          ],
-          "description": "Search organizations. Always paginated."
-        },
-        {
-          "method": "POST",
-          "path": "/organizations",
-          "parameters": [],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "organization",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "validation_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Create a new organization.",
-          "body": {
-            "type": "organization_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/organizations/:id",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "organization",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [],
-          "description": "Returns information about a specific organization."
-        },
-        {
-          "method": "PUT",
-          "path": "/organizations/:id",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "organization",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "organization",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "validation_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Update or create an organization with the specified id.",
-          "body": {
-            "type": "organization_put_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/organizations/:id",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [],
-          "description": "Delete the organization with this id"
-        },
-        {
-          "method": "GET",
-          "path": "/organizations/:organization_id/settings/currencies",
-          "parameters": [
-            {
-              "name": "organization_id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[currency]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "non-crud",
-              "value": {}
-            }
-          ],
-          "description": "Returns currencies for a specific organization."
-        },
-        {
-          "method": "GET",
-          "path": "/organizations/versions",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "organization",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter to organizations with any one of these ids.",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[organization_version]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "organization"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ],
-          "description": "Provides visibility into recent changes of each object, including deletion"
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/organizations"
-    },
-    {
       "type": "organization_authorization",
       "plural": "organization_authorizations",
       "operations": [
@@ -30340,7 +32180,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30379,7 +32219,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30487,6 +32327,7 @@
               "name": "linter",
               "value": {
                 "ignore": [
+                  "versions",
                   "sort_parameter_default"
                 ]
               }
@@ -30577,6 +32418,7 @@
               "name": "linter",
               "value": {
                 "ignore": [
+                  "versions",
                   "sort_parameter_default"
                 ]
               }
@@ -30714,7 +32556,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -30894,7 +32736,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31002,6 +32844,61 @@
       ],
       "path": "/tokens",
       "description": "All of the metadata associated with a given token."
+    },
+    {
+      "type": "token_validation",
+      "plural": "token_validations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/token-validations",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "token_validation",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "token_validation_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/token-validations",
+      "description": "Validations test whether or not a given API token is valid"
     },
     {
       "type": "user",
@@ -31122,7 +33019,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31223,7 +33120,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31280,7 +33177,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31337,7 +33234,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31382,7 +33279,7 @@
                   "value": 422
                 }
               },
-              "type": "validation_error",
+              "type": "generic_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -31490,61 +33387,6 @@
         }
       ],
       "path": "/users"
-    },
-    {
-      "type": "validation",
-      "plural": "validations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/token-validations",
-          "parameters": [],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "validation",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "validation_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "validation_form",
-            "attributes": []
-          }
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/token-validations",
-      "description": "Validations test whether or not a given API token is valid"
     }
   ],
   "attributes": [],

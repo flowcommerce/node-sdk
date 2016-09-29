@@ -4,9 +4,12 @@ import Experiences from './experiences';
 import Items from './items';
 import Orders from './orders';
 import OrderEstimates from './order-estimates';
+import Organizations from './organizations';
 import Queries from './queries';
 import Subcatalogs from './subcatalogs';
 import SubcatalogItems from './subcatalog-items';
+import Targetings from './targetings';
+import TargetingItems from './targeting-items';
 import ItemFunctions from './item-functions';
 import OrganizationCurrencySettings from './organization-currency-settings';
 import Rates from './rates';
@@ -35,6 +38,7 @@ import Quotes from './quotes';
 import QuoteEstimates from './quote-estimates';
 import Services from './services';
 import ShippingLabels from './shipping-labels';
+import ShippingNotifications from './shipping-notifications';
 import Tiers from './tiers';
 import TierDefaults from './tier-defaults';
 import TierRules from './tier-rules';
@@ -56,13 +60,12 @@ import Exports from './exports';
 import Healthchecks from './healthchecks';
 import Invitations from './invitations';
 import Memberships from './memberships';
-import Organizations from './organizations';
 import OrganizationAuthorizations from './organization-authorizations';
 import PasswordResetForms from './password-reset-forms';
 import Suggestions from './suggestions';
 import Tokens from './tokens';
+import TokenValidations from './token-validations';
 import Users from './users';
-import Validations from './validations';
 
 
 const enums = {
@@ -77,7 +80,7 @@ const enums = {
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],
   environment: ['sandbox', 'production'],
-  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'order_deleted', 'order_upserted', 'order_booking_deleted', 'order_booking_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'label_upserted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'tracking_label_event_upserted'],
+  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'order_deleted', 'order_upserted', 'order_booking_deleted', 'order_booking_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
@@ -126,9 +129,12 @@ export default class ApiClient {
     this.items = new Items(options);
     this.orders = new Orders(options);
     this.orderEstimates = new OrderEstimates(options);
+    this.organizations = new Organizations(options);
     this.queries = new Queries(options);
     this.subcatalogs = new Subcatalogs(options);
     this.subcatalogItems = new SubcatalogItems(options);
+    this.targetings = new Targetings(options);
+    this.targetingItems = new TargetingItems(options);
     this.itemFunctions = new ItemFunctions(options);
     this.organizationCurrencySettings = new OrganizationCurrencySettings(options);
     this.rates = new Rates(options);
@@ -157,6 +163,7 @@ export default class ApiClient {
     this.quoteEstimates = new QuoteEstimates(options);
     this.services = new Services(options);
     this.shippingLabels = new ShippingLabels(options);
+    this.shippingNotifications = new ShippingNotifications(options);
     this.tiers = new Tiers(options);
     this.tierDefaults = new TierDefaults(options);
     this.tierRules = new TierRules(options);
@@ -178,12 +185,11 @@ export default class ApiClient {
     this.healthchecks = new Healthchecks(options);
     this.invitations = new Invitations(options);
     this.memberships = new Memberships(options);
-    this.organizations = new Organizations(options);
     this.organizationAuthorizations = new OrganizationAuthorizations(options);
     this.passwordResetForms = new PasswordResetForms(options);
     this.suggestions = new Suggestions(options);
     this.tokens = new Tokens(options);
+    this.tokenValidations = new TokenValidations(options);
     this.users = new Users(options);
-    this.validations = new Validations(options);
   }
 }

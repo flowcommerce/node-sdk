@@ -1,13 +1,13 @@
-# [API](README.md).organizations - Flow Commerce API - Node SDK Documentation
+# [API](README.md).shippingNotifications - Flow Commerce API - Node SDK Documentation
 
-
+Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages.
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const organizations = client().organizations;
+const shippingNotifications = client().shippingNotifications;
 ```
 
 ## Operations
@@ -20,71 +20,72 @@ const organizations = client().organizations;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 
-
-##`getOrganizations(options = {})`
-
-
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| name | string | Find organizations with this name. Case insensitive. Exact match. |
-| environment | environment | Find organizations with this environment |
-| parent | string | Find organizations that belong to this specified parent organization id. Case insensitive. Exact match. |
+| carrier_tracking_number | [string] |  |
+| flow_tracking_number | [string] |  |
+| order_number | [string] |  |
+| service | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`postOrganizations(options = {})`
-
-
-
-##`getOrganizationsById(id, options = {})`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`getById(organization, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`putOrganizationsById(id, options = {})`
+##`putById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`deleteOrganizationsById(id, options = {})`
+##`deleteById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getOrganizationsAndSettingsAndCurrenciesByOrganizationId(organizationId, options = {})`
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| organization_id | string |  |
-
-
-##`getOrganizationsAndVersions(options = {})`
-
+| organization | string | Refers to your organization&#x27;s account identifier |
 
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| organization | [string] | Filter to organizations with any one of these ids. |
+| notification | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
