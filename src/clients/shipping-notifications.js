@@ -19,18 +19,18 @@ export default class ShippingNotifications extends Client {
     return this.makeRequest(`${this.host}/${organization}/shipping-notifications`, options);
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${id}`, options);
+  getByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${key}`, options);
   }
 
-  putById(organization, id, options = {}) {
+  putByKey(organization, key, options = {}) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${key}`, options);
   }
 
-  deleteById(organization, id, options = {}) {
+  deleteByKey(organization, key, options = {}) {
     Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${key}`, options);
   }
 
   getVersions(organization, options = {}) {
