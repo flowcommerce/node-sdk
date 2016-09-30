@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.72",
+  "version": "0.1.77",
   "info": {
     "license": {
       "name": "MIT",
@@ -826,6 +826,125 @@
       "attributes": []
     },
     {
+      "name": "price_detail_component_key",
+      "plural": "price_detail_component_keys",
+      "values": [
+        {
+          "name": "base_price",
+          "attributes": [],
+          "description": "The base price of the item."
+        },
+        {
+          "name": "discount",
+          "attributes": [],
+          "description": "A discount applied to the item."
+        },
+        {
+          "name": "currency_margin",
+          "attributes": [],
+          "description": "The amount added to the post-discount base item price due to FX markup, as configured in the organization's currency settings."
+        },
+        {
+          "name": "percent_item_margin",
+          "attributes": [],
+          "description": "The amount added to the total item price from the percent margin, if applicable."
+        },
+        {
+          "name": "fixed_item_margin",
+          "attributes": [],
+          "description": "The amount added to the total item price from the fixed margin, if applicable."
+        },
+        {
+          "name": "duties_item_price",
+          "attributes": [],
+          "description": "The duty owed on the post-discount base item price."
+        },
+        {
+          "name": "duties_added_margin",
+          "attributes": [],
+          "description": "The duty owed on the sum of the currency margin, percent item margin, and fixed item margin."
+        },
+        {
+          "name": "duties_rounding",
+          "attributes": [],
+          "description": "The duty owed on any rounding applied to the total item price."
+        },
+        {
+          "name": "duties_deminimus",
+          "attributes": [],
+          "description": "An adjustment made if the item does not meet the duty deminimus rule."
+        },
+        {
+          "name": "vat_item_price",
+          "attributes": [],
+          "description": "The VAT owed on the post-discount base item price."
+        },
+        {
+          "name": "vat_added_margin",
+          "attributes": [],
+          "description": "The VAT owed on the sum of the currency margin, percent item margin, and fixed item margin."
+        },
+        {
+          "name": "vat_rounding",
+          "attributes": [],
+          "description": "The VAT owed on any rounding applied to the total item price."
+        },
+        {
+          "name": "vat_duties_item_price",
+          "attributes": [],
+          "description": "The VAT owed on the duty owed on the post-discount base item price."
+        },
+        {
+          "name": "vat_duties_added_margin",
+          "attributes": [],
+          "description": "The VAT owed on the duty owed on the sum of the currency margin, percent item margin, and fixed item margin."
+        },
+        {
+          "name": "vat_duties_rounding",
+          "attributes": [],
+          "description": "The VAT owed on the duty owed on any rounding applied to the total item price."
+        },
+        {
+          "name": "vat_deminimus",
+          "attributes": [],
+          "description": "An adjustment made if the item does not meet the VAT deminimus rule."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "price_detail_key",
+      "plural": "price_detail_keys",
+      "values": [
+        {
+          "name": "item_price",
+          "attributes": [],
+          "description": "The details of the item price."
+        },
+        {
+          "name": "margins",
+          "attributes": [],
+          "description": "The details of any margins added to the item price."
+        },
+        {
+          "name": "vat",
+          "attributes": [],
+          "description": "The details of any VAT owed on the item."
+        },
+        {
+          "name": "duty",
+          "attributes": [],
+          "description": "The details of any duties owed on the item."
+        },
+        {
+          "name": "rounding",
+          "attributes": [],
+          "description": "The details of any rounding added to the item."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "pricing_levy_setting",
       "plural": "pricing_levy_settings",
       "values": [
@@ -1195,6 +1314,29 @@
       ],
       "attributes": [],
       "description": "Types of updates that can be made on quantity of inventory"
+    },
+    {
+      "name": "user_status",
+      "plural": "user_statuses",
+      "values": [
+        {
+          "name": "pending",
+          "attributes": [],
+          "description": "Represents a new user account that is pending approval"
+        },
+        {
+          "name": "active",
+          "attributes": [],
+          "description": "Represents an active user account - can authenticate with this account"
+        },
+        {
+          "name": "inactive",
+          "attributes": [],
+          "description": "Represents an inactive user account - can no longer authenticate with this account"
+        }
+      ],
+      "attributes": [],
+      "description": "The status of the user account. Valid transitions are from pending -> active, active -> inactive, inactive -> active"
     },
     {
       "name": "value_added_service",
@@ -3476,37 +3618,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "conversion",
-      "plural": "conversions",
-      "fields": [
-        {
-          "name": "base",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The base iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
-          "example": "usd"
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The target iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
-          "example": "can"
-        },
-        {
-          "name": "rate",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The conversion rate from the base to target currency."
-        }
-      ],
-      "attributes": [],
-      "description": "Describes conversion information from a base currency to a target currency."
     },
     {
       "name": "country",
@@ -7276,6 +7387,27 @@
       "attributes": []
     },
     {
+      "name": "local_price_details",
+      "plural": "local_price_detailses",
+      "fields": [
+        {
+          "name": "base",
+          "type": "price_details",
+          "required": true,
+          "attributes": [],
+          "description": "Contains the localized price details, but converted to the base currency of the organization."
+        },
+        {
+          "name": "local",
+          "type": "price_details",
+          "required": true,
+          "attributes": [],
+          "description": "Contains the localized price details in the currency of the experience."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "localized_item_deleted",
       "plural": "localized_item_deleteds",
       "fields": [
@@ -7712,7 +7844,7 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Your order number for a valid Flow order. We will verify this order and authorize the total amount of the order in the currency of the order."
+          "description": "Client order number for which to authorize payment. We will automatically verify that this order exists and will authorize the total amount of the order in the currency of the order."
         },
         {
           "name": "key",
@@ -8324,6 +8456,7 @@
           "type": "[string]",
           "required": true,
           "attributes": [],
+          "description": "A summary of the errors",
           "minimum": 1
         },
         {
@@ -8331,6 +8464,7 @@
           "type": "[string]",
           "required": true,
           "attributes": [],
+          "description": "A list of all of the item numbers that are not available",
           "minimum": 1
         }
       ],
@@ -8544,6 +8678,13 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
         }
       ],
       "attributes": []
@@ -9247,54 +9388,128 @@
       "description": "Represents an amount-currency pair for a basic price"
     },
     {
+      "name": "price_check",
+      "plural": "price_checks",
+      "fields": [
+        {
+          "name": "display",
+          "type": "local_price_details",
+          "required": true,
+          "attributes": [],
+          "description": "Contains the (estimated) price details that are displayed to the user. These details will never change."
+        },
+        {
+          "name": "final",
+          "type": "local_price_details",
+          "required": true,
+          "attributes": [],
+          "description": "Contains the final price details, which are initially equal to the display details. At the order level (when shipping address is known), these details may be adjusted."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "price_detail",
+      "plural": "price_details",
+      "fields": [
+        {
+          "name": "key",
+          "type": "price_detail_key",
+          "required": true,
+          "attributes": [],
+          "description": "The key indicating what this price detail represents."
+        },
+        {
+          "name": "components",
+          "type": "[price_detail_component]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The formatted label to display for this detail, e.g. '$123.45 CAD'."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a top-level price detail, e.g. 'Subtotal' or 'VAT'."
+    },
+    {
+      "name": "price_detail_component",
+      "plural": "price_detail_components",
+      "fields": [
+        {
+          "name": "key",
+          "type": "price_detail_component_key",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The formatted label to display for this component, e.g. '$123.45 CAD'."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "price_details",
       "plural": "price_detailses",
       "fields": [
         {
-          "name": "base",
-          "type": "price",
+          "name": "currency",
+          "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The item's base price from the master catalog"
+          "description": "The currency in which these price details were calculated."
         },
         {
-          "name": "local",
-          "type": "price",
+          "name": "item_price",
+          "type": "price_detail",
           "required": true,
           "attributes": [],
-          "description": "The item's price in the currency of the experience. If the currency differs, your contracted FX rate with Flow is used to convert the base price to the local price."
+          "description": "Details of the item's base price from the master catalog, including any applicable discounts."
         },
         {
-          "name": "currency_margin",
-          "type": "price",
+          "name": "margins",
+          "type": "price_detail",
           "required": true,
           "attributes": [],
-          "description": "If you have configured FX margin, this will be the total amount of that margin as applied to the conversion from the base to local price."
-        },
-        {
-          "name": "margin",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "The amount of margin from the experience's settings"
+          "description": "Contains the currency margin, percent item margin, and fixed item margin."
         },
         {
           "name": "vat",
-          "type": "price",
+          "type": "price_detail",
           "required": true,
           "attributes": [],
           "description": "The total amount of VAT applied. VAT is applied to the item price and optionally to the duty/shipping prices based on the destination country."
         },
         {
           "name": "duty",
-          "type": "price",
+          "type": "price_detail",
           "required": true,
           "attributes": [],
           "description": "The total amount of DUTY applied. Duty is applied to the item price and optionally to the shipping prices based on the destination country, and also will take into account deminimus (thus amount may be zero if deminimus applies)."
         },
         {
           "name": "rounding",
-          "type": "price",
+          "type": "price_detail",
           "required": true,
           "attributes": [],
           "description": "The amount required to meet the rounding requirements from the experience's settings. For example, if an item price is 121.50, and the rounding setting is up to the nearest '1.00', rounding would return .50 here."
@@ -9304,23 +9519,16 @@
           "type": "price",
           "required": true,
           "attributes": [],
-          "description": "The total price (local + currency margin + item margin + vat + duty + shipping + rounding)"
+          "description": "The total price (item price + margins + VAT + duty + rounding)."
         }
       ],
       "attributes": [],
-      "description": "Detailed information for the pricing of a given item within an experience"
+      "description": "Detailed information for the pricing of a given item within an experience."
     },
     {
       "name": "price_equation",
       "plural": "price_equations",
       "fields": [
-        {
-          "name": "base_price",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The base price of the product."
-        },
         {
           "name": "contracted_rate",
           "type": "decimal",
@@ -9334,6 +9542,41 @@
           "required": true,
           "attributes": [],
           "description": "The value of the currency conversion rate that includes an organization-specific margin if applicable."
+        },
+        {
+          "name": "pricing",
+          "type": "pricing",
+          "required": true,
+          "attributes": [],
+          "description": "Contains pricing settings for VAT, duty, and rounding."
+        },
+        {
+          "name": "base_price",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The base price of the product."
+        },
+        {
+          "name": "discount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The discount to apply to the base price of the product in the same currency as the base product."
+        },
+        {
+          "name": "fixed_margin",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "A fixed amount to add, e.g 2.5 would add an absolute margin of 2.5 in the base currency of your item."
+        },
+        {
+          "name": "percent_margin",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "A percent of the base cost to add, e.g. 1.2 would represent a 1.2% increase."
         },
         {
           "name": "insurance",
@@ -9350,13 +9593,6 @@
           "description": "The freight information associated with the product."
         },
         {
-          "name": "margins",
-          "type": "[margin]",
-          "required": true,
-          "attributes": [],
-          "description": "A set of margins used to adjust the base price."
-        },
-        {
           "name": "duty",
           "type": "duty",
           "required": false,
@@ -9371,13 +9607,6 @@
           "attributes": [],
           "description": "The tax rate applicable to the product. A value of 17 indicates a tax rate of 17%.",
           "example": "17"
-        },
-        {
-          "name": "rounding",
-          "type": "rounding",
-          "required": false,
-          "attributes": [],
-          "description": "Contains information necessary to round the price of the product."
         }
       ],
       "attributes": []
@@ -10580,6 +10809,12 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "attributes",
           "type": "map[string]",
           "required": true,
@@ -10652,6 +10887,13 @@
       "name": "shipping_notification_form",
       "plural": "shipping_notification_forms",
       "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Clinet provided key. Unique per organization. If not provided, a default one will be generated."
+        },
         {
           "name": "attributes",
           "type": "map[string]",
@@ -12940,6 +13182,14 @@
           "required": true,
           "attributes": [],
           "description": "The user's name."
+        },
+        {
+          "name": "status",
+          "type": "user_status",
+          "required": true,
+          "attributes": [],
+          "description": "Only active users are authorized to login and interact with the Flow platform.",
+          "default": "active"
         }
       ],
       "attributes": [],
@@ -13054,10 +13304,10 @@
         },
         {
           "name": "events",
-          "type": "[event_type]",
+          "type": "[string]",
           "required": true,
           "attributes": [],
-          "description": "List of events that will trigger data to be sent to the webhook url",
+          "description": "List of events that will trigger data to be sent to the webhook url.",
           "minimum": 1
         }
       ],
@@ -13122,11 +13372,12 @@
         },
         {
           "name": "events",
-          "type": "[event_type]",
+          "type": "[string]",
           "required": true,
           "attributes": [],
-          "description": "List of events that will trigger data to be sent to the webhook url",
-          "minimum": 1
+          "description": "List of events that will trigger data to be sent to the webhook url. You can specify either '*' to select all events, or specific event types as listed in the type 'event_type' (with optional trailing wildcards).",
+          "minimum": 1,
+          "example": "'*', 'catalog_item_upserted', 'catalog*'"
         }
       ],
       "attributes": []
@@ -16526,7 +16777,7 @@
               }
             }
           ],
-          "description": "Provides a list of countries that can be shipped to by the organization"
+          "description": "The countries resources provides a unique list of all of the countries for which an experience exists. We generate this list of countries by iterating through all of the experience regions, and collecting all of the countries."
         },
         {
           "method": "GET",
@@ -26686,6 +26937,13 @@
               "maximum": 100
             },
             {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "carrier_tracking_number",
               "type": "[string]",
               "location": "Query",
@@ -26787,6 +27045,9 @@
                     "value": "id"
                   },
                   {
+                    "value": "key"
+                  },
+                  {
                     "value": "carrier_tracking_number"
                   },
                   {
@@ -26852,7 +27113,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/shipping-notifications/:id",
+          "path": "/:organization/shipping-notifications/:key",
           "parameters": [
             {
               "name": "organization",
@@ -26862,11 +27123,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -26902,7 +27162,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/shipping-notifications/:id",
+          "path": "/:organization/shipping-notifications/:key",
           "parameters": [
             {
               "name": "organization",
@@ -26912,14 +27172,22 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shipping_notification",
+              "description": "Successful response"
+            },
             {
               "code": {
                 "integer": {
@@ -26956,7 +27224,7 @@
         },
         {
           "method": "DELETE",
-          "path": "/:organization/shipping-notifications/:id",
+          "path": "/:organization/shipping-notifications/:key",
           "parameters": [
             {
               "name": "organization",
@@ -26966,11 +27234,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -27033,7 +27300,7 @@
               "maximum": 100
             },
             {
-              "name": "notification",
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -27095,7 +27362,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "label"
+                    "value": "key"
                   },
                   {
                     "value": "journal_timestamp"
@@ -32924,6 +33191,13 @@
               "description": "Find users with this email address. Case insensitive. Exact match"
             },
             {
+              "name": "status",
+              "type": "user_status",
+              "location": "Query",
+              "required": false,
+              "description": "Find users with this status"
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -33024,7 +33298,7 @@
             }
           ],
           "attributes": [],
-          "description": "Create a new user.",
+          "description": "Create a new user. Note that new users will be created with a status of pending and will not be able to authenticate until approved by a member of the Flow team.",
           "body": {
             "type": "user_form",
             "attributes": []
@@ -33284,7 +33558,7 @@
             }
           ],
           "attributes": [],
-          "description": "Authenticates a user by email / password.",
+          "description": "Authenticates a user by email / password. Note only users that have a status of active will be authorized.",
           "body": {
             "type": "authentication_form",
             "attributes": []
