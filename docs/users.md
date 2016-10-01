@@ -21,6 +21,7 @@ const users = client().users;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | email | string | Find users with this email address. Case insensitive. Exact match |
+| status | user_status | Find users with this status |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

@@ -25,6 +25,7 @@ const shippingNotifications = client().shippingNotifications;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
+| key | [string] |  |
 | carrier_tracking_number | [string] |  |
 | flow_tracking_number | [string] |  |
 | order_number | [string] |  |
@@ -42,34 +43,34 @@ const shippingNotifications = client().shippingNotifications;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getById(organization, id, options = {})`
+##`getByKey(organization, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
+| key | string |  |
 
 
-##`putById(organization, id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`deleteById(organization, id, options = {})`
+##`putByKey(organization, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
+| key | string |  |
+
+
+##`deleteByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
 
 
 ##`getVersions(organization, options = {})`
@@ -85,7 +86,7 @@ const shippingNotifications = client().shippingNotifications;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| notification | [string] |  |
+| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
