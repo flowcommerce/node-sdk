@@ -69,12 +69,12 @@ import Users from './users';
 
 
 const enums = {
-  authorizationDeclineCode: ['expired', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'unknown'],
+  authorizationDeclineCode: ['expired', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
   authorizationStatus: ['pending', 'pending_call_bank', 'authorized', 'declined', 'voided'],
   avsCode: ['match', 'partial', 'unsupported', 'no_match'],
   calendar: ['weekdays', 'everyday'],
   capability: ['crossdock'],
-  captureDeclineCode: ['expired', 'unknown'],
+  captureDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
   cardType: ['american_express', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   changeType: ['insert', 'update', 'delete'],
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
@@ -96,6 +96,7 @@ const enums = {
   priceDetailKey: ['item_price', 'margins', 'vat', 'duty', 'rounding'],
   pricingLevySetting: ['included', 'displayed', 'ignored'],
   queryType: ['exclusion', 'inclusion'],
+  refundDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
   role: ['admin', 'member'],
   roundingMethod: ['up', 'down', 'nearest'],
   roundingType: ['pattern', 'multiple'],

@@ -68,13 +68,18 @@
           "description": "Declined due to suspected duplicate transaction"
         },
         {
+          "name": "not_supported",
+          "attributes": [],
+          "description": "Declined as payment method is not supported"
+        },
+        {
           "name": "unknown",
           "attributes": [],
           "description": "Declined due to another reason (details not known)"
         }
       ],
       "attributes": [],
-      "description": "Contains more detail related to the reason for which an authorization was declined."
+      "description": "Contains details related to the reason for which an authorization was declined."
     },
     {
       "name": "authorization_status",
@@ -173,13 +178,18 @@
           "description": "Payment authorization has expired"
         },
         {
+          "name": "insufficient_funds",
+          "attributes": [],
+          "description": "The amount to capture exceeded the amount authorized and not yet captured"
+        },
+        {
           "name": "unknown",
           "attributes": [],
           "description": "Failed due to another reason (details not known)"
         }
       ],
       "attributes": [],
-      "description": "Contains detail related to the reason for which a capture failed."
+      "description": "Contains details related to the reason for which a capture failed."
     },
     {
       "name": "card_type",
@@ -980,6 +990,29 @@
       ],
       "attributes": [],
       "description": "Type to indicate whether query is an inclusion or exclusion"
+    },
+    {
+      "name": "refund_decline_code",
+      "plural": "refund_decline_codes",
+      "values": [
+        {
+          "name": "expired",
+          "attributes": [],
+          "description": "All associated payment captures have expired; refunds can no longer be issued"
+        },
+        {
+          "name": "insufficient_funds",
+          "attributes": [],
+          "description": "The requested refund amount exceeded the amount of remaining unrefunded funds"
+        },
+        {
+          "name": "unknown",
+          "attributes": [],
+          "description": "Failed due to another reason (details not known)"
+        }
+      ],
+      "attributes": [],
+      "description": "Contains details related to the reason for which a refund failed."
     },
     {
       "name": "role",
@@ -9522,11 +9555,18 @@
           "description": "The amount required to meet the rounding requirements from the experience's settings. For example, if an item price is 121.50, and the rounding setting is up to the nearest '1.00', rounding would return .50 here."
         },
         {
+          "name": "price",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The rounded price of the item as seen by the customer, which takes into account VAT and duty pricing settings of the experience."
+        },
+        {
           "name": "total",
           "type": "price",
           "required": true,
           "attributes": [],
-          "description": "The total price (item price + margins + VAT + duty + rounding)."
+          "description": "The total price of the item, which includes the base price, discount, margins, VAT, duty, and rounding."
         }
       ],
       "attributes": [],
