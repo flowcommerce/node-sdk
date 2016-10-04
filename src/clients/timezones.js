@@ -10,7 +10,7 @@ export default class Timezones extends Client {
     super(options);
   }
 
-  get(options = {}) {
+  getGeolocationAndTimezones(options = {}) {
     return this.makeRequest(`${this.host}/geolocation/timezones`, options);
   }
 

@@ -10,38 +10,38 @@ export default class Organizations extends Client {
     super(options);
   }
 
-  get(organization, options = {}) {
+  getCountriesByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/countries`, options);
   }
 
-  getOrganizations(options = {}) {
+  get(options = {}) {
     return this.makeRequest(`${this.host}/organizations`, options);
   }
 
-  postOrganizations(options = {}) {
+  post(options = {}) {
     Object.assign(options, { method: 'POST' });
     return this.makeRequest(`${this.host}/organizations`, options);
   }
 
-  getOrganizationsById(id, options = {}) {
+  getById(id, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${id}`, options);
   }
 
-  putOrganizationsById(id, options = {}) {
+  putById(id, options = {}) {
     Object.assign(options, { method: 'PUT' });
     return this.makeRequest(`${this.host}/organizations/${id}`, options);
   }
 
-  deleteOrganizationsById(id, options = {}) {
+  deleteById(id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/organizations/${id}`, options);
   }
 
-  getOrganizationsAndSettingsAndCurrenciesByOrganizationId(organizationId, options = {}) {
+  getSettingsAndCurrenciesByOrganizationId(organizationId, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/currencies`, options);
   }
 
-  getOrganizationsAndVersions(options = {}) {
+  getVersions(options = {}) {
     return this.makeRequest(`${this.host}/organizations/versions`, options);
   }
 

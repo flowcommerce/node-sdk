@@ -74,4 +74,5 @@ These resources mirror the official documentation located at
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) | All of the metadata associated with a given token. |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |
+| [uploads](uploads.md) | Provides the ability to upload a file to a URL (an expiring s3 url, usually valid for 1 week) |
 | [users](users.md) |  |

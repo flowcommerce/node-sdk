@@ -12,7 +12,7 @@ const timezones = client().timezones;
 
 ## Operations
 
-##`get(options = {})`
+##`getGeolocationAndTimezones(options = {})`
 
 
 ### Query Parameters

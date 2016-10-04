@@ -12,7 +12,7 @@ const organizations = client().organizations;
 
 ## Operations
 
-##`get(organization, options = {})`
+##`getCountriesByOrganization(organization, options = {})`
 
 ### Function Parameters
 
@@ -21,7 +21,7 @@ const organizations = client().organizations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getOrganizations(options = {})`
+##`get(options = {})`
 
 
 ### Query Parameters
@@ -36,20 +36,11 @@ const organizations = client().organizations;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`postOrganizations(options = {})`
+##`post(options = {})`
 
 
 
-##`getOrganizationsById(id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`putOrganizationsById(id, options = {})`
+##`getById(id, options = {})`
 
 ### Function Parameters
 
@@ -58,7 +49,7 @@ const organizations = client().organizations;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`deleteOrganizationsById(id, options = {})`
+##`putById(id, options = {})`
 
 ### Function Parameters
 
@@ -67,7 +58,16 @@ const organizations = client().organizations;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getOrganizationsAndSettingsAndCurrenciesByOrganizationId(organizationId, options = {})`
+##`deleteById(id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`getSettingsAndCurrenciesByOrganizationId(organizationId, options = {})`
 
 ### Function Parameters
 
@@ -76,7 +76,7 @@ const organizations = client().organizations;
 | organization_id | string |  |
 
 
-##`getOrganizationsAndVersions(options = {})`
+##`getVersions(options = {})`
 
 
 ### Query Parameters

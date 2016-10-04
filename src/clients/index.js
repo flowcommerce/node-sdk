@@ -65,6 +65,7 @@ import PasswordResetForms from './password-reset-forms';
 import Suggestions from './suggestions';
 import Tokens from './tokens';
 import TokenValidations from './token-validations';
+import Uploads from './uploads';
 import Users from './users';
 
 
@@ -194,6 +195,7 @@ export default class ApiClient {
     this.suggestions = new Suggestions(options);
     this.tokens = new Tokens(options);
     this.tokenValidations = new TokenValidations(options);
+    this.uploads = new Uploads(options);
     this.users = new Users(options);
   }
 }
