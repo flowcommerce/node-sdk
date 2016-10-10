@@ -23,6 +23,10 @@ export default class Refunds extends Client {
     return this.makeRequest(`${this.host}/${organization}/refunds/${key}`, options);
   }
 
+  getSummaryByOrderNumber(organization, orderNumber, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/refunds/summary/${orderNumber}`, options);
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/refunds/versions`, options);
   }

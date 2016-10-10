@@ -58,6 +58,7 @@ import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Exports from './exports';
 import Healthchecks from './healthchecks';
+import Imports from './imports';
 import Invitations from './invitations';
 import Memberships from './memberships';
 import OrganizationAuthorizations from './organization-authorizations';
@@ -81,13 +82,15 @@ const enums = {
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],
   environment: ['sandbox', 'production'],
-  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'order_deleted', 'order_upserted', 'order_booking_deleted', 'order_booking_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'tracking_label_event_upserted'],
+  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'order_deleted', 'order_upserted', 'order_booking_deleted', 'order_booking_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
+  importType: ['harmonization_codes'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
   localizedPriceKey: ['price', 'subtotal', 'vat', 'duty', 'discount', 'shipping', 'total'],
+  localizedPriceNoteKey: ['duty_included', 'vat_included', 'vat_and_duty_included'],
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
@@ -188,6 +191,7 @@ export default class ApiClient {
     this.emailVerifications = new EmailVerifications(options);
     this.exports = new Exports(options);
     this.healthchecks = new Healthchecks(options);
+    this.imports = new Imports(options);
     this.invitations = new Invitations(options);
     this.memberships = new Memberships(options);
     this.organizationAuthorizations = new OrganizationAuthorizations(options);
