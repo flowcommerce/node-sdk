@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Taxes extends Client {
+export default class ExperienceDefaults extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -11,7 +11,7 @@ export default class Taxes extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/harmonization/taxes`, options);
+    return this.makeRequest(`${this.host}/${organization}/experience/defaults`, options);
   }
 
 }

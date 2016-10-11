@@ -4630,6 +4630,58 @@
       "description": "Experiences define a local experience for a given geographic region"
     },
     {
+      "name": "experience_defaults",
+      "plural": "experience_defaults",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Default key - guaranteed to be unique"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Default name for the experience - guaranteed to be unique"
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "measurement_system",
+          "type": "measurement_system",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Defines a set of defaults for a given organization and region"
+    },
+    {
       "name": "experience_deleted",
       "plural": "experience_deleteds",
       "fields": [
@@ -8603,7 +8655,7 @@
         },
         {
           "name": "prices",
-          "type": "[localized_price]",
+          "type": "[order_price_detail]",
           "required": true,
           "attributes": []
         },
@@ -15899,6 +15951,72 @@
       "description": "Experiences define a local experience for a given geographic region"
     },
     {
+      "type": "experience_defaults",
+      "plural": "experience_defaults",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/experience/defaults",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "region_id",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "experience_defaults",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns recommended default settings when creating a new experience"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/experience/defaults",
+      "description": "Defines a set of defaults for a given organization and region"
+    },
+    {
       "type": "item",
       "plural": "items",
       "operations": [
@@ -21742,102 +21860,6 @@
       "path": "/currency/spot-rates"
     },
     {
-      "type": "duty",
-      "plural": "duties",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/harmonization/duties/:origin",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "origin",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "The ISO 3166 3 character code for country of origin",
-              "minimum": 3,
-              "maximum": 3,
-              "example": "chn"
-            },
-            {
-              "name": "number",
-              "type": "string",
-              "location": "Query",
-              "required": true
-            },
-            {
-              "name": "address",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "example": "22 Hudson Pl, Hoboken NJ 07030 USA"
-            },
-            {
-              "name": "ip",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "duty",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
-            }
-          ],
-          "attributes": []
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "path": "/:organization/harmonization/duties/:origin"
-    },
-    {
       "type": "harmonization_settings",
       "plural": "harmonization_settings",
       "operations": [
@@ -23332,86 +23354,6 @@
       ],
       "path": "/:organization/harmonization/hs6",
       "description": "API to fetch HS-6 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item."
-    },
-    {
-      "type": "tax",
-      "plural": "taxes",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/harmonization/taxes",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "address",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "example": "22 Hudson Pl, Hoboken NJ 07030 USA"
-            },
-            {
-              "name": "ip",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "tax",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "Common error would be that we were unable to resolve the destination using the provided parameters (e.g. address or ip address)"
-            }
-          ],
-          "attributes": []
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "path": "/:organization/harmonization/taxes"
     },
     {
       "type": "authorization",

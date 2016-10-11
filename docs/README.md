@@ -10,6 +10,7 @@ These resources mirror the official documentation located at
 | [attributes](attributes.md) | An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console. |
 | [catalogs](catalogs.md) |  |
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
+| [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing. |
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
@@ -23,7 +24,6 @@ These resources mirror the official documentation located at
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
 | [spotRates](spotRates.md) |  |
-| [duties](duties.md) |  |
 | [harmonizationSettings](harmonizationSettings.md) | Organization level settings. |
 | [harmonizedCategories](harmonizedCategories.md) | Categories optimized for harmonization |
 | [harmonizedItems](harmonizedItems.md) | A harmonized item stores explicit information about this item for the purposes of harmonization / classification. The harmonization process begins by creating a harmonized item; this kicks off the internal processes. Once assigned, codes will be available via the hs6 and hs10 resources |
@@ -31,7 +31,6 @@ These resources mirror the official documentation located at
 | [harmonizedLandedCosts](harmonizedLandedCosts.md) | Summary of landed cost data (taxes and duties) for 1 or more items going to a single destination country. Records are unique based on (item.number, country of origin). |
 | [hs10](hs10.md) | API to fetch HS-10 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. That is, each code is unique across your item number, country of origin and destination. |
 | [hs6](hs6.md) | API to fetch HS-6 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. |
-| [taxes](taxes.md) |  |
 | [authorizations](authorizations.md) | An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization. |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |

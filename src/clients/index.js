@@ -1,6 +1,7 @@
 import Attributes from './attributes';
 import Catalogs from './catalogs';
 import Experiences from './experiences';
+import ExperienceDefaults from './experience-defaults';
 import Items from './items';
 import Orders from './orders';
 import OrderEstimates from './order-estimates';
@@ -14,7 +15,6 @@ import ItemFunctions from './item-functions';
 import OrganizationCurrencySettings from './organization-currency-settings';
 import Rates from './rates';
 import SpotRates from './spot-rates';
-import Duties from './duties';
 import HarmonizationSettings from './harmonization-settings';
 import HarmonizedCategories from './harmonized-categories';
 import HarmonizedItems from './harmonized-items';
@@ -22,7 +22,6 @@ import HarmonizedItemDuties from './harmonized-item-duties';
 import HarmonizedLandedCosts from './harmonized-landed-costs';
 import Hs10 from './hs10';
 import Hs6 from './hs6';
-import Taxes from './taxes';
 import Authorizations from './authorizations';
 import Captures from './captures';
 import Cards from './cards';
@@ -134,6 +133,7 @@ export default class ApiClient {
     this.attributes = new Attributes(options);
     this.catalogs = new Catalogs(options);
     this.experiences = new Experiences(options);
+    this.experienceDefaults = new ExperienceDefaults(options);
     this.items = new Items(options);
     this.orders = new Orders(options);
     this.orderEstimates = new OrderEstimates(options);
@@ -147,7 +147,6 @@ export default class ApiClient {
     this.organizationCurrencySettings = new OrganizationCurrencySettings(options);
     this.rates = new Rates(options);
     this.spotRates = new SpotRates(options);
-    this.duties = new Duties(options);
     this.harmonizationSettings = new HarmonizationSettings(options);
     this.harmonizedCategories = new HarmonizedCategories(options);
     this.harmonizedItems = new HarmonizedItems(options);
@@ -155,7 +154,6 @@ export default class ApiClient {
     this.harmonizedLandedCosts = new HarmonizedLandedCosts(options);
     this.hs10 = new Hs10(options);
     this.hs6 = new Hs6(options);
-    this.taxes = new Taxes(options);
     this.authorizations = new Authorizations(options);
     this.captures = new Captures(options);
     this.cards = new Cards(options);
