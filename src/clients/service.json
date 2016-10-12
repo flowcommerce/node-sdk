@@ -584,6 +584,26 @@
       "attributes": []
     },
     {
+      "name": "included_levy_key",
+      "plural": "included_levy_keys",
+      "values": [
+        {
+          "name": "duty",
+          "attributes": []
+        },
+        {
+          "name": "vat",
+          "attributes": []
+        },
+        {
+          "name": "vat_and_duty",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The key of each possible localized price note is defined here."
+    },
+    {
       "name": "levy_component",
       "plural": "levy_components",
       "values": [
@@ -630,63 +650,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "localized_price_key",
-      "plural": "localized_price_keys",
-      "values": [
-        {
-          "name": "price",
-          "attributes": [],
-          "description": "The calculated price, taking into account pricing settings. For example, if vat is set to be included in the price, this value will be equal to subtotal + vat, rounded per the settings. This is the price you should lead with when displaying to consumers"
-        },
-        {
-          "name": "subtotal",
-          "attributes": []
-        },
-        {
-          "name": "vat",
-          "attributes": []
-        },
-        {
-          "name": "duty",
-          "attributes": []
-        },
-        {
-          "name": "discount",
-          "attributes": []
-        },
-        {
-          "name": "shipping",
-          "attributes": []
-        },
-        {
-          "name": "total",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
-    },
-    {
-      "name": "localized_price_note_key",
-      "plural": "localized_price_note_keys",
-      "values": [
-        {
-          "name": "duty_included",
-          "attributes": []
-        },
-        {
-          "name": "vat_included",
-          "attributes": []
-        },
-        {
-          "name": "vat_and_duty_included",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "The key of each possible localized price note is defined here."
     },
     {
       "name": "margin_type",
@@ -1710,7 +1673,7 @@
       ],
       "attributes": [],
       "discriminator": "discriminator",
-      "description": "An item function can be represented with just it's Id, or the entire model"
+      "description": "An item function can be represented with just its Id, or the entire model"
     },
     {
       "name": "expandable_organization",
@@ -1818,6 +1781,31 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Types of rules used to apply on inventory to calculate available quantity"
+    },
+    {
+      "name": "localized_price",
+      "plural": "localized_prices",
+      "types": [
+        {
+          "type": "localized_item_price",
+          "attributes": []
+        },
+        {
+          "type": "localized_item_vat",
+          "attributes": []
+        },
+        {
+          "type": "localized_item_duty",
+          "attributes": []
+        },
+        {
+          "type": "localized_total",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "key",
+      "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
     },
     {
       "name": "order_error",
@@ -6256,6 +6244,27 @@
       "attributes": []
     },
     {
+      "name": "included_levies",
+      "plural": "included_levies",
+      "fields": [
+        {
+          "name": "key",
+          "type": "included_levy_key",
+          "required": true,
+          "attributes": [],
+          "description": "Describes what's included in the price"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The label for the included levies that can be displayed as a tooltip on the product detail page."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "inventory_backorder",
       "plural": "inventory_backorders",
       "fields": [
@@ -7704,6 +7713,75 @@
       "attributes": []
     },
     {
+      "name": "localized_item_duty",
+      "plural": "localized_item_duties",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "localized_item_price",
+      "plural": "localized_item_prices",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "includes",
+          "type": "included_levies",
+          "required": false,
+          "attributes": [],
+          "description": "Describes what's included in the price"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "localized_item_snapshot",
       "plural": "localized_item_snapshots",
       "fields": [
@@ -7842,6 +7920,45 @@
       "attributes": []
     },
     {
+      "name": "localized_item_vat",
+      "plural": "localized_item_vats",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The specific name of the tax in the local region.",
+          "example": "VAT, GST, HST, etc."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "localized_line_item",
       "plural": "localized_line_items",
       "fields": [
@@ -7905,15 +8022,9 @@
       "description": "Line items on the order, with localized pricing information"
     },
     {
-      "name": "localized_price",
-      "plural": "localized_prices",
+      "name": "localized_total",
+      "plural": "localized_totals",
       "fields": [
-        {
-          "name": "key",
-          "type": "localized_price_key",
-          "required": true,
-          "attributes": []
-        },
         {
           "name": "currency",
           "type": "string",
@@ -7937,35 +8048,6 @@
           "type": "price",
           "required": true,
           "attributes": []
-        },
-        {
-          "name": "note",
-          "type": "localized_price_note",
-          "required": false,
-          "attributes": [],
-          "description": "If present, contains a note that should be displayed to the user, e.g. when VAT is included in the price."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "localized_price_note",
-      "plural": "localized_price_notes",
-      "fields": [
-        {
-          "name": "key",
-          "type": "localized_price_note_key",
-          "required": true,
-          "attributes": [],
-          "description": "The key indicating the purpose of the note, so the label can be customized if the default is not desired."
-        },
-        {
-          "name": "label",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The default label for this localized price note.",
-          "example": "Includes VAT"
         }
       ],
       "attributes": []
@@ -8491,7 +8573,7 @@
         },
         {
           "name": "total",
-          "type": "localized_price",
+          "type": "localized_total",
           "required": true,
           "attributes": []
         },
@@ -8661,7 +8743,7 @@
         },
         {
           "name": "total",
-          "type": "localized_price",
+          "type": "localized_total",
           "required": true,
           "attributes": []
         }
@@ -10533,24 +10615,47 @@
           "example": "20.00"
         },
         {
-          "name": "available_to_refund",
+          "name": "amounts",
+          "type": "refund_order_summary_amounts",
+          "required": true,
+          "attributes": [],
+          "description": "Suggested amounts to refund based on the most common use cases"
+        }
+      ],
+      "attributes": [],
+      "description": "For merchant of record authorizations, we provide a summary of refund information primarily to support customer service workflow."
+    },
+    {
+      "name": "refund_order_summary_amounts",
+      "plural": "refund_order_summary_amounts",
+      "fields": [
+        {
+          "name": "balance",
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "The total amount of refunds available to refund.",
+          "description": "The total amount of funds available to refund (sum of all captures minus all prior refunds).",
+          "example": "110.38"
+        },
+        {
+          "name": "balance_excluding_shipping",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "The balance minus shipping costs. If there was either no shipping cost or the remaining balance is < shipping cost, this field will not be provided.",
           "example": "100.38"
         },
         {
           "name": "shipping",
           "type": "decimal",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "The total amount of shipping on the order. We highlight this value separately to simplify use cases where a full refund minus shipping is used.",
+          "description": "The total amount of shipping on the order, if there was a shipping fee. We highlight this value separately to simplify use cases where a full refund minus shipping is used.",
           "example": "9.95"
         }
       ],
       "attributes": [],
-      "description": "For merchant of record authorizations, we provide a summary of refund information primarily to support customer service workflow."
+      "description": "Detailed examples of amount to refund following common ecommerce use cases."
     },
     {
       "name": "refund_upserted",
