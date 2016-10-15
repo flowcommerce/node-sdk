@@ -33901,6 +33901,19 @@
               "required": false
             },
             {
+              "name": "organization",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "partner",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
