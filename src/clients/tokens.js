@@ -37,8 +37,14 @@ export default class Tokens extends Client {
     return this.makeRequest(`${this.host}/tokens/authentications`, options);
   }
 
-  getVersions(options = {}) {
-    return this.makeRequest(`${this.host}/tokens/versions`, options);
+  postAuthenticationsAndOrganizationsByOrganization(organization, options = {}) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/tokens/authentications/organizations/${organization}`, options);
+  }
+
+  postAuthenticationsAndPartnersByPartner(partner, options = {}) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/tokens/authentications/partners/${partner}`, options);
   }
 
 }

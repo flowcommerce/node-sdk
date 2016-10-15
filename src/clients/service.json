@@ -24,6 +24,24 @@
   "imports": [],
   "enums": [
     {
+      "name": "adjustment_reason_key",
+      "plural": "adjustment_reason_keys",
+      "values": [
+        {
+          "name": "duty_deminimus",
+          "attributes": [],
+          "description": "If the duty deminimus value has not been met, an adjustment may be made to offset any previously calculated duty."
+        },
+        {
+          "name": "tax_deminimus",
+          "attributes": [],
+          "description": "If the tax deminimus value has not been met, an adjustment may be made to offset any previously calculated tax."
+        }
+      ],
+      "attributes": [],
+      "description": "The key of each possible adjustment is defined here."
+    },
+    {
       "name": "authorization_decline_code",
       "plural": "authorization_decline_codes",
       "values": [
@@ -197,6 +215,14 @@
       "values": [
         {
           "name": "american_express",
+          "attributes": []
+        },
+        {
+          "name": "ban_contact",
+          "attributes": []
+        },
+        {
+          "name": "cartes_bancaires",
           "attributes": []
         },
         {
@@ -1849,6 +1875,46 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Possible outcome types from a tier rule"
+    },
+    {
+      "name": "token",
+      "plural": "tokens",
+      "types": [
+        {
+          "type": "legacy_token",
+          "attributes": []
+        },
+        {
+          "type": "organization_token",
+          "attributes": []
+        },
+        {
+          "type": "partner_token",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "token_form",
+      "plural": "token_forms",
+      "types": [
+        {
+          "type": "legacy_token_form",
+          "attributes": []
+        },
+        {
+          "type": "organization_token_form",
+          "attributes": []
+        },
+        {
+          "type": "partner_token_form",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
     }
   ],
   "models": [
@@ -1991,6 +2057,26 @@
       ],
       "attributes": [],
       "description": "Address verification returns information on whether or not an address is valid and deliverable - meaning carriers will accept this address. Also returns suggestions for address correction, including data to highlight specific fields to correct."
+    },
+    {
+      "name": "adjustment_reason",
+      "plural": "adjustment_reasons",
+      "fields": [
+        {
+          "name": "key",
+          "type": "adjustment_reason_key",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The label for the adjustment reason that can be displayed as a tooltip on the product detail page."
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "amount_margin",
@@ -6167,11 +6253,10 @@
           "attributes": []
         },
         {
-          "name": "results_url",
-          "type": "string",
+          "name": "results",
+          "type": "import_results",
           "required": false,
-          "attributes": [],
-          "description": "Once this import is complete, this will be the URL at which detailed information on the results of the import will be stored. This includes any errors during the import process."
+          "attributes": []
         },
         {
           "name": "deliveries",
@@ -6210,6 +6295,32 @@
       ],
       "attributes": [],
       "description": "Import forms create imports. The import type defines both the type of the import (e.g. the CSV File format) and the URL at which the source data are available. If you do not have a URL readily available, you can first upload a file via the Flow API - see the resource named 'Upload'"
+    },
+    {
+      "name": "import_results",
+      "plural": "import_results",
+      "fields": [
+        {
+          "name": "number_successful",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number_errors",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If there were any errors, this URL wil contain detailed information on the lines that failed to import and why."
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "import_version",
@@ -6251,8 +6362,7 @@
           "name": "key",
           "type": "included_levy_key",
           "required": true,
-          "attributes": [],
-          "description": "Describes what's included in the price"
+          "attributes": []
         },
         {
           "name": "label",
@@ -7514,6 +7624,82 @@
       "description": "ISO 639 2-character language code. See https://api.flow.io/reference/languages"
     },
     {
+      "name": "legacy_token",
+      "plural": "legacy_tokens",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "user",
+          "type": "user_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "partial",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The partial API token",
+          "example": "a21TK-XXXXX-lJ38i"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "description": "The date/time on which this token was created"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "All of the metadata associated with a given token."
+    },
+    {
+      "name": "legacy_token_form",
+      "plural": "legacy_token_forms",
+      "fields": [
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "legacy_token_reference",
+      "plural": "legacy_token_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "user",
+          "type": "user_reference",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Summary data for a given token"
+    },
+    {
       "name": "line_item",
       "plural": "line_items",
       "fields": [
@@ -7673,6 +7859,43 @@
       "attributes": []
     },
     {
+      "name": "localized_adjustment",
+      "plural": "localized_adjustments",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "reason",
+          "type": "adjustment_reason",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "localized_item_deleted",
       "plural": "localized_item_deleteds",
       "fields": [
@@ -7739,6 +7962,13 @@
           "type": "price",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "adjustment",
+          "type": "localized_adjustment",
+          "required": false,
+          "attributes": [],
+          "description": "An adjustment may need to be applied to VAT at the order level if the deminimus value is met; if so, its value is stored here."
         }
       ],
       "attributes": []
@@ -7776,7 +8006,7 @@
           "type": "included_levies",
           "required": false,
           "attributes": [],
-          "description": "Describes what's included in the price"
+          "description": "Describes which levies are included in the price, if any."
         }
       ],
       "attributes": []
@@ -7954,6 +8184,13 @@
           "attributes": [],
           "description": "The specific name of the tax in the local region.",
           "example": "VAT, GST, HST, etc."
+        },
+        {
+          "name": "adjustment",
+          "type": "localized_adjustment",
+          "required": false,
+          "attributes": [],
+          "description": "An adjustment may need to be applied to VAT at the order level if the deminimus value is met; if so, its value is stored here."
         }
       ],
       "attributes": []
@@ -9493,6 +9730,116 @@
       "attributes": []
     },
     {
+      "name": "organization_token",
+      "plural": "organization_tokens",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "organization",
+          "type": "organization_reference",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "user",
+          "type": "user_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "partial",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The partial API token",
+          "example": "a21TK-XXXXX-lJ38i"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "description": "The date/time on which this token was created"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "All of the metadata associated with a given token."
+    },
+    {
+      "name": "organization_token_form",
+      "plural": "organization_token_forms",
+      "fields": [
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Used to create a new token. User making the request must be authorized to create a token for this organization."
+    },
+    {
+      "name": "organization_token_reference",
+      "plural": "organization_token_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "organization",
+          "type": "organization_reference",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "user",
+          "type": "user_reference",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Summary data for a given token"
+    },
+    {
       "name": "organization_upserted",
       "plural": "organization_upserteds",
       "fields": [
@@ -9605,6 +9952,114 @@
       ],
       "attributes": [],
       "description": "Represents packaging available to ship items"
+    },
+    {
+      "name": "partner_token",
+      "plural": "partner_tokens",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "partner",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "user",
+          "type": "user_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "partial",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The partial API token",
+          "example": "a21TK-XXXXX-lJ38i"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "description": "The date/time on which this token was created"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "All of the metadata associated with a given token."
+    },
+    {
+      "name": "partner_token_form",
+      "plural": "partner_token_forms",
+      "fields": [
+        {
+          "name": "partner",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Used to create a new token. User making the request must be authorized to create a token for this partner."
+    },
+    {
+      "name": "partner_token_reference",
+      "plural": "partner_token_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "partner",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Id of the partner for which this token was created"
+        },
+        {
+          "name": "user",
+          "type": "user_reference",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Summary data for a given token"
     },
     {
       "name": "password_change_form",
@@ -12931,48 +13386,6 @@
       "description": "Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones"
     },
     {
-      "name": "token",
-      "plural": "tokens",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "user",
-          "type": "user_reference",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "partial",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The partial API token",
-          "example": "a21TK-XXXXX-lJ38i"
-        },
-        {
-          "name": "created_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "description": "The date/time on which this token was created"
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "All of the metadata associated with a given token."
-    },
-    {
       "name": "token_authentication_form",
       "plural": "token_authentication_forms",
       "fields": [
@@ -12986,41 +13399,6 @@
       ],
       "attributes": [],
       "description": "Used to authenticate a given token."
-    },
-    {
-      "name": "token_form",
-      "plural": "token_forms",
-      "fields": [
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Used to create a new token for the user authorized by the request. You can only create an API token for your own account."
-    },
-    {
-      "name": "token_reference",
-      "plural": "token_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "user",
-          "type": "user_reference",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Summary data for a given token"
     },
     {
       "name": "token_validation",
@@ -13051,38 +13429,6 @@
       ],
       "attributes": [],
       "description": "Defines the payload of a request to validate a token, with primary goal of preventing the token from being included in an HTTP GET."
-    },
-    {
-      "name": "token_version",
-      "plural": "token_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "token",
-          "type": "token",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "tracking",
@@ -14016,7 +14362,14 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The content returned from the webhook URL. This is ignored by Flow but retained for your information."
+          "description": "The first 1k of the content returned from the webhook URL. This is ignored by Flow but retained for your information."
+        },
+        {
+          "name": "body_url",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If the returned body was > 1k, the full contents is stored at this URL."
         },
         {
           "name": "status",
@@ -33545,8 +33898,7 @@
               "name": "token",
               "type": "string",
               "location": "Query",
-              "required": false,
-              "description": "Filter by this token"
+              "required": false
             },
             {
               "name": "limit",
@@ -33611,9 +33963,17 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
             }
           ],
-          "description": "Get all tokens that you are authorized to view. Note that the cleartext token value is never sent. To view the API token itself, see the resource path /:id/cleartext"
+          "description": "Get all tokens that you are authorized to view. Note that the cleartext token value is never sent. To view the API token itself, see the resource path /tokens/:id/cleartext"
         },
         {
           "method": "POST",
@@ -33797,7 +34157,7 @@
                   "value": 200
                 }
               },
-              "type": "token_reference",
+              "type": "legacy_token_reference",
               "description": "Successful response"
             },
             {
@@ -33829,57 +34189,25 @@
             }
           ],
           "attributes": [],
-          "description": "Preferred method to validate a token, obtaining user information if the token is valid (or a 404 if the token does not exist). We use an HTTP POST with a form body to enusre that the token itself is not logged in the request logs.",
+          "description": "Preferred method to validate a token, obtaining specific information if the token is valid (or a 404 if the token does not exist). We use an HTTP POST with a form body to enusre that the token itself is not logged in the request logs.",
+          "deprecation": {
+            "description": "Replaced by partner and org specific routes"
+          },
           "body": {
             "type": "token_authentication_form",
             "attributes": []
           }
         },
         {
-          "method": "GET",
-          "path": "/tokens/versions",
+          "method": "POST",
+          "path": "/tokens/authentications/organizations/:organization",
           "parameters": [
             {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "token_id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter to tokens with any one of these ids.",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
+              "name": "organization",
               "type": "string",
-              "location": "Query",
+              "location": "Path",
               "required": true,
-              "default": "journal_timestamp"
+              "description": "Refers to your organization's account identifier"
             }
           ],
           "responses": [
@@ -33889,7 +34217,7 @@
                   "value": 200
                 }
               },
-              "type": "[token_version]",
+              "type": "organization_token_reference",
               "description": "Successful response"
             },
             {
@@ -33900,26 +34228,88 @@
               },
               "type": "unit",
               "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
-          "attributes": [
+          "attributes": [],
+          "description": "Preferred method to validate a token if valid for a given partner, obtaining specific information if the token is valid (or a 404 if the token does not exist). We use an HTTP POST with a form body to enusre that the token itself is not logged in the request logs.",
+          "body": {
+            "type": "token_authentication_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/tokens/authentications/partners/:partner",
+          "parameters": [
             {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "token_id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
+              "name": "partner",
+              "type": "string",
+              "location": "Path",
+              "required": true
             }
-          ]
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "partner_token_reference",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Preferred method to validate a token if valid for a given partner, obtaining specific information if the token is valid (or a 404 if the token does not exist). We use an HTTP POST with a form body to enusre that the token itself is not logged in the request logs.",
+          "body": {
+            "type": "token_authentication_form",
+            "attributes": []
+          }
         }
       ],
       "attributes": [
@@ -33930,8 +34320,7 @@
           }
         }
       ],
-      "path": "/tokens",
-      "description": "All of the metadata associated with a given token."
+      "path": "/tokens"
     },
     {
       "type": "token_validation",

@@ -72,7 +72,7 @@ These resources mirror the official documentation located at
 | [organizationAuthorizations](organizationAuthorizations.md) | Defines the data used for broad authorization of user access to org level data |
 | [passwordResetForms](passwordResetForms.md) |  |
 | [suggestions](suggestions.md) |  |
-| [tokens](tokens.md) | All of the metadata associated with a given token. |
+| [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |
 | [uploads](uploads.md) | Provides the ability to upload a file to a URL (an expiring s3 url, usually valid for 1 week) |
 | [users](users.md) |  |

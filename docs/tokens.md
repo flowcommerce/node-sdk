@@ -1,6 +1,6 @@
 # [API](README.md).tokens - Flow Commerce API - Node SDK Documentation
 
-All of the metadata associated with a given token.
+
 
 ## Usage
 
@@ -20,7 +20,7 @@ const tokens = client().tokens;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| token | string | Filter by this token |
+| token | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -60,16 +60,21 @@ const tokens = client().tokens;
 
 
 
-##`getVersions(options = {})`
+##`postAuthenticationsAndOrganizationsByOrganization(organization, options = {})`
 
-
-### Query Parameters
+### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| token_id | [string] | Filter to tokens with any one of these ids. |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`postAuthenticationsAndPartnersByPartner(partner, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| partner | string |  |
+
 

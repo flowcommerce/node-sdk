@@ -70,13 +70,14 @@ import Users from './users';
 
 
 const enums = {
+  adjustmentReasonKey: ['duty_deminimus', 'tax_deminimus'],
   authorizationDeclineCode: ['expired', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
   authorizationStatus: ['pending', 'pending_call_bank', 'authorized', 'declined', 'voided'],
   avsCode: ['match', 'partial', 'unsupported', 'no_match'],
   calendar: ['weekdays', 'everyday'],
   capability: ['crossdock'],
   captureDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
-  cardType: ['american_express', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
+  cardType: ['american_express', 'ban_contact', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   changeType: ['insert', 'update', 'delete'],
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],
