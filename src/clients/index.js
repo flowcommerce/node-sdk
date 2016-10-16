@@ -77,7 +77,7 @@ const enums = {
   calendar: ['weekdays', 'everyday'],
   capability: ['crossdock'],
   captureDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
-  cardType: ['american_express', 'ban_contact', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
+  cardType: ['american_express', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   changeType: ['insert', 'update', 'delete'],
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],

@@ -218,10 +218,6 @@
           "attributes": []
         },
         {
-          "name": "ban_contact",
-          "attributes": []
-        },
-        {
           "name": "cartes_bancaires",
           "attributes": []
         },
@@ -1881,10 +1877,6 @@
       "plural": "tokens",
       "types": [
         {
-          "type": "legacy_token",
-          "attributes": []
-        },
-        {
           "type": "organization_token",
           "attributes": []
         },
@@ -1901,15 +1893,27 @@
       "plural": "token_forms",
       "types": [
         {
-          "type": "legacy_token_form",
-          "attributes": []
-        },
-        {
           "type": "organization_token_form",
           "attributes": []
         },
         {
           "type": "partner_token_form",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "token_reference",
+      "plural": "token_references",
+      "types": [
+        {
+          "type": "organization_token_reference",
+          "attributes": []
+        },
+        {
+          "type": "partner_token_reference",
           "attributes": []
         }
       ],
@@ -7624,82 +7628,6 @@
       "description": "ISO 639 2-character language code. See https://api.flow.io/reference/languages"
     },
     {
-      "name": "legacy_token",
-      "plural": "legacy_tokens",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "user",
-          "type": "user_reference",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "partial",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The partial API token",
-          "example": "a21TK-XXXXX-lJ38i"
-        },
-        {
-          "name": "created_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "description": "The date/time on which this token was created"
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "All of the metadata associated with a given token."
-    },
-    {
-      "name": "legacy_token_form",
-      "plural": "legacy_token_forms",
-      "fields": [
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "legacy_token_reference",
-      "plural": "legacy_token_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "user",
-          "type": "user_reference",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Summary data for a given token"
-    },
-    {
       "name": "line_item",
       "plural": "line_items",
       "fields": [
@@ -9429,6 +9357,26 @@
       "description": "Defines the data used for broad authorization of user access to org level data"
     },
     {
+      "name": "organization_authorization_form",
+      "plural": "organization_authorization_forms",
+      "fields": [
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "organization_currency_setting",
       "plural": "organization_currency_settings",
       "fields": [
@@ -9830,6 +9778,12 @@
           "description": "Refers to your organization's account identifier"
         },
         {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "user",
           "type": "user_reference",
           "required": true,
@@ -9954,6 +9908,20 @@
       "description": "Represents packaging available to ship items"
     },
     {
+      "name": "partner_reference",
+      "plural": "partner_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "partner_token",
       "plural": "partner_tokens",
       "fields": [
@@ -9966,7 +9934,7 @@
         },
         {
           "name": "partner",
-          "type": "string",
+          "type": "partner_reference",
           "required": true,
           "attributes": []
         },
@@ -10046,10 +10014,16 @@
         },
         {
           "name": "partner",
-          "type": "string",
+          "type": "partner_reference",
           "required": true,
           "attributes": [],
           "description": "The Id of the partner for which this token was created"
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
         },
         {
           "name": "user",
@@ -33523,17 +33497,9 @@
       "plural": "organization_authorizations",
       "operations": [
         {
-          "method": "GET",
-          "path": "/organization-authorizations/:organization",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
+          "method": "POST",
+          "path": "/organization-authorizations",
+          "parameters": [],
           "responses": [
             {
               "code": {
@@ -33552,10 +33518,23 @@
               },
               "type": "unit",
               "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [],
-          "description": "For the authorized user, if the specified organization exists, and the user is an active member of this organization, returns the authorization data used throughout APIs at Flow, including the user's role in that organization and the organization environment. Otherwise, returns 401 - this indicates either the org does not exist or the user does not have access to the org."
+          "description": "For the authorized user, if the specified organization exists, and the user is an active member of this organization, returns the authorization data used throughout APIs at Flow, including the user's role in that organization and the organization environment. Otherwise, returns 401 - this indicates either the org does not exist or the user does not have access to the org.",
+          "body": {
+            "type": "organization_authorization_form",
+            "attributes": []
+          }
         }
       ],
       "attributes": [
@@ -33895,12 +33874,6 @@
               "maximum": 100
             },
             {
-              "name": "token",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
               "name": "organization",
               "type": "string",
               "location": "Query",
@@ -34170,7 +34143,7 @@
                   "value": 200
                 }
               },
-              "type": "legacy_token_reference",
+              "type": "token_reference",
               "description": "Successful response"
             },
             {
@@ -34203,122 +34176,6 @@
           ],
           "attributes": [],
           "description": "Preferred method to validate a token, obtaining specific information if the token is valid (or a 404 if the token does not exist). We use an HTTP POST with a form body to enusre that the token itself is not logged in the request logs.",
-          "deprecation": {
-            "description": "Replaced by partner and org specific routes"
-          },
-          "body": {
-            "type": "token_authentication_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "POST",
-          "path": "/tokens/authentications/organizations/:organization",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "organization_token_reference",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Preferred method to validate a token if valid for a given partner, obtaining specific information if the token is valid (or a 404 if the token does not exist). We use an HTTP POST with a form body to enusre that the token itself is not logged in the request logs.",
-          "body": {
-            "type": "token_authentication_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "POST",
-          "path": "/tokens/authentications/partners/:partner",
-          "parameters": [
-            {
-              "name": "partner",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "partner_token_reference",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Preferred method to validate a token if valid for a given partner, obtaining specific information if the token is valid (or a 404 if the token does not exist). We use an HTTP POST with a form body to enusre that the token itself is not logged in the request logs.",
           "body": {
             "type": "token_authentication_form",
             "attributes": []

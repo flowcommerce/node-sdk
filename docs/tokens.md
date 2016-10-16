@@ -20,7 +20,6 @@ const tokens = client().tokens;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| token | string |  |
 | organization | string | Refers to your organization&#x27;s account identifier |
 | partner | string |  |
 | limit | long | The maximum number of results to return |
@@ -60,23 +59,5 @@ const tokens = client().tokens;
 
 ##`postAuthentications(options = {})`
 
-
-
-##`postAuthenticationsAndOrganizationsByOrganization(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`postAuthenticationsAndPartnersByPartner(partner, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| partner | string |  |
 
 
