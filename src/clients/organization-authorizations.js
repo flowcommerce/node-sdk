@@ -15,4 +15,8 @@ export default class OrganizationAuthorizations extends Client {
     return this.makeRequest(`${this.host}/organization-authorizations`, options);
   }
 
+  getByOrganization(organization, options = {}) {
+    return this.makeRequest(`${this.host}/organization-authorizations/${organization}`, options);
+  }
+
 }

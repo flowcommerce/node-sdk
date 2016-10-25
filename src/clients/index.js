@@ -61,6 +61,8 @@ import Imports from './imports';
 import Invitations from './invitations';
 import Memberships from './memberships';
 import OrganizationAuthorizations from './organization-authorizations';
+import OrganizationTokens from './organization-tokens';
+import PartnerTokens from './partner-tokens';
 import PasswordResetForms from './password-reset-forms';
 import Suggestions from './suggestions';
 import Tokens from './tokens';
@@ -70,13 +72,14 @@ import Users from './users';
 
 
 const enums = {
-  adjustmentReasonKey: ['duty_deminimus', 'tax_deminimus'],
-  authorizationDeclineCode: ['expired', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
+  adjustmentReasonKey: ['duty_deminimis', 'tax_deminimis'],
+  authorizationDeclineCode: ['expired', 'invalid_name', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
   authorizationStatus: ['pending', 'pending_call_bank', 'authorized', 'declined', 'voided'],
   avsCode: ['match', 'partial', 'unsupported', 'no_match'],
   calendar: ['weekdays', 'everyday'],
   capability: ['crossdock'],
   captureDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
+  cardErrorCode: ['invalid_address', 'invalid_name', 'invalid_number', 'invalid_expiration', 'avs', 'cvv', 'fraud', 'unknown'],
   cardType: ['american_express', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   changeType: ['insert', 'update', 'delete'],
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
@@ -85,6 +88,7 @@ const enums = {
   eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'flow_currency_setting_deleted', 'flow_currency_setting_upserted', 'rate_deleted', 'rate_upserted', 'spot_rate_deleted', 'spot_rate_upserted', 'organization_currency_setting_deleted', 'organization_currency_setting_upserted', 'contracted_rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'order_deleted', 'order_upserted', 'order_booking_deleted', 'order_booking_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
+  genericErrorCode: ['generic_error', 'client_error', 'server_error'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   importType: ['harmonization_codes'],
   includedLevyKey: ['duty', 'vat', 'vat_and_duty'],
@@ -93,9 +97,10 @@ const enums = {
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
-  orderPriceDetailComponentKey: ['adjustment', 'tax_deminimus', 'duty_deminimus', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount'],
+  orderErrorCode: ['generic_error', 'order_item_not_available'],
+  orderPriceDetailComponentKey: ['adjustment', 'tax_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
-  priceDetailComponentKey: ['base_price', 'discount', 'currency_margin', 'percent_item_margin', 'fixed_item_margin', 'duties_item_price', 'duties_added_margin', 'duties_rounding', 'duties_deminimus', 'vat_item_price', 'vat_added_margin', 'vat_rounding', 'vat_duties_item_price', 'vat_duties_added_margin', 'vat_duties_rounding', 'vat_deminimus'],
+  priceDetailComponentKey: ['base_price', 'discount', 'currency_margin', 'percent_item_margin', 'fixed_item_margin', 'duties_item_price', 'duties_added_margin', 'duties_rounding', 'duties_deminimis', 'vat_item_price', 'vat_added_margin', 'vat_rounding', 'vat_duties_item_price', 'vat_duties_added_margin', 'vat_duties_rounding', 'vat_deminimis'],
   priceDetailKey: ['item_price', 'margins', 'vat', 'duty', 'rounding'],
   pricingLevySetting: ['included', 'displayed', 'ignored'],
   queryType: ['exclusion', 'inclusion'],
@@ -193,6 +198,8 @@ export default class ApiClient {
     this.invitations = new Invitations(options);
     this.memberships = new Memberships(options);
     this.organizationAuthorizations = new OrganizationAuthorizations(options);
+    this.organizationTokens = new OrganizationTokens(options);
+    this.partnerTokens = new PartnerTokens(options);
     this.passwordResetForms = new PasswordResetForms(options);
     this.suggestions = new Suggestions(options);
     this.tokens = new Tokens(options);

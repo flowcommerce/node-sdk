@@ -28,14 +28,14 @@
       "plural": "adjustment_reason_keys",
       "values": [
         {
-          "name": "duty_deminimus",
+          "name": "duty_deminimis",
           "attributes": [],
-          "description": "If the duty deminimus value has not been met, an adjustment may be made to offset any previously calculated duty."
+          "description": "If the duty de minimis value has not been met, an adjustment may be made to offset any previously calculated duty."
         },
         {
-          "name": "tax_deminimus",
+          "name": "tax_deminimis",
           "attributes": [],
-          "description": "If the tax deminimus value has not been met, an adjustment may be made to offset any previously calculated tax."
+          "description": "If the tax de minimis value has not been met, an adjustment may be made to offset any previously calculated tax."
         }
       ],
       "attributes": [],
@@ -49,6 +49,11 @@
           "name": "expired",
           "attributes": [],
           "description": "Payment method has expired"
+        },
+        {
+          "name": "invalid_name",
+          "attributes": [],
+          "description": "Invalid card holder name"
         },
         {
           "name": "invalid_number",
@@ -208,6 +213,53 @@
       ],
       "attributes": [],
       "description": "Contains details related to the reason for which a capture failed."
+    },
+    {
+      "name": "card_error_code",
+      "plural": "card_error_codes",
+      "values": [
+        {
+          "name": "invalid_address",
+          "attributes": [],
+          "description": "Invalid billing address"
+        },
+        {
+          "name": "invalid_name",
+          "attributes": [],
+          "description": "Invalid cardholder name"
+        },
+        {
+          "name": "invalid_number",
+          "attributes": [],
+          "description": "Invalid payment number"
+        },
+        {
+          "name": "invalid_expiration",
+          "attributes": [],
+          "description": "Invalid expiration date"
+        },
+        {
+          "name": "avs",
+          "attributes": [],
+          "description": "Declined due to avs mismatch"
+        },
+        {
+          "name": "cvv",
+          "attributes": [],
+          "description": "Declined due to cvv mismatch"
+        },
+        {
+          "name": "fraud",
+          "attributes": [],
+          "description": "Declined due to suspected fraud"
+        },
+        {
+          "name": "unknown",
+          "attributes": [],
+          "description": "Declined due to another reason (details not known)"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "card_type",
@@ -579,6 +631,28 @@
       "description": "Export status is a finite state machine with valid transitions of created to processing, processing to completed or failed"
     },
     {
+      "name": "generic_error_code",
+      "plural": "generic_error_codes",
+      "values": [
+        {
+          "name": "generic_error",
+          "attributes": [],
+          "description": "Generic errors are the default type. The accompanying message will provide details on the failure."
+        },
+        {
+          "name": "client_error",
+          "attributes": [],
+          "description": "A client error has occurred. This represents a misconfiguration of the client"
+        },
+        {
+          "name": "server_error",
+          "attributes": [],
+          "description": "A server error has occurred. The Flow tech team is automatically notified of all server errors"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "holiday_calendar",
       "plural": "holiday_calendars",
       "values": [
@@ -719,6 +793,22 @@
       "description": "The available methods by which we deliver each webhook event"
     },
     {
+      "name": "order_error_code",
+      "plural": "order_error_codes",
+      "values": [
+        {
+          "name": "generic_error",
+          "attributes": []
+        },
+        {
+          "name": "order_item_not_available",
+          "attributes": [],
+          "description": "When creating an order, if a particular item is not available in the country / destination (either because it was restricted or excluded from that country), we return this error code and list the specific item numbers which are not available in the 'numbers' field."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_price_detail_component_key",
       "plural": "order_price_detail_component_keys",
       "values": [
@@ -728,14 +818,14 @@
           "description": "A general purpose adjustment applied to the order."
         },
         {
-          "name": "tax_deminimus",
+          "name": "tax_deminimis",
           "attributes": [],
-          "description": "An adjustment based on whether the tax deminimus applies to the order."
+          "description": "An adjustment based on whether the tax de minimis applies to the order."
         },
         {
-          "name": "duty_deminimus",
+          "name": "duty_deminimis",
           "attributes": [],
-          "description": "An adjustment based on whether the duty deminimus applies to the order."
+          "description": "An adjustment based on whether the duty de minimis applies to the order."
         },
         {
           "name": "duties_item_price",
@@ -897,9 +987,9 @@
           "description": "The duty owed on any rounding applied to the total item price."
         },
         {
-          "name": "duties_deminimus",
+          "name": "duties_deminimis",
           "attributes": [],
-          "description": "An adjustment made if the item does not meet the duty deminimus rule."
+          "description": "An adjustment made if the item does not meet the duty de minimis rule."
         },
         {
           "name": "vat_item_price",
@@ -932,9 +1022,9 @@
           "description": "The VAT owed on the duty owed on any rounding applied to the total item price."
         },
         {
-          "name": "vat_deminimus",
+          "name": "vat_deminimis",
           "attributes": [],
-          "description": "An adjustment made if the item does not meet the VAT deminimus rule."
+          "description": "An adjustment made if the item does not meet the VAT de minimis rule."
         }
       ],
       "attributes": []
@@ -1454,16 +1544,21 @@
       "description": "Flow provides several different options for creating an authorization"
     },
     {
-      "name": "deminimus",
-      "plural": "deminimuses",
+      "name": "deminimis",
+      "plural": "deminimises",
       "types": [
         {
-          "type": "deminimus_simple",
+          "type": "deminimis_simple",
+          "attributes": []
+        },
+        {
+          "type": "deminimis_per_item",
           "attributes": []
         }
       ],
       "attributes": [],
-      "discriminator": "discriminator"
+      "discriminator": "discriminator",
+      "description": "De Minimis describes the country specific rules for exactly how tax and duties are calculated, as well as any exemptions that apply. See https://en.wikipedia.org/wiki/De_minimis for more information."
     },
     {
       "name": "document",
@@ -1825,25 +1920,18 @@
           "attributes": []
         }
       ],
-      "attributes": [],
-      "discriminator": "key",
-      "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
-    },
-    {
-      "name": "order_error",
-      "plural": "order_errors",
-      "types": [
+      "attributes": [
         {
-          "type": "order_item_not_available_error",
-          "attributes": []
-        },
-        {
-          "type": "generic_error",
-          "attributes": []
+          "name": "linter",
+          "value": {
+            "ignore": [
+              "discriminator"
+            ]
+          }
         }
       ],
-      "attributes": [],
-      "discriminator": "code"
+      "discriminator": "key",
+      "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
     },
     {
       "name": "tier_rule_outcome",
@@ -2293,13 +2381,6 @@
           "attributes": [],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
-        },
-        {
-          "name": "cvv",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The card verification number for the payment method for which you are requesting an authorization. PCI prevents us from storing the verification value, but if you present as part of the authorization you may improve your acceptance rates."
         },
         {
           "name": "result",
@@ -2846,6 +2927,42 @@
       "attributes": []
     },
     {
+      "name": "card_error",
+      "plural": "card_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "card_error_code",
+          "required": true,
+          "attributes": [],
+          "description": "Specific reason for the error"
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "avs",
+          "type": "avs",
+          "required": false,
+          "attributes": [],
+          "description": "Specific AVS information if applicable"
+        },
+        {
+          "name": "cvv",
+          "type": "cvv",
+          "required": false,
+          "attributes": [],
+          "description": "Specific CVV information if applicable"
+        }
+      ],
+      "attributes": [],
+      "description": "Details for why a card was declined"
+    },
+    {
       "name": "card_form",
       "plural": "card_forms",
       "fields": [
@@ -2902,6 +3019,14 @@
           "required": false,
           "attributes": [],
           "description": "Cardholder billing address"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
         },
         {
           "name": "challenge_text",
@@ -4341,8 +4466,39 @@
       "attributes": []
     },
     {
-      "name": "deminimus_simple",
-      "plural": "deminimus_simples",
+      "name": "deminimis_per_item",
+      "plural": "deminimis_per_items",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO-4217 3 character currency code in which the value is calculated"
+        },
+        {
+          "name": "minimum",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, the minimum amount due per item",
+          "minimum": 0
+        },
+        {
+          "name": "maximum",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, the maximum amount due per item",
+          "minimum": 0
+        }
+      ],
+      "attributes": [],
+      "description": "De Minimis per item describes rules which require minimum and/or maximum values per item"
+    },
+    {
+      "name": "deminimis_simple",
+      "plural": "deminimis_simples",
       "fields": [
         {
           "name": "value",
@@ -4370,11 +4526,12 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "If the value of the deminimus is less than the minimum, no tax or duty is due",
+          "description": "If the value of the de minimis is less than the minimum, no tax or duty is due",
           "minimum": 0
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "De Minimis for most common example which includes a value threshold and rules on what components are used in the duty calculation"
     },
     {
       "name": "dimension",
@@ -4549,11 +4706,11 @@
           "minimum": 1
         },
         {
-          "name": "deminimus",
-          "type": "deminimus",
+          "name": "deminimis",
+          "type": "deminimis",
           "required": false,
           "attributes": [],
-          "description": "Describes the duty deminimus if there is one for this destination"
+          "description": "Describes the duty de minimis if there is one for this destination"
         }
       ],
       "attributes": [],
@@ -5332,6 +5489,14 @@
       "name": "generic_error",
       "plural": "generic_errors",
       "fields": [
+        {
+          "name": "code",
+          "type": "generic_error_code",
+          "required": true,
+          "attributes": [],
+          "description": "Generic errors will always have a code set to 'generic_error'",
+          "default": "generic_error"
+        },
         {
           "name": "messages",
           "type": "[string]",
@@ -7896,7 +8061,7 @@
           "type": "localized_adjustment",
           "required": false,
           "attributes": [],
-          "description": "An adjustment may need to be applied to VAT at the order level if the deminimus value is met; if so, its value is stored here."
+          "description": "An adjustment may need to be applied to VAT at the order level if the de minimis value is met; if so, its value is stored here."
         }
       ],
       "attributes": []
@@ -8118,7 +8283,7 @@
           "type": "localized_adjustment",
           "required": false,
           "attributes": [],
-          "description": "An adjustment may need to be applied to VAT at the order level if the deminimus value is met; if so, its value is stored here."
+          "description": "An adjustment may need to be applied to VAT at the order level if the de minimis value is met; if so, its value is stored here."
         }
       ],
       "attributes": []
@@ -8878,6 +9043,34 @@
       "attributes": []
     },
     {
+      "name": "order_error",
+      "plural": "order_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "order_error_code",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A summary of the errors",
+          "minimum": 1
+        },
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A list of all of the item numbers that are not available"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_estimate",
       "plural": "order_estimates",
       "fields": [
@@ -8985,30 +9178,6 @@
       ],
       "attributes": [],
       "description": "The order form is used to create an open order, providing the details on pricing and delivery options for destination and items/quantities specified"
-    },
-    {
-      "name": "order_item_not_available_error",
-      "plural": "order_item_not_available_errors",
-      "fields": [
-        {
-          "name": "messages",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "description": "A summary of the errors",
-          "minimum": 1
-        },
-        {
-          "name": "numbers",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "description": "A list of all of the item numbers that are not available",
-          "minimum": 1
-        }
-      ],
-      "attributes": [],
-      "description": "When creating an order, if a particular item is not available in the country / destination (either because it was restricted or excluded from that country), we return this error to highlight the specific item numbers which are not available."
     },
     {
       "name": "order_price_detail",
@@ -10251,7 +10420,7 @@
           "type": "price_detail",
           "required": true,
           "attributes": [],
-          "description": "The total amount of DUTY applied. Duty is applied to the item price and optionally to the shipping prices based on the destination country, and also will take into account deminimus (thus amount may be zero if deminimus applies)."
+          "description": "The total amount of DUTY applied. Duty is applied to the item price and optionally to the shipping prices based on the destination country, and also will take into account de minimis (thus amount may be zero if de minimis applies)."
         },
         {
           "name": "rounding",
@@ -12910,11 +13079,11 @@
           "minimum": 1
         },
         {
-          "name": "deminimus",
-          "type": "deminimus",
+          "name": "deminimis",
+          "type": "deminimis",
           "required": false,
           "attributes": [],
-          "description": "Describes the tax deminimus if there is one for this destination"
+          "description": "Describes the tax de minimis if there is one for this destination"
         }
       ],
       "attributes": [],
@@ -24596,7 +24765,7 @@
                   "value": 422
                 }
               },
-              "type": "generic_error",
+              "type": "card_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -24706,69 +24875,6 @@
           ],
           "attributes": [],
           "description": "Deletes the specified card"
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/cards/:token/updates",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "token",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "card",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Updates are implemented as copy on write. This method is a convenience method that will transactionally DELETE the card with the specified token, then CREATE a new card with the data from this request. Note that this means the returned credit card token will be DIFFERENT from the one used in the request.",
-          "body": {
-            "type": "card_form",
-            "attributes": []
-          }
         },
         {
           "method": "POST",
@@ -33535,6 +33641,50 @@
             "type": "organization_authorization_form",
             "attributes": []
           }
+        },
+        {
+          "method": "GET",
+          "path": "/organization-authorizations/:organization",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "organization_authorization",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "For the authorized user and specific organization, if the user is an active member of this organization, returns the authorization data used throughout APIs at Flow, including the user's role in that organization and the organization environment."
         }
       ],
       "attributes": [
@@ -33547,6 +33697,239 @@
       ],
       "path": "/organization-authorizations",
       "description": "Defines the data used for broad authorization of user access to org level data"
+    },
+    {
+      "type": "organization_token",
+      "plural": "organization_tokens",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/tokens",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "mine",
+              "type": "boolean",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to tokens created by the requesting user"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[organization_token]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "description"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Get all tokens for the specifed organization"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/:organization/tokens",
+      "description": "All of the metadata associated with a given token."
+    },
+    {
+      "type": "partner_token",
+      "plural": "partner_tokens",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/partners/:partner/tokens",
+          "parameters": [
+            {
+              "name": "partner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "mine",
+              "type": "boolean",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to tokens created by the requesting user"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[partner_token]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "description"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Get all tokens for the specifed partner"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/partners/:partner/tokens",
+      "description": "All of the metadata associated with a given token."
     },
     {
       "type": "password_reset_form",
@@ -33878,13 +34261,21 @@
               "type": "string",
               "location": "Query",
               "required": false,
-              "description": "Refers to your organization's account identifier"
+              "description": "Filter to tokens created for this organization"
             },
             {
               "name": "partner",
               "type": "string",
               "location": "Query",
-              "required": false
+              "required": false,
+              "description": "Filter to tokens created for this partner"
+            },
+            {
+              "name": "mine",
+              "type": "boolean",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to tokens created by the requesting user"
             },
             {
               "name": "limit",

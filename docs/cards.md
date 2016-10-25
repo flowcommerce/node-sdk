@@ -59,16 +59,6 @@ const cards = client().cards;
 | token | string |  |
 
 
-##`postUpdatesByToken(organization, token, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| token | string |  |
-
-
 ##`postNonces(organization, options = {})`
 
 ### Function Parameters

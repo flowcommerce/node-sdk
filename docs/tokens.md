@@ -20,8 +20,9 @@ const tokens = client().tokens;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| partner | string |  |
+| organization | string | Filter to tokens created for this organization |
+| partner | string | Filter to tokens created for this partner |
+| mine | boolean | Filter to tokens created by the requesting user |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

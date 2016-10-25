@@ -70,6 +70,8 @@ These resources mirror the official documentation located at
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |
 | [organizationAuthorizations](organizationAuthorizations.md) | Defines the data used for broad authorization of user access to org level data |
+| [organizationTokens](organizationTokens.md) | All of the metadata associated with a given token. |
+| [partnerTokens](partnerTokens.md) | All of the metadata associated with a given token. |
 | [passwordResetForms](passwordResetForms.md) |  |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) |  |
