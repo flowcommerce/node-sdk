@@ -92,6 +92,7 @@ const enums = {
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   importType: ['harmonization_codes'],
   includedLevyKey: ['duty', 'vat', 'vat_and_duty'],
+  invitationErrorCode: ['expired', 'invalid_email'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
   marginType: ['fixed', 'percent'],

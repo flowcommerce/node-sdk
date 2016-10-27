@@ -193,6 +193,25 @@ const experiences = client().experiences;
 | key | string |  |
 
 
+##`getFormattersByBaseAndAmount(organization, base, amount, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| base | string | The currency of the provided amount, which will be converted to the experience currency, unless a value is specified for the &#x60;currency&#x60; parameter. |
+| amount | string | The amount in the base currency to be converted. |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| experience | string | If specified, we will render the items in the context of the experience with this key. |
+| country | string |  |
+| ip | string |  |
+| currency | string | If specified, the provided base amount will be converted to and formatted in this currency. |
+
 ##`getItems(organization, options = {})`
 
 ### Function Parameters

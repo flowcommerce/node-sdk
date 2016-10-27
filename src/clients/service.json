@@ -700,6 +700,21 @@
       "description": "The key of each possible localized price note is defined here."
     },
     {
+      "name": "invitation_error_code",
+      "plural": "invitation_error_codes",
+      "values": [
+        {
+          "name": "expired",
+          "attributes": []
+        },
+        {
+          "name": "invalid_email",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "levy_component",
       "plural": "levy_components",
       "values": [
@@ -6971,17 +6986,25 @@
       "description": "An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization."
     },
     {
-      "name": "invitation_accepts_form",
-      "plural": "invitation_accepts_forms",
+      "name": "invitation_error",
+      "plural": "invitation_errors",
       "fields": [
         {
-          "name": "user_id",
-          "type": "string",
+          "name": "code",
+          "type": "invitation_error_code",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Returns information as to why a particular invitation could not be accepted."
     },
     {
       "name": "invitation_form",
@@ -11769,7 +11792,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item]",
+          "type": "[line_item_form]",
           "required": true,
           "attributes": [],
           "description": "List of items and quantities going into this shipment",
@@ -16190,6 +16213,99 @@
             "type": "pricing",
             "attributes": []
           }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/formatters/:base/:amount",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "base",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "The currency of the provided amount, which will be converted to the experience currency, unless a value is specified for the `currency` parameter."
+            },
+            {
+              "name": "amount",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "The amount in the base currency to be converted."
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will render the items in the context of the experience with this key."
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, the provided base amount will be converted to and formatted in this currency."
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "price_with_base",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Formats the requested amount using the formatting settings for the experience."
         },
         {
           "method": "GET",
@@ -33045,16 +33161,12 @@
                   "value": 422
                 }
               },
-              "type": "generic_error",
+              "type": "invitation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [],
-          "description": "Accepts the invitation w/ the specified token, creating a membership record for this user within this organization. Invitations are one time use only - you will get a validation error if the invitation has previously been accepted.",
-          "body": {
-            "type": "invitation_accepts_form",
-            "attributes": []
-          }
+          "description": "Accepts the invitation w/ the specified token and the authenticated user. Creating a membership record for this user within this organization. Invitations are one time use only - you will get a validation error if the invitation has previously been accepted or if the user's email addresses do not match the email on the invite."
         },
         {
           "method": "GET",
