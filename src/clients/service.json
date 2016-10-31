@@ -33,9 +33,9 @@
           "description": "If the duty de minimis value has not been met, an adjustment may be made to offset any previously calculated duty."
         },
         {
-          "name": "tax_deminimis",
+          "name": "vat_deminimis",
           "attributes": [],
-          "description": "If the tax de minimis value has not been met, an adjustment may be made to offset any previously calculated tax."
+          "description": "If the VAT de minimis value has not been met, an adjustment may be made to offset any previously calculated VAT."
         }
       ],
       "attributes": [],
@@ -103,6 +103,29 @@
       ],
       "attributes": [],
       "description": "Contains details related to the reason for which an authorization was declined."
+    },
+    {
+      "name": "authorization_delete_error_code",
+      "plural": "authorization_delete_error_codes",
+      "values": [
+        {
+          "name": "expired",
+          "attributes": [],
+          "description": "Payment authorization has expired"
+        },
+        {
+          "name": "captured",
+          "attributes": [],
+          "description": "Payment authorization has already been captured. Please create a refund."
+        },
+        {
+          "name": "unknown",
+          "attributes": [],
+          "description": "Failed due to another reason (details not known)"
+        }
+      ],
+      "attributes": [],
+      "description": "Contains details related to the reason for which a cancel failed."
     },
     {
       "name": "authorization_status",
@@ -833,9 +856,9 @@
           "description": "A general purpose adjustment applied to the order."
         },
         {
-          "name": "tax_deminimis",
+          "name": "vat_deminimis",
           "attributes": [],
-          "description": "An adjustment based on whether the tax de minimis applies to the order."
+          "description": "An adjustment based on whether the VAT de minimis applies to the order."
         },
         {
           "name": "duty_deminimis",
@@ -2412,6 +2435,27 @@
       ],
       "attributes": [],
       "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
+    },
+    {
+      "name": "authorization_delete_error",
+      "plural": "authorization_delete_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "authorization_delete_error_code",
+          "required": true,
+          "attributes": [],
+          "description": "Specific reason for the error"
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "authorization_deleted",
@@ -4518,30 +4562,30 @@
         {
           "name": "value",
           "type": "decimal",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "The value below which no tax or duty is collected"
+          "description": "The value below which no tax or duty is collected, which is a sum of the values associated with the de minimis components."
         },
         {
           "name": "currency",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The ISO-4217 3 character currency code in which the value is calculated"
+          "description": "The ISO-4217 3 character currency code in which the value is calculated."
         },
         {
           "name": "components",
           "type": "[levy_component]",
           "required": true,
           "attributes": [],
-          "description": "The components which are used to determine the value. Note that these components may be different from the components for the tax or duty itself"
+          "description": "The components that are used to determine the value. Note that these components may be different from the components for the VAT or duty itself."
         },
         {
           "name": "minimum",
           "type": "decimal",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "If the value of the de minimis is less than the minimum, no tax or duty is due",
+          "description": "If the calculated VAT or duty amount is less than the minimum, no VAT or duty is owed. In other words, this is the minimum payable amount.",
           "minimum": 0
         }
       ],
@@ -8899,7 +8943,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "order_address",
           "required": true,
           "attributes": []
         },
@@ -8940,6 +8984,72 @@
       ],
       "attributes": [],
       "description": "An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing."
+    },
+    {
+      "name": "order_address",
+      "plural": "order_addresses",
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Full text version of address"
+        },
+        {
+          "name": "streets",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Array for street line 1, street line 2, etc., in order"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "province",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "postal",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "latitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "longitude",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "contact",
+          "type": "contact",
+          "required": false,
+          "attributes": [],
+          "description": "Contact information of entity at the address"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "order_booking",
@@ -9173,7 +9283,7 @@
         },
         {
           "name": "destination",
-          "type": "address",
+          "type": "order_address",
           "required": true,
           "attributes": []
         },
@@ -9298,7 +9408,7 @@
       "fields": [
         {
           "name": "destination",
-          "type": "address",
+          "type": "order_address",
           "required": true,
           "attributes": []
         },
@@ -16216,7 +16326,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/experiences/formatters/:base/:amount",
+          "path": "/:organization/experiences/conversions/:base/:amount",
           "parameters": [
             {
               "name": "organization",
@@ -17601,6 +17711,75 @@
           ],
           "attributes": [],
           "description": "Delete an order. Note that production orders that have already been booked cannot be deleted (you will see a 422 response in these cases)."
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/orders/:number/bookings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[order_booking]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Get an order booking for an order number."
         },
         {
           "method": "PUT",
@@ -24318,7 +24497,7 @@
                   "value": 422
                 }
               },
-              "type": "generic_error",
+              "type": "authorization_delete_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],

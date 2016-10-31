@@ -78,8 +78,8 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/pricing`, options);
   }
 
-  getFormattersByBaseAndAmount(organization, base, amount, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/formatters/${base}/${amount}`, options);
+  getConversionsByBaseAndAmount(organization, base, amount, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/conversions/${base}/${amount}`, options);
   }
 
   getItems(organization, options = {}) {

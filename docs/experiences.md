@@ -193,7 +193,7 @@ const experiences = client().experiences;
 | key | string |  |
 
 
-##`getFormattersByBaseAndAmount(organization, base, amount, options = {})`
+##`getConversionsByBaseAndAmount(organization, base, amount, options = {})`
 
 ### Function Parameters
 

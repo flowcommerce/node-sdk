@@ -72,8 +72,9 @@ import Users from './users';
 
 
 const enums = {
-  adjustmentReasonKey: ['duty_deminimis', 'tax_deminimis'],
+  adjustmentReasonKey: ['duty_deminimis', 'vat_deminimis'],
   authorizationDeclineCode: ['expired', 'invalid_name', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
+  authorizationDeleteErrorCode: ['expired', 'captured', 'unknown'],
   authorizationStatus: ['pending', 'pending_call_bank', 'authorized', 'declined', 'voided'],
   avsCode: ['match', 'partial', 'unsupported', 'no_match'],
   calendar: ['weekdays', 'everyday'],
@@ -99,7 +100,7 @@ const enums = {
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
   orderErrorCode: ['generic_error', 'order_item_not_available'],
-  orderPriceDetailComponentKey: ['adjustment', 'tax_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount'],
+  orderPriceDetailComponentKey: ['adjustment', 'vat_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
   priceDetailComponentKey: ['base_price', 'discount', 'currency_margin', 'percent_item_margin', 'fixed_item_margin', 'duties_item_price', 'duties_added_margin', 'duties_rounding', 'duties_deminimis', 'vat_item_price', 'vat_added_margin', 'vat_rounding', 'vat_duties_item_price', 'vat_duties_added_margin', 'vat_duties_rounding', 'vat_deminimis'],
   priceDetailKey: ['item_price', 'margins', 'vat', 'duty', 'rounding'],

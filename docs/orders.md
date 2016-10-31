@@ -87,6 +87,16 @@ const orders = client().orders;
 | number | string |  |
 
 
+##`getBookingsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
 ##`putBookingsByNumber(organization, number, options = {})`
 
 ### Function Parameters
