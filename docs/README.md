@@ -12,7 +12,7 @@ These resources mirror the official documentation located at
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
 | [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
-| [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is booked before its expiration. The intended use case is to create an order as a consumer enters checkout, then to book that order in order processing. |
+| [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see a payment authorization for an order. |
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
 | [organizations](organizations.md) |  |
 | [queries](queries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
@@ -44,6 +44,7 @@ These resources mirror the official documentation located at
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
 | [quoteEstimates](quoteEstimates.md) |  |
+| [rmas](rmas.md) |  |
 | [services](services.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |

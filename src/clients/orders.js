@@ -33,13 +33,9 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
   }
 
-  getBookingsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/bookings`, options);
-  }
-
-  putBookingsByNumber(organization, number, options = {}) {
+  putSubmissionsByNumber(organization, number, options = {}) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/bookings`, options);
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, options);
   }
 
   getVersions(organization, options = {}) {

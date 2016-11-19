@@ -1,4 +1,4 @@
-# [API](README.md).catalogs - Flow Commerce API - Node SDK Documentation
+# [API](README.md).rmas - Flow Commerce API - Node SDK Documentation
 
 
 
@@ -7,12 +7,34 @@
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const catalogs = client().catalogs;
+const rmas = client().rmas;
 ```
 
 ## Operations
 
-##`getCatalog(organization, options = {})`
+##`get(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| number | [string] |  |
+| carrier_tracking_number | [string] |  |
+| flow_tracking_number | [string] |  |
+| order_number | [string] |  |
+| service | [string] |  |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
+##`post(organization, options = {})`
 
 ### Function Parameters
 
@@ -21,7 +43,17 @@ const catalogs = client().catalogs;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getCatalogAndRestrictions(organization, options = {})`
+##`getById(organization, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`getVersions(organization, options = {})`
 
 ### Function Parameters
 
@@ -38,43 +70,4 @@ const catalogs = client().catalogs;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-
-##`getCatalogAndRestrictionsByNumber(organization, number, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
-
-
-##`putCatalogAndRestrictionsByNumber(organization, number, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
-
-
-##`deleteCatalogAndRestrictionsByNumber(organization, number, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
-
-
-##`getCatalogAndStatistics(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
 
