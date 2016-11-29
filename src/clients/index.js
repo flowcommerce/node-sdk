@@ -27,16 +27,13 @@ import Captures from './captures';
 import Cards from './cards';
 import PublicKeys from './public-keys';
 import Refunds from './refunds';
-import Carriers from './carriers';
 import Centers from './centers';
 import DeliveryWindows from './delivery-windows';
 import InventoryRules from './inventory-rules';
 import InventorySnapshots from './inventory-snapshots';
 import InventoryUpdates from './inventory-updates';
 import Quotes from './quotes';
-import QuoteEstimates from './quote-estimates';
 import Rmas from './rmas';
-import Services from './services';
 import ShippingLabels from './shipping-labels';
 import ShippingNotifications from './shipping-notifications';
 import Tiers from './tiers';
@@ -57,7 +54,12 @@ import Regions from './regions';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Exports from './exports';
+import HarmonizationCountries from './harmonization-countries';
+import HarmonizationStatistics from './harmonization-statistics';
+import HarmonizationSummaries from './harmonization-summaries';
 import Healthchecks from './healthchecks';
+import Hs10Codes from './hs10-codes';
+import Hs6Codes from './hs6-codes';
 import Imports from './imports';
 import Invitations from './invitations';
 import Memberships from './memberships';
@@ -91,6 +93,7 @@ const enums = {
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
+  harmonizationScope: ['with_codes', 'without_codes'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   importType: ['harmonization_codes'],
   includedLevyKey: ['duty', 'vat', 'vat_and_duty'],
@@ -167,16 +170,13 @@ export default class ApiClient {
     this.cards = new Cards(options);
     this.publicKeys = new PublicKeys(options);
     this.refunds = new Refunds(options);
-    this.carriers = new Carriers(options);
     this.centers = new Centers(options);
     this.deliveryWindows = new DeliveryWindows(options);
     this.inventoryRules = new InventoryRules(options);
     this.inventorySnapshots = new InventorySnapshots(options);
     this.inventoryUpdates = new InventoryUpdates(options);
     this.quotes = new Quotes(options);
-    this.quoteEstimates = new QuoteEstimates(options);
     this.rmas = new Rmas(options);
-    this.services = new Services(options);
     this.shippingLabels = new ShippingLabels(options);
     this.shippingNotifications = new ShippingNotifications(options);
     this.tiers = new Tiers(options);
@@ -197,7 +197,12 @@ export default class ApiClient {
     this.documents = new Documents(options);
     this.emailVerifications = new EmailVerifications(options);
     this.exports = new Exports(options);
+    this.harmonizationCountries = new HarmonizationCountries(options);
+    this.harmonizationStatistics = new HarmonizationStatistics(options);
+    this.harmonizationSummaries = new HarmonizationSummaries(options);
     this.healthchecks = new Healthchecks(options);
+    this.hs10Codes = new Hs10Codes(options);
+    this.hs6Codes = new Hs6Codes(options);
     this.imports = new Imports(options);
     this.invitations = new Invitations(options);
     this.memberships = new Memberships(options);

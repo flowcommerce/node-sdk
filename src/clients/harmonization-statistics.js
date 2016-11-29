@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Services extends Client {
+export default class HarmonizationStatistics extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -10,12 +10,8 @@ export default class Services extends Client {
     super(options);
   }
 
-  get(options = {}) {
-    return this.makeRequest(`${this.host}/services`, options);
-  }
-
-  getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/services/${id}`, options);
+  get(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/harmonization/statistics`, options);
   }
 
 }

@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class QuoteEstimates extends Client {
+export default class HarmonizationCountries extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -10,9 +10,8 @@ export default class QuoteEstimates extends Client {
     super(options);
   }
 
-  post(organization, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/quote-estimates`, options);
+  get(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/harmonization/countries`, options);
   }
 
 }

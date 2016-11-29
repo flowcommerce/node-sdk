@@ -15,4 +15,13 @@ export default class OrderEstimates extends Client {
     return this.makeRequest(`${this.host}/${organization}/order-estimates`, options);
   }
 
+  getById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order-estimates/${id}`, options);
+  }
+
+  putById(organization, id, options = {}) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/order-estimates/${id}`, options);
+  }
+
 }

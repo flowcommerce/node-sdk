@@ -36,16 +36,13 @@ These resources mirror the official documentation located at
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
-| [carriers](carriers.md) | Partner that actually take a shipment between places (ex: FedEx, DHL, SF Express) |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) |  |
 | [inventoryRules](inventoryRules.md) | Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization |
 | [inventorySnapshots](inventorySnapshots.md) | Inventory snapshot reflects the current quantity and available number of units for a given center / item |
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
-| [quoteEstimates](quoteEstimates.md) |  |
 | [rmas](rmas.md) |  |
-| [services](services.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |
 | [tiers](tiers.md) | Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier |
@@ -66,7 +63,12 @@ These resources mirror the official documentation located at
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
+| [harmonizationCountries](harmonizationCountries.md) | List of countries of origin and destination countries |
+| [harmonizationStatistics](harmonizationStatistics.md) | Overall statistics for harmonized codes, specifying details for HS6 and Hw10 codes |
+| [harmonizationSummaries](harmonizationSummaries.md) | Summary of Origin/Destination pairs and their associated HS10 code information |
 | [healthchecks](healthchecks.md) |  |
+| [hs10Codes](hs10Codes.md) | Associated item information for an HS10 code |
+| [hs6Codes](hs6Codes.md) | Associated item information for an HS6 code |
 | [imports](imports.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |
