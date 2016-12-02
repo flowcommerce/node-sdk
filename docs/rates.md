@@ -31,25 +31,6 @@ const rates = client().rates;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`putById(organization, id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
-
-
 ##`getVersions(organization, options = {})`
 
 ### Function Parameters

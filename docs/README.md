@@ -7,6 +7,7 @@ These resources mirror the official documentation located at
 
 | Resource | Description |
 | :------- | :---------- |
+| [allocations](allocations.md) |  |
 | [attributes](attributes.md) | An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console. |
 | [catalogs](catalogs.md) |  |
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
@@ -63,12 +64,7 @@ These resources mirror the official documentation located at
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
-| [harmonizationCountries](harmonizationCountries.md) | List of countries of origin and destination countries |
-| [harmonizationStatistics](harmonizationStatistics.md) | Overall statistics for harmonized codes, specifying details for HS6 and Hw10 codes |
-| [harmonizationSummaries](harmonizationSummaries.md) | Summary of Origin/Destination pairs and their associated HS10 code information |
 | [healthchecks](healthchecks.md) |  |
-| [hs10Codes](hs10Codes.md) | Associated item information for an HS10 code |
-| [hs6Codes](hs6Codes.md) | Associated item information for an HS6 code |
 | [imports](imports.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |

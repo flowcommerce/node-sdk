@@ -1,3 +1,4 @@
+import Allocations from './allocations';
 import Attributes from './attributes';
 import Catalogs from './catalogs';
 import Experiences from './experiences';
@@ -54,12 +55,7 @@ import Regions from './regions';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Exports from './exports';
-import HarmonizationCountries from './harmonization-countries';
-import HarmonizationStatistics from './harmonization-statistics';
-import HarmonizationSummaries from './harmonization-summaries';
 import Healthchecks from './healthchecks';
-import Hs10Codes from './hs10-codes';
-import Hs6Codes from './hs6-codes';
 import Imports from './imports';
 import Invitations from './invitations';
 import Memberships from './memberships';
@@ -76,6 +72,7 @@ import Users from './users';
 
 const enums = {
   adjustmentReasonKey: ['duty_deminimis', 'vat_deminimis'],
+  allocationStrategy: ['equal', 'proportional'],
   authorizationDeclineCode: ['expired', 'invalid_name', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
   authorizationDeleteErrorCode: ['expired', 'captured', 'unknown'],
   authorizationStatus: ['pending', 'pending_call_bank', 'authorized', 'declined', 'voided'],
@@ -93,7 +90,6 @@ const enums = {
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
-  harmonizationScope: ['with_codes', 'without_codes'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   importType: ['harmonization_codes'],
   includedLevyKey: ['duty', 'vat', 'vat_and_duty'],
@@ -120,7 +116,7 @@ const enums = {
   strategy: ['range', 'from', 'to'],
   subcatalogItemStatus: ['excluded', 'included', 'restricted'],
   tierStrategy: ['fastest', 'lowest_cost'],
-  trackingStatus: ['pending', 'info_received', 'in_transit', 'out_for_delivery', 'attempt_fail', 'delivered', 'exception', 'expired'],
+  trackingStatus: ['label_created', 'pending', 'info_received', 'in_transit', 'out_for_delivery', 'attempt_fail', 'delivered', 'exception', 'expired'],
   unitOfMeasurement: ['millimeter', 'centimeter', 'inch', 'foot', 'cubic_inch', 'cubic_meter', 'gram', 'kilogram', 'meter', 'ounce', 'pound'],
   unitOfTime: ['day', 'hour', 'minute'],
   updatePolicy: ['auto', 'queue', 'discard'],
@@ -141,6 +137,7 @@ export default class ApiClient {
 
     this.enums = enums;
 
+    this.allocations = new Allocations(options);
     this.attributes = new Attributes(options);
     this.catalogs = new Catalogs(options);
     this.experiences = new Experiences(options);
@@ -197,12 +194,7 @@ export default class ApiClient {
     this.documents = new Documents(options);
     this.emailVerifications = new EmailVerifications(options);
     this.exports = new Exports(options);
-    this.harmonizationCountries = new HarmonizationCountries(options);
-    this.harmonizationStatistics = new HarmonizationStatistics(options);
-    this.harmonizationSummaries = new HarmonizationSummaries(options);
     this.healthchecks = new Healthchecks(options);
-    this.hs10Codes = new Hs10Codes(options);
-    this.hs6Codes = new Hs6Codes(options);
     this.imports = new Imports(options);
     this.invitations = new Invitations(options);
     this.memberships = new Memberships(options);

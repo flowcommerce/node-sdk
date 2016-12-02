@@ -42,6 +42,23 @@
       "description": "The key of each possible adjustment is defined here."
     },
     {
+      "name": "allocation_strategy",
+      "plural": "allocation_strategies",
+      "values": [
+        {
+          "name": "equal",
+          "attributes": [],
+          "description": "Distribution of order-specific (freight, insurance) order-level price details is done evenly regardless of item unit value, and equally across all items"
+        },
+        {
+          "name": "proportional",
+          "attributes": [],
+          "description": "Distribution of order-specific (freight, insurance) order-level price details among units based on inidividual unit values as a proportion of the item subtotal"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "authorization_decline_code",
       "plural": "authorization_decline_codes",
       "values": [
@@ -698,24 +715,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "harmonization_scope",
-      "plural": "harmonization_scopes",
-      "values": [
-        {
-          "name": "with_codes",
-          "attributes": [],
-          "description": "Filter by items that have associated harmonization codes"
-        },
-        {
-          "name": "without_codes",
-          "attributes": [],
-          "description": "Filter by items that do not have associated harmonization codes"
-        }
-      ],
-      "attributes": [],
-      "description": "Indicates the scope in which harmonization codes are to be filterd"
     },
     {
       "name": "holiday_calendar",
@@ -1380,6 +1379,10 @@
       "plural": "tracking_statuses",
       "values": [
         {
+          "name": "label_created",
+          "attributes": []
+        },
+        {
           "name": "pending",
           "attributes": []
         },
@@ -1967,6 +1970,18 @@
           "attributes": []
         },
         {
+          "type": "harmonization_overview_export_type",
+          "attributes": []
+        },
+        {
+          "type": "harmonization_hs6_export_type",
+          "attributes": []
+        },
+        {
+          "type": "harmonization_hs10_export_type",
+          "attributes": []
+        },
+        {
           "type": "solidus_product_export_type",
           "attributes": []
         },
@@ -2270,6 +2285,132 @@
           "required": true,
           "attributes": [],
           "description": "The label for the adjustment reason that can be displayed as a tooltip on the product detail page."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation",
+      "plural": "allocations",
+      "fields": [
+        {
+          "name": "order",
+          "type": "order_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base_currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Currency of all base prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "USD"
+        },
+        {
+          "name": "target_currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Currency of all target prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "items",
+          "type": "[allocation_item]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation_detail",
+      "plural": "allocation_details",
+      "fields": [
+        {
+          "name": "base",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "order_price_detail_key",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "target",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "components",
+          "type": "[allocation_detail_component]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation_detail_component",
+      "plural": "allocation_detail_components",
+      "fields": [
+        {
+          "name": "base",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "order_price_detail_component_key",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "target",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation_item",
+      "plural": "allocation_items",
+      "fields": [
+        {
+          "name": "base",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "target",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "details",
+          "type": "[allocation_detail]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
         }
       ],
       "attributes": []
@@ -3546,6 +3687,33 @@
       ],
       "attributes": [],
       "description": "Defines the filters that can be applied when requesting a catalog item data export"
+    },
+    {
+      "name": "catalog_item_summary",
+      "plural": "catalog_item_summaries",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "catalog_item_upserted",
@@ -5572,50 +5740,6 @@
       "description": "An error of some type has occured. The most common error will be validation on input. See messages for details."
     },
     {
-      "name": "harmonization_code_statistics",
-      "plural": "harmonization_code_statistics",
-      "fields": [
-        {
-          "name": "with_code",
-          "type": "long",
-          "required": true,
-          "attributes": [],
-          "description": "Number of items with a harmonization code"
-        },
-        {
-          "name": "without_code",
-          "type": "long",
-          "required": true,
-          "attributes": [],
-          "description": "Number of items without a harmonization code"
-        }
-      ],
-      "attributes": [],
-      "description": "Statistics covering harmonization codes, including total count of items, and number of those items that do not have a harmonization code"
-    },
-    {
-      "name": "harmonization_countries",
-      "plural": "harmonization_countries",
-      "fields": [
-        {
-          "name": "origins",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "description": "Countries of origin applicable to catalog items"
-        },
-        {
-          "name": "destinations",
-          "type": "[string]",
-          "required": true,
-          "attributes": [],
-          "description": "Destination countries applicable to experiences"
-        }
-      ],
-      "attributes": [],
-      "description": "List of countries of origin and destination countries"
-    },
-    {
       "name": "harmonization_document",
       "plural": "harmonization_documents",
       "fields": [
@@ -5642,6 +5766,111 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "harmonization_hs10_export_type",
+      "plural": "harmonization_hs10_export_types",
+      "fields": [
+        {
+          "name": "origin",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The specific origin to export"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The specific destination to export"
+        },
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The specific list of item numbers to export"
+        },
+        {
+          "name": "has_codes",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "Indicates items with assigned or unassigned codes should be exported"
+        },
+        {
+          "name": "has_origins",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "Indicates items with assigned or unassigned origins should be exported"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Exports harmonization HS10 codes"
+    },
+    {
+      "name": "harmonization_hs6_export_type",
+      "plural": "harmonization_hs6_export_types",
+      "fields": [
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The specific list of item numbers to export"
+        },
+        {
+          "name": "has_codes",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "Indicates items with assigned or unassigned codes should be exported"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Exports HS6 codes"
+    },
+    {
+      "name": "harmonization_overview_export_type",
+      "plural": "harmonization_overview_export_types",
+      "fields": [
+        {
+          "name": "origin",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The specific of origin to export"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The specific destination to export"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Exports HS10 code overview details"
     },
     {
       "name": "harmonization_settings",
@@ -5685,66 +5914,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "harmonization_statistics",
-      "plural": "harmonization_statistics",
-      "fields": [
-        {
-          "name": "hs6",
-          "type": "harmonization_code_statistics",
-          "required": true,
-          "attributes": [],
-          "description": "Statistics for items associated with HS6 codes"
-        },
-        {
-          "name": "hs10",
-          "type": "harmonization_code_statistics",
-          "required": true,
-          "attributes": [],
-          "description": "Statistics for items associated with HS10 codes"
-        }
-      ],
-      "attributes": [],
-      "description": "Overall statistics for harmonized codes, specifying details for HS6 and Hw10 codes"
-    },
-    {
-      "name": "harmonization_summary",
-      "plural": "harmonization_summaries",
-      "fields": [
-        {
-          "name": "origin",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
-        },
-        {
-          "name": "destination",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
-        },
-        {
-          "name": "items",
-          "type": "long",
-          "required": true,
-          "attributes": [],
-          "description": "Total number of items associated with this origin/destination"
-        },
-        {
-          "name": "statistics",
-          "type": "harmonization_code_statistics",
-          "required": true,
-          "attributes": [],
-          "description": "Overview of statistics for items with/without HS6 and HS10 codes"
-        }
-      ],
-      "attributes": [],
-      "description": "Summary of Origin/Destination pairs and their associated HS10 code information"
     },
     {
       "name": "harmonized_category",
@@ -6311,48 +6480,6 @@
       "description": "The (Harmonized System) HS-10 code assigned to an item with a given origin/destination pair."
     },
     {
-      "name": "hs10_code",
-      "plural": "hs10_codes",
-      "fields": [
-        {
-          "name": "item_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "item_name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "origin",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
-        },
-        {
-          "name": "destination",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
-        },
-        {
-          "name": "code",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Associated item information for an HS10 code"
-    },
-    {
       "name": "hs10_code_deleted",
       "plural": "hs10_code_deleteds",
       "fields": [
@@ -6517,32 +6644,6 @@
       ],
       "attributes": [],
       "description": "The (Harmonized System) HS-6 code assigned to an item."
-    },
-    {
-      "name": "hs6_code",
-      "plural": "hs6_codes",
-      "fields": [
-        {
-          "name": "item_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "item_name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "code",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Associated item information for an HS6 code"
     },
     {
       "name": "hs6_code_deleted",
@@ -15464,6 +15565,90 @@
   ],
   "resources": [
     {
+      "type": "allocation",
+      "plural": "allocations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/orders/allocations/:number",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "strategy",
+              "type": "allocation_strategy",
+              "location": "Query",
+              "required": true,
+              "description": "If specified, use this strategy to allocate order-level price details across units of the order.",
+              "default": "equal"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "allocation",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "sort_parameter_default",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Order-level price details allocated using a strategy among individual order item units."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/orders/allocations/:number"
+    },
+    {
       "type": "attribute",
       "plural": "attributes",
       "operations": [
@@ -23453,109 +23638,6 @@
             }
           ],
           "description": "Search organization currency conversion rates. Always paginated."
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/currency/rates",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "rate",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Create a currency conversion rate for an organization.",
-          "body": {
-            "type": "rate_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "PUT",
-          "path": "/:organization/currency/rates/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "rate",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Update an existing rate by id.",
-          "body": {
-            "type": "rate_form",
-            "attributes": []
-          }
         },
         {
           "method": "GET",
@@ -33698,230 +33780,6 @@
       "path": "/:organization/exports"
     },
     {
-      "type": "harmonization_countries",
-      "plural": "harmonization_countries",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/harmonization/countries",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "harmonization_countries",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [],
-          "description": "Get harmonization countries of origin and destination countries"
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/:organization/harmonization/countries",
-      "description": "List of countries of origin and destination countries"
-    },
-    {
-      "type": "harmonization_statistics",
-      "plural": "harmonization_statistics",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/harmonization/statistics",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "harmonization_statistics",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [],
-          "description": "Get statistics for this organization's harmonization codes"
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/:organization/harmonization/statistics",
-      "description": "Overall statistics for harmonized codes, specifying details for HS6 and Hw10 codes"
-    },
-    {
-      "type": "harmonization_summary",
-      "plural": "harmonization_summaries",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/harmonization/summaries",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "origin",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "destination",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[harmonization_summary]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "created_at"
-                  },
-                  {
-                    "value": "origin"
-                  },
-                  {
-                    "value": "destination"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "versions"
-                ]
-              }
-            }
-          ],
-          "description": "Get harmonization summary for this organization's HS10 codes"
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/:organization/harmonization/summaries",
-      "description": "Summary of Origin/Destination pairs and their associated HS10 code information"
-    },
-    {
       "type": "healthcheck",
       "plural": "healthchecks",
       "operations": [
@@ -33961,258 +33819,6 @@
         }
       ],
       "path": "/_internal_"
-    },
-    {
-      "type": "hs10_code",
-      "plural": "hs10_codes",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/harmonization/codes/hs10",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "number",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "origin",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "destination",
-              "type": "string",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "scope",
-              "type": "harmonization_scope",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[hs10_code]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "created_at"
-                  },
-                  {
-                    "value": "origin"
-                  },
-                  {
-                    "value": "destination"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "versions"
-                ]
-              }
-            }
-          ],
-          "description": "Get 10-digit harmonization codes"
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/:organization/harmonization/codes/hs10",
-      "description": "Associated item information for an HS10 code"
-    },
-    {
-      "type": "hs6_code",
-      "plural": "hs6_codes",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/harmonization/codes/hs6",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "number",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "scope",
-              "type": "harmonization_scope",
-              "location": "Query",
-              "required": false
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[hs6_code]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "versions"
-                ]
-              }
-            }
-          ],
-          "description": "Get 6-digit harmonization codes"
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "path": "/:organization/harmonization/codes/hs6",
-      "description": "Associated item information for an HS6 code"
     },
     {
       "type": "import",

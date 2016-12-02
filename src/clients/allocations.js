@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class HarmonizationCountries extends Client {
+export default class Allocations extends Client {
   constructor(opts) {
     let options = opts;
     if (typeof opts === 'string') {
@@ -10,8 +10,8 @@ export default class HarmonizationCountries extends Client {
     super(options);
   }
 
-  get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/harmonization/countries`, options);
+  get(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/allocations/${number}`, options);
   }
 
 }
