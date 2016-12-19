@@ -24,7 +24,6 @@ These resources mirror the official documentation located at
 | [itemFunctions](itemFunctions.md) | Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created. |
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
-| [spotRates](spotRates.md) |  |
 | [harmonizationSettings](harmonizationSettings.md) | Organization level settings. |
 | [harmonizedCategories](harmonizedCategories.md) | Categories optimized for harmonization |
 | [harmonizedItems](harmonizedItems.md) | A harmonized item stores explicit information about this item for the purposes of harmonization / classification. The harmonization process begins by creating a harmonized item; this kicks off the internal processes. Once assigned, codes will be available via the hs6 and hs10 resources |

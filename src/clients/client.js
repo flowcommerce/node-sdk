@@ -12,6 +12,53 @@ if (process.browser) {
 }
 
 export default class Client extends EventEmitter {
+  static validateAuth(auth) {
+    // string type === default to Basic auth.
+    if (typeof auth === 'undefined' || typeof auth === 'string') {
+      return;
+    }
+
+    if (Object.keys(auth).length !== 2
+       || (!Object.prototype.hasOwnProperty.call(auth, 'type')
+          || !Object.prototype.hasOwnProperty.call(auth, 'value'))) {
+      // eslint-disable-next-line max-len
+      throw new Error('Expected auth to be either a string or a valid auth object. Example: { type: "jwt", value: "<jwtToken>" } -- Valid types are: basic, bearer and jwt');
+    }
+
+    const validTypes = ['basic', 'bearer', 'jwt'];
+    if (!validTypes.includes(auth.type)) {
+      throw new Error('Auth type must be one of: basic, bearer, jwt');
+    }
+  }
+
+  static getBasicAuthHeaderValue(auth) {
+    return `Basic ${new Buffer(auth).toString('base64')}`;
+  }
+
+  static getFinalUrl(url, opts) {
+    const queryStr = querystring.stringify(opts.params);
+    const paramString = queryStr ? `?${queryStr}` : '';
+    return `${url}${paramString}`;
+  }
+
+  static possiblyConvertAuthorizationHeader(auth) {
+    Client.validateAuth(auth);
+
+    if (typeof auth === 'string') {
+      return Client.getBasicAuthHeaderValue(auth);
+    }
+
+    if (auth.type === 'basic') {
+      return Client.getBasicAuthHeaderValue(auth.value);
+    }
+
+    if (auth.type === 'bearer' || auth.type === 'jwt') {
+      return `Bearer ${auth.value}`;
+    }
+
+    throw new Error(`Cannot create authorization header of type[${auth.type}]`);
+  }
+
   constructor(opts = {}) {
     super();
     this.serviceName = opts.serviceName;
@@ -21,7 +68,7 @@ export default class Client extends EventEmitter {
 
     // Convert auth if provided in constructor
     if (this.auth) {
-      this.auth = this.possiblyConvertAuthorizationHeader(this.auth);
+      this.auth = Client.possiblyConvertAuthorizationHeader(this.auth);
     }
   }
 
@@ -35,7 +82,7 @@ export default class Client extends EventEmitter {
 
   withAuth(auth) {
     if (auth) {
-      this.auth = this.possiblyConvertAuthorizationHeader(auth);
+      this.auth = Client.possiblyConvertAuthorizationHeader(auth);
     }
 
     return this;
@@ -47,52 +94,6 @@ export default class Client extends EventEmitter {
     }
 
     return this;
-  }
-
-  validateAuth(auth) {
-    // string type === default to Basic auth.
-    if (typeof auth === 'undefined' || typeof auth === 'string') {
-      return;
-    }
-
-    if (Object.keys(auth).length !== 2
-        || (!auth.hasOwnProperty('type') || !auth.hasOwnProperty('value'))) {
-      // eslint-disable-next-line max-len
-      throw new Error('Expected auth to be either a string or a valid auth object. Example: { type: "jwt", value: "<jwtToken>" } -- Valid types are: basic, bearer and jwt');
-    }
-
-    const validTypes = ['basic', 'bearer', 'jwt'];
-    if (!validTypes.includes(auth.type)) {
-      throw new Error('Auth type must be one of: basic, bearer, jwt');
-    }
-  }
-
-  getBasicAuthHeaderValue(auth) {
-    return `Basic ${new Buffer(auth).toString('base64')}`;
-  }
-
-  possiblyConvertAuthorizationHeader(auth) {
-    this.validateAuth(auth);
-
-    if (typeof auth === 'string') {
-      return this.getBasicAuthHeaderValue(auth);
-    }
-
-    if (auth.type === 'basic') {
-      return this.getBasicAuthHeaderValue(auth.value);
-    }
-
-    if (auth.type === 'bearer' || auth.type === 'jwt') {
-      return `Bearer ${auth.value}`;
-    }
-
-    throw new Error(`Cannot create authorization header of type[${auth.type}]`);
-  }
-
-  getFinalUrl(url, opts) {
-    const queryStr = querystring.stringify(opts.params);
-    const paramString = queryStr ? `?${queryStr}` : '';
-    return `${url}${paramString}`;
   }
 
   calculateFinalHeaders(opts) {
@@ -110,9 +111,10 @@ export default class Client extends EventEmitter {
 
   makeRequest(url, opts = {}) {
     const startTimeMs = new Date().getTime();
-    const finalUrl = this.getFinalUrl(url, opts);
+    const finalUrl = Client.getFinalUrl(url, opts);
     const requestId = crypto.randomBytes(20).toString('hex');
     const headers = this.calculateFinalHeaders(opts);
+    const body = opts.body && typeof opts.body !== 'string' ? JSON.stringify(opts.body) : opts.body;
     const options = Object.assign(
       {
         credentials: 'same-origin',
@@ -121,7 +123,8 @@ export default class Client extends EventEmitter {
       opts,
       {
         headers,
-      }
+        body,
+      },
     );
 
     this.logRequest(Object.assign({}, options, { url }));
@@ -154,7 +157,7 @@ export default class Client extends EventEmitter {
 
           resolve(envelope);
         })
-        .catch((err) => reject(err)); // Only reject on implementation error, not response
+        .catch(err => reject(err)); // Only reject on implementation error, not response
       });
     });
   }

@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.1.77",
+  "version": "0.2.44",
   "info": {
     "license": {
       "name": "MIT",
@@ -40,23 +40,6 @@
       ],
       "attributes": [],
       "description": "The key of each possible adjustment is defined here."
-    },
-    {
-      "name": "allocation_strategy",
-      "plural": "allocation_strategies",
-      "values": [
-        {
-          "name": "equal",
-          "attributes": [],
-          "description": "Distribution of order-specific (freight, insurance) order-level price details is done evenly regardless of item unit value, and equally across all items"
-        },
-        {
-          "name": "proportional",
-          "attributes": [],
-          "description": "Distribution of order-specific (freight, insurance) order-level price details among units based on inidividual unit values as a proportion of the item subtotal"
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "authorization_decline_code",
@@ -470,39 +453,11 @@
           "attributes": []
         },
         {
-          "name": "flow_currency_setting_deleted",
-          "attributes": []
-        },
-        {
-          "name": "flow_currency_setting_upserted",
-          "attributes": []
-        },
-        {
           "name": "rate_deleted",
           "attributes": []
         },
         {
           "name": "rate_upserted",
-          "attributes": []
-        },
-        {
-          "name": "spot_rate_deleted",
-          "attributes": []
-        },
-        {
-          "name": "spot_rate_upserted",
-          "attributes": []
-        },
-        {
-          "name": "organization_currency_setting_deleted",
-          "attributes": []
-        },
-        {
-          "name": "organization_currency_setting_upserted",
-          "attributes": []
-        },
-        {
-          "name": "contracted_rate_upserted",
           "attributes": []
         },
         {
@@ -1696,39 +1651,11 @@
           "attributes": []
         },
         {
-          "type": "flow_currency_setting_deleted",
-          "attributes": []
-        },
-        {
-          "type": "flow_currency_setting_upserted",
-          "attributes": []
-        },
-        {
           "type": "rate_deleted",
           "attributes": []
         },
         {
           "type": "rate_upserted",
-          "attributes": []
-        },
-        {
-          "type": "spot_rate_deleted",
-          "attributes": []
-        },
-        {
-          "type": "spot_rate_upserted",
-          "attributes": []
-        },
-        {
-          "type": "organization_currency_setting_deleted",
-          "attributes": []
-        },
-        {
-          "type": "organization_currency_setting_upserted",
-          "attributes": []
-        },
-        {
-          "type": "contracted_rate_upserted",
           "attributes": []
         },
         {
@@ -1982,6 +1909,14 @@
           "attributes": []
         },
         {
+          "type": "account_transactions_export_type",
+          "attributes": []
+        },
+        {
+          "type": "account_orders_export_type",
+          "attributes": []
+        },
+        {
           "type": "solidus_product_export_type",
           "attributes": []
         },
@@ -2129,6 +2064,92 @@
     }
   ],
   "models": [
+    {
+      "name": "account_orders_export_type",
+      "plural": "account_orders_export_types",
+      "fields": [
+        {
+          "name": "payment_reference",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "transaction_summary_id",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_on_or_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_on_or_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "account_transactions_export_type",
+      "plural": "account_transactions_export_types",
+      "fields": [
+        {
+          "name": "payment_reference",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "transaction_summary_id",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_on_or_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_on_or_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
     {
       "name": "address",
       "plural": "addresses",
@@ -2300,20 +2321,16 @@
           "attributes": []
         },
         {
-          "name": "base_currency",
-          "type": "string",
+          "name": "currency",
+          "type": "allocation_currencies",
           "required": true,
-          "attributes": [],
-          "description": "Currency of all base prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
-          "example": "USD"
+          "attributes": []
         },
         {
-          "name": "target_currency",
-          "type": "string",
+          "name": "total",
+          "type": "allocation_totals",
           "required": true,
-          "attributes": [],
-          "description": "Currency of all target prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
-          "example": "CAD"
+          "attributes": []
         },
         {
           "name": "items",
@@ -2321,6 +2338,29 @@
           "required": true,
           "attributes": [],
           "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation_currencies",
+      "plural": "allocation_currencies",
+      "fields": [
+        {
+          "name": "base",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Currency of all base prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "USD"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Currency of all target prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
         }
       ],
       "attributes": []
@@ -2411,6 +2451,53 @@
           "required": true,
           "attributes": [],
           "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation_total",
+      "plural": "allocation_totals",
+      "fields": [
+        {
+          "name": "display",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "example": "135.83987675546"
+        },
+        {
+          "name": "raw",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "example": "135.84"
+        },
+        {
+          "name": "difference",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "example": "0.00012324453999212892"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation_totals",
+      "plural": "allocation_totalses",
+      "fields": [
+        {
+          "name": "target",
+          "type": "allocation_total",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "base",
+          "type": "allocation_total",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -4147,56 +4234,6 @@
       "description": "Defines structured fields for a contact person. Typically used for specifying contact person for an account, shipment, or organization representative"
     },
     {
-      "name": "contracted_rate_upserted",
-      "plural": "contracted_rate_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "base",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "effective_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "value",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The contracted currency rate between Flow and the organization for the given base/target currency pair."
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "country",
       "plural": "countries",
       "fields": [
@@ -4474,7 +4511,7 @@
         },
         {
           "name": "price",
-          "type": "price",
+          "type": "price_with_base",
           "required": true,
           "attributes": [],
           "description": "Price of shipping to be used for the end-customer selecting this option. Can be actual cost, etc."
@@ -5594,92 +5631,6 @@
       ],
       "attributes": [],
       "description": "Rule outcome where shipping surfaced in quote is pre-defined flat rate"
-    },
-    {
-      "name": "flow_currency_setting_deleted",
-      "plural": "flow_currency_setting_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "flow_currency_setting_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "flow_currency_setting_upserted",
-      "plural": "flow_currency_setting_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "flow_currency_setting_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "base",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "margin",
-          "type": "decimal",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "rate_lock_unit",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "rate_lock_value",
-          "type": "long",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "flow_item_index_metadata",
@@ -8534,9 +8485,12 @@
         },
         {
           "name": "spot_rates",
-          "type": "[spot_rate]",
+          "type": "[object]",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "deprecation": {
+            "description": "This field is deprecated - you will see an empty array in the response"
+          }
         },
         {
           "name": "status",
@@ -10258,31 +10212,6 @@
       "description": "Represents organization-specific currency conversion adjustments."
     },
     {
-      "name": "organization_currency_setting_deleted",
-      "plural": "organization_currency_setting_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization_currency_setting_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "organization_currency_setting_form",
       "plural": "organization_currency_setting_forms",
       "fields": [
@@ -10311,55 +10240,6 @@
       ],
       "attributes": [],
       "description": "Represents the parts of an organization setting that can be updated."
-    },
-    {
-      "name": "organization_currency_setting_upserted",
-      "plural": "organization_currency_setting_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization_currency_setting_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "base",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "margin",
-          "type": "decimal",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "organization_currency_setting_version",
@@ -11273,7 +11153,7 @@
         {
           "name": "base",
           "type": "price",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -11652,7 +11532,7 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "The actual conversion rate after margins have been applied."
+          "description": "The actual conversion rate after all margins have been applied."
         }
       ],
       "attributes": []
@@ -12594,13 +12474,6 @@
           "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
         },
         {
-          "name": "commercial_invoice",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Pre-signed URL containing generated PDF commercial invoice required for international shipments"
-        },
-        {
           "name": "cost",
           "type": "price",
           "required": true,
@@ -12642,6 +12515,13 @@
           "required": true,
           "attributes": [],
           "description": "Estimated date range until delivery"
+        },
+        {
+          "name": "commercial_invoice",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Pre-signed URL containing generated PDF commercial invoice required for international shipments"
         },
         {
           "name": "zpl",
@@ -13010,187 +12890,6 @@
       ],
       "attributes": [],
       "description": "Exports variant level data for import into solidus"
-    },
-    {
-      "name": "spot_rate",
-      "plural": "spot_rates",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "effective_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "base",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The base currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The target currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
-        },
-        {
-          "name": "value",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The value of the mid market (interbank) rate."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "spot_rate_deleted",
-      "plural": "spot_rate_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "spot_rate_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "spot_rate_form",
-      "plural": "spot_rate_forms",
-      "fields": [
-        {
-          "name": "effective_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "base",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The base currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The target currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
-        },
-        {
-          "name": "value",
-          "type": "decimal",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "spot_rate_upserted",
-      "plural": "spot_rate_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "spot_rate_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "base",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "value",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The new value of the spot rate."
-        },
-        {
-          "name": "effective_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "spot_rate_version",
-      "plural": "spot_rate_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "spot_rate",
-          "type": "spot_rate",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "subcatalog",
@@ -15584,14 +15283,6 @@
               "type": "string",
               "location": "Path",
               "required": true
-            },
-            {
-              "name": "strategy",
-              "type": "allocation_strategy",
-              "location": "Query",
-              "required": true,
-              "description": "If specified, use this strategy to allocate order-level price details across units of the order.",
-              "default": "equal"
             }
           ],
           "responses": [
@@ -23753,199 +23444,6 @@
       ],
       "path": "/:organization/currency/rates",
       "description": "Represents an organization-specific currency conversion rate at a point in time."
-    },
-    {
-      "type": "spot_rate",
-      "plural": "spot_rates",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/currency/spot-rates",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "base",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by the (case-insensitive) base currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
-            },
-            {
-              "name": "target",
-              "type": "string",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by the (case-insensitive) target currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[spot_rate]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "base"
-                  },
-                  {
-                    "value": "target"
-                  },
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            }
-          ],
-          "description": "Search spot rates. Always paginated."
-        },
-        {
-          "method": "GET",
-          "path": "/currency/spot-rates/versions",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[spot_rate_version]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "base"
-                  },
-                  {
-                    "value": "target"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ],
-          "description": "Provides visibility into recent changes of each object, including deletion."
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "pricing"
-          }
-        }
-      ],
-      "path": "/currency/spot-rates"
     },
     {
       "type": "harmonization_settings",
