@@ -21,9 +21,4 @@ const allocations = client().allocations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | number | string |  |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| strategy | allocation_strategy | If specified, use this strategy to allocate order-level price details across units of the order. |
 
