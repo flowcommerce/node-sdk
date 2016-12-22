@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.2.44",
+  "version": "0.2.46",
   "info": {
     "license": {
       "name": "MIT",
@@ -1440,6 +1440,18 @@
       "plural": "unit_of_times",
       "values": [
         {
+          "name": "year",
+          "attributes": []
+        },
+        {
+          "name": "month",
+          "attributes": []
+        },
+        {
+          "name": "week",
+          "attributes": []
+        },
+        {
           "name": "day",
           "attributes": []
         },
@@ -1453,7 +1465,7 @@
         }
       ],
       "attributes": [],
-      "description": "Defines the units of time that we support. We confirm with the standard set of units of time from http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html"
+      "description": "Defines the units of time that we support"
     },
     {
       "name": "update_policy",
@@ -2081,25 +2093,25 @@
           "attributes": []
         },
         {
-          "name": "created_on_or_after",
+          "name": "transaction_date_on_or_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "created_after",
+          "name": "transaction_date_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "created_on_or_before",
+          "name": "transaction_date_on_or_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "created_before",
+          "name": "transaction_date_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
@@ -2124,25 +2136,25 @@
           "attributes": []
         },
         {
-          "name": "created_on_or_after",
+          "name": "date_on_or_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "created_after",
+          "name": "date_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "created_on_or_before",
+          "name": "date_on_or_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "created_before",
+          "name": "date_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
@@ -2370,14 +2382,14 @@
       "plural": "allocation_details",
       "fields": [
         {
-          "name": "base",
-          "type": "decimal",
+          "name": "key",
+          "type": "order_price_detail_key",
           "required": true,
           "attributes": []
         },
         {
-          "name": "key",
-          "type": "order_price_detail_key",
+          "name": "base",
+          "type": "decimal",
           "required": true,
           "attributes": []
         },
@@ -2402,14 +2414,14 @@
       "plural": "allocation_detail_components",
       "fields": [
         {
-          "name": "base",
-          "type": "decimal",
+          "name": "key",
+          "type": "order_price_detail_component_key",
           "required": true,
           "attributes": []
         },
         {
-          "name": "key",
-          "type": "order_price_detail_component_key",
+          "name": "base",
+          "type": "decimal",
           "required": true,
           "attributes": []
         },
@@ -2427,17 +2439,17 @@
       "plural": "allocation_items",
       "fields": [
         {
-          "name": "base",
-          "type": "decimal",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "number",
           "type": "string",
           "required": true,
           "attributes": [],
           "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "base",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
         },
         {
           "name": "target",
@@ -2456,46 +2468,18 @@
       "attributes": []
     },
     {
-      "name": "allocation_total",
-      "plural": "allocation_totals",
-      "fields": [
-        {
-          "name": "display",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "example": "135.83987675546"
-        },
-        {
-          "name": "raw",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "example": "135.84"
-        },
-        {
-          "name": "difference",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "example": "0.00012324453999212892"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "allocation_totals",
       "plural": "allocation_totalses",
       "fields": [
         {
           "name": "target",
-          "type": "allocation_total",
+          "type": "decimal",
           "required": true,
           "attributes": []
         },
         {
           "name": "base",
-          "type": "allocation_total",
+          "type": "decimal",
           "required": true,
           "attributes": []
         }
@@ -4532,6 +4516,12 @@
           "name": "window",
           "type": "datetime_range",
           "required": true,
+          "attributes": []
+        },
+        {
+          "name": "weight",
+          "type": "option_weight_estimates",
+          "required": false,
           "attributes": []
         }
       ],
@@ -6702,6 +6692,37 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "hs_code",
+      "plural": "hs_codes",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The actual HS code",
+          "example": "392620"
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The parent harmonization code if there is one",
+          "example": "3926"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Description of this code"
+        }
+      ],
+      "attributes": [],
+      "description": "Harmonized System codes."
     },
     {
       "name": "image",
@@ -9369,6 +9390,25 @@
         {
           "name": "package",
           "type": "object",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "option_weight_estimates",
+      "plural": "option_weight_estimates",
+      "fields": [
+        {
+          "name": "gravitational",
+          "type": "measurement",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "dimensional",
+          "type": "measurement",
           "required": true,
           "attributes": []
         }
@@ -24940,6 +24980,178 @@
       ],
       "path": "/:organization/harmonization/hs6",
       "description": "API to fetch HS-6 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item."
+    },
+    {
+      "type": "hs_code",
+      "plural": "hs_codes",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/harmonization/codes",
+          "parameters": [
+            {
+              "name": "code",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Find these specific harmonization codes. Case insensitive.",
+              "maximum": 100
+            },
+            {
+              "name": "parent",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Find records with this parent harmonization code. Case insensitive."
+            },
+            {
+              "name": "has_parent",
+              "type": "boolean",
+              "location": "Query",
+              "required": false,
+              "description": "Find records with or without a parent code."
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "code"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[hs_code]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 400
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "code"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions",
+                  "sort_parameter_default"
+                ]
+              }
+            }
+          ],
+          "description": "Search harmonization codes. Always paginated."
+        },
+        {
+          "method": "GET",
+          "path": "/harmonization/codes/:code",
+          "parameters": [
+            {
+              "name": "code",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "hs_code",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 400
+                }
+              },
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific harmonization code."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "landed cost"
+          }
+        }
+      ],
+      "path": "/harmonization/codes",
+      "description": "Harmonized System codes."
     },
     {
       "type": "authorization",

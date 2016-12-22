@@ -22,6 +22,7 @@ import HarmonizedItemDuties from './harmonized-item-duties';
 import HarmonizedLandedCosts from './harmonized-landed-costs';
 import Hs10 from './hs10';
 import Hs6 from './hs6';
+import HsCodes from './hs-codes';
 import Authorizations from './authorizations';
 import Captures from './captures';
 import Cards from './cards';
@@ -116,7 +117,7 @@ const enums = {
   tierStrategy: ['fastest', 'lowest_cost'],
   trackingStatus: ['label_created', 'pending', 'info_received', 'in_transit', 'out_for_delivery', 'attempt_fail', 'delivered', 'exception', 'expired'],
   unitOfMeasurement: ['millimeter', 'centimeter', 'inch', 'foot', 'cubic_inch', 'cubic_meter', 'gram', 'kilogram', 'meter', 'ounce', 'pound'],
-  unitOfTime: ['day', 'hour', 'minute'],
+  unitOfTime: ['year', 'month', 'week', 'day', 'hour', 'minute'],
   updatePolicy: ['auto', 'queue', 'discard'],
   updateType: ['change', 'set'],
   userStatus: ['pending', 'active', 'inactive'],
@@ -159,6 +160,7 @@ export default class ApiClient {
     this.harmonizedLandedCosts = new HarmonizedLandedCosts(options);
     this.hs10 = new Hs10(options);
     this.hs6 = new Hs6(options);
+    this.hsCodes = new HsCodes(options);
     this.authorizations = new Authorizations(options);
     this.captures = new Captures(options);
     this.cards = new Cards(options);
