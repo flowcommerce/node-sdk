@@ -525,6 +525,14 @@
           "attributes": []
         },
         {
+          "name": "snapshot_upserted",
+          "attributes": []
+        },
+        {
+          "name": "snapshot_deleted",
+          "attributes": []
+        },
+        {
           "name": "label_upserted",
           "attributes": []
         },
@@ -1133,6 +1141,22 @@
       "description": "Type to indicate whether query is an inclusion or exclusion"
     },
     {
+      "name": "quote_error_code",
+      "plural": "quote_error_codes",
+      "values": [
+        {
+          "name": "generic_error",
+          "attributes": []
+        },
+        {
+          "name": "items_not_available",
+          "attributes": [],
+          "description": "Item numbers are not available in inventory"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "refund_decline_code",
       "plural": "refund_decline_codes",
       "values": [
@@ -1732,6 +1756,14 @@
         },
         {
           "type": "harmonized_item_deleted",
+          "attributes": []
+        },
+        {
+          "type": "snapshot_upserted",
+          "attributes": []
+        },
+        {
+          "type": "snapshot_deleted",
           "attributes": []
         },
         {
@@ -4482,7 +4514,7 @@
         },
         {
           "name": "cost",
-          "type": "price",
+          "type": "price_with_base",
           "required": true,
           "attributes": [],
           "description": "Actual shipping cost to be charged to the merchant by Flow"
@@ -10104,6 +10136,12 @@
           "type": "[object]",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -10593,18 +10631,29 @@
           "attributes": []
         },
         {
-          "name": "currencies",
-          "type": "[string]",
-          "required": true,
+          "name": "default_base_currency",
+          "type": "string",
+          "required": false,
           "attributes": [],
-          "description": "The list of base currencies that this organization operates in",
-          "minimum": 0
+          "description": "Unless otherwise specified, this is the currency in which all 'base' prices will be presented in. Will be made required once deployed.",
+          "minimum": 3,
+          "maximum": 3
         },
         {
           "name": "parent_id",
           "type": "string",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "currencies",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "deprecation": {
+            "description": "Replaced by default base currency"
+          },
+          "minimum": 0
         }
       ],
       "attributes": []
@@ -11344,6 +11393,34 @@
       ],
       "attributes": [],
       "description": "Represents a collection of deliveries and available options for fulfillment of that delivery"
+    },
+    {
+      "name": "quote_error",
+      "plural": "quote_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "quote_error_code",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A summary of the errors",
+          "minimum": 1
+        },
+        {
+          "name": "item_numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A list of of the item numbers that are not available in inventory"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "quote_form",
@@ -12883,6 +12960,87 @@
         {
           "name": "shipping_notification",
           "type": "shipping_notification",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "snapshot_deleted",
+      "plural": "snapshot_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "snapshot_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "snapshot_upserted",
+      "plural": "snapshot_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "snapshot_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "available",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "center_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "quantity",
+          "type": "long",
           "required": true,
           "attributes": []
         }
@@ -28153,7 +28311,7 @@
                   "value": 422
                 }
               },
-              "type": "generic_error",
+              "type": "quote_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
