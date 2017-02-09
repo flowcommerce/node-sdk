@@ -73,6 +73,7 @@ These resources mirror the official documentation located at
 | [organizationTokens](organizationTokens.md) | All of the metadata associated with a given token. |
 | [partnerTokens](partnerTokens.md) | All of the metadata associated with a given token. |
 | [passwordResetForms](passwordResetForms.md) |  |
+| [scheduledExports](scheduledExports.md) |  |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |
