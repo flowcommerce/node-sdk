@@ -38,6 +38,10 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, options);
   }
 
+  getIdentifierByIdentifierNumber(organization, identifierNumber, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/identifier/${identifierNumber}`, options);
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/versions`, options);
   }

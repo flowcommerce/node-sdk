@@ -25,6 +25,7 @@ const orders = client().orders;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
+| identifier | [string] |  |
 | number | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
@@ -95,6 +96,16 @@ const orders = client().orders;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 | number | string |  |
+
+
+##`getIdentifierByIdentifierNumber(organization, identifierNumber, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| identifier_number | string |  |
 
 
 ##`getVersions(organization, options = {})`

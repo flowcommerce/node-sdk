@@ -6,6 +6,7 @@ import ExperienceDefaults from './experience-defaults';
 import Items from './items';
 import Orders from './orders';
 import OrderEstimates from './order-estimates';
+import OrderIdentifiers from './order-identifiers';
 import Organizations from './organizations';
 import Queries from './queries';
 import Subcatalogs from './subcatalogs';
@@ -83,9 +84,10 @@ const enums = {
   cardType: ['american_express', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   changeType: ['insert', 'update', 'delete'],
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
+  dayOfWeek: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],
   environment: ['sandbox', 'production'],
-  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'rma_upserted', 'rma_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
+  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'pricing_deleted', 'pricing_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'rma_upserted', 'rma_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
@@ -98,9 +100,10 @@ const enums = {
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
-  orderErrorCode: ['generic_error', 'order_item_not_available'],
+  orderErrorCode: ['generic_error', 'order_item_not_available', 'order_identifier_error'],
   orderPriceDetailComponentKey: ['adjustment', 'vat_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
+  orderStatus: ['open', 'submitted'],
   priceDetailComponentKey: ['base_price', 'discount', 'currency_margin', 'percent_item_margin', 'fixed_item_margin', 'duties_item_price', 'duties_added_margin', 'duties_rounding', 'duties_deminimis', 'vat_item_price', 'vat_added_margin', 'vat_rounding', 'vat_duties_item_price', 'vat_duties_added_margin', 'vat_duties_rounding', 'vat_deminimis'],
   priceDetailKey: ['item_price', 'margins', 'vat', 'duty', 'rounding'],
   pricingLevySetting: ['included', 'displayed', 'ignored'],
@@ -145,6 +148,7 @@ export default class ApiClient {
     this.items = new Items(options);
     this.orders = new Orders(options);
     this.orderEstimates = new OrderEstimates(options);
+    this.orderIdentifiers = new OrderIdentifiers(options);
     this.organizations = new Organizations(options);
     this.queries = new Queries(options);
     this.subcatalogs = new Subcatalogs(options);

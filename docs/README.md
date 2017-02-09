@@ -15,6 +15,7 @@ These resources mirror the official documentation located at
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see a payment authorization for an order. |
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
+| [orderIdentifiers](orderIdentifiers.md) | Represents alternate numbers with which to identify an order. |
 | [organizations](organizations.md) |  |
 | [queries](queries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |

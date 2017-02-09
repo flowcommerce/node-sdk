@@ -1,13 +1,13 @@
-# [API](README.md).authorizations - Flow Commerce API - Node SDK Documentation
+# [API](README.md).orderIdentifiers - Flow Commerce API - Node SDK Documentation
 
-An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization.
+Represents alternate numbers with which to identify an order.
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const authorizations = client().authorizations;
+const orderIdentifiers = client().orderIdentifiers;
 ```
 
 ## Operations
@@ -25,8 +25,8 @@ const authorizations = client().authorizations;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
-| order_number | string |  |
+| number | [string] |  |
+| order_number | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -40,24 +40,24 @@ const authorizations = client().authorizations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByKey(organization, key, options = {})`
+##`getByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| number | string |  |
 
 
-##`deleteByKey(organization, key, options = {})`
+##`deleteByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| number | string |  |
 
 
 ##`getVersions(organization, options = {})`
@@ -73,7 +73,8 @@ const authorizations = client().authorizations;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| authorization_id | [string] | Filter to authorizations with any one of these ids. |
+| number | [string] |  |
+| order_number | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.26"
+    "version": "0.11.54"
   },
   "name": "API",
   "organization": {
@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.2.46",
+  "version": "0.2.53",
   "info": {
     "license": {
       "name": "MIT",
@@ -378,6 +378,41 @@
       "attributes": []
     },
     {
+      "name": "day_of_week",
+      "plural": "day_of_weeks",
+      "values": [
+        {
+          "name": "sunday",
+          "attributes": []
+        },
+        {
+          "name": "monday",
+          "attributes": []
+        },
+        {
+          "name": "tuesday",
+          "attributes": []
+        },
+        {
+          "name": "wednesday",
+          "attributes": []
+        },
+        {
+          "name": "thursday",
+          "attributes": []
+        },
+        {
+          "name": "friday",
+          "attributes": []
+        },
+        {
+          "name": "saturday",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "delivered_duty",
       "plural": "delivered_duties",
       "values": [
@@ -490,6 +525,22 @@
         },
         {
           "name": "order_upserted",
+          "attributes": []
+        },
+        {
+          "name": "order_identifier_deleted",
+          "attributes": []
+        },
+        {
+          "name": "order_identifier_upserted",
+          "attributes": []
+        },
+        {
+          "name": "pricing_deleted",
+          "attributes": []
+        },
+        {
+          "name": "pricing_upserted",
           "attributes": []
         },
         {
@@ -846,6 +897,10 @@
           "name": "order_item_not_available",
           "attributes": [],
           "description": "When creating an order, if a particular item is not available in the country / destination (either because it was restricted or excluded from that country), we return this error code and list the specific item numbers which are not available in the 'numbers' field."
+        },
+        {
+          "name": "order_identifier_error",
+          "attributes": []
         }
       ],
       "attributes": []
@@ -983,6 +1038,22 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "order_status",
+      "plural": "order_statuses",
+      "values": [
+        {
+          "name": "open",
+          "attributes": []
+        },
+        {
+          "name": "submitted",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Indicates an order's status"
     },
     {
       "name": "price_detail_component_key",
@@ -1727,6 +1798,22 @@
           "attributes": []
         },
         {
+          "type": "order_identifier_deleted",
+          "attributes": []
+        },
+        {
+          "type": "order_identifier_upserted",
+          "attributes": []
+        },
+        {
+          "type": "pricing_deleted",
+          "attributes": []
+        },
+        {
+          "type": "pricing_upserted",
+          "attributes": []
+        },
+        {
           "type": "hs6_code_upserted",
           "attributes": []
         },
@@ -1937,6 +2024,14 @@
       "plural": "export_types",
       "types": [
         {
+          "type": "account_transactions_export_type",
+          "attributes": []
+        },
+        {
+          "type": "account_orders_export_type",
+          "attributes": []
+        },
+        {
           "type": "catalog_item_export_type",
           "attributes": []
         },
@@ -1953,11 +2048,7 @@
           "attributes": []
         },
         {
-          "type": "account_transactions_export_type",
-          "attributes": []
-        },
-        {
-          "type": "account_orders_export_type",
+          "type": "order_export_type",
           "attributes": []
         },
         {
@@ -2723,6 +2814,13 @@
           "description": "Destination address, if relevant"
         },
         {
+          "name": "order",
+          "type": "authorization_order_reference",
+          "required": false,
+          "attributes": [],
+          "description": "If this authorization was made for a specific order number, that order will be referenced here"
+        },
+        {
           "name": "ip",
           "type": "string",
           "required": false,
@@ -2795,6 +2893,20 @@
           "type": "string",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "authorization_order_reference",
+      "plural": "authorization_order_references",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
         }
       ],
       "attributes": []
@@ -2981,10 +3093,17 @@
           "attributes": [],
           "description": "Carrier service level ID",
           "example": "ups-ground"
+        },
+        {
+          "name": "scheduled_pickups",
+          "type": "[scheduled_pickup]",
+          "required": false,
+          "attributes": [],
+          "description": "Schedule day/times of carrier or affiliated line-haul pickup at this center. If not available, assume every day."
         }
       ],
       "attributes": [],
-      "description": "Representation of a service level available at a center, including misc attributes. Only ID for now, more attributes will be added in the future."
+      "description": "Representation of a service level available at a center and the special pickup times during the week. If pickup schedules are not provided, assumption is once a day during the weekdays."
     },
     {
       "name": "avs",
@@ -5636,6 +5755,20 @@
           "type": "export",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "ference",
+      "plural": "ferences",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
         }
       ],
       "attributes": []
@@ -9082,6 +9215,32 @@
       "description": "Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization's data and to provide a simple user interface to assign roles and permissions to each member of the organization"
     },
     {
+      "name": "membership_deleted",
+      "plural": "membership_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "membership_form",
       "plural": "membership_forms",
       "fields": [
@@ -9124,6 +9283,51 @@
       ],
       "attributes": [],
       "description": "Top level resource to create a membership."
+    },
+    {
+      "name": "membership_upserted",
+      "plural": "membership_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "membership_version",
@@ -9571,6 +9775,13 @@
           "required": false,
           "attributes": [],
           "description": "Provides display data for each of the line items belonging to this order."
+        },
+        {
+          "name": "identifiers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Other identifiers which are used to identify this order, if available."
         }
       ],
       "attributes": [],
@@ -9794,6 +10005,68 @@
       "description": "Form to get a lightweight estimate of an order."
     },
     {
+      "name": "order_export_type",
+      "plural": "order_export_types",
+      "fields": [
+        {
+          "name": "organizations",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The list of organizations for which to export data"
+        },
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The specific list of item numbers to export"
+        },
+        {
+          "name": "min_hours_since_submitted_at",
+          "type": "integer",
+          "required": false,
+          "attributes": [],
+          "description": "The minimum number of hours since submission. For example, specifying 24 would select all orders submitted at least 24 hours ago.",
+          "example": "24"
+        },
+        {
+          "name": "submitted_on_or_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "submitted_on_or_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "order_status",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "has_tracking_label",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "If true, we filter to orders with a tracking label. If false, we filter orders that do not have any tracking label events."
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "example": "number"
+        }
+      ],
+      "attributes": [],
+      "description": "Exports orders"
+    },
+    {
       "name": "order_form",
       "plural": "order_forms",
       "fields": [
@@ -9841,6 +10114,158 @@
       ],
       "attributes": [],
       "description": "The order form is used to create an open order, providing the details on pricing and delivery options for destination and items/quantities specified"
+    },
+    {
+      "name": "order_identifier",
+      "plural": "order_identifiers",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "order",
+          "type": "order_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents alternate numbers with which to identify an order."
+    },
+    {
+      "name": "order_identifier_deleted",
+      "plural": "order_identifier_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_identifier_form",
+      "plural": "order_identifier_forms",
+      "fields": [
+        {
+          "name": "order",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_identifier_upserted",
+      "plural": "order_identifier_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_identifier_version",
+      "plural": "order_identifier_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order_identifier",
+          "type": "order_identifier",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "order_price_detail",
@@ -10631,21 +11056,6 @@
           "attributes": []
         },
         {
-          "name": "default_base_currency",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Unless otherwise specified, this is the currency in which all 'base' prices will be presented in. Will be made required once deployed.",
-          "minimum": 3,
-          "maximum": 3
-        },
-        {
-          "name": "parent_id",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
           "name": "currencies",
           "type": "[string]",
           "required": true,
@@ -10654,6 +11064,21 @@
             "description": "Replaced by default base currency"
           },
           "minimum": 0
+        },
+        {
+          "name": "parent_id",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "default_base_currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Unless otherwise specified, this is the currency in which all 'base' prices will be presented in. Will be made required once deployed.",
+          "minimum": 3,
+          "maximum": 3
         }
       ],
       "attributes": []
@@ -10721,20 +11146,6 @@
       "description": "Represents packaging available to ship items"
     },
     {
-      "name": "partner_reference",
-      "plural": "partner_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "partner_token",
       "plural": "partner_tokens",
       "fields": [
@@ -10747,7 +11158,7 @@
         },
         {
           "name": "partner",
-          "type": "partner_reference",
+          "type": "token_partner_reference",
           "required": true,
           "attributes": []
         },
@@ -10827,7 +11238,7 @@
         },
         {
           "name": "partner",
-          "type": "partner_reference",
+          "type": "token_partner_reference",
           "required": true,
           "attributes": [],
           "description": "The Id of the partner for which this token was created"
@@ -11276,6 +11687,100 @@
       ],
       "attributes": [],
       "description": "Pricing determines how the item price is calculated when items are requests via the experience."
+    },
+    {
+      "name": "pricing_deleted",
+      "plural": "pricing_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "pricing_upserted",
+      "plural": "pricing_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "vat",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "duty",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rounding_type",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "rounding_method",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "rounding_value",
+          "type": "decimal",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "public_key",
@@ -12475,6 +12980,36 @@
       ],
       "attributes": [],
       "description": "Represents operating calendar and holidays of a center"
+    },
+    {
+      "name": "scheduled_pickup",
+      "plural": "scheduled_pickups",
+      "fields": [
+        {
+          "name": "day_of_week",
+          "type": "day_of_week",
+          "required": true,
+          "attributes": [],
+          "description": "Day of week when a pickup might occur"
+        },
+        {
+          "name": "hour_of_day",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Local time hour of the day in military format. Valid values: 00-23",
+          "example": "18"
+        },
+        {
+          "name": "minute_of_hour",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Minute within the hour. Valid values: 00-59",
+          "example": "30"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "service",
@@ -13695,47 +14230,11 @@
           "attributes": []
         },
         {
-          "name": "organization",
+          "name": "id",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "item_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "q",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "outcome_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "catalog_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "subcatalog_id",
-          "type": "string",
-          "required": false,
-          "attributes": []
+          "description": "Globally unique identifier"
         }
       ],
       "attributes": []
@@ -13757,11 +14256,24 @@
           "attributes": []
         },
         {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
           "name": "organization",
           "type": "string",
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "targeting_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
         },
         {
           "name": "item_number",
@@ -13800,7 +14312,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Indiciates that a given item has been targeted by the query q producing an outcome. The item number is unique within its targeting_id."
     },
     {
       "name": "targeting_query",
@@ -14416,6 +14929,20 @@
       "description": "Used to authenticate a given token."
     },
     {
+      "name": "token_partner_reference",
+      "plural": "token_partner_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "token_validation",
       "plural": "token_validations",
       "fields": [
@@ -14849,6 +15376,13 @@
           "required": false,
           "attributes": [],
           "description": "Defaults to now() if not provided"
+        },
+        {
+          "name": "parent_id",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Parent tracking label for this subordinate tracking label. A child label might represent the subcontracted line haul before reaching the main carrier. Goal is to be able to identify the main carrier responsible for fulfillment of a package."
         }
       ],
       "attributes": [],
@@ -16429,6 +16963,13 @@
               "type": "string",
               "location": "Query",
               "required": false
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
             },
             {
               "name": "limit",
@@ -18412,6 +18953,13 @@
               "maximum": 100
             },
             {
+              "name": "identifier",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
               "name": "number",
               "type": "[string]",
               "location": "Query",
@@ -18876,6 +19424,56 @@
         },
         {
           "method": "GET",
+          "path": "/:organization/orders/identifier/:identifier_number",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "identifier_number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific order using an identifier number"
+        },
+        {
+          "method": "GET",
           "path": "/:organization/orders/versions",
           "parameters": [
             {
@@ -19259,6 +19857,398 @@
       ],
       "path": "/:organization/order-estimates",
       "description": "Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties."
+    },
+    {
+      "type": "order_identifier",
+      "plural": "order_identifiers",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/order-identifiers",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "order_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[order_identifier]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "number"
+                  },
+                  {
+                    "value": "order_number"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/order-identifiers",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "order_identifier",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "order_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "order_identifier_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/order-identifiers/:number",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order_identifier",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/order-identifiers/:number",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/order-identifiers/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "order_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[order_identifier_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "number"
+                  },
+                  {
+                    "value": "order_number"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/order-identifiers",
+      "description": "Represents alternate numbers with which to identify an order."
     },
     {
       "type": "organization",
@@ -25337,6 +26327,13 @@
             {
               "name": "key",
               "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "order_number",
+              "type": "string",
               "location": "Query",
               "required": false,
               "maximum": 100
