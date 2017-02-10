@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.2.53",
+  "version": "0.2.60",
   "info": {
     "license": {
       "name": "MIT",
@@ -3872,25 +3872,12 @@
       "attributes": []
     },
     {
-      "name": "catalog_item_document_image",
-      "plural": "catalog_item_document_images",
-      "fields": [
-        {
-          "name": "url",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "catalog_item_document_images",
       "plural": "catalog_item_document_images",
       "fields": [
         {
           "name": "thumbnail",
-          "type": "catalog_item_document_image",
+          "type": "image",
           "required": false,
           "attributes": [],
           "description": "The thumbnail image is the first image associated with the item that has a tag named 'thumbnail'"
@@ -13373,9 +13360,9 @@
         {
           "name": "service",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "Desired carrier service level to use for this label"
+          "description": "Desired carrier service level to use for this label. If not provided, this will default to the delivery option that Flow calculated for the order."
         },
         {
           "name": "destination",
@@ -36579,7 +36566,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/scheduled/exports",
+          "path": "/users/scheduled/exports",
           "parameters": [
             {
               "name": "id",
@@ -36663,7 +36650,7 @@
         },
         {
           "method": "POST",
-          "path": "/scheduled/exports",
+          "path": "/users/scheduled/exports",
           "parameters": [],
           "responses": [
             {
@@ -36712,7 +36699,7 @@
         },
         {
           "method": "GET",
-          "path": "/scheduled/exports/:id",
+          "path": "/users/scheduled/exports/:id",
           "parameters": [
             {
               "name": "id",
@@ -36756,7 +36743,7 @@
         },
         {
           "method": "PUT",
-          "path": "/scheduled/exports/:id",
+          "path": "/users/scheduled/exports/:id",
           "parameters": [
             {
               "name": "id",
@@ -36813,7 +36800,7 @@
         },
         {
           "method": "DELETE",
-          "path": "/scheduled/exports/:id",
+          "path": "/users/scheduled/exports/:id",
           "parameters": [
             {
               "name": "id",
@@ -36863,7 +36850,7 @@
           }
         }
       ],
-      "path": "/scheduled/exports"
+      "path": "/users/scheduled/exports"
     },
     {
       "type": "suggestion",

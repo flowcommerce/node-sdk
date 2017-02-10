@@ -11,26 +11,26 @@ export default class ScheduledExports extends Client {
   }
 
   get(options = {}) {
-    return this.makeRequest(`${this.host}/scheduled/exports`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports`, options);
   }
 
   post(options = {}) {
     Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/scheduled/exports`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports`, options);
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/scheduled/exports/${id}`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, options);
   }
 
   putById(id, options = {}) {
     Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/scheduled/exports/${id}`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, options);
   }
 
   deleteById(id, options = {}) {
     Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/scheduled/exports/${id}`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, options);
   }
 
 }
