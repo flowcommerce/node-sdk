@@ -14,4 +14,8 @@ export default class PublicKeys extends Client {
     return this.makeRequest(`${this.host}/${organization}/encryption/keys`, options);
   }
 
+  getLatest(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/encryption/keys/latest`, options);
+  }
+
 }

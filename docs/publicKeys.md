@@ -29,3 +29,12 @@ const publicKeys = client().publicKeys;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`getLatest(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+

@@ -19,6 +19,33 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences`, options);
   }
 
+  getMarginsByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins`, options);
+  }
+
+  postMarginsByExperienceKey(organization, experienceKey, options = {}) {
+    Object.assign(options, { method: 'POST' });
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins`, options);
+  }
+
+  getMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, options);
+  }
+
+  putMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, options);
+  }
+
+  deleteMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
+    Object.assign(options, { method: 'DELETE' });
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, options);
+  }
+
+  getMarginsAndVersionsByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/versions`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, options);
   }
@@ -35,38 +62,6 @@ export default class Experiences extends Client {
 
   getItemsAndPriceByKeyAndNumber(organization, key, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/items/${number}/price`, options);
-  }
-
-  getMarginsByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins`, options);
-  }
-
-  postMarginsByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins`, options);
-  }
-
-  putMarginsByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins`, options);
-  }
-
-  getMarginsByKeyAndId(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins/${id}`, options);
-  }
-
-  putMarginsByKeyAndId(organization, key, id, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins/${id}`, options);
-  }
-
-  deleteMarginsByKeyAndId(organization, key, id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins/${id}`, options);
-  }
-
-  getMarginsAndVersionsByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/margins/versions`, options);
   }
 
   getPricingByKey(organization, key, options = {}) {

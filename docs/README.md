@@ -44,7 +44,7 @@ These resources mirror the official documentation located at
 | [inventorySnapshots](inventorySnapshots.md) | Inventory snapshot reflects the current quantity and available number of units for a given center / item |
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
-| [rmas](rmas.md) |  |
+| [returns](returns.md) |  |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |
 | [tiers](tiers.md) | Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier |
@@ -61,6 +61,7 @@ These resources mirror the official documentation located at
 | [countries](countries.md) | ISO 3166 country codes. Note Flow APIs will accept either the 2 or 3 character country code, but internally we normalize data and store as the 3 character, upper case ISO code. See https://api.flow.io/reference/countries |
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies |
 | [languages](languages.md) | ISO 639 2-character language code. See https://api.flow.io/reference/languages |
+| [locales](locales.md) | Locales defines standard conventions for presentation of content. See https://api.flow.io/reference/locales |
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
@@ -74,6 +75,8 @@ These resources mirror the official documentation located at
 | [partnerTokens](partnerTokens.md) | All of the metadata associated with a given token. |
 | [passwordResetForms](passwordResetForms.md) |  |
 | [scheduledExports](scheduledExports.md) |  |
+| [sessions](sessions.md) |  |
+| [sessionAuthorizations](sessionAuthorizations.md) |  |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |

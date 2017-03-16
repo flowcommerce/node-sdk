@@ -23,6 +23,11 @@ export default class OrderIdentifiers extends Client {
     return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, options);
   }
 
+  putByNumber(organization, number, options = {}) {
+    Object.assign(options, { method: 'PUT' });
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, options);
+  }
+
   deleteByNumber(organization, number, options = {}) {
     Object.assign(options, { method: 'DELETE' });
     return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, options);

@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.2.60",
+  "version": "0.2.79",
   "info": {
     "license": {
       "name": "MIT",
@@ -40,6 +40,48 @@
       ],
       "attributes": [],
       "description": "The key of each possible adjustment is defined here."
+    },
+    {
+      "name": "applied_promotion_type",
+      "plural": "applied_promotion_types",
+      "values": [
+        {
+          "name": "free_shipping",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "attribute_data_type",
+      "plural": "attribute_data_types",
+      "values": [
+        {
+          "name": "decimal",
+          "attributes": [],
+          "description": "Decimal datatype without size or precision restrictions. Commonly used for currency values."
+        },
+        {
+          "name": "string",
+          "attributes": [],
+          "description": "Unvalidated string of characters."
+        }
+      ],
+      "attributes": [],
+      "description": "Used to tag attributes with a data type so they are properly validated."
+    },
+    {
+      "name": "attribute_intent",
+      "plural": "attribute_intents",
+      "values": [
+        {
+          "name": "price",
+          "attributes": [],
+          "description": "Attributes with this data type are inferred to be prices in the organization's base currency and will be localized based on each Experience's pricing policy."
+        }
+      ],
+      "attributes": [],
+      "description": "Used to tag attributes as having a specific meaning that can affect processing."
     },
     {
       "name": "authorization_decline_code",
@@ -435,6 +477,23 @@
       "attributes": []
     },
     {
+      "name": "direction",
+      "plural": "directions",
+      "values": [
+        {
+          "name": "outbound",
+          "attributes": [],
+          "description": "Outbound shipment to typically fulfill a customer order"
+        },
+        {
+          "name": "return",
+          "attributes": [],
+          "description": "Inbound or return shipment"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "environment",
       "plural": "environments",
       "values": [
@@ -455,6 +514,14 @@
       "name": "event_type",
       "plural": "event_types",
       "values": [
+        {
+          "name": "attribute_upserted",
+          "attributes": []
+        },
+        {
+          "name": "attribute_deleted",
+          "attributes": []
+        },
         {
           "name": "catalog_upserted",
           "attributes": []
@@ -544,6 +611,14 @@
           "attributes": []
         },
         {
+          "name": "tier_upserted",
+          "attributes": []
+        },
+        {
+          "name": "tier_deleted",
+          "attributes": []
+        },
+        {
           "name": "hs6_code_upserted",
           "attributes": []
         },
@@ -596,14 +671,6 @@
           "attributes": []
         },
         {
-          "name": "rma_upserted",
-          "attributes": []
-        },
-        {
-          "name": "rma_deleted",
-          "attributes": []
-        },
-        {
           "name": "localized_item_upserted",
           "attributes": []
         },
@@ -653,6 +720,14 @@
         },
         {
           "name": "refund_upserted",
+          "attributes": []
+        },
+        {
+          "name": "return_upserted",
+          "attributes": []
+        },
+        {
+          "name": "return_deleted",
           "attributes": []
         },
         {
@@ -1202,6 +1277,17 @@
       "attributes": []
     },
     {
+      "name": "promotion_trigger_type",
+      "plural": "promotion_trigger_types",
+      "values": [
+        {
+          "name": "order_subtotal",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "query_type",
       "plural": "query_types",
       "values": [
@@ -1257,6 +1343,21 @@
       ],
       "attributes": [],
       "description": "Contains details related to the reason for which a refund failed."
+    },
+    {
+      "name": "return_status",
+      "plural": "return_statuses",
+      "values": [
+        {
+          "name": "open",
+          "attributes": []
+        },
+        {
+          "name": "refunded",
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "role",
@@ -1697,6 +1798,18 @@
       "description": "Flow provides several different options for creating an authorization"
     },
     {
+      "name": "available_promotion",
+      "plural": "available_promotions",
+      "types": [
+        {
+          "type": "free_shipping",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "deminimis",
       "plural": "deminimises",
       "types": [
@@ -1733,6 +1846,14 @@
       "name": "event",
       "plural": "events",
       "types": [
+        {
+          "type": "attribute_upserted",
+          "attributes": []
+        },
+        {
+          "type": "attribute_deleted",
+          "attributes": []
+        },
         {
           "type": "catalog_upserted",
           "attributes": []
@@ -1822,6 +1943,14 @@
           "attributes": []
         },
         {
+          "type": "tier_upserted",
+          "attributes": []
+        },
+        {
+          "type": "tier_deleted",
+          "attributes": []
+        },
+        {
           "type": "hs6_code_upserted",
           "attributes": []
         },
@@ -1874,14 +2003,6 @@
           "attributes": []
         },
         {
-          "type": "rma_upserted",
-          "attributes": []
-        },
-        {
-          "type": "rma_deleted",
-          "attributes": []
-        },
-        {
           "type": "localized_item_upserted",
           "attributes": []
         },
@@ -1931,6 +2052,14 @@
         },
         {
           "type": "refund_upserted",
+          "attributes": []
+        },
+        {
+          "type": "return_upserted",
+          "attributes": []
+        },
+        {
+          "type": "return_deleted",
           "attributes": []
         },
         {
@@ -2139,6 +2268,34 @@
       "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
     },
     {
+      "name": "session",
+      "plural": "sessions",
+      "types": [
+        {
+          "type": "shopify_session",
+          "attributes": []
+        },
+        {
+          "type": "organization_session",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "session_authorization",
+      "plural": "session_authorizations",
+      "types": [
+        {
+          "type": "organization_session_authorization",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "tier_rule_outcome",
       "plural": "tier_rule_outcomes",
       "types": [
@@ -2164,6 +2321,30 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Possible outcome types from a tier rule"
+    },
+    {
+      "name": "tier_rule_outcome_form",
+      "plural": "tier_rule_outcome_forms",
+      "types": [
+        {
+          "type": "amount_margin_form",
+          "attributes": []
+        },
+        {
+          "type": "flat_rate_form",
+          "attributes": []
+        },
+        {
+          "type": "at_cost",
+          "attributes": []
+        },
+        {
+          "type": "percent_margin",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
     },
     {
       "name": "token",
@@ -2630,7 +2811,7 @@
       "plural": "amount_margins",
       "fields": [
         {
-          "name": "addition",
+          "name": "margin",
           "type": "price",
           "required": true,
           "attributes": [],
@@ -2639,6 +2820,40 @@
       ],
       "attributes": [],
       "description": "Rule outcome where shipping surfaced in quote is actual cost plus a predefined margin price"
+    },
+    {
+      "name": "amount_margin_form",
+      "plural": "amount_margin_forms",
+      "fields": [
+        {
+          "name": "margin",
+          "type": "money",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "applied_promotion",
+      "plural": "applied_promotions",
+      "fields": [
+        {
+          "name": "type",
+          "type": "applied_promotion_type",
+          "required": true,
+          "attributes": [],
+          "example": "free_shipping"
+        },
+        {
+          "name": "value",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "Adjustment value of the applied promotion. For example, if shipping price is $50 and the promo is free shipping, the value will be $50"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "at_cost",
@@ -2682,10 +2897,54 @@
           "type": "string",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "intent",
+          "type": "attribute_intent",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "attribute_data_type",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": [],
       "description": "An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console."
+    },
+    {
+      "name": "attribute_deleted",
+      "plural": "attribute_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "attribute_form",
@@ -2713,6 +2972,72 @@
           "attributes": [],
           "description": "A human readable label used for display purposes",
           "example": "Brand"
+        },
+        {
+          "name": "intent",
+          "type": "attribute_intent",
+          "required": false,
+          "attributes": [],
+          "description": "Optionally specify the meaning of this attribute to ensure accurate processing, such as marking a price that should be localized. Note that specifying an intent may restrict what data types are legal -- for example, a price must also be of type decimal.",
+          "example": "price"
+        },
+        {
+          "name": "type",
+          "type": "attribute_data_type",
+          "required": false,
+          "attributes": [],
+          "description": "Optionally tag attributes with their data type so they are properly validated. If omitted, we will default to string",
+          "example": "string"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "attribute_upserted",
+      "plural": "attribute_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "intent",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -3737,6 +4062,20 @@
       "attributes": []
     },
     {
+      "name": "cart_reference",
+      "plural": "cart_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Equivalent of the cart token"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "catalog",
       "plural": "catalogs",
       "fields": [
@@ -4490,10 +4829,45 @@
           "attributes": [],
           "description": "The number of decimal places used by the given currency. For example, USD has 2 decimals while JPY has 0.",
           "minimum": 0
+        },
+        {
+          "name": "symbols",
+          "type": "currency_symbols",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "default_locale",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The locale id of the default locale to use when rendering this currency"
         }
       ],
       "attributes": [],
       "description": "ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies"
+    },
+    {
+      "name": "currency_symbols",
+      "plural": "currency_symbolses",
+      "fields": [
+        {
+          "name": "primary",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "A$"
+        },
+        {
+          "name": "narrow",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "example": "$"
+        }
+      ],
+      "attributes": [],
+      "description": "Defines one or more symbols representing this currency"
     },
     {
       "name": "customer",
@@ -5807,6 +6181,19 @@
       "description": "Rule outcome where shipping surfaced in quote is pre-defined flat rate"
     },
     {
+      "name": "flat_rate_form",
+      "plural": "flat_rate_forms",
+      "fields": [
+        {
+          "name": "price",
+          "type": "money",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "flow_item_index_metadata",
       "plural": "flow_item_index_metadata",
       "fields": [
@@ -5815,6 +6202,20 @@
           "type": "subcatalog_item_status",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "free_shipping",
+      "plural": "free_shippings",
+      "fields": [
+        {
+          "name": "trigger",
+          "type": "promotion_trigger",
+          "required": true,
+          "attributes": [],
+          "description": "Trigger used to calculate eligibility for free shipping, showing information necessary."
         }
       ],
       "attributes": []
@@ -7941,6 +8342,12 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "name",
           "type": "string",
           "required": true,
@@ -8017,8 +8424,57 @@
       "attributes": []
     },
     {
-      "name": "item_margin_form",
-      "plural": "item_margin_forms",
+      "name": "item_margin_post_form",
+      "plural": "item_margin_post_forms",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "fixed",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "A fixed amount to add to an item in the base currency, e.g 1.25.",
+          "example": "1.25"
+        },
+        {
+          "name": "percent",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "A percent of the base cost to add, e.g. 2.25 would indicate 2.25%.",
+          "example": "2.25"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Defaults to end of list"
+        }
+      ],
+      "attributes": [],
+      "description": "A percent and/or fixed margin to apply to items based on query."
+    },
+    {
+      "name": "item_margin_put_form",
+      "plural": "item_margin_put_forms",
       "fields": [
         {
           "name": "name",
@@ -8703,6 +9159,13 @@
           "required": true,
           "attributes": [],
           "default": "included"
+        },
+        {
+          "name": "attributes",
+          "type": "object",
+          "required": false,
+          "attributes": [],
+          "description": "This contains localized attributes, such as prices."
         }
       ],
       "attributes": []
@@ -8727,6 +9190,107 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "local_session",
+      "plural": "local_sessions",
+      "fields": [
+        {
+          "name": "country",
+          "type": "country",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "currency",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "language",
+          "type": "language",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience",
+          "type": "experience_summary",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "If we found an experience for the given session, the localized information will be presented here"
+    },
+    {
+      "name": "locale",
+      "plural": "locales",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier",
+          "example": "en_GB or fr_BE or fr_CA"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "English - United Kingdom"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 3 country code",
+          "example": "CAN"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 639 2 language code",
+          "example": "fr"
+        },
+        {
+          "name": "numbers",
+          "type": "locale_numbers",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Locales defines standard conventions for presentation of content. See https://api.flow.io/reference/locales"
+    },
+    {
+      "name": "locale_numbers",
+      "plural": "locale_numberses",
+      "fields": [
+        {
+          "name": "decimal",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Decimal separator",
+          "example": "."
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Group separator (e.g. 1,000 have a group separator of ',')",
+          "example": ","
+        }
+      ],
+      "attributes": [],
+      "description": "Number formats defined for a given locale"
     },
     {
       "name": "localized_adjustment",
@@ -9729,6 +10293,12 @@
           "description": "The customer who is actually making the purchase"
         },
         {
+          "name": "destination",
+          "type": "order_address",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "expires_at",
           "type": "date-time-iso8601",
           "required": true,
@@ -9738,12 +10308,6 @@
         {
           "name": "items",
           "type": "[localized_line_item]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "destination",
-          "type": "order_address",
           "required": true,
           "attributes": []
         },
@@ -9801,6 +10365,13 @@
           "required": false,
           "attributes": [],
           "description": "Other identifiers which are used to identify this order, if available."
+        },
+        {
+          "name": "promotions",
+          "type": "promotions",
+          "required": false,
+          "attributes": [],
+          "description": "The current available and applied promotions for this order"
         }
       ],
       "attributes": [],
@@ -9989,10 +10560,20 @@
           "required": false,
           "attributes": [],
           "description": "Provides display data for each of the line items belonging to this order estimate."
+        },
+        {
+          "name": "promotions",
+          "type": "promotions",
+          "required": false,
+          "attributes": [],
+          "description": "The current available and applied promotions for this order"
         }
       ],
       "attributes": [],
-      "description": "Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties."
+      "description": "Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties.",
+      "deprecation": {
+        "description": "Estimates are deprecated. Please use orders with optional destination"
+      }
     },
     {
       "name": "order_estimate_form",
@@ -10021,7 +10602,10 @@
         }
       ],
       "attributes": [],
-      "description": "Form to get a lightweight estimate of an order."
+      "description": "Form to get a lightweight estimate of an order.",
+      "deprecation": {
+        "description": "Estimates are deprecated. Please use orders with optional destination"
+      }
     },
     {
       "name": "order_export_type",
@@ -10083,13 +10667,6 @@
       "plural": "order_forms",
       "fields": [
         {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
           "name": "customer",
           "type": "customer",
           "required": false,
@@ -10097,17 +10674,24 @@
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console."
         },
         {
-          "name": "destination",
-          "type": "order_address",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "items",
           "type": "[line_item_form]",
           "required": true,
           "attributes": [],
           "minimum": 1
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If not provided, will default to the generated unique order identifier."
+        },
+        {
+          "name": "destination",
+          "type": "order_address",
+          "required": false,
+          "attributes": []
         },
         {
           "name": "discount",
@@ -10202,6 +10786,19 @@
       "attributes": []
     },
     {
+      "name": "order_identifier_put_form",
+      "plural": "order_identifier_put_forms",
+      "fields": [
+        {
+          "name": "order",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_identifier_upserted",
       "plural": "order_identifier_upserteds",
       "fields": [
@@ -10218,18 +10815,18 @@
           "attributes": []
         },
         {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
           "name": "id",
           "type": "string",
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
         },
         {
           "name": "number",
@@ -10388,12 +10985,6 @@
       "plural": "order_put_forms",
       "fields": [
         {
-          "name": "destination",
-          "type": "order_address",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "items",
           "type": "[line_item_form]",
           "required": true,
@@ -10414,6 +11005,12 @@
           "attributes": [],
           "description": "Selected list of delivery options for this quote. The original order will contain one or more deliveries. Each delivery will contain one or more shipping options (e.g. standard or express). We need to know which shipping options the user selected in order to provide accurate, local shipping pricing. You should only specify if you are explicitly changing the delivery options",
           "minimum": 1
+        },
+        {
+          "name": "destination",
+          "type": "order_address",
+          "required": false,
+          "attributes": []
         },
         {
           "name": "discount",
@@ -10895,6 +11492,60 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "organization_session",
+      "plural": "organization_sessions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "local",
+          "type": "local_session",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization_session_authorization",
+      "plural": "organization_session_authorizations",
+      "fields": [
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a session authorized access to the specified organization's data"
     },
     {
       "name": "organization_summary",
@@ -11795,6 +12446,62 @@
       "attributes": []
     },
     {
+      "name": "promotion_trigger",
+      "plural": "promotion_triggers",
+      "fields": [
+        {
+          "name": "type",
+          "type": "promotion_trigger_type",
+          "required": true,
+          "attributes": [],
+          "example": "order_subtotal"
+        },
+        {
+          "name": "min",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "Minimum amount to be eligible for the trigger"
+        },
+        {
+          "name": "remaining",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "Remaining value necessary to apply the trigger"
+        },
+        {
+          "name": "max",
+          "type": "price",
+          "required": false,
+          "attributes": [],
+          "description": "Maximum value covered by trigger"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "promotions",
+      "plural": "promotionses",
+      "fields": [
+        {
+          "name": "applied",
+          "type": "[applied_promotion]",
+          "required": false,
+          "attributes": [],
+          "description": "List of promotions that have been applied to this order. For example, free shipping promotion is applied to the shipping price."
+        },
+        {
+          "name": "available",
+          "type": "[available_promotion]",
+          "required": false,
+          "attributes": [],
+          "description": "List of available promotions that are applicable for this order. If a promotion is here, the promo is not yet applied to the order, but the order can become eligible for it given some criteria."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "public_key",
       "plural": "public_keys",
       "fields": [
@@ -12329,6 +13036,13 @@
           "attributes": [],
           "description": "The ISO 4217-3 code for the currency. Required if amount is specified. Case insensitive. Note you will get an error if the currency does not match the related authrization's currency. See https://api.flow.io/reference/currencies",
           "example": "CAD"
+        },
+        {
+          "name": "rma_key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The RMA key, if available. If specified, this will udpate the RMA status as refunded."
         }
       ],
       "attributes": [],
@@ -12470,6 +13184,18 @@
           "type": "date-time-iso8601",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "rma_key",
+          "type": "string",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -12529,7 +13255,7 @@
           "type": "[string]",
           "required": true,
           "attributes": [],
-          "description": "A list of the countries in this region",
+          "description": "A list of the countries as ISO 3166 3 codes in this region",
           "minimum": 1
         },
         {
@@ -12537,7 +13263,7 @@
           "type": "[string]",
           "required": true,
           "attributes": [],
-          "description": "A list of the currencies in this region",
+          "description": "A list of the currencies as ISO 4217 3 codes in this region",
           "minimum": 0
         },
         {
@@ -12545,7 +13271,7 @@
           "type": "[string]",
           "required": true,
           "attributes": [],
-          "description": "A list of the languages spoken in this region",
+          "description": "A list of the languages as ISO 639 2 codes spoken in this region",
           "minimum": 0
         },
         {
@@ -12583,9 +13309,240 @@
       "attributes": []
     },
     {
-      "name": "rma",
-      "plural": "rmas",
+      "name": "return",
+      "plural": "returns",
       "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Human-readable string starting with F12."
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "items",
+          "type": "[return_line_item]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "labels",
+          "type": "[shipping_label]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_deleted",
+      "plural": "return_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_form",
+      "plural": "return_forms",
+      "fields": [
+        {
+          "name": "items",
+          "type": "[return_line_item]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Service level to use for return package. If not specified, will default to FASTEST service level in reverse logistics tier of the order's experience."
+        },
+        {
+          "name": "destination",
+          "type": "shipping_address",
+          "required": false,
+          "attributes": [],
+          "description": "Destination of the return. If not provided, will default to calculated destination based on original location of the product and carrier service level."
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Organization's internal identifier for this return. If one is not available or provided, Flow will generate."
+        },
+        {
+          "name": "origin",
+          "type": "shipping_address",
+          "required": false,
+          "attributes": [],
+          "description": "Origin address of the return. If not provided, will default to destination address of the original order."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_item_reference",
+      "plural": "return_item_references",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_line_item",
+      "plural": "return_line_items",
+      "fields": [
+        {
+          "name": "item_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "reason",
+          "type": "return_reason",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Optional notes to provide explanation or context for the respective return reason."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_order_reference",
+      "plural": "return_order_references",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_reason",
+      "plural": "return_reasons",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_reason_form",
+      "plural": "return_reason_forms",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_reason_put_form",
+      "plural": "return_reason_put_forms",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "return_upserted",
+      "plural": "return_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
         {
           "name": "id",
           "type": "string",
@@ -12594,242 +13551,11 @@
           "description": "Globally unique identifier"
         },
         {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": true,
-          "attributes": [],
-          "description": "Reference information included with the label, if carrier provides support for reference information.",
-          "default": "{}"
-        },
-        {
-          "name": "carrier_tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
-        },
-        {
-          "name": "commercial_invoice",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Pre-signed URL containing generated PDF commercial invoice required for international shipments"
-        },
-        {
-          "name": "destination",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "description": "Destination contact information and structured address"
-        },
-        {
-          "name": "flow_tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Flow-generated tracking number. 13 digit tracking number that begins with F70."
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Merchant's RMA number"
-        },
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Merchant's order number"
-        },
-        {
-          "name": "origin",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "description": "Origin contact information and structured address"
-        },
-        {
-          "name": "service",
-          "type": "service_summary",
-          "required": true,
-          "attributes": [],
-          "description": "Carrier service level used for generation and shipment of this label",
-          "example": "ups-ground, dhl-express-worldwide"
-        },
-        {
-          "name": "zpl",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Base64 encoded ZPL2-formatted data of the shipping label"
-        },
-        {
-          "name": "pdf",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed URL containing PDF copy of the shipping label"
-        },
-        {
-          "name": "png",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed URL containing PNG copy of the shipping label"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "rma_deleted",
-      "plural": "rma_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "organization",
           "type": "string",
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "rma_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "rma_form",
-      "plural": "rma_forms",
-      "fields": [
-        {
-          "name": "destination",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "description": "Destination contact information and structured address"
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Merchant's RMA number"
-        },
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Merchant's order number associate with the returned package items"
-        },
-        {
-          "name": "origin",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "description": "Origin contact information and structured address"
-        },
-        {
-          "name": "package",
-          "type": "shipping_label_package",
-          "required": true,
-          "attributes": [],
-          "description": "Package to be shipped, including dimensions and items included"
-        },
-        {
-          "name": "service",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Desired carrier service level to use for this label"
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "description": "Reference information included with the label, if carrier provides support for reference information."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "rma_upserted",
-      "plural": "rma_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "rma_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "carrier_tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "commercial_invoice",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "flow_tracking_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
         },
         {
           "name": "destination",
@@ -12838,14 +13564,20 @@
           "attributes": []
         },
         {
-          "name": "origin",
+          "name": "items",
           "type": "object",
           "required": true,
           "attributes": []
         },
         {
-          "name": "order_number",
+          "name": "key",
           "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "labels",
+          "type": "object",
           "required": true,
           "attributes": []
         },
@@ -12856,26 +13588,8 @@
           "attributes": []
         },
         {
-          "name": "zpl",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "pdf",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "png",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "created_at",
-          "type": "date-time-iso8601",
+          "name": "origin",
+          "type": "object",
           "required": true,
           "attributes": []
         }
@@ -12883,8 +13597,8 @@
       "attributes": []
     },
     {
-      "name": "rma_version",
-      "plural": "rma_versions",
+      "name": "return_version",
+      "plural": "return_versions",
       "fields": [
         {
           "name": "id",
@@ -12906,8 +13620,8 @@
           "attributes": []
         },
         {
-          "name": "rma",
-          "type": "rma",
+          "name": "return",
+          "type": "return",
           "required": true,
           "attributes": []
         }
@@ -13211,6 +13925,102 @@
       "attributes": []
     },
     {
+      "name": "session_authorization_form",
+      "plural": "session_authorization_forms",
+      "fields": [
+        {
+          "name": "session",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The session Id"
+        }
+      ],
+      "attributes": [],
+      "description": "Authorize a request using a session id"
+    },
+    {
+      "name": "session_form",
+      "plural": "session_forms",
+      "fields": [
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
+        },
+        {
+          "name": "experience",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, we will render the items in the context of the experience with this key."
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience."
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
+          "example": "en"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "session_put_form",
+      "plural": "session_put_forms",
+      "fields": [
+        {
+          "name": "experience",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, we will render the items in the context of the experience with this key."
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience."
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
+          "example": "en"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "shipping_address",
       "plural": "shipping_addresses",
       "fields": [
@@ -13241,6 +14051,13 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "direction",
+          "type": "direction",
+          "required": true,
+          "attributes": [],
+          "description": "Tells us whether the ratecard is for outbound or reverse logistics. This will determine information passed on to carriers to make sure the correct label and accounts are used."
         },
         {
           "name": "attributes",
@@ -13344,27 +14161,6 @@
       "plural": "shipping_label_forms",
       "fields": [
         {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "description": "Reference information included with the label, if carrier provides support for reference information."
-        },
-        {
-          "name": "delivered_duty",
-          "type": "delivered_duty",
-          "required": true,
-          "attributes": [],
-          "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
-        },
-        {
-          "name": "service",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Desired carrier service level to use for this label. If not provided, this will default to the delivery option that Flow calculated for the order."
-        },
-        {
           "name": "destination",
           "type": "shipping_address",
           "required": true,
@@ -13386,11 +14182,39 @@
           "description": "Package to be shipped, including dimensions and items included"
         },
         {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Reference information included with the label, if carrier provides support for reference information."
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
+        },
+        {
+          "name": "direction",
+          "type": "direction",
+          "required": false,
+          "attributes": [],
+          "description": "Tells us whether the ratecard is for outbound or reverse logistics. This will determine information passed on to carriers to make sure the correct label and accounts are used. If not specified, defaults to outbound."
+        },
+        {
           "name": "order_number",
           "type": "string",
           "required": false,
           "attributes": [],
           "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a submitted order, if applicable."
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Desired carrier service level to use for this label. If not provided, this will default to the delivery option that Flow calculated for the order."
         }
       ],
       "attributes": []
@@ -13634,6 +14458,51 @@
       "attributes": []
     },
     {
+      "name": "shopify_session",
+      "plural": "shopify_sessions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "local",
+          "type": "local_session",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "shop",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "cart",
+          "type": "cart_reference",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "snapshot_deleted",
       "plural": "snapshot_deleteds",
       "fields": [
@@ -13675,17 +14544,17 @@
           "attributes": []
         },
         {
-          "name": "snapshot_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
           "name": "organization",
           "type": "string",
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "snapshot_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
         },
         {
           "name": "available",
@@ -14069,6 +14938,38 @@
       "attributes": []
     },
     {
+      "name": "subcatalog_item_version",
+      "plural": "subcatalog_item_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_item",
+          "type": "subcatalog_item",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "subcatalog_reference",
       "plural": "subcatalog_references",
       "fields": [
@@ -14388,18 +15289,18 @@
           "attributes": []
         },
         {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
           "name": "organization",
           "type": "string",
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
         },
         {
           "name": "targeting_id",
@@ -14663,6 +15564,13 @@
           "required": true,
           "attributes": [],
           "description": "Public or Private. Private ones appear as inactive/disabled to the public"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Description of the tier intended for internal description of return tiers or could be used for caption/tooltips on a checkout page."
         }
       ],
       "attributes": [],
@@ -14756,6 +15664,32 @@
       "attributes": []
     },
     {
+      "name": "tier_deleted",
+      "plural": "tier_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "tier_form",
       "plural": "tier_forms",
       "fields": [
@@ -14813,6 +15747,13 @@
           "required": true,
           "attributes": [],
           "description": "Public or Private. Private ones appear as inactive/disabled to the public"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Description of the tier intended for internal description of return tiers or could be used for caption/tooltips on a checkout page."
         }
       ],
       "attributes": [],
@@ -14890,7 +15831,7 @@
         },
         {
           "name": "outcome",
-          "type": "tier_rule_outcome",
+          "type": "tier_rule_outcome_form",
           "required": true,
           "attributes": []
         }
@@ -14979,6 +15920,87 @@
           "required": true,
           "attributes": [],
           "description": "Public or Private. Private ones appear as inactive/disabled to the public"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tier_upserted",
+      "plural": "tier_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "integration",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rules",
+          "type": "[object]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "services",
+          "type": "[object]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "strategy",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "visibility",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -17241,6 +18263,452 @@
         },
         {
           "method": "GET",
+          "path": "/:organization/experiences/:experience_key/margins",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "name"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item_margin]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "name"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/experiences/:experience_key/margins",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "item_margin",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "item_margin_post_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:experience_key/margins/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item_margin",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/experiences/:experience_key/margins/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item_margin",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "item_margin_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/experiences/:experience_key/margins/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:experience_key/margins/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item_margin_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "GET",
           "path": "/:organization/experiences/:key",
           "parameters": [
             {
@@ -17466,517 +18934,6 @@
           ],
           "attributes": [],
           "description": "Returns detailed information on the pricing of this item within this experience"
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/experiences/:key/margins",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "name"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[item_margin]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "name"
-                  },
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/experiences/:key/margins",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "item_margin",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "item_margin_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "PUT",
-          "path": "/:organization/experiences/:key/margins",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[item_margin]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "[item_margin]",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/experiences/:key/margins/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "item_margin",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "PUT",
-          "path": "/:organization/experiences/:key/margins/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "item_margin",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "item_margin_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/:organization/experiences/:key/margins/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/experiences/:key/margins/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[item_margin_version]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ]
         },
         {
           "method": "GET",
@@ -20209,6 +21166,77 @@
             }
           ],
           "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/order-identifiers/:number",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order_identifier",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "order_identifier",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "order_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "order_identifier_put_form",
+            "attributes": []
+          }
         },
         {
           "method": "DELETE",
@@ -23026,15 +24054,6 @@
               "maximum": 100
             },
             {
-              "name": "status",
-              "type": "[subcatalog_item_status]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter to items based on their status within this subcatalog",
-              "maximum": 3,
-              "example": "included"
-            },
-            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -23068,7 +24087,7 @@
                   "value": 200
                 }
               },
-              "type": "[subcatalog_version]",
+              "type": "[subcatalog_item_version]",
               "description": "Successful response"
             },
             {
@@ -27621,6 +28640,50 @@
             }
           ],
           "description": "Returns your public keys"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/encryption/keys/latest",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "public_key",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              }
+            }
+          ],
+          "description": "Return the latest public key for an organization"
         }
       ],
       "attributes": [
@@ -29614,12 +30677,12 @@
       "description": "Represents a collection of deliveries and available options for fulfillment of that delivery"
     },
     {
-      "type": "rma",
-      "plural": "rmas",
+      "type": "return",
+      "plural": "returns",
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/rmas",
+          "path": "/:organization/returns",
           "parameters": [
             {
               "name": "organization",
@@ -29637,14 +30700,14 @@
               "maximum": 100
             },
             {
-              "name": "number",
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,
               "maximum": 100
             },
             {
-              "name": "carrier_tracking_number",
+              "name": "order_number",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -29658,7 +30721,7 @@
               "maximum": 100
             },
             {
-              "name": "order_number",
+              "name": "carrier_tracking_number",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -29705,7 +30768,7 @@
                   "value": 200
                 }
               },
-              "type": "[rma]",
+              "type": "[return]",
               "description": "Successful response"
             },
             {
@@ -29716,15 +30779,6 @@
               },
               "type": "unit",
               "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
             },
             {
               "code": {
@@ -29745,16 +30799,19 @@
                     "value": "id"
                   },
                   {
-                    "value": "carrier_tracking_number"
+                    "value": "created_at"
                   },
                   {
-                    "value": "flow_tracking_number"
+                    "value": "key"
                   },
                   {
                     "value": "order_number"
                   },
                   {
-                    "value": "number"
+                    "value": "flow_tracking_number"
+                  },
+                  {
+                    "value": "carrier_tracking_number"
                   },
                   {
                     "value": "service"
@@ -29766,7 +30823,7 @@
         },
         {
           "method": "POST",
-          "path": "/:organization/rmas",
+          "path": "/:organization/returns",
           "parameters": [
             {
               "name": "organization",
@@ -29780,19 +30837,10 @@
             {
               "code": {
                 "integer": {
-                  "value": 200
-                }
-              },
-              "type": "rma",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
                   "value": 201
                 }
               },
-              "type": "rma",
+              "type": "return",
               "description": "Operation succeeded and the resource was created"
             },
             {
@@ -29816,13 +30864,13 @@
           ],
           "attributes": [],
           "body": {
-            "type": "rma_form",
+            "type": "return_form",
             "attributes": []
           }
         },
         {
           "method": "GET",
-          "path": "/:organization/rmas/:id",
+          "path": "/:organization/returns/:key",
           "parameters": [
             {
               "name": "organization",
@@ -29832,11 +30880,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -29846,7 +30893,7 @@
                   "value": 200
                 }
               },
-              "type": "rma",
+              "type": "return",
               "description": "Successful response"
             },
             {
@@ -29871,8 +30918,137 @@
           "attributes": []
         },
         {
+          "method": "PUT",
+          "path": "/:organization/returns/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "return",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "return",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "return_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/returns/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": []
+        },
+        {
           "method": "GET",
-          "path": "/:organization/rmas/versions",
+          "path": "/:organization/returns/versions",
           "parameters": [
             {
               "name": "organization",
@@ -29890,7 +31066,7 @@
               "maximum": 100
             },
             {
-              "name": "number",
+              "name": "key",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -29930,7 +31106,7 @@
                   "value": 200
                 }
               },
-              "type": "[rma_version]",
+              "type": "[return_version]",
               "description": "Successful response"
             },
             {
@@ -29941,6 +31117,15 @@
               },
               "type": "unit",
               "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [
@@ -29952,7 +31137,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "number"
+                    "value": "key"
                   },
                   {
                     "value": "journal_timestamp"
@@ -29971,7 +31156,7 @@
           }
         }
       ],
-      "path": "/:organization/rmas"
+      "path": "/:organization/returns"
     },
     {
       "type": "shipping_label",
@@ -34044,6 +35229,111 @@
       "description": "ISO 639 2-character language code. See https://api.flow.io/reference/languages"
     },
     {
+      "type": "locale",
+      "plural": "locales",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/reference/locales",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search on name for a single matching locale. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[locale]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Returns a list of locales."
+        },
+        {
+          "method": "GET",
+          "path": "/reference/locales/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "locale",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns the locale with the specifed id."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "reference"
+          }
+        }
+      ],
+      "path": "/reference/locales",
+      "description": "Locales defines standard conventions for presentation of content. See https://api.flow.io/reference/locales"
+    },
+    {
       "type": "region",
       "plural": "regions",
       "operations": [
@@ -36851,6 +38141,279 @@
         }
       ],
       "path": "/users/scheduled/exports"
+    },
+    {
+      "type": "session",
+      "plural": "sessions",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/sessions/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/:session/reset",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "description": "Resets the session - returned session will be identical to the result of using POST to create a session, except for we preserve the session id",
+          "body": {
+            "type": "session_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/sessions/organizations/:organization",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/sessions"
+    },
+    {
+      "type": "session_authorization",
+      "plural": "session_authorizations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/authorizations/sessions",
+          "parameters": [],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session_authorization",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "session_authorization_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/authorizations/sessions"
     },
     {
       "type": "suggestion",

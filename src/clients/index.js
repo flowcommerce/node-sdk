@@ -35,7 +35,7 @@ import InventoryRules from './inventory-rules';
 import InventorySnapshots from './inventory-snapshots';
 import InventoryUpdates from './inventory-updates';
 import Quotes from './quotes';
-import Rmas from './rmas';
+import Returns from './returns';
 import ShippingLabels from './shipping-labels';
 import ShippingNotifications from './shipping-notifications';
 import Tiers from './tiers';
@@ -52,6 +52,7 @@ import Timezones from './timezones';
 import Countries from './countries';
 import Currencies from './currencies';
 import Languages from './languages';
+import Locales from './locales';
 import Regions from './regions';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
@@ -65,6 +66,8 @@ import OrganizationTokens from './organization-tokens';
 import PartnerTokens from './partner-tokens';
 import PasswordResetForms from './password-reset-forms';
 import ScheduledExports from './scheduled-exports';
+import Sessions from './sessions';
+import SessionAuthorizations from './session-authorizations';
 import Suggestions from './suggestions';
 import Tokens from './tokens';
 import TokenValidations from './token-validations';
@@ -74,6 +77,9 @@ import Users from './users';
 
 const enums = {
   adjustmentReasonKey: ['duty_deminimis', 'vat_deminimis'],
+  appliedPromotionType: ['free_shipping'],
+  attributeDataType: ['decimal', 'string'],
+  attributeIntent: ['price'],
   authorizationDeclineCode: ['expired', 'invalid_name', 'invalid_number', 'invalid_expiration', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
   authorizationDeleteErrorCode: ['expired', 'captured', 'unknown'],
   authorizationStatus: ['pending', 'pending_call_bank', 'authorized', 'declined', 'voided'],
@@ -87,8 +93,9 @@ const enums = {
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   dayOfWeek: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
   deliveredDuty: ['paid', 'unpaid', 'choice'],
+  direction: ['outbound', 'return'],
   environment: ['sandbox', 'production'],
-  eventType: ['catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'pricing_deleted', 'pricing_upserted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'rma_upserted', 'rma_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
+  eventType: ['attribute_upserted', 'attribute_deleted', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'pricing_deleted', 'pricing_upserted', 'tier_upserted', 'tier_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'capture_upserted', 'card_upserted', 'card_deleted', 'refund_upserted', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
@@ -108,9 +115,11 @@ const enums = {
   priceDetailComponentKey: ['base_price', 'discount', 'currency_margin', 'percent_item_margin', 'fixed_item_margin', 'duties_item_price', 'duties_added_margin', 'duties_rounding', 'duties_deminimis', 'vat_item_price', 'vat_added_margin', 'vat_rounding', 'vat_duties_item_price', 'vat_duties_added_margin', 'vat_duties_rounding', 'vat_deminimis'],
   priceDetailKey: ['item_price', 'margins', 'vat', 'duty', 'rounding'],
   pricingLevySetting: ['included', 'displayed', 'ignored'],
+  promotionTriggerType: ['order_subtotal'],
   queryType: ['exclusion', 'inclusion'],
   quoteErrorCode: ['generic_error', 'items_not_available'],
   refundDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
+  returnStatus: ['open', 'refunded'],
   role: ['admin', 'member'],
   roundingMethod: ['up', 'down', 'nearest'],
   roundingType: ['pattern', 'multiple'],
@@ -178,7 +187,7 @@ export default class ApiClient {
     this.inventorySnapshots = new InventorySnapshots(options);
     this.inventoryUpdates = new InventoryUpdates(options);
     this.quotes = new Quotes(options);
-    this.rmas = new Rmas(options);
+    this.returns = new Returns(options);
     this.shippingLabels = new ShippingLabels(options);
     this.shippingNotifications = new ShippingNotifications(options);
     this.tiers = new Tiers(options);
@@ -195,6 +204,7 @@ export default class ApiClient {
     this.countries = new Countries(options);
     this.currencies = new Currencies(options);
     this.languages = new Languages(options);
+    this.locales = new Locales(options);
     this.regions = new Regions(options);
     this.documents = new Documents(options);
     this.emailVerifications = new EmailVerifications(options);
@@ -208,6 +218,8 @@ export default class ApiClient {
     this.partnerTokens = new PartnerTokens(options);
     this.passwordResetForms = new PasswordResetForms(options);
     this.scheduledExports = new ScheduledExports(options);
+    this.sessions = new Sessions(options);
+    this.sessionAuthorizations = new SessionAuthorizations(options);
     this.suggestions = new Suggestions(options);
     this.tokens = new Tokens(options);
     this.tokenValidations = new TokenValidations(options);
