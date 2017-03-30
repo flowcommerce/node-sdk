@@ -184,6 +184,16 @@ const experiences = client().experiences;
 | key | string |  |
 
 
+##`getPromotionsAndAvailableByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+
 ##`getConversionsByBaseAndAmount(organization, base, amount, options = {})`
 
 ### Function Parameters

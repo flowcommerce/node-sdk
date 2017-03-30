@@ -1,6 +1,6 @@
 # [API](README.md).authorizations - Flow Commerce API - Node SDK Documentation
 
-An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization.
+
 
 ## Usage
 
@@ -30,6 +30,7 @@ const authorizations = client().authorizations;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
+| expand | [string] |  |
 
 ##`post(organization, options = {})`
 
@@ -49,6 +50,11 @@ const authorizations = client().authorizations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`deleteByKey(organization, key, options = {})`
 

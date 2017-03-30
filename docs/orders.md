@@ -30,6 +30,7 @@ const orders = client().orders;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
+| expand | [string] |  |
 
 ##`post(organization, options = {})`
 
@@ -48,6 +49,7 @@ const orders = client().orders;
 | ip | string | If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address. |
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
+| expand | [string] |  |
 
 ##`getByNumber(organization, number, options = {})`
 
@@ -58,6 +60,11 @@ const orders = client().orders;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | number | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`putByNumber(organization, number, options = {})`
 
@@ -77,6 +84,7 @@ const orders = client().orders;
 | ip | string | If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address. |
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
+| expand | [string] |  |
 
 ##`deleteByNumber(organization, number, options = {})`
 
@@ -107,6 +115,11 @@ const orders = client().orders;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | identifier_number | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`getVersions(organization, options = {})`
 

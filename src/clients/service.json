@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.2.79",
+  "version": "0.2.87",
   "info": {
     "license": {
       "name": "MIT",
@@ -168,6 +168,19 @@
       ],
       "attributes": [],
       "description": "Contains details related to the reason for which a cancel failed."
+    },
+    {
+      "name": "authorization_option",
+      "plural": "authorization_options",
+      "values": [
+        {
+          "name": "store_card",
+          "attributes": [],
+          "description": "If set, and the authorization is created using a one time nonce, we automatically tokenize and store the card. In these cases you will want to store the new card token in the authorization response (card object)"
+        }
+      ],
+      "attributes": [],
+      "description": "Specifies optional behaviors that can be applied during an authorization"
     },
     {
       "name": "authorization_status",
@@ -467,11 +480,6 @@
           "name": "unpaid",
           "attributes": [],
           "description": "Delivered Duty Unpaid (DDU). See https://en.wikipedia.org/wiki/Incoterms for more information"
-        },
-        {
-          "name": "choice",
-          "attributes": [],
-          "description": "Allow the customer to choose whether they would like DDP or DDU"
         }
       ],
       "attributes": []
@@ -576,6 +584,14 @@
         },
         {
           "name": "item_margin_upserted",
+          "attributes": []
+        },
+        {
+          "name": "item_sales_margin_deleted",
+          "attributes": []
+        },
+        {
+          "name": "item_sales_margin_upserted",
           "attributes": []
         },
         {
@@ -1076,6 +1092,21 @@
           "name": "order_discount",
           "attributes": [],
           "description": "A discount applied to the entire order."
+        },
+        {
+          "name": "subtotal_percent_sales_margin",
+          "attributes": [],
+          "description": "The sum of adjustments to item price, margin and rounding made due to percentage sales margins."
+        },
+        {
+          "name": "subtotal_vat_percent_sales_margin",
+          "attributes": [],
+          "description": "The sum of adjustments to VAT owed made due to percentage sales margins."
+        },
+        {
+          "name": "subtotal_duty_percent_sales_margin",
+          "attributes": [],
+          "description": "The sum of adjustments to duty owed made due to percentage sales margins."
         }
       ],
       "attributes": []
@@ -1139,6 +1170,29 @@
       "description": "Indicates an order's status"
     },
     {
+      "name": "payment_method_type",
+      "plural": "payment_method_types",
+      "values": [
+        {
+          "name": "card",
+          "attributes": [],
+          "description": "Represents all form of card payment (e.g. credit, debit, etc.)"
+        },
+        {
+          "name": "online",
+          "attributes": [],
+          "description": "Represents the most common form of alternative payment methods which require some degree of integration online (e.g. a redirect) to complete payment."
+        },
+        {
+          "name": "offline",
+          "attributes": [],
+          "description": "Offline payment method types represent payments like Cash On Delivery which require offline collection"
+        }
+      ],
+      "attributes": [],
+      "description": "The payment method type defines at a high level different user experiences that are required to accept payment of this type. By enabling a payment method type, you are specifying that you have completed the integration and all payment methods of this type become available for offer to your users."
+    },
+    {
       "name": "price_detail_component_key",
       "plural": "price_detail_component_keys",
       "values": [
@@ -1150,22 +1204,22 @@
         {
           "name": "discount",
           "attributes": [],
-          "description": "A discount applied to the item."
+          "description": "A discount applied to the base price of the item."
         },
         {
           "name": "currency_margin",
           "attributes": [],
-          "description": "The amount added to the post-discount base item price due to FX markup, as configured in the organization's currency settings."
+          "description": "The amount added to the post-discount item price due to FX markup, as configured in the organization's currency settings."
         },
         {
           "name": "percent_item_margin",
           "attributes": [],
-          "description": "The amount added to the total item price from the percent margin, if applicable."
+          "description": "The amount added to the post-discount item price from a percent item margin. Negative amounts represent discounts."
         },
         {
           "name": "fixed_item_margin",
           "attributes": [],
-          "description": "The amount added to the total item price from the fixed margin, if applicable."
+          "description": "The amount added to the post-discount item price from a fixed item margin. Negative amounts represent discounts."
         },
         {
           "name": "duties_item_price",
@@ -1221,6 +1275,31 @@
           "name": "vat_deminimis",
           "attributes": [],
           "description": "An adjustment made if the item does not meet the VAT de minimis rule."
+        },
+        {
+          "name": "item_price_percent_sales_margin",
+          "attributes": [],
+          "description": "An adjustment made to the item price as a result of a percent sales margin."
+        },
+        {
+          "name": "margins_percent_sales_margin",
+          "attributes": [],
+          "description": "An adjustment made to the item margins as a result of a percent sales margin."
+        },
+        {
+          "name": "rounding_percent_sales_margin",
+          "attributes": [],
+          "description": "An adjustment made to rounding as a result of a percent sales margin."
+        },
+        {
+          "name": "vat_percent_sales_margin",
+          "attributes": [],
+          "description": "An adjustment made to VAT owed as a result of a percent sales margin."
+        },
+        {
+          "name": "duty_percent_sales_margin",
+          "attributes": [],
+          "description": "An adjustment made to duty owed as a result of a percent sales margin."
         }
       ],
       "attributes": []
@@ -1253,6 +1332,11 @@
           "name": "rounding",
           "attributes": [],
           "description": "The details of any rounding added to the item."
+        },
+        {
+          "name": "adjustment",
+          "attributes": [],
+          "description": "The details of any price adjustments due to sales margins. A negative value indicates a discount."
         }
       ],
       "attributes": []
@@ -1781,16 +1865,44 @@
   ],
   "unions": [
     {
+      "name": "authorization",
+      "plural": "authorizations",
+      "types": [
+        {
+          "type": "card_authorization",
+          "attributes": []
+        },
+        {
+          "type": "online_authorization",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "authorization_form",
       "plural": "authorization_forms",
       "types": [
         {
           "type": "direct_authorization_form",
-          "attributes": []
+          "attributes": [],
+          "description": "Enables card payments"
         },
         {
           "type": "merchant_of_record_authorization_form",
-          "attributes": []
+          "attributes": [],
+          "description": "Enables card payments with Flow as Merchant of Record"
+        },
+        {
+          "type": "direct_online_payment_form",
+          "attributes": [],
+          "description": "Enables online alternative payment methods"
+        },
+        {
+          "type": "merchant_of_record_online_payment_form",
+          "attributes": [],
+          "description": "Enables online alternative payment methods with Flow as Merchant of Record"
         }
       ],
       "attributes": [],
@@ -1908,6 +2020,14 @@
         },
         {
           "type": "item_margin_upserted",
+          "attributes": []
+        },
+        {
+          "type": "item_sales_margin_deleted",
+          "attributes": []
+        },
+        {
+          "type": "item_sales_margin_upserted",
           "attributes": []
         },
         {
@@ -2083,6 +2203,38 @@
           }
         }
       ],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "expandable_card",
+      "plural": "expandable_cards",
+      "types": [
+        {
+          "type": "card",
+          "attributes": []
+        },
+        {
+          "type": "card_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "expandable_experience",
+      "plural": "expandable_experiences",
+      "types": [
+        {
+          "type": "experience",
+          "attributes": []
+        },
+        {
+          "type": "experience_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
       "discriminator": "discriminator"
     },
     {
@@ -2266,6 +2418,19 @@
       ],
       "discriminator": "key",
       "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
+    },
+    {
+      "name": "online_action",
+      "plural": "online_actions",
+      "types": [
+        {
+          "type": "online_action_paypal",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Online action describes an action that must be taken to continue with proper capture of an online payment"
     },
     {
       "name": "session",
@@ -3095,97 +3260,6 @@
       "attributes": []
     },
     {
-      "name": "authorization",
-      "plural": "authorizations",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "card",
-          "type": "card_reference",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The amount to authorize",
-          "example": "120.38"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "CAD"
-        },
-        {
-          "name": "customer",
-          "type": "customer",
-          "required": true,
-          "attributes": [],
-          "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate and are recommended."
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": true,
-          "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
-        },
-        {
-          "name": "destination",
-          "type": "address",
-          "required": false,
-          "attributes": [],
-          "description": "Destination address, if relevant"
-        },
-        {
-          "name": "order",
-          "type": "authorization_order_reference",
-          "required": false,
-          "attributes": [],
-          "description": "If this authorization was made for a specific order number, that order will be referenced here"
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The IP address of the consumer",
-          "example": "96.242.151.245"
-        },
-        {
-          "name": "result",
-          "type": "authorization_result",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "created_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
-    },
-    {
       "name": "authorization_delete_error",
       "plural": "authorization_delete_errors",
       "fields": [
@@ -3722,6 +3796,98 @@
       ],
       "attributes": [],
       "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user's browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces"
+    },
+    {
+      "name": "card_authorization",
+      "plural": "card_authorizations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "card",
+          "type": "expandable_card",
+          "required": true,
+          "attributes": [],
+          "description": "If this authorization was made for a card payment method, this field will contain the details of the card used on the transaction"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "required": true,
+          "attributes": [],
+          "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate and are recommended."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "destination",
+          "type": "address",
+          "required": false,
+          "attributes": [],
+          "description": "Destination address, if relevant"
+        },
+        {
+          "name": "order",
+          "type": "authorization_order_reference",
+          "required": false,
+          "attributes": [],
+          "description": "If this authorization was made for a specific order number, that order will be referenced here"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        },
+        {
+          "name": "result",
+          "type": "authorization_result",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
     },
     {
       "name": "card_deleted",
@@ -4767,6 +4933,14 @@
           "attributes": [],
           "description": "A list of canonical timezone IDs for the country. See http://joda-time.sourceforge.net/timezones.html",
           "example": "America/New_York"
+        },
+        {
+          "name": "default_delivered_duty",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Default delivered duty value. See https://en.wikipedia.org/wiki/Incoterms for more information",
+          "example": "unpaid"
         }
       ],
       "attributes": [],
@@ -4939,6 +5113,27 @@
           "type": "date-time-iso8601",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "delivered_duty_setting",
+      "plural": "delivered_duty_settings",
+      "fields": [
+        {
+          "name": "default",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": [],
+          "description": "Default delivered duty setting based on experience default settings and reference data."
+        },
+        {
+          "name": "available",
+          "type": "[delivered_duty]",
+          "required": true,
+          "attributes": [],
+          "description": "Available delivered duty options to pick."
         }
       ],
       "attributes": []
@@ -5444,10 +5639,84 @@
           "attributes": [],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
+        },
+        {
+          "name": "options",
+          "type": "[authorization_option]",
+          "required": false,
+          "attributes": [],
+          "description": "Optional behaviors to enable for this authorization"
         }
       ],
       "attributes": [],
       "description": "Creates an authorization for a transaction in which you remain the merchant of record. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
+    },
+    {
+      "name": "direct_online_payment_form",
+      "plural": "direct_online_payment_forms",
+      "fields": [
+        {
+          "name": "method",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Id of the online payment method. Case insensitive. See https://api.flow.io/reference/payment-methods",
+          "example": "paypal"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "required": false,
+          "attributes": [],
+          "description": "The customer who is actually making the purchase. While optional, providing name and email at a minimum will significantly increase the acceptance rate."
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "destination",
+          "type": "address",
+          "required": false,
+          "attributes": [],
+          "description": "Destination address, if relevant"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "duration",
@@ -5645,6 +5914,12 @@
           "attributes": [],
           "description": "Position of this experience relative to other experiences. Lower position indicates experience should be considered first. Main use is to resolve incoming geolocation data (e.g. ip, country) to pick an experience. We do this by walking through the list of experiences to find the first one that matches the user's geography.",
           "minimum": 0
+        },
+        {
+          "name": "settings",
+          "type": "experience_settings",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -5671,7 +5946,7 @@
         {
           "name": "delivered_duty",
           "type": "delivered_duty",
-          "required": false,
+          "required": true,
           "attributes": []
         },
         {
@@ -5826,6 +6101,19 @@
       "description": "Experiences define a local experience for a given geographic region"
     },
     {
+      "name": "experience_key_reference",
+      "plural": "experience_key_references",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "experience_reference",
       "plural": "experience_references",
       "fields": [
@@ -5835,6 +6123,20 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "experience_settings",
+      "plural": "experience_settingses",
+      "fields": [
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty_setting",
+          "required": true,
+          "attributes": [],
+          "description": "Wrapper for settings around delivered duties. This includes the default for the experience and the choices available for a customer to pick."
         }
       ],
       "attributes": []
@@ -5983,6 +6285,42 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "experiment",
+      "plural": "experiments",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a single experiment / test (e.g. for an incremental rollout or AB Test)"
+    },
+    {
+      "name": "experiment_status",
+      "plural": "experiment_statuses",
+      "fields": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "description": "If true, this experiment is enabled"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a single instance of an experiment (e.g. page request) resulting in a decision as to the status of a given experiment"
     },
     {
       "name": "expiration",
@@ -8578,6 +8916,12 @@
           "type": "long",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -8694,6 +9038,110 @@
       ],
       "attributes": [],
       "description": "Event raised whenever an item is assigned a country of origin. Note that one item may have multiple countries of origin."
+    },
+    {
+      "name": "item_sales_margin_deleted",
+      "plural": "item_sales_margin_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_sales_margin_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_sales_margin_upserted",
+      "plural": "item_sales_margin_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item_sales_margin_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "fixed",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "percent",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "item_statistics",
@@ -9008,13 +9456,13 @@
         },
         {
           "name": "price",
-          "type": "price",
+          "type": "price_with_base",
           "required": true,
           "attributes": []
         },
         {
           "name": "total",
-          "type": "price",
+          "type": "price_with_base",
           "required": true,
           "attributes": []
         }
@@ -9187,6 +9635,20 @@
           "required": true,
           "attributes": [],
           "description": "Contains the localized price details in the currency of the experience."
+        },
+        {
+          "name": "discount",
+          "type": "price_detail",
+          "required": false,
+          "attributes": [],
+          "description": "Contains the amount subtracted post-VAT/Duty/Rounding due to a percent discount."
+        },
+        {
+          "name": "local_before_discount",
+          "type": "price_detail",
+          "required": false,
+          "attributes": [],
+          "description": "Contains the amount subtracted post-VAT/Duty/Rounding due to a percent discount."
         }
       ],
       "attributes": []
@@ -9214,8 +9676,14 @@
           "attributes": []
         },
         {
+          "name": "locale",
+          "type": "locale",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "experience",
-          "type": "experience_summary",
+          "type": "experience_key_reference",
           "required": true,
           "attributes": []
         }
@@ -9963,6 +10431,22 @@
           "description": "Client order number for which to authorize payment. We will automatically verify that this order exists and will authorize the total amount of the order in the currency of the order."
         },
         {
+          "name": "amount",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "The amount to authorize - if specified, will be used to confirm that the amount exactly matches the order total",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
           "name": "key",
           "type": "string",
           "required": false,
@@ -9990,10 +10474,77 @@
           "attributes": [],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
+        },
+        {
+          "name": "options",
+          "type": "[authorization_option]",
+          "required": false,
+          "attributes": [],
+          "description": "Optional behaviors to enable for this authorization"
         }
       ],
       "attributes": [],
       "description": "Creates an authorization for a transaction for which Flow is the merchant of record. In this case, you must provide your order number for a valid Flow order. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization"
+    },
+    {
+      "name": "merchant_of_record_online_payment_form",
+      "plural": "merchant_of_record_online_payment_forms",
+      "fields": [
+        {
+          "name": "method",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Id of the online payment method. Case insensitive. See https://api.flow.io/reference/payment-methods",
+          "example": "paypal"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client order number for which to authorize payment. We will automatically verify that this order exists and will authorize the total amount of the order in the currency of the order."
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize - will be used to confirm that the amount exactly matches the order total",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "money",
@@ -10216,6 +10767,113 @@
       "attributes": []
     },
     {
+      "name": "online_action_paypal",
+      "plural": "online_action_paypals",
+      "fields": [
+        {
+          "name": "payment_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents data needed to execute a paypal payment"
+    },
+    {
+      "name": "online_authorization",
+      "plural": "online_authorizations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Id of the online payment method. Case insensitive. See https://api.flow.io/reference/payment-methods",
+          "example": "paypal"
+        },
+        {
+          "name": "action",
+          "type": "online_action",
+          "required": false,
+          "attributes": [],
+          "description": "Describes the next action to take to complete payment. Will vary based on payment method. If empty, indicates no further action is required (e.g. payment was declined)"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "required": true,
+          "attributes": [],
+          "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate and are recommended."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "destination",
+          "type": "address",
+          "required": false,
+          "attributes": [],
+          "description": "Destination address, if relevant"
+        },
+        {
+          "name": "order",
+          "type": "authorization_order_reference",
+          "required": false,
+          "attributes": [],
+          "description": "If this authorization was made for a specific order number, that order will be referenced here"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "option_weight_estimates",
       "plural": "option_weight_estimates",
       "fields": [
@@ -10286,11 +10944,25 @@
           "description": "Client's unique identifier for this object"
         },
         {
+          "name": "experience",
+          "type": "expandable_experience",
+          "required": false,
+          "attributes": [],
+          "description": "Contains information on the experience on which this order was submitted."
+        },
+        {
           "name": "customer",
           "type": "customer",
           "required": true,
           "attributes": [],
           "description": "The customer who is actually making the purchase"
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": [],
+          "description": "Options returned will only use tiers with the matching delivered duty. This would also affect whether duties are included in the total or not. If not specified, defaults based on the experience default setting."
         },
         {
           "name": "destination",
@@ -10681,6 +11353,13 @@
           "minimum": 1
         },
         {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "description": "Options returned will only use tiers with the matching delivered duty. This would also affect whether duties are included in the total or not. If not specified, defaults based on the experience default setting."
+        },
+        {
           "name": "number",
           "type": "string",
           "required": false,
@@ -10999,6 +11678,13 @@
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console."
         },
         {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "description": "Options returned will only use tiers with the matching delivered duty. This would also affect whether duties are included in the total or not. If not specified, defaults based on the experience default setting."
+        },
+        {
           "name": "selections",
           "type": "[string]",
           "required": false,
@@ -11138,6 +11824,12 @@
         {
           "name": "discount",
           "type": "object",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "delivered_duty",
+          "type": "string",
           "required": false,
           "attributes": []
         },
@@ -11532,7 +12224,7 @@
       "fields": [
         {
           "name": "organization",
-          "type": "string",
+          "type": "organization_reference",
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
@@ -11740,6 +12432,15 @@
           "required": false,
           "attributes": [],
           "description": "Unless otherwise specified, this is the currency in which all 'base' prices will be presented in. Will be made required once deployed.",
+          "minimum": 3,
+          "maximum": 3
+        },
+        {
+          "name": "default_country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "ISO 3166 3-character country code. See https://api.flow.io/reference/countries",
           "minimum": 3,
           "maximum": 3
         }
@@ -11978,6 +12679,101 @@
       "attributes": []
     },
     {
+      "name": "payment_method",
+      "plural": "payment_methods",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier",
+          "example": "visa"
+        },
+        {
+          "name": "type",
+          "type": "payment_method_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "VISA"
+        },
+        {
+          "name": "images",
+          "type": "payment_method_images",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "regions",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "List of region ids in which this payment method is available"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a single payment method - e.g VISA or Paypal - and any associated metadata required for processing"
+    },
+    {
+      "name": "payment_method_image",
+      "plural": "single_payment_method_images",
+      "fields": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_150x94.png"
+        },
+        {
+          "name": "width",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "example": "150"
+        },
+        {
+          "name": "height",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "example": "94"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "payment_method_images",
+      "plural": "payment_method_images",
+      "fields": [
+        {
+          "name": "small",
+          "type": "payment_method_image",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "medium",
+          "type": "payment_method_image",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "large",
+          "type": "payment_method_image",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "percent_margin",
       "plural": "percent_margins",
       "fields": [
@@ -12166,14 +12962,21 @@
           "type": "price",
           "required": true,
           "attributes": [],
-          "description": "The rounded price of the item as seen by the customer, which takes into account VAT and duty pricing settings of the experience."
+          "description": "The rounded price of the item as seen by customers in price detail pages, which takes into account VAT and duty pricing settings of the experience."
         },
         {
           "name": "total",
           "type": "price",
           "required": true,
           "attributes": [],
-          "description": "The total price of the item, which includes the base price, discount, margins, VAT, duty, and rounding."
+          "description": "The total price of the item as seen by customers at checkout, which includes the base price, discount, margins, VAT, duty, and rounding."
+        },
+        {
+          "name": "adjustment",
+          "type": "price_detail",
+          "required": false,
+          "attributes": [],
+          "description": "The total amount the total price was altered due to sales margins. A negative value indicates a discount."
         }
       ],
       "attributes": [],
@@ -12261,6 +13064,14 @@
           "attributes": [],
           "description": "The tax rate applicable to the product. A value of 17 indicates a tax rate of 17%.",
           "example": "17"
+        },
+        {
+          "name": "percent_sales_margin",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "A percent sales margin to apply after the other margins, duties, taxes and margins. A value of 17 indicates an increase of 17%. A value of 5.5 indicates a discount of 5.5%",
+          "default": "0"
         }
       ],
       "attributes": []
@@ -12487,14 +13298,14 @@
         {
           "name": "applied",
           "type": "[applied_promotion]",
-          "required": false,
+          "required": true,
           "attributes": [],
           "description": "List of promotions that have been applied to this order. For example, free shipping promotion is applied to the shipping price."
         },
         {
           "name": "available",
           "type": "[available_promotion]",
-          "required": false,
+          "required": true,
           "attributes": [],
           "description": "List of available promotions that are applicable for this order. If a promotion is here, the promo is not yet applied to the order, but the order can become eligible for it given some criteria."
         }
@@ -12613,6 +13424,14 @@
           "required": true,
           "attributes": [],
           "description": "Selected options for the quote. This is used to prepare accurate fully-landed costs of an order and can also be used to pre-select a delivery option on a typical checkout page. By default, the option(s) shown here are part of the default tier of an experience. If no default tier has been designated for the tier group, the default selection would be the first option in the list."
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": true,
+          "attributes": [],
+          "description": "Desired delivered duty options to be returned as part of this quote. If not provided, default to paid.",
+          "default": "paid"
         }
       ],
       "attributes": [],
@@ -12669,6 +13488,13 @@
           "required": true,
           "attributes": [],
           "minimum": 1
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "description": "Desired delivered duty options to be returned as part of this quote. If not provided, service will use all available rates."
         }
       ],
       "attributes": []
@@ -13979,6 +14805,14 @@
           "attributes": [],
           "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
           "example": "en"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Locale ID as defined in https://api.flow.io/reference/locales",
+          "example": "en-US"
         }
       ],
       "attributes": []
@@ -14016,6 +14850,14 @@
           "attributes": [],
           "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
           "example": "en"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Locale ID as defined in https://api.flow.io/reference/locales",
+          "example": "en-US"
         }
       ],
       "attributes": []
@@ -14498,6 +15340,14 @@
           "type": "cart_reference",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "experiments",
+          "type": "map[experiment_status]",
+          "required": true,
+          "attributes": [],
+          "description": "Returns the status for this session of all active experiments, if any. The ids of the map will be the 'experiment.key' (e.g. 'checkout').",
+          "default": "{}"
         }
       ],
       "attributes": []
@@ -19050,6 +19900,67 @@
         },
         {
           "method": "GET",
+          "path": "/:organization/experiences/:key/promotions/available",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[available_promotion]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "sort_parameter_default",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Get available promotions for the experience"
+        },
+        {
+          "method": "GET",
           "path": "/:organization/experiences/conversions/:base/:amount",
           "parameters": [
             {
@@ -20080,6 +20991,15 @@
               "location": "Query",
               "required": true,
               "default": "-created_at"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -20178,6 +21098,15 @@
               "required": false,
               "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
               "example": "en"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -20241,6 +21170,15 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -20328,6 +21266,15 @@
               "required": false,
               "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
               "example": "en"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -20459,6 +21406,15 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Form",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -20527,6 +21483,15 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -27523,6 +28488,15 @@
               "location": "Query",
               "required": true,
               "default": "-created_at"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "card"
             }
           ],
           "responses": [
@@ -27628,6 +28602,15 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "card"
             }
           ],
           "responses": [
@@ -27824,8 +28807,7 @@
           }
         }
       ],
-      "path": "/:organization/authorizations",
-      "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
+      "path": "/:organization/authorizations"
     },
     {
       "type": "capture",
