@@ -36,6 +36,7 @@ These resources mirror the official documentation located at
 | [authorizations](authorizations.md) |  |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
+| [payments](payments.md) | Represents data for a specific online payment method |
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |

@@ -571,6 +571,14 @@
           "attributes": []
         },
         {
+          "name": "available_promotions_upserted",
+          "attributes": []
+        },
+        {
+          "name": "available_promotions_deleted",
+          "attributes": []
+        },
+        {
           "name": "experience_deleted",
           "attributes": []
         },
@@ -1168,6 +1176,48 @@
       ],
       "attributes": [],
       "description": "Indicates an order's status"
+    },
+    {
+      "name": "payment_error_code",
+      "plural": "payment_error_codes",
+      "values": [
+        {
+          "name": "invalid_amount",
+          "attributes": [],
+          "description": "Amount is not valid (e.g. for merchant of record payments, the amount specified must match the order). This typically is handled by refreshing the order amount and reconfirming with the user as something has changed."
+        },
+        {
+          "name": "invalid_currency",
+          "attributes": [],
+          "description": "Currency is either not known or invalid (e.g. for merchant of record payments, the currency specified must match the order)."
+        },
+        {
+          "name": "invalid_method",
+          "attributes": [],
+          "description": "Invalid payment method"
+        },
+        {
+          "name": "invalid_order",
+          "attributes": [],
+          "description": "The specified order number was not found"
+        },
+        {
+          "name": "invalid_customer",
+          "attributes": [],
+          "description": "Customer information is invalid (e.g. email specified but not a valid email)"
+        },
+        {
+          "name": "invalid_destination",
+          "attributes": [],
+          "description": "Destination/shipping address is not valid"
+        },
+        {
+          "name": "unknown",
+          "attributes": [],
+          "description": "Failed due to another reason (details not known)"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "payment_method_type",
@@ -1895,14 +1945,9 @@
           "description": "Enables card payments with Flow as Merchant of Record"
         },
         {
-          "type": "direct_online_payment_form",
+          "type": "paypal_authorization_form",
           "attributes": [],
-          "description": "Enables online alternative payment methods"
-        },
-        {
-          "type": "merchant_of_record_online_payment_form",
-          "attributes": [],
-          "description": "Enables online alternative payment methods with Flow as Merchant of Record"
+          "description": "Enables authorization via paypal"
         }
       ],
       "attributes": [],
@@ -2004,6 +2049,14 @@
         },
         {
           "type": "rate_upserted",
+          "attributes": []
+        },
+        {
+          "type": "available_promotions_upserted",
+          "attributes": []
+        },
+        {
+          "type": "available_promotions_deleted",
           "attributes": []
         },
         {
@@ -2420,17 +2473,30 @@
       "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
     },
     {
-      "name": "online_action",
-      "plural": "online_actions",
+      "name": "payment",
+      "plural": "payments",
       "types": [
         {
-          "type": "online_action_paypal",
+          "type": "payment_paypal",
           "attributes": []
         }
       ],
       "attributes": [],
       "discriminator": "discriminator",
-      "description": "Online action describes an action that must be taken to continue with proper capture of an online payment"
+      "description": "Represents data for a specific online payment method"
+    },
+    {
+      "name": "payment_form",
+      "plural": "payment_forms",
+      "types": [
+        {
+          "type": "merchant_of_record_payment_form",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Represents the data needed to initiate an online payment"
     },
     {
       "name": "session",
@@ -3491,6 +3557,76 @@
         {
           "name": "authorization",
           "type": "authorization",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "available_promotions_deleted",
+      "plural": "available_promotions_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "available_promotions_upserted",
+      "plural": "available_promotions_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "experience_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "available_promotions",
+          "type": "[object]",
           "required": true,
           "attributes": []
         }
@@ -5650,73 +5786,6 @@
       ],
       "attributes": [],
       "description": "Creates an authorization for a transaction in which you remain the merchant of record. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
-    },
-    {
-      "name": "direct_online_payment_form",
-      "plural": "direct_online_payment_forms",
-      "fields": [
-        {
-          "name": "method",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The Id of the online payment method. Case insensitive. See https://api.flow.io/reference/payment-methods",
-          "example": "paypal"
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The amount to authorize",
-          "example": "120.38"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "CAD"
-        },
-        {
-          "name": "customer",
-          "type": "customer",
-          "required": false,
-          "attributes": [],
-          "description": "The customer who is actually making the purchase. While optional, providing name and email at a minimum will significantly increase the acceptance rate."
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
-        },
-        {
-          "name": "destination",
-          "type": "address",
-          "required": false,
-          "attributes": [],
-          "description": "Destination address, if relevant"
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The IP address of the consumer",
-          "example": "96.242.151.245"
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "duration",
@@ -10487,15 +10556,14 @@
       "description": "Creates an authorization for a transaction for which Flow is the merchant of record. In this case, you must provide your order number for a valid Flow order. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization"
     },
     {
-      "name": "merchant_of_record_online_payment_form",
-      "plural": "merchant_of_record_online_payment_forms",
+      "name": "merchant_of_record_payment_form",
+      "plural": "merchant_of_record_payment_forms",
       "fields": [
         {
           "name": "method",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The Id of the online payment method. Case insensitive. See https://api.flow.io/reference/payment-methods",
           "example": "paypal"
         },
         {
@@ -10520,31 +10588,10 @@
           "attributes": [],
           "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "CAD"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The IP address of the consumer",
-          "example": "96.242.151.245"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Creates an online payment"
     },
     {
       "name": "money",
@@ -10767,20 +10814,6 @@
       "attributes": []
     },
     {
-      "name": "online_action_paypal",
-      "plural": "online_action_paypals",
-      "fields": [
-        {
-          "name": "payment_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents data needed to execute a paypal payment"
-    },
-    {
       "name": "online_authorization",
       "plural": "online_authorizations",
       "fields": [
@@ -10798,19 +10831,11 @@
           "attributes": []
         },
         {
-          "name": "method",
-          "type": "string",
+          "name": "payment",
+          "type": "payment_reference",
           "required": true,
           "attributes": [],
-          "description": "The Id of the online payment method. Case insensitive. See https://api.flow.io/reference/payment-methods",
-          "example": "paypal"
-        },
-        {
-          "name": "action",
-          "type": "online_action",
-          "required": false,
-          "attributes": [],
-          "description": "Describes the next action to take to complete payment. Will vary based on payment method. If empty, indicates no further action is required (e.g. payment was declined)"
+          "description": "The associated online payment"
         },
         {
           "name": "amount",
@@ -12679,6 +12704,35 @@
       "attributes": []
     },
     {
+      "name": "payment_error",
+      "plural": "payment_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "default": "payment_error"
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "codes",
+          "type": "[payment_error_code]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "Details for why a payment failed"
+    },
+    {
       "name": "payment_method",
       "plural": "payment_methods",
       "fields": [
@@ -12772,6 +12826,157 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "payment_paypal",
+      "plural": "payment_paypals",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "order",
+          "type": "authorization_order_reference",
+          "required": false,
+          "attributes": [],
+          "description": "If this authorization was made for a specific order number, that order will be referenced here"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "paypal",
+          "type": "payment_paypal_data",
+          "required": true,
+          "attributes": [],
+          "description": "Specific data from paypal"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents on line payment"
+    },
+    {
+      "name": "payment_paypal_data",
+      "plural": "payment_paypal_data",
+      "fields": [
+        {
+          "name": "payment_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The payment ID in paypal",
+          "example": "PAY-lkj23lk4j23l42341123"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents on line payment"
+    },
+    {
+      "name": "payment_reference",
+      "plural": "payment_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "payment_version",
+      "plural": "payment_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "payment",
+          "type": "payment",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "paypal_authorization_form",
+      "plural": "paypal_authorization_forms",
+      "fields": [
+        {
+          "name": "paypal_payment_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Paypal Payment Id"
+        },
+        {
+          "name": "paypal_buyer_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The Paypal Buyer Id"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        }
+      ],
+      "attributes": [],
+      "description": "Executes the Paypal payment"
     },
     {
       "name": "percent_margin",
@@ -29530,6 +29735,364 @@
       ],
       "path": "/:organization/cards",
       "description": "Card represents the metadata about a secure, tokenized card. The card 'token' is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user's browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces"
+    },
+    {
+      "type": "payment",
+      "plural": "payments",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/payments",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "payment_method",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "paypal"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[payment]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/payments",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "payment",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "payment_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new payment. Note that when using JSONP to submit a payment, you do not need to authenticate.",
+          "body": {
+            "type": "payment_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/payments/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "payment",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns information about a specific payment."
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/payments/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "Payments can be deleted until they are associated with an authorization"
+            }
+          ],
+          "attributes": [],
+          "description": "Deletes the specified payment"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/payments/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "payment_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to payments with any one of these ids.",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[payment_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "payment_id"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "Provides visibility into recent changes of each object, including deletion"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "payment"
+          }
+        }
+      ],
+      "path": "/:organization/payments",
+      "description": "Represents data for a specific online payment method"
     },
     {
       "type": "public_key",
