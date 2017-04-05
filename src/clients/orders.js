@@ -3,10 +3,13 @@ import Client from './client';
 export default class Orders extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class Orders extends Client {
   }
 
   post(organization, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/orders`, options);
+    return this.makeRequest(`${this.host}/${organization}/orders`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getByNumber(organization, number, options = {}) {
@@ -24,18 +29,24 @@ export default class Orders extends Client {
   }
 
   putByNumber(organization, number, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteByNumber(organization, number, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   putSubmissionsByNumber(organization, number, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, options);
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   getIdentifierByIdentifierNumber(organization, identifierNumber, options = {}) {

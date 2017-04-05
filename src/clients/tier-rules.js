@@ -3,10 +3,13 @@ import Client from './client';
 export default class TierRules extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class TierRules extends Client {
   }
 
   post(organization, tierId, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules`, options);
+    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getById(organization, tierId, id, options = {}) {
@@ -24,13 +29,17 @@ export default class TierRules extends Client {
   }
 
   putById(organization, tierId, id, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteById(organization, tierId, id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getVersions(organization, tierId, options = {}) {

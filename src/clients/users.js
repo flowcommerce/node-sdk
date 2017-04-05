@@ -3,10 +3,13 @@ import Client from './client';
 export default class Users extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class Users extends Client {
   }
 
   post(options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/users`, options);
+    return this.makeRequest(`${this.host}/users`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getById(id, options = {}) {
@@ -24,23 +29,31 @@ export default class Users extends Client {
   }
 
   putById(id, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/users/${id}`, options);
+    return this.makeRequest(`${this.host}/users/${id}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   patchPasswordsById(id, options = {}) {
-    Object.assign(options, { method: 'PATCH' });
-    return this.makeRequest(`${this.host}/users/${id}/passwords`, options);
+    return this.makeRequest(`${this.host}/users/${id}/passwords`, {
+      ...options,
+       method: 'PATCH',
+    });
   }
 
   deletePasswordsById(id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/users/${id}/passwords`, options);
+    return this.makeRequest(`${this.host}/users/${id}/passwords`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   postAuthenticate(options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/users/authenticate`, options);
+    return this.makeRequest(`${this.host}/users/authenticate`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getVersions(options = {}) {

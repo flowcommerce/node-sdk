@@ -30,6 +30,15 @@ const sessions = client().sessions;
 | session | string |  |
 
 
+##`deleteBySession(session, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+
+
 ##`putResetBySession(session, options = {})`
 
 ### Function Parameters

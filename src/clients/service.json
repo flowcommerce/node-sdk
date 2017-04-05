@@ -42,17 +42,6 @@
       "description": "The key of each possible adjustment is defined here."
     },
     {
-      "name": "applied_promotion_type",
-      "plural": "applied_promotion_types",
-      "values": [
-        {
-          "name": "free_shipping",
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "attribute_data_type",
       "plural": "attribute_data_types",
       "values": [
@@ -576,6 +565,14 @@
         },
         {
           "name": "available_promotions_deleted",
+          "attributes": []
+        },
+        {
+          "name": "allocation_deleted",
+          "attributes": []
+        },
+        {
+          "name": "allocation_upserted",
           "attributes": []
         },
         {
@@ -1347,6 +1344,11 @@
           "description": "An adjustment made to VAT owed as a result of a percent sales margin."
         },
         {
+          "name": "vat_duty_percent_sales_margin",
+          "attributes": [],
+          "description": "An adjustment made to VAT on duties (e.g. VAT on duties on item price) owed as a result of a percent sales margin."
+        },
+        {
           "name": "duty_percent_sales_margin",
           "attributes": [],
           "description": "An adjustment made to duty owed as a result of a percent sales margin."
@@ -1915,6 +1917,38 @@
   ],
   "unions": [
     {
+      "name": "allocation_component",
+      "plural": "allocation_components",
+      "types": [
+        {
+          "type": "allocation_detail_component",
+          "attributes": []
+        },
+        {
+          "type": "allocation_levy_component",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "allocation_detail",
+      "plural": "allocation_details",
+      "types": [
+        {
+          "type": "allocation_line_detail",
+          "attributes": []
+        },
+        {
+          "type": "allocation_order_detail",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "authorization",
       "plural": "authorizations",
       "types": [
@@ -1953,18 +1987,6 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Flow provides several different options for creating an authorization"
-    },
-    {
-      "name": "available_promotion",
-      "plural": "available_promotions",
-      "types": [
-        {
-          "type": "free_shipping",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator"
     },
     {
       "name": "deminimis",
@@ -2057,6 +2079,14 @@
         },
         {
           "type": "available_promotions_deleted",
+          "attributes": []
+        },
+        {
+          "type": "allocation_deleted",
+          "attributes": []
+        },
+        {
+          "type": "allocation_upserted",
           "attributes": []
         },
         {
@@ -2499,6 +2529,18 @@
       "description": "Represents the data needed to initiate an online payment"
     },
     {
+      "name": "promotion",
+      "plural": "promotions",
+      "types": [
+        {
+          "type": "free_shipping",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "session",
       "plural": "sessions",
       "types": [
@@ -2884,78 +2926,36 @@
           "attributes": []
         },
         {
-          "name": "currency",
-          "type": "allocation_currencies",
+          "name": "details",
+          "type": "[allocation_detail]",
           "required": true,
           "attributes": []
-        },
-        {
-          "name": "total",
-          "type": "allocation_totals",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "items",
-          "type": "[allocation_item]",
-          "required": true,
-          "attributes": [],
-          "minimum": 1
         }
       ],
       "attributes": []
     },
     {
-      "name": "allocation_currencies",
-      "plural": "allocation_currencies",
+      "name": "allocation_deleted",
+      "plural": "allocation_deleteds",
       "fields": [
         {
-          "name": "base",
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Currency of all base prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
-          "example": "USD"
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Currency of all target prices in this allocation. Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
-          "example": "CAD"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "allocation_detail",
-      "plural": "allocation_details",
-      "fields": [
-        {
-          "name": "key",
-          "type": "order_price_detail_key",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "base",
-          "type": "decimal",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "target",
-          "type": "decimal",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "components",
-          "type": "[allocation_detail_component]",
-          "required": true,
-          "attributes": [],
-          "minimum": 1
+          "description": "Globally unique identifier"
         }
       ],
       "attributes": []
@@ -2971,23 +2971,52 @@
           "attributes": []
         },
         {
-          "name": "base",
-          "type": "decimal",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "target",
-          "type": "decimal",
+          "name": "total",
+          "type": "price_with_base",
           "required": true,
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Represents any component that is not VAT or duty, such as item price, rounding, shipping, etc."
     },
     {
-      "name": "allocation_item",
-      "plural": "allocation_items",
+      "name": "allocation_levy_component",
+      "plural": "allocation_levy_components",
+      "fields": [
+        {
+          "name": "key",
+          "type": "order_price_detail_component_key",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "total",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rate",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The rate of the levy."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The name of the levy, for display purposes."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents either a VAT or duty component."
+    },
+    {
+      "name": "allocation_line_detail",
+      "plural": "allocation_line_details",
       "fields": [
         {
           "name": "number",
@@ -2997,40 +3026,127 @@
           "description": "Client's unique identifier for this object"
         },
         {
-          "name": "base",
-          "type": "decimal",
+          "name": "quantity",
+          "type": "long",
           "required": true,
           "attributes": []
         },
         {
-          "name": "target",
-          "type": "decimal",
+          "name": "key",
+          "type": "order_price_detail_key",
           "required": true,
           "attributes": []
         },
         {
-          "name": "details",
-          "type": "[allocation_detail]",
+          "name": "price",
+          "type": "price_with_base",
           "required": true,
           "attributes": [],
-          "minimum": 1
+          "description": "Represents the price of all included detail components for one unit of this line item."
+        },
+        {
+          "name": "total",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": [],
+          "description": "Represents the total price of this line item, which equals the price times the quantity."
+        },
+        {
+          "name": "included",
+          "type": "[allocation_component]",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all components that are included in this detail's total."
+        },
+        {
+          "name": "not_included",
+          "type": "[allocation_component]",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all components that are not included in this detail's total. For example, this may contain VAT components when the VAT pricing setting is displayed or ignored."
         }
       ],
       "attributes": []
     },
     {
-      "name": "allocation_totals",
-      "plural": "allocation_totalses",
+      "name": "allocation_order_detail",
+      "plural": "allocation_order_details",
       "fields": [
         {
-          "name": "target",
-          "type": "decimal",
+          "name": "key",
+          "type": "order_price_detail_key",
           "required": true,
           "attributes": []
         },
         {
-          "name": "base",
-          "type": "decimal",
+          "name": "total",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "included",
+          "type": "[allocation_component]",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all components that are included in this detail's total."
+        },
+        {
+          "name": "not_included",
+          "type": "[allocation_component]",
+          "required": true,
+          "attributes": [],
+          "description": "Contains all components that are not included in this detail's total. For example, this may contain VAT components when the VAT pricing setting is displayed or ignored."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an order-specific detail such as shipping, insurance, or an order-level discount."
+    },
+    {
+      "name": "allocation_upserted",
+      "plural": "allocation_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "order_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "details",
+          "type": "[object]",
           "required": true,
           "attributes": []
         }
@@ -3061,27 +3177,6 @@
           "type": "money",
           "required": true,
           "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "applied_promotion",
-      "plural": "applied_promotions",
-      "fields": [
-        {
-          "name": "type",
-          "type": "applied_promotion_type",
-          "required": true,
-          "attributes": [],
-          "example": "free_shipping"
-        },
-        {
-          "name": "value",
-          "type": "price",
-          "required": true,
-          "attributes": [],
-          "description": "Adjustment value of the applied promotion. For example, if shipping price is $50 and the promo is free shipping, the value will be $50"
         }
       ],
       "attributes": []
@@ -6170,28 +6265,14 @@
       "description": "Experiences define a local experience for a given geographic region"
     },
     {
-      "name": "experience_key_reference",
-      "plural": "experience_key_references",
+      "name": "experience_reference",
+      "plural": "experience_references",
       "fields": [
         {
           "name": "key",
           "type": "string",
           "required": true,
           "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "experience_reference",
-      "plural": "experience_references",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
         }
       ],
       "attributes": []
@@ -9752,7 +9833,7 @@
         },
         {
           "name": "experience",
-          "type": "experience_key_reference",
+          "type": "experience_reference",
           "required": true,
           "attributes": []
         }
@@ -10888,6 +10969,12 @@
           "attributes": [],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
+        },
+        {
+          "name": "result",
+          "type": "authorization_result",
+          "required": true,
+          "attributes": []
         },
         {
           "name": "created_at",
@@ -12229,6 +12316,14 @@
           "description": "Refers to your organization's account identifier"
         },
         {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": [],
+          "description": "The Flow organization environment",
+          "example": "sandbox"
+        },
+        {
           "name": "attributes",
           "type": "map[string]",
           "required": true,
@@ -12946,11 +13041,11 @@
           "description": "The Paypal Payment Id"
         },
         {
-          "name": "paypal_buyer_id",
+          "name": "paypal_payer_id",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The Paypal Buyer Id"
+          "description": "The Paypal Id of the person who is paying"
         },
         {
           "name": "key",
@@ -13502,14 +13597,14 @@
       "fields": [
         {
           "name": "applied",
-          "type": "[applied_promotion]",
+          "type": "[promotion]",
           "required": true,
           "attributes": [],
           "description": "List of promotions that have been applied to this order. For example, free shipping promotion is applied to the shipping price."
         },
         {
           "name": "available",
-          "type": "[available_promotion]",
+          "type": "[promotion]",
           "required": true,
           "attributes": [],
           "description": "List of available promotions that are applicable for this order. If a promotion is here, the promo is not yet applied to the order, but the order can become eligible for it given some criteria."
@@ -15122,6 +15217,12 @@
           "description": "Carrier-issued or generated tracking number of the first carrier taking hold of the package"
         },
         {
+          "name": "carrier_tracking_number_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "cost",
           "type": "price",
           "required": true,
@@ -15141,6 +15242,12 @@
           "required": true,
           "attributes": [],
           "description": "Flow-generated tracking number. 13 digit tracking number that begins with F70."
+        },
+        {
+          "name": "flow_tracking_number_url",
+          "type": "string",
+          "required": true,
+          "attributes": []
         },
         {
           "name": "origin",
@@ -15521,6 +15628,14 @@
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "environment",
+          "type": "environment",
+          "required": true,
+          "attributes": [],
+          "description": "The Flow organization environment",
+          "example": "sandbox"
         },
         {
           "name": "attributes",
@@ -20128,7 +20243,7 @@
                   "value": 200
                 }
               },
-              "type": "[available_promotion]",
+              "type": "[promotion]",
               "description": "Successful response"
             },
             {
@@ -22594,6 +22709,14 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If specified, we will guarantee that this country is included in the response. We recommend including the current country when querying for the list of countries to disable, thereby ensuring the current user's selection will display (even if they are localized using the world experience). Value is a ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+              "example": "CAN"
             }
           ],
           "responses": [
@@ -39789,6 +39912,48 @@
             "type": "session_put_form",
             "attributes": []
           }
+        },
+        {
+          "method": "DELETE",
+          "path": "/sessions/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
         },
         {
           "method": "PUT",

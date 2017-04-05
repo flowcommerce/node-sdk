@@ -3,10 +3,13 @@ import Client from './client';
 export default class Experiences extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class Experiences extends Client {
   }
 
   post(organization, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/experiences`, options);
+    return this.makeRequest(`${this.host}/${organization}/experiences`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getMarginsByExperienceKey(organization, experienceKey, options = {}) {
@@ -24,8 +29,10 @@ export default class Experiences extends Client {
   }
 
   postMarginsByExperienceKey(organization, experienceKey, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins`, options);
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
@@ -33,13 +40,17 @@ export default class Experiences extends Client {
   }
 
   putMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getMarginsAndVersionsByExperienceKey(organization, experienceKey, options = {}) {
@@ -51,13 +62,17 @@ export default class Experiences extends Client {
   }
 
   putByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getItemsAndPriceByKeyAndNumber(organization, key, number, options = {}) {
@@ -69,8 +84,10 @@ export default class Experiences extends Client {
   }
 
   putPricingByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/pricing`, options);
+    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/pricing`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   getPromotionsAndAvailableByKey(organization, key, options = {}) {

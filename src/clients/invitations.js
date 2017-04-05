@@ -3,10 +3,13 @@ import Client from './client';
 export default class Invitations extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class Invitations extends Client {
   }
 
   post(options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/invitations`, options);
+    return this.makeRequest(`${this.host}/invitations`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getById(id, options = {}) {
@@ -24,8 +29,10 @@ export default class Invitations extends Client {
   }
 
   deleteById(id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/invitations/${id}`, options);
+    return this.makeRequest(`${this.host}/invitations/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getTokensByToken(token, options = {}) {
@@ -33,8 +40,10 @@ export default class Invitations extends Client {
   }
 
   putTokensByToken(token, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/invitations/tokens/${token}`, options);
+    return this.makeRequest(`${this.host}/invitations/tokens/${token}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   getVersions(options = {}) {
