@@ -3,10 +3,13 @@ import Client from './client';
 export default class HarmonizationSettings extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class HarmonizationSettings extends Client {
   }
 
   put(organization, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/harmonization/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/harmonization/settings`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
 }

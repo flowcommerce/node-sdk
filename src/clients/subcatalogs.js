@@ -3,10 +3,13 @@ import Client from './client';
 export default class Subcatalogs extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class Subcatalogs extends Client {
   }
 
   post(organization, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getById(organization, id, options = {}) {
@@ -24,13 +29,17 @@ export default class Subcatalogs extends Client {
   }
 
   putById(organization, id, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteById(organization, id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getSettingsById(organization, id, options = {}) {
@@ -38,8 +47,10 @@ export default class Subcatalogs extends Client {
   }
 
   putSettingsById(organization, id, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}/settings`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   getExclusionsBySubcatalogId(organization, subcatalogId, options = {}) {
@@ -51,13 +62,17 @@ export default class Subcatalogs extends Client {
   }
 
   putExclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteExclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getFunctionsBySubcatalogId(organization, subcatalogId, options = {}) {
@@ -65,8 +80,10 @@ export default class Subcatalogs extends Client {
   }
 
   postFunctionsBySubcatalogId(organization, subcatalogId, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getFunctionsBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
@@ -74,8 +91,10 @@ export default class Subcatalogs extends Client {
   }
 
   deleteFunctionsBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getFunctionsAndVersionsBySubcatalogId(organization, subcatalogId, options = {}) {
@@ -91,13 +110,17 @@ export default class Subcatalogs extends Client {
   }
 
   putInclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteInclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getQueriesBySubcatalogId(organization, subcatalogId, options = {}) {
@@ -105,8 +128,10 @@ export default class Subcatalogs extends Client {
   }
 
   postQueriesBySubcatalogId(organization, subcatalogId, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getQueriesBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
@@ -114,8 +139,10 @@ export default class Subcatalogs extends Client {
   }
 
   deleteQueriesBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries/${id}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getStatisticsBySubcatalogId(organization, subcatalogId, options = {}) {

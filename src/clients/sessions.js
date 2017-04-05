@@ -3,10 +3,13 @@ import Client from './client';
 export default class Sessions extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,18 +18,31 @@ export default class Sessions extends Client {
   }
 
   putBySession(session, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/sessions/${session}`, options);
+    return this.makeRequest(`${this.host}/sessions/${session}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   putResetBySession(session, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/sessions/${session}/reset`, options);
+    return this.makeRequest(`${this.host}/sessions/${session}/reset`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   postOrganizationsByOrganization(organization, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/sessions/organizations/${organization}`, options);
+    return this.makeRequest(`${this.host}/sessions/organizations/${organization}`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
 }

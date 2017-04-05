@@ -3,10 +3,13 @@ import Client from './client';
 export default class ScheduledExports extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class ScheduledExports extends Client {
   }
 
   post(options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/users/scheduled/exports`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getById(id, options = {}) {
@@ -24,13 +29,17 @@ export default class ScheduledExports extends Client {
   }
 
   putById(id, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteById(id, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, options);
+    return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
 }

@@ -3,10 +3,13 @@ import Client from './client';
 export default class Authorizations extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class Authorizations extends Client {
   }
 
   post(organization, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/authorizations`, options);
+    return this.makeRequest(`${this.host}/${organization}/authorizations`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getByKey(organization, key, options = {}) {
@@ -24,8 +29,10 @@ export default class Authorizations extends Client {
   }
 
   deleteByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getVersions(organization, options = {}) {

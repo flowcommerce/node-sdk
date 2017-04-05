@@ -3,10 +3,13 @@ import Client from './client';
 export default class ItemFunctions extends Client {
   constructor(opts) {
     let options = opts;
+
     if (typeof opts === 'string') {
       options = { host: opts }; // convert host string to options object
     }
+
     options.serviceName = 'API';
+
     super(options);
   }
 
@@ -15,8 +18,10 @@ export default class ItemFunctions extends Client {
   }
 
   post(organization, options = {}) {
-    Object.assign(options, { method: 'POST' });
-    return this.makeRequest(`${this.host}/${organization}/item-functions`, options);
+    return this.makeRequest(`${this.host}/${organization}/item-functions`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
   getByKey(organization, key, options = {}) {
@@ -24,13 +29,17 @@ export default class ItemFunctions extends Client {
   }
 
   putByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'PUT' });
-    return this.makeRequest(`${this.host}/${organization}/item-functions/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/item-functions/${key}`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
   deleteByKey(organization, key, options = {}) {
-    Object.assign(options, { method: 'DELETE' });
-    return this.makeRequest(`${this.host}/${organization}/item-functions/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/item-functions/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
   getVersions(organization, options = {}) {
