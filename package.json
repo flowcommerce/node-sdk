@@ -38,7 +38,7 @@
     "mocha": "3.2.0"
   },
   "dependencies": {
-    "@flowio/lib-apidoc": "1.5.29",
+    "@flowio/lib-apidoc": "1.5.31",
     "@flowio/lib-registry": "0.0.5",
     "handlebars": "4.0.6",
     "node-fetch": "1.6.3"
