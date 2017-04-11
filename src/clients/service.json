@@ -728,6 +728,18 @@
           "attributes": []
         },
         {
+          "name": "authorization_status_changed",
+          "attributes": []
+        },
+        {
+          "name": "card_authorization_upserted",
+          "attributes": []
+        },
+        {
+          "name": "online_authorization_upserted",
+          "attributes": []
+        },
+        {
           "name": "capture_upserted",
           "attributes": []
         },
@@ -737,6 +749,14 @@
         },
         {
           "name": "card_deleted",
+          "attributes": []
+        },
+        {
+          "name": "payment_upserted",
+          "attributes": []
+        },
+        {
+          "name": "payment_deleted",
           "attributes": []
         },
         {
@@ -1112,6 +1132,16 @@
           "name": "subtotal_duty_percent_sales_margin",
           "attributes": [],
           "description": "The sum of adjustments to duty owed made due to percentage sales margins."
+        },
+        {
+          "name": "vat_subsidy",
+          "attributes": [],
+          "description": "An offset to account for any VAT subsidized by the organization. For example, if VAT is included in an item price and changes at the order level (due to passing de minimis threshold, or the destination having a more specific VAT rate), the difference will be represented here."
+        },
+        {
+          "name": "duty_subsidy",
+          "attributes": [],
+          "description": "An offset to account for any duty subsidized by the organization. For example, if duty is included in an item price and changes at the order level (due to passing de minimis threshold, or the destination having a more specific duty rate), the difference will be represented here."
         }
       ],
       "attributes": []
@@ -1178,6 +1208,10 @@
       "name": "payment_error_code",
       "plural": "payment_error_codes",
       "values": [
+        {
+          "name": "duplicate",
+          "attributes": []
+        },
         {
           "name": "invalid_amount",
           "attributes": [],
@@ -2235,10 +2269,26 @@
         },
         {
           "type": "authorization_upserted",
-          "attributes": []
+          "attributes": [],
+          "deprecation": {
+            "description": "Use card_authorization_upserted and online_authorization_upserted"
+          }
         },
         {
           "type": "authorization_deleted",
+          "attributes": []
+        },
+        {
+          "type": "authorization_status_changed",
+          "attributes": [],
+          "description": "Trigger whenever an auth status changes (e.g. from pending to authorized). Common use case is to subscribe to this event to know when an auth is cleared from fraud review."
+        },
+        {
+          "type": "card_authorization_upserted",
+          "attributes": []
+        },
+        {
+          "type": "online_authorization_upserted",
           "attributes": []
         },
         {
@@ -2251,6 +2301,14 @@
         },
         {
           "type": "card_deleted",
+          "attributes": []
+        },
+        {
+          "type": "payment_upserted",
+          "attributes": []
+        },
+        {
+          "type": "payment_deleted",
           "attributes": []
         },
         {
@@ -3535,6 +3593,45 @@
       "description": "Contains the result of the authorization. If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)."
     },
     {
+      "name": "authorization_status_changed",
+      "plural": "authorization_status_changeds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The authorization id"
+        },
+        {
+          "name": "authorization",
+          "type": "authorization",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "authorization_upserted",
       "plural": "authorization_upserteds",
       "fields": [
@@ -3746,6 +3843,13 @@
           "required": false,
           "attributes": [],
           "description": "Schedule day/times of carrier or affiliated line-haul pickup at this center. If not available, assume every day."
+        },
+        {
+          "name": "lead_days",
+          "type": "number_range",
+          "required": false,
+          "attributes": [],
+          "description": "Additional lead time required for processing or freight-based domestic transit for this service from this center. This will go in to padding the final delivery windows."
         }
       ],
       "attributes": [],
@@ -4119,6 +4223,39 @@
       ],
       "attributes": [],
       "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
+    },
+    {
+      "name": "card_authorization_upserted",
+      "plural": "card_authorization_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "authorization",
+          "type": "card_authorization",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an authorization for a card payment method"
     },
     {
       "name": "card_deleted",
@@ -5471,6 +5608,13 @@
           "type": "datetime_range",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "rule_outcome",
+          "type": "tier_rule_outcome",
+          "required": false,
+          "attributes": [],
+          "description": "Tier rule outcome used to generate the delivery option price. This would be an indication whethere something was a flat rate or at cost."
         },
         {
           "name": "weight",
@@ -10895,6 +11039,25 @@
       "attributes": []
     },
     {
+      "name": "number_range",
+      "plural": "number_ranges",
+      "fields": [
+        {
+          "name": "min",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "max",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "online_authorization",
       "plural": "online_authorizations",
       "fields": [
@@ -10984,6 +11147,39 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "online_authorization_upserted",
+      "plural": "online_authorization_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "authorization",
+          "type": "online_authorization",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an authorization for a card payment method"
     },
     {
       "name": "option_weight_estimates",
@@ -12799,6 +12995,39 @@
       "attributes": []
     },
     {
+      "name": "payment_deleted",
+      "plural": "payment_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "payment_error",
       "plural": "payment_errors",
       "fields": [
@@ -12993,6 +13222,45 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "payment_upserted",
+      "plural": "payment_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "payment",
+          "type": "payment",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -29045,7 +29313,7 @@
             },
             {
               "name": "id",
-              "type": "[string]",
+              "type": "[long]",
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
@@ -29356,7 +29624,7 @@
             },
             {
               "name": "id",
-              "type": "[string]",
+              "type": "[long]",
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
@@ -29759,7 +30027,7 @@
             },
             {
               "name": "id",
-              "type": "[string]",
+              "type": "[long]",
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
@@ -30124,7 +30392,7 @@
             },
             {
               "name": "id",
-              "type": "[string]",
+              "type": "[long]",
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
@@ -30646,7 +30914,7 @@
             },
             {
               "name": "id",
-              "type": "[string]",
+              "type": "[long]",
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",

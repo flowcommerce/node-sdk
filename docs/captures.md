@@ -63,7 +63,7 @@ const captures = client().captures;
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
+| id | [long] | Filter by one or more IDs of this resource |
 | capture_id | [string] | Filter to captures with any one of these ids. |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |

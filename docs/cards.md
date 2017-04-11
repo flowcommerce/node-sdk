@@ -80,7 +80,7 @@ const cards = client().cards;
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
+| id | [long] | Filter by one or more IDs of this resource |
 | card_id | [string] | Filter to cards with any one of these ids. |
 | card_token | [string] |  |
 | limit | long | The maximum number of results to return |
