@@ -8,3 +8,5 @@
 ## Deployment
 
     go run release.go
+
+NOTE: Do not use `npm version` to release. It does not work well with release script.
