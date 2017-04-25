@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.2.87",
+  "version": "0.3.17",
   "info": {
     "license": {
       "name": "MIT",
@@ -728,6 +728,10 @@
           "attributes": []
         },
         {
+          "name": "authorization_deleted_v2",
+          "attributes": []
+        },
+        {
           "name": "authorization_status_changed",
           "attributes": []
         },
@@ -736,7 +740,15 @@
           "attributes": []
         },
         {
+          "name": "card_authorization_upserted_v2",
+          "attributes": []
+        },
+        {
           "name": "online_authorization_upserted",
+          "attributes": []
+        },
+        {
+          "name": "online_authorization_upserted_v2",
           "attributes": []
         },
         {
@@ -744,7 +756,15 @@
           "attributes": []
         },
         {
+          "name": "capture_upserted_v2",
+          "attributes": []
+        },
+        {
           "name": "card_upserted",
+          "attributes": []
+        },
+        {
+          "name": "card_upserted_v2",
           "attributes": []
         },
         {
@@ -761,6 +781,10 @@
         },
         {
           "name": "refund_upserted",
+          "attributes": []
+        },
+        {
+          "name": "refund_upserted_v2",
           "attributes": []
         },
         {
@@ -1458,6 +1482,62 @@
       "attributes": []
     },
     {
+      "name": "province_type",
+      "plural": "province_types",
+      "values": [
+        {
+          "name": "city",
+          "attributes": []
+        },
+        {
+          "name": "dependency",
+          "attributes": []
+        },
+        {
+          "name": "district",
+          "attributes": []
+        },
+        {
+          "name": "emirate",
+          "attributes": []
+        },
+        {
+          "name": "entity",
+          "attributes": []
+        },
+        {
+          "name": "municipality",
+          "attributes": []
+        },
+        {
+          "name": "outlying_area",
+          "attributes": []
+        },
+        {
+          "name": "parish",
+          "attributes": []
+        },
+        {
+          "name": "province",
+          "attributes": []
+        },
+        {
+          "name": "state",
+          "attributes": []
+        },
+        {
+          "name": "territory",
+          "attributes": []
+        },
+        {
+          "name": "other",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Local terminology for province"
+    },
+    {
       "name": "query_type",
       "plural": "query_types",
       "values": [
@@ -1684,6 +1764,22 @@
       ],
       "attributes": [],
       "description": "Status indicating availability of a subcatalog item in an experience."
+    },
+    {
+      "name": "tier_direction",
+      "plural": "tier_directions",
+      "values": [
+        {
+          "name": "outbound",
+          "attributes": []
+        },
+        {
+          "name": "return",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Describes fulfillment direction of this logistics tier"
     },
     {
       "name": "tier_strategy",
@@ -2276,6 +2372,13 @@
         },
         {
           "type": "authorization_deleted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use authorization_deleted_v2"
+          }
+        },
+        {
+          "type": "authorization_deleted_v2",
           "attributes": []
         },
         {
@@ -2285,18 +2388,46 @@
         },
         {
           "type": "card_authorization_upserted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use card_authorization_upserted_v2"
+          }
+        },
+        {
+          "type": "card_authorization_upserted_v2",
           "attributes": []
         },
         {
           "type": "online_authorization_upserted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use online_authorization_upserted_v2"
+          }
+        },
+        {
+          "type": "online_authorization_upserted_v2",
           "attributes": []
         },
         {
           "type": "capture_upserted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use capture_upserted_v2"
+          }
+        },
+        {
+          "type": "capture_upserted_v2",
           "attributes": []
         },
         {
           "type": "card_upserted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use card_upserted_v2"
+          }
+        },
+        {
+          "type": "card_upserted_v2",
           "attributes": []
         },
         {
@@ -2313,6 +2444,13 @@
         },
         {
           "type": "refund_upserted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use refund_upserted_v2"
+          }
+        },
+        {
+          "type": "refund_upserted_v2",
           "attributes": []
         },
         {
@@ -2405,6 +2543,22 @@
         },
         {
           "type": "organization_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "expandable_payment",
+      "plural": "expandable_payments",
+      "types": [
+        {
+          "type": "payment_paypal",
+          "attributes": []
+        },
+        {
+          "type": "payment_reference",
           "attributes": []
         }
       ],
@@ -2732,7 +2886,7 @@
       "plural": "account_orders_export_types",
       "fields": [
         {
-          "name": "payment_reference",
+          "name": "statement_id",
           "type": "string",
           "required": false,
           "attributes": []
@@ -2744,25 +2898,25 @@
           "attributes": []
         },
         {
-          "name": "transaction_date_on_or_after",
+          "name": "transaction_posted_on_or_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "transaction_date_after",
+          "name": "transaction_posted_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "transaction_date_on_or_before",
+          "name": "transaction_posted_on_or_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "transaction_date_before",
+          "name": "transaction_posted_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
@@ -2775,7 +2929,7 @@
       "plural": "account_transactions_export_types",
       "fields": [
         {
-          "name": "payment_reference",
+          "name": "statement_id",
           "type": "string",
           "required": false,
           "attributes": []
@@ -2787,25 +2941,25 @@
           "attributes": []
         },
         {
-          "name": "date_on_or_after",
+          "name": "posted_on_or_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "date_after",
+          "name": "posted_after",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "date_on_or_before",
+          "name": "posted_on_or_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
         {
-          "name": "date_before",
+          "name": "posted_before",
           "type": "date-time-iso8601",
           "required": false,
           "attributes": []
@@ -3532,6 +3686,39 @@
       "attributes": []
     },
     {
+      "name": "authorization_deleted_v2",
+      "plural": "authorization_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "authorization_order_reference",
       "plural": "authorization_order_references",
       "fields": [
@@ -3555,6 +3742,12 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -3940,6 +4133,13 @@
           "type": "date-time-iso8601",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a capture object"
         }
       ],
       "attributes": [],
@@ -3977,6 +4177,13 @@
           "attributes": [],
           "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "CAD"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a capture object"
         }
       ],
       "attributes": [],
@@ -4032,6 +4239,45 @@
         {
           "name": "created_at",
           "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "capture_upserted_v2",
+      "plural": "capture_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "capture",
+          "type": "capture",
           "required": true,
           "attributes": []
         }
@@ -4184,7 +4430,7 @@
           "type": "map[string]",
           "required": true,
           "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+          "description": "A set of key/value pairs that you can attach to an authorization object"
         },
         {
           "name": "destination",
@@ -4246,6 +4492,46 @@
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "authorization",
+          "type": "card_authorization",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an authorization for a card payment method"
+    },
+    {
+      "name": "card_authorization_upserted_v2",
+      "plural": "card_authorization_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
         },
         {
           "name": "authorization",
@@ -4509,6 +4795,45 @@
           "name": "address",
           "type": "object",
           "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "card_upserted_v2",
+      "plural": "card_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "card",
+          "type": "card",
+          "required": true,
           "attributes": []
         }
       ],
@@ -5998,7 +6323,7 @@
           "type": "map[string]",
           "required": false,
           "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+          "description": "A set of key/value pairs that you can attach to an authorization object"
         },
         {
           "name": "destination",
@@ -9705,6 +10030,18 @@
           "type": "string",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number_url",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "flow_tracking_number_url",
+          "type": "string",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -10759,7 +11096,7 @@
           "type": "map[string]",
           "required": false,
           "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+          "description": "A set of key/value pairs that you can attach to an authorization object"
         },
         {
           "name": "ip",
@@ -11076,7 +11413,7 @@
         },
         {
           "name": "payment",
-          "type": "payment_reference",
+          "type": "expandable_payment",
           "required": true,
           "attributes": [],
           "description": "The associated online payment"
@@ -11109,7 +11446,7 @@
           "type": "map[string]",
           "required": true,
           "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+          "description": "A set of key/value pairs that you can attach to an authorization object"
         },
         {
           "name": "destination",
@@ -11170,6 +11507,46 @@
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "authorization",
+          "type": "online_authorization",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an authorization for a card payment method"
+    },
+    {
+      "name": "online_authorization_upserted_v2",
+      "plural": "online_authorization_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
         },
         {
           "name": "authorization",
@@ -13327,7 +13704,7 @@
           "type": "map[string]",
           "required": false,
           "attributes": [],
-          "description": "A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format."
+          "description": "A set of key/value pairs that you can attach to an authorization object"
         },
         {
           "name": "ip",
@@ -13881,6 +14258,51 @@
       "attributes": []
     },
     {
+      "name": "province",
+      "plural": "provinces",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier",
+          "example": "AUS-NSW"
+        },
+        {
+          "name": "iso_3166_2",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "NSW"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "New South Wales"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 3166 3 code of the country for this subdivision",
+          "example": "AUS"
+        },
+        {
+          "name": "province_type",
+          "type": "province_type",
+          "required": true,
+          "attributes": [],
+          "example": "province"
+        }
+      ],
+      "attributes": [],
+      "description": "A subdivision/province/state within a country. These conform to the ISO 3166-2 standard for country subdivisions. See https://api.flow.io/reference/provinces"
+    },
+    {
       "name": "public_key",
       "plural": "public_keys",
       "fields": [
@@ -14356,6 +14778,13 @@
           "type": "date-time-iso8601",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a refund object"
         }
       ],
       "attributes": [],
@@ -14437,6 +14866,13 @@
           "required": false,
           "attributes": [],
           "description": "The RMA key, if available. If specified, this will udpate the RMA status as refunded."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a refund object"
         }
       ],
       "attributes": [],
@@ -14589,6 +15025,45 @@
           "name": "rma_key",
           "type": "string",
           "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "refund_upserted_v2",
+      "plural": "refund_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "refund",
+          "type": "refund",
+          "required": true,
           "attributes": []
         }
       ],
@@ -15056,7 +15531,7 @@
           "type": "calendar",
           "required": false,
           "attributes": [],
-          "description": "Operating calendar used by origin center for shipment, if avialable. If not provided, assume they are never open.",
+          "description": "Operating calendar used by origin center for shipment, if available. If not provided, assume they are never open.",
           "example": "Weekdays, 7 days, etc."
         },
         {
@@ -15072,7 +15547,7 @@
           "type": "[exception]",
           "required": true,
           "attributes": [],
-          "description": "Holiday calendar used by origin center for shipment, if avialable.",
+          "description": "Holiday calendar used by origin center for shipment, if available.",
           "example": "Memorial Day, Independence Day, etc."
         },
         {
@@ -15381,6 +15856,12 @@
           "attributes": [],
           "description": "Locale ID as defined in https://api.flow.io/reference/locales",
           "example": "en-US"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -15426,6 +15907,12 @@
           "attributes": [],
           "description": "Locale ID as defined in https://api.flow.io/reference/locales",
           "example": "en-US"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -15822,13 +16309,6 @@
           "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a submitted order, if applicable."
         },
         {
-          "name": "origin",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "description": "Origin contact information and structured address"
-        },
-        {
           "name": "package",
           "type": "shipping_label_package",
           "required": true,
@@ -15842,6 +16322,13 @@
           "attributes": [],
           "description": "Carrier service level used for generation and shipment of this label",
           "example": "ups-ground, dhl-express-worldwide"
+        },
+        {
+          "name": "origin",
+          "type": "shipping_address",
+          "required": false,
+          "attributes": [],
+          "description": "Origin contact information and structured address. If not provided, will default to center used for the selected delivery option in the order."
         }
       ],
       "attributes": [],
@@ -16957,6 +17444,13 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "direction",
+          "type": "tier_direction",
+          "required": true,
+          "attributes": [],
+          "default": "outbound"
+        },
+        {
           "name": "experience",
           "type": "fulfillment_experience_reference",
           "required": true,
@@ -17192,6 +17686,12 @@
           "required": false,
           "attributes": [],
           "description": "Description of the tier intended for internal description of return tiers or could be used for caption/tooltips on a checkout page."
+        },
+        {
+          "name": "direction",
+          "type": "tier_direction",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": [],
@@ -21541,15 +22041,15 @@
               "maximum": 100
             },
             {
-              "name": "identifier",
+              "name": "number",
               "type": "[string]",
               "location": "Query",
               "required": false,
               "maximum": 100
             },
             {
-              "name": "number",
-              "type": "[string]",
+              "name": "identifier",
+              "type": "string",
               "location": "Query",
               "required": false,
               "maximum": 100
@@ -29091,8 +29591,8 @@
               "location": "Query",
               "required": false,
               "minimum": 0,
-              "maximum": 1,
-              "example": "card"
+              "maximum": 2,
+              "example": "card, payment"
             }
           ],
           "responses": [
@@ -29144,6 +29644,15 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 2,
+              "example": "card, payment"
             }
           ],
           "responses": [
@@ -29205,8 +29714,8 @@
               "location": "Query",
               "required": false,
               "minimum": 0,
-              "maximum": 1,
-              "example": "card"
+              "maximum": 2,
+              "example": "card, payment"
             }
           ],
           "responses": [
@@ -37268,6 +37777,119 @@
       ],
       "path": "/reference/locales",
       "description": "Locales defines standard conventions for presentation of content. See https://api.flow.io/reference/locales"
+    },
+    {
+      "type": "province",
+      "plural": "provinces",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/reference/provinces",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search on name for a single matching region. Case insensitive"
+            },
+            {
+              "name": "countries",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "ISO 3166 3-character country code. See https://api.flow.io/reference/countries",
+              "maximum": 100
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[province]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Returns a list of provinces."
+        },
+        {
+          "method": "GET",
+          "path": "/reference/provinces/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "province",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns the province with the specifed id."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "reference"
+          }
+        }
+      ],
+      "path": "/reference/provinces",
+      "description": "A subdivision/province/state within a country. These conform to the ISO 3166-2 standard for country subdivisions. See https://api.flow.io/reference/provinces"
     },
     {
       "type": "region",

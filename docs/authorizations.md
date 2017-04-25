@@ -40,6 +40,11 @@ const authorizations = client().authorizations;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`getByKey(organization, key, options = {})`
 
