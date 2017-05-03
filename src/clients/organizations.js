@@ -17,6 +17,10 @@ export default class Organizations extends Client {
     return this.makeRequest(`${this.host}/${organization}/countries`, options);
   }
 
+  getCountriesAndDestinationsByOrganization(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/countries/destinations`, options);
+  }
+
   get(options = {}) {
     return this.makeRequest(`${this.host}/organizations`, options);
   }

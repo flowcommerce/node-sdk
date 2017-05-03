@@ -45,4 +45,11 @@ export default class Sessions extends Client {
     });
   }
 
+  postShopifyByShop(shop, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/${shop}`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
 }

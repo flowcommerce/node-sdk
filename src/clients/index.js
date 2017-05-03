@@ -59,6 +59,7 @@ import Regions from './regions';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Exports from './exports';
+import Feeds from './feeds';
 import Healthchecks from './healthchecks';
 import Imports from './imports';
 import Invitations from './invitations';
@@ -100,10 +101,13 @@ const enums = {
   eventType: ['attribute_upserted', 'attribute_deleted', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted', 'allocation_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'pricing_deleted', 'pricing_upserted', 'tier_upserted', 'tier_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
+  flowFieldName: ['item-number', 'sku-attribute', 'product_id-attribute'],
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   importType: ['harmonization_codes'],
   includedLevyKey: ['duty', 'vat', 'vat_and_duty'],
+  incomingFeedFormat: ['google-xml', 'google-sheet'],
+  incomingFieldName: ['id', 'mpn'],
   invitationErrorCode: ['expired', 'invalid_email'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
@@ -114,6 +118,7 @@ const enums = {
   orderPriceDetailComponentKey: ['adjustment', 'vat_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount', 'subtotal_percent_sales_margin', 'subtotal_vat_percent_sales_margin', 'subtotal_duty_percent_sales_margin', 'vat_subsidy', 'duty_subsidy'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
   orderStatus: ['open', 'submitted'],
+  outgoingFeedFormat: ['facebook-xml', 'google-tsv', 'google-xml', 'criteo-xml'],
   paymentErrorCode: ['duplicate', 'invalid_amount', 'invalid_currency', 'invalid_method', 'invalid_order', 'invalid_customer', 'invalid_destination', 'unknown'],
   paymentMethodType: ['card', 'online', 'offline'],
   priceDetailComponentKey: ['base_price', 'discount', 'currency_margin', 'percent_item_margin', 'fixed_item_margin', 'duties_item_price', 'duties_added_margin', 'duties_rounding', 'duties_deminimis', 'vat_item_price', 'vat_added_margin', 'vat_rounding', 'vat_duties_item_price', 'vat_duties_added_margin', 'vat_duties_rounding', 'vat_deminimis', 'item_price_percent_sales_margin', 'margins_percent_sales_margin', 'rounding_percent_sales_margin', 'vat_percent_sales_margin', 'vat_duty_percent_sales_margin', 'duty_percent_sales_margin'],
@@ -217,6 +222,7 @@ export default class ApiClient {
     this.documents = new Documents(options);
     this.emailVerifications = new EmailVerifications(options);
     this.exports = new Exports(options);
+    this.feeds = new Feeds(options);
     this.healthchecks = new Healthchecks(options);
     this.imports = new Imports(options);
     this.invitations = new Invitations(options);

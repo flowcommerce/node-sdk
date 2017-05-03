@@ -24,7 +24,17 @@ const organizations = client().organizations;
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
+| ip | string | If specified, we lookup the country associated with this IP address, and if found and there is an experience that is targeted to this country, we guarantee that this country is in the returned list of countries |
 | country | string | If specified, we will guarantee that this country is included in the response. We recommend including the current country when querying for the list of countries to disable, thereby ensuring the current user&#x27;s selection will display (even if they are localized using the world experience). Value is a ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries |
+
+##`getCountriesAndDestinationsByOrganization(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
 
 ##`get(options = {})`
 

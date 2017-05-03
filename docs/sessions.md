@@ -57,3 +57,12 @@ const sessions = client().sessions;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`postShopifyByShop(shop, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| shop | string |  |
+
+

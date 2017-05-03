@@ -68,6 +68,7 @@ These resources mirror the official documentation located at
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
+| [feeds](feeds.md) | Describes types of feeds that may be produced by Flow. |
 | [healthchecks](healthchecks.md) |  |
 | [imports](imports.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
