@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.3.17",
+  "version": "0.3.28",
   "info": {
     "license": {
       "name": "MIT",
@@ -16352,6 +16352,13 @@
       "name": "session_put_form",
       "plural": "session_put_forms",
       "fields": [
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
+        },
         {
           "name": "experience",
           "type": "string",
@@ -41853,7 +41860,7 @@
                   "value": 201
                 }
               },
-              "type": "shopify_session",
+              "type": "organization_session",
               "description": "Operation succeeded and the resource was created"
             },
             {
