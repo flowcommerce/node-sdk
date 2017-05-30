@@ -57,6 +57,21 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/versions`, options);
   }
 
+  getPaymentMethodRulesByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-rules`, options);
+  }
+
+  putPaymentMethodRulesByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-rules`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  getPaymentMethodTypesByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-types`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, options);
   }

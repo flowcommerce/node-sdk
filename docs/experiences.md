@@ -123,6 +123,51 @@ const experiences = client().experiences;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`getPaymentMethodRulesByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| payment_method_type | [payment_method_type] |  |
+| tags | [string] |  |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
+##`putPaymentMethodRulesByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+
+##`getPaymentMethodTypesByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+
 ##`getByKey(organization, key, options = {})`
 
 ### Function Parameters

@@ -54,6 +54,7 @@ import Countries from './countries';
 import Currencies from './currencies';
 import Languages from './languages';
 import Locales from './locales';
+import PaymentMethods from './payment-methods';
 import Provinces from './provinces';
 import Regions from './regions';
 import Documents from './documents';
@@ -63,6 +64,7 @@ import Feeds from './feeds';
 import Healthchecks from './healthchecks';
 import Imports from './imports';
 import Invitations from './invitations';
+import Links from './links';
 import Memberships from './memberships';
 import OrganizationAuthorizations from './organization-authorizations';
 import OrganizationTokens from './organization-tokens';
@@ -100,6 +102,7 @@ const enums = {
   environment: ['sandbox', 'production'],
   eventType: ['attribute_upserted', 'attribute_deleted', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted', 'allocation_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'pricing_deleted', 'pricing_upserted', 'tier_upserted', 'tier_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'localized_item_upserted', 'localized_item_deleted', 'localized_item_snapshot', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
+  experiencePaymentMethodTag: ['display'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   flowFieldName: ['item-number', 'sku-attribute', 'product_id-attribute'],
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
@@ -118,6 +121,7 @@ const enums = {
   orderPriceDetailComponentKey: ['adjustment', 'vat_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount', 'subtotal_percent_sales_margin', 'subtotal_vat_percent_sales_margin', 'subtotal_duty_percent_sales_margin', 'vat_subsidy', 'duty_subsidy'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
   orderStatus: ['open', 'submitted'],
+  organizationPaymentMethodTag: ['deny'],
   outgoingFeedFormat: ['facebook-xml', 'google-tsv', 'google-xml', 'criteo-xml'],
   paymentErrorCode: ['duplicate', 'invalid_amount', 'invalid_currency', 'invalid_method', 'invalid_order', 'invalid_customer', 'invalid_destination', 'unknown'],
   paymentMethodType: ['card', 'online', 'offline'],
@@ -217,6 +221,7 @@ export default class ApiClient {
     this.currencies = new Currencies(options);
     this.languages = new Languages(options);
     this.locales = new Locales(options);
+    this.paymentMethods = new PaymentMethods(options);
     this.provinces = new Provinces(options);
     this.regions = new Regions(options);
     this.documents = new Documents(options);
@@ -226,6 +231,7 @@ export default class ApiClient {
     this.healthchecks = new Healthchecks(options);
     this.imports = new Imports(options);
     this.invitations = new Invitations(options);
+    this.links = new Links(options);
     this.memberships = new Memberships(options);
     this.organizationAuthorizations = new OrganizationAuthorizations(options);
     this.organizationTokens = new OrganizationTokens(options);

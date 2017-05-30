@@ -63,6 +63,7 @@ These resources mirror the official documentation located at
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies |
 | [languages](languages.md) | ISO 639 2-character language code. See https://api.flow.io/reference/languages |
 | [locales](locales.md) | Locales defines standard conventions for presentation of content. See https://api.flow.io/reference/locales |
+| [paymentMethods](paymentMethods.md) | Represents a single payment method - e.g VISA or Paypal - and any associated metadata required for processing |
 | [provinces](provinces.md) | A subdivision/province/state within a country. These conform to the ISO 3166-2 standard for country subdivisions. See https://api.flow.io/reference/provinces |
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions |
 | [documents](documents.md) |  |
@@ -72,6 +73,7 @@ These resources mirror the official documentation located at
 | [healthchecks](healthchecks.md) |  |
 | [imports](imports.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
+| [links](links.md) |  |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |
 | [organizationAuthorizations](organizationAuthorizations.md) | Defines the data used for broad authorization of user access to org level data |
 | [organizationTokens](organizationTokens.md) | All of the metadata associated with a given token. |
