@@ -64,9 +64,19 @@
       "plural": "attribute_intents",
       "values": [
         {
+          "name": "fulfillment_method",
+          "attributes": [],
+          "description": "Attributes with this data type imply whether delivery is a package or digital good."
+        },
+        {
           "name": "price",
           "attributes": [],
           "description": "Attributes with this data type are inferred to be prices in the organization's base currency and will be localized based on each Experience's pricing policy."
+        },
+        {
+          "name": "taxability",
+          "attributes": [],
+          "description": "Attributes with this data type imply whether taxes are applicable to an item."
         }
       ],
       "attributes": [],
@@ -890,6 +900,37 @@
       ],
       "attributes": [],
       "description": "Describes the field in a Flow catalog that will be used to link to an incoming catalog feed. Failure to link an incoming feed item to a Flow catalog item will cause that item to be removed from localized feeds."
+    },
+    {
+      "name": "fulfillment_method_type",
+      "plural": "fulfillment_method_types",
+      "values": [
+        {
+          "name": "fulfillment_method",
+          "attributes": [],
+          "description": "Indicates how an item will be shipped or fulfilled.  Acceptable values are defined by the 'fulfillment_method_value' enum."
+        }
+      ],
+      "attributes": [],
+      "description": "Used to indicate an item's fulfillment method type."
+    },
+    {
+      "name": "fulfillment_method_value",
+      "plural": "fulfillment_method_values",
+      "values": [
+        {
+          "name": "digital",
+          "attributes": [],
+          "description": "Indicates item will be fulfilled digitally and no shipment is required (e.g. Gift Card)."
+        },
+        {
+          "name": "physical",
+          "attributes": [],
+          "description": "Indicates item will be shipped in a phystical package."
+        }
+      ],
+      "attributes": [],
+      "description": "Used to indicate an item's fulfillment method values."
     },
     {
       "name": "generic_error_code",
@@ -1875,6 +1916,31 @@
       ],
       "attributes": [],
       "description": "Status indicating availability of a subcatalog item in an experience."
+    },
+    {
+      "name": "taxability_type",
+      "plural": "taxability_types",
+      "values": [
+        {
+          "name": "tax_rule",
+          "attributes": [],
+          "description": "Rule indicating how taxes should be applied.  Acceptable values are defined by the 'taxability_value' enum."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "taxability_value",
+      "plural": "taxability_values",
+      "values": [
+        {
+          "name": "exempt",
+          "attributes": [],
+          "description": "An item with this value is exempt from being taxed."
+        }
+      ],
+      "attributes": [],
+      "description": "Used to indicate an item's taxability."
     },
     {
       "name": "tier_direction",
