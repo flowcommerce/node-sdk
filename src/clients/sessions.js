@@ -20,35 +20,35 @@ export default class Sessions extends Client {
   putBySession(session, options = {}) {
     return this.makeRequest(`${this.host}/sessions/${session}`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 
   deleteBySession(session, options = {}) {
     return this.makeRequest(`${this.host}/sessions/${session}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 
   putResetBySession(session, options = {}) {
     return this.makeRequest(`${this.host}/sessions/${session}/reset`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 
   postOrganizationsByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/sessions/organizations/${organization}`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
   postShopifyByShop(shop, options = {}) {
     return this.makeRequest(`${this.host}/sessions/shopify/${shop}`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

@@ -20,7 +20,7 @@ export default class OrderIdentifiers extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order-identifiers`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class OrderIdentifiers extends Client {
   putByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 
   deleteByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 
