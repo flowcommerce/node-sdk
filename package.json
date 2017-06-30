@@ -6,9 +6,12 @@
   "scripts": {
     "pregenerate": "curl http://api.apidoc.me/flow/api/latest > api.service.json",
     "generate": "rm -rf ./src/clients/* && babel-node sync",
+    "lint": "eslint ./src --format=codeframe",
+    "lint:fix": "npm run lint -- --fix",
     "prepublish": "babel src --out-dir lib",
+    "pretest": "npm run lint",
     "postpublish": "rm -rf lib",
-    "test": "eslint src && mocha --compilers js:babel-core/register --recursive"
+    "test": "mocha --compilers js:babel-core/register --recursive"
   },
   "files": [
     "lib"
