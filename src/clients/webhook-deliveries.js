@@ -24,7 +24,7 @@ export default class WebhookDeliveries extends Client {
   postRequestsById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/webhook/deliveries/${id}/requests`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

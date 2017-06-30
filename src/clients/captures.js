@@ -20,7 +20,7 @@ export default class Captures extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/captures`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
