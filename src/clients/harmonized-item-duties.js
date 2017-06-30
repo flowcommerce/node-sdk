@@ -20,7 +20,7 @@ export default class HarmonizedItemDuties extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/harmonization/item-duties`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class HarmonizedItemDuties extends Client {
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/harmonization/item-duties/${id}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 

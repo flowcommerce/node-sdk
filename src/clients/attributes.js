@@ -20,7 +20,7 @@ export default class Attributes extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/attributes`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class Attributes extends Client {
   putByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 
