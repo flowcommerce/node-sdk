@@ -40,7 +40,7 @@
   "dependencies": {
     "@flowio/lib-apidoc": "1.5.31",
     "@flowio/lib-registry": "0.0.5",
-    "handlebars": "4.0.6",
+    "handlebars": "4.0.10",
     "node-fetch": "1.6.3"
   }
 }
