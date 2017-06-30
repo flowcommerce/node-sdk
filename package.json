@@ -6,9 +6,10 @@
   "scripts": {
     "pregenerate": "curl http://api.apidoc.me/flow/api/latest > api.service.json",
     "generate": "rm -rf ./src/clients/* && babel-node sync",
+    "lint": "eslint ./src --format=codeframe",
+    "lint:fix": "npm run lint -- --fix",
     "prepublish": "babel src --out-dir lib",
-    "postpublish": "rm -rf lib",
-    "test": "eslint src"
+    "postpublish": "rm -rf lib"
   },
   "files": [
     "lib"
@@ -25,15 +26,17 @@
   "homepage": "https://github.com/flowcommerce/node-sdk#readme",
   "devDependencies": {
     "@flowio/babel-preset-flowio": "1.1.0",
-    "@flowio/eslint-config-flowio": "7.0.0",
+    "@flowio/eslint-config-flowio": "9.0.0",
     "babel-cli": "6.18.0",
     "babel-core": "6.21.0",
-    "babel-eslint": "7.1.1",
-    "eslint": "3.9.1",
-    "eslint-plugin-import": "2.1.0",
-    "eslint-plugin-jsx-a11y": "2.2.3",
-    "eslint-plugin-react": "6.6.0",
-    "lodash": "4.17.2"
+    "babel-eslint": "7.2.3",
+    "eslint": "3.19.0",
+    "eslint-plugin-import": "2.6.1",
+    "eslint-plugin-jsx-a11y": "5.1.0",
+    "eslint-plugin-react": "7.1.0",
+    "expect": "1.20.2",
+    "lodash": "4.17.2",
+    "mocha": "3.2.0"
   },
   "dependencies": {
     "@flowio/lib-apidoc": "1.5.31",
