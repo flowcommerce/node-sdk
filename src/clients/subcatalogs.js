@@ -20,7 +20,7 @@ export default class Subcatalogs extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class Subcatalogs extends Client {
   putById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
@@ -49,7 +49,7 @@ export default class Subcatalogs extends Client {
   putSettingsById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}/settings`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
@@ -64,14 +64,14 @@ export default class Subcatalogs extends Client {
   putExclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteExclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
@@ -82,7 +82,7 @@ export default class Subcatalogs extends Client {
   postFunctionsBySubcatalogId(organization, subcatalogId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -93,7 +93,7 @@ export default class Subcatalogs extends Client {
   deleteFunctionsBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
@@ -112,14 +112,14 @@ export default class Subcatalogs extends Client {
   putInclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteInclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
@@ -130,7 +130,7 @@ export default class Subcatalogs extends Client {
   postQueriesBySubcatalogId(organization, subcatalogId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -141,7 +141,7 @@ export default class Subcatalogs extends Client {
   deleteQueriesBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Targetings extends Client {
+export default class CreditPayments extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -14,36 +14,36 @@ export default class Targetings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings`, options);
+    return this.makeRequest(`${this.host}/${organization}/credit/payments`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings`, {
+    return this.makeRequest(`${this.host}/${organization}/credit/payments`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/credit/payments/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/${key}`, {
+    return this.makeRequest(`${this.host}/${organization}/credit/payments/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/${key}`, {
+    return this.makeRequest(`${this.host}/${organization}/credit/payments/${key}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/credit/payments/versions`, options);
   }
 
 }

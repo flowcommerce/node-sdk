@@ -1,6 +1,7 @@
 import Allocations from './allocations';
 import Attributes from './attributes';
 import Catalogs from './catalogs';
+import CreditPayments from './credit-payments';
 import Experiences from './experiences';
 import ExperienceDefaults from './experience-defaults';
 import Items from './items';
@@ -35,6 +36,7 @@ import DeliveryWindows from './delivery-windows';
 import InventoryRules from './inventory-rules';
 import InventorySnapshots from './inventory-snapshots';
 import InventoryUpdates from './inventory-updates';
+import Manifests from './manifests';
 import Quotes from './quotes';
 import Returns from './returns';
 import ShippingLabels from './shipping-labels';
@@ -95,6 +97,7 @@ const enums = {
   cardErrorCode: ['invalid_address', 'invalid_name', 'invalid_number', 'invalid_expiration', 'avs', 'cvv', 'fraud', 'unknown'],
   cardType: ['american_express', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   changeType: ['insert', 'update', 'delete'],
+  creditPaymentErrorCode: ['generic_error', 'invalid_order_number', 'invalid_currency', 'invalid_description', 'duplicate', 'amount_must_be_positive', 'amount_exceeds_balance'],
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   dayOfWeek: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
   deliveredDuty: ['paid', 'unpaid'],
@@ -116,10 +119,12 @@ const enums = {
   invitationErrorCode: ['expired', 'invalid_email'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
+  manifestType: ['all', 'list'],
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
-  orderErrorCode: ['generic_error', 'order_item_not_available', 'order_identifier_error'],
+  orderErrorCode: ['generic_error', 'order_item_not_available', 'order_identifier_error', 'domestic_shipping_unavailable'],
+  orderPaymentType: ['card', 'online', 'credit', 'cash_on_delivery'],
   orderPriceDetailComponentKey: ['adjustment', 'vat_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'rounding', 'insurance', 'shipping', 'order_discount', 'subtotal_percent_sales_margin', 'subtotal_vat_percent_sales_margin', 'subtotal_duty_percent_sales_margin', 'vat_subsidy', 'duty_subsidy'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
   orderStatus: ['open', 'submitted'],
@@ -148,6 +153,7 @@ const enums = {
   taxabilityValue: ['exempt'],
   tierDirection: ['outbound', 'return'],
   tierStrategy: ['fastest', 'lowest_cost'],
+  trackingNumberType: ['flow', 'carrier'],
   trackingStatus: ['label_created', 'pending', 'info_received', 'in_transit', 'out_for_delivery', 'attempt_fail', 'delivered', 'exception', 'expired'],
   unitOfMeasurement: ['millimeter', 'centimeter', 'inch', 'foot', 'cubic_inch', 'cubic_meter', 'gram', 'kilogram', 'meter', 'ounce', 'pound'],
   unitOfTime: ['year', 'month', 'week', 'day', 'hour', 'minute'],
@@ -172,6 +178,7 @@ export default class ApiClient {
     this.allocations = new Allocations(options);
     this.attributes = new Attributes(options);
     this.catalogs = new Catalogs(options);
+    this.creditPayments = new CreditPayments(options);
     this.experiences = new Experiences(options);
     this.experienceDefaults = new ExperienceDefaults(options);
     this.items = new Items(options);
@@ -206,6 +213,7 @@ export default class ApiClient {
     this.inventoryRules = new InventoryRules(options);
     this.inventorySnapshots = new InventorySnapshots(options);
     this.inventoryUpdates = new InventoryUpdates(options);
+    this.manifests = new Manifests(options);
     this.quotes = new Quotes(options);
     this.returns = new Returns(options);
     this.shippingLabels = new ShippingLabels(options);

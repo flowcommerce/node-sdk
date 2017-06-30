@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.11.80"
+    "version": "0.12.8"
   },
   "name": "API",
   "organization": {
@@ -400,6 +400,47 @@
         {
           "name": "delete",
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "credit_payment_error_code",
+      "plural": "credit_payment_error_codes",
+      "values": [
+        {
+          "name": "generic_error",
+          "attributes": []
+        },
+        {
+          "name": "invalid_order_number",
+          "attributes": [],
+          "description": "Indicates the specified order does not exist"
+        },
+        {
+          "name": "invalid_currency",
+          "attributes": [],
+          "description": "Indicates that the specified currency code is not valid"
+        },
+        {
+          "name": "invalid_description",
+          "attributes": [],
+          "description": "Indicates that the description is invalid (must be non-empty)"
+        },
+        {
+          "name": "duplicate",
+          "attributes": [],
+          "description": "Indicates that a credit payment with the specified key already exists"
+        },
+        {
+          "name": "amount_must_be_positive",
+          "attributes": [],
+          "description": "Indicates the provided credit amount was <= 0"
+        },
+        {
+          "name": "amount_exceeds_balance",
+          "attributes": [],
+          "description": "Indicates the provided credit amount exceeds the remaining balance on the order"
         }
       ],
       "attributes": []
@@ -1101,6 +1142,23 @@
       "attributes": []
     },
     {
+      "name": "manifest_type",
+      "plural": "manifest_types",
+      "values": [
+        {
+          "name": "all",
+          "attributes": [],
+          "description": "Manifest all open shipping labels that are not part of a manifest yet for the organization and carrier service"
+        },
+        {
+          "name": "list",
+          "attributes": [],
+          "description": "Manifest only the list of specified labels"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "margin_type",
       "plural": "margin_types",
       "values": [
@@ -1161,9 +1219,41 @@
         {
           "name": "order_identifier_error",
           "attributes": []
+        },
+        {
+          "name": "domestic_shipping_unavailable",
+          "attributes": []
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "order_payment_type",
+      "plural": "order_payment_types",
+      "values": [
+        {
+          "name": "card",
+          "attributes": [],
+          "description": "Represents a payment in the form of a credit or debit card"
+        },
+        {
+          "name": "online",
+          "attributes": [],
+          "description": "Represents an online payment (e.g. paypal, alipay, etc)"
+        },
+        {
+          "name": "credit",
+          "attributes": [],
+          "description": "A payment in the form of a credit of some type (e.g. a store credit, gift card) applied to an order"
+        },
+        {
+          "name": "cash_on_delivery",
+          "attributes": [],
+          "description": "Request to pay the balance with cash on delivery. Offered only when the final mile carriers support cash on delivery."
+        }
+      ],
+      "attributes": [],
+      "description": "The order payment type identified the different ways a consumer may have paid for an order. The primary purpose is in displaying summary level payment information to the user; the type can then be used to know how to request additional details for each payment."
     },
     {
       "name": "order_price_detail_component_key",
@@ -1901,17 +1991,17 @@
         {
           "name": "excluded",
           "attributes": [],
-          "description": "Item is excluded based on targeting query.  This is separate from an item marked as restricted."
+          "description": "The user has chosen to exclude the item from the associated subcatalog."
         },
         {
           "name": "included",
           "attributes": [],
-          "description": "Item is included"
+          "description": "The item is included in the associated subcatalog."
         },
         {
           "name": "restricted",
           "attributes": [],
-          "description": "Item is restricted and will be treated as excluded"
+          "description": "Item is not allowed to be sold in the market associated with the given subcatalog."
         }
       ],
       "attributes": [],
@@ -1975,6 +2065,21 @@
       ],
       "attributes": [],
       "description": "Strategy to apply when there are multiple rates available for a tier"
+    },
+    {
+      "name": "tracking_number_type",
+      "plural": "tracking_number_types",
+      "values": [
+        {
+          "name": "flow",
+          "attributes": []
+        },
+        {
+          "name": "carrier",
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tracking_status",
@@ -2294,6 +2399,26 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Flow provides several different options for creating an authorization"
+    },
+    {
+      "name": "delivery",
+      "plural": "deliveries",
+      "types": [
+        {
+          "type": "digital_delivery",
+          "attributes": [],
+          "description": "Represents items that can be delivered electronically (e.g. a gift card delivered via email)"
+        },
+        {
+          "type": "physical_delivery",
+          "attributes": [],
+          "description": "Represents items that are physical and require shipment",
+          "default": true
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "A delivery represents a group of items that will be delivered together - presenting a single price and delivery time frame, where applicable, to the user. Deliveries commonly are created based on the type of item and, for physical goods, their center of origin"
     },
     {
       "name": "deminimis",
@@ -2711,6 +2836,22 @@
       "description": "An item function can be represented with just its Id, or the entire model"
     },
     {
+      "name": "expandable_order",
+      "plural": "expandable_orders",
+      "types": [
+        {
+          "type": "order",
+          "attributes": []
+        },
+        {
+          "type": "order_reference",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "expandable_organization",
       "plural": "expandable_organizations",
       "types": [
@@ -2817,6 +2958,10 @@
           "attributes": []
         },
         {
+          "type": "unharmonized_item_export_type",
+          "attributes": []
+        },
+        {
           "type": "order_export_type",
           "attributes": []
         },
@@ -2846,6 +2991,20 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Describes types of feeds that may be produced by Flow."
+    },
+    {
+      "name": "hint_form",
+      "plural": "hint_forms",
+      "types": [
+        {
+          "type": "phrase_hint_form",
+          "attributes": [],
+          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system. Hints of this type must provide an exact match and will never return more than one result."
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Describes types of forms that can be used to assign an HS code based on product data."
     },
     {
       "name": "inventory_strategy",
@@ -2963,10 +3122,6 @@
       "name": "session",
       "plural": "sessions",
       "types": [
-        {
-          "type": "shopify_session",
-          "attributes": []
-        },
         {
           "type": "organization_session",
           "attributes": []
@@ -3647,37 +3802,44 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Globally unique identifier"
+          "description": "The unique identifier for the attribute."
         },
         {
           "name": "key",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The key of the attribute that identifies it within a map of attributes."
         },
         {
           "name": "options",
           "type": "options",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Defines special rules for handling this attribute."
         },
         {
           "name": "label",
           "type": "string",
           "required": false,
-          "attributes": []
+          "attributes": [],
+          "description": "A human-readable label used for display purposes."
         },
         {
           "name": "intent",
           "type": "attribute_intent",
           "required": false,
-          "attributes": []
+          "attributes": [],
+          "description": "Optionally specify the meaning of this attribute to ensure accurate processing, such as marking a price that should be localized. Note that specifying an intent may restrict what data types are legal -- for example, a price must also be of type decimal.",
+          "example": "price"
         },
         {
           "name": "type",
           "type": "attribute_data_type",
           "required": false,
-          "attributes": []
+          "attributes": [],
+          "description": "Optionally tag attributes with their data type so they are properly validated. If omitted, we will default to string",
+          "example": "string"
         }
       ],
       "attributes": [],
@@ -3739,7 +3901,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "A human readable label used for display purposes",
+          "description": "A human-readable label used for display purposes",
           "example": "Brand"
         },
         {
@@ -6018,6 +6180,204 @@
       "description": "Provides country level default settings for currency, language, etc."
     },
     {
+      "name": "credit_payment",
+      "plural": "credit_payments",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "order",
+          "type": "expandable_order",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Description to show to the user describing the source of this credit payment"
+        },
+        {
+          "name": "value",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": [],
+          "description": "The value of the credit in the local and base currencies of the associated order. This value will match the original credit payment if the currency is the same as the order or otherwise will match the currency of the order"
+        },
+        {
+          "name": "original",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The original value and currency of the store credit"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "A Credit Payment records a 'non cash' payment against an order (e.g. a store credit, gift card, etc.), recording the amount of that credit and additional details to reconcile payments. The primary purpose of the credit payment is to record that a payment has been made against an order so the remaining balance can be correctly computed."
+    },
+    {
+      "name": "credit_payment_error",
+      "plural": "credit_payment_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "credit_payment_error_code",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "codes",
+          "type": "[credit_payment_error_code]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "credit_payment_form",
+      "plural": "credit_payment_forms",
+      "fields": [
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If provided, a unique key to identify this credit payment in your systems. This key is used to implement idempotency"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Description to show to the user describing the source of this credit payment"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO-4217 3 character currency code in which the amount is calculated."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "credit_payment_put_form",
+      "plural": "credit_payment_put_forms",
+      "fields": [
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Description to show to the user describing the source of this credit payment"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO-4217 3 character currency code in which the amount is calculated."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "credit_payment_version",
+      "plural": "credit_payment_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "credit_payment",
+          "type": "credit_payment",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "currency",
       "plural": "currencies",
       "fields": [
@@ -6176,67 +6536,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "delivery",
-      "plural": "deliveries",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "center",
-          "type": "center_summary",
-          "required": false,
-          "attributes": [],
-          "description": "Origin center for this delivery."
-        },
-        {
-          "name": "items",
-          "type": "[line_item_form]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "options",
-          "type": "[delivery_option]",
-          "required": true,
-          "attributes": [],
-          "minimum": 1
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a collection of items, the available delivery option tier for that collection of items, and metadata about those options"
-    },
-    {
-      "name": "delivery_form",
-      "plural": "delivery_forms",
-      "fields": [
-        {
-          "name": "quote",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "items",
-          "type": "[line_item_form]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "destination",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a collection of items, the available delivery option tier for that collection of items, and metadata about those options"
     },
     {
       "name": "delivery_option",
@@ -6573,6 +6872,27 @@
       ],
       "attributes": [],
       "description": "De Minimis for most common example which includes a value threshold and rules on what components are used in the duty calculation"
+    },
+    {
+      "name": "digital_delivery",
+      "plural": "digital_deliveries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "items",
+          "type": "[line_item_form]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a collection of items that are digitally available and do not require a physical shipment"
     },
     {
       "name": "dimension",
@@ -8400,6 +8720,29 @@
       "attributes": []
     },
     {
+      "name": "hint_result",
+      "plural": "hint_results",
+      "fields": [
+        {
+          "name": "hs10_code",
+          "type": "hs10_code",
+          "required": true,
+          "attributes": [],
+          "description": "The actual HS-10 code for a destination country.",
+          "example": "392620123"
+        },
+        {
+          "name": "likelihood",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The likelihood of this code being the correct one for the provided hint. Higher numbers are more likely to be correct. Some types of hint will only return results with a likelihood of 100."
+        }
+      ],
+      "attributes": [],
+      "description": "Result of looking up a code using a hint."
+    },
+    {
       "name": "hs10",
       "plural": "hs10",
       "fields": [
@@ -8442,6 +8785,44 @@
       ],
       "attributes": [],
       "description": "The (Harmonized System) HS-10 code assigned to an item with a given origin/destination pair."
+    },
+    {
+      "name": "hs10_code",
+      "plural": "hs10_codes",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The actual HS-10 code for a destination country.",
+          "example": "392620123"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the destination country"
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The parent harmonization code, if there is one.",
+          "example": "392620"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Description of this code"
+        }
+      ],
+      "attributes": [],
+      "description": "Harmonized System codes for specific countries, up to 10 digits (HS-10). Not all countries use all 10 digits of precision."
     },
     {
       "name": "hs10_code_deleted",
@@ -8733,7 +9114,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "The parent harmonization code if there is one",
+          "description": "The parent harmonization code, if there is one.",
           "example": "3926"
         },
         {
@@ -8745,7 +9126,7 @@
         }
       ],
       "attributes": [],
-      "description": "Harmonized System codes."
+      "description": "Harmonized System codes, up to 6 digits (HS-6). These codes should be the same for all countries."
     },
     {
       "name": "image",
@@ -11376,6 +11757,82 @@
       "attributes": []
     },
     {
+      "name": "manifest",
+      "plural": "manifests",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "type",
+          "type": "manifest_type",
+          "required": true,
+          "attributes": [],
+          "description": "Can be all or specific: This field tells us whether labels on this manifest were generated because an external party told us they were actually shipped or if we just do a manifest on all open shipments that do not already have one."
+        },
+        {
+          "name": "service",
+          "type": "service_summary",
+          "required": true,
+          "attributes": [],
+          "description": "Carrier service level used for generation and shipment of this label",
+          "example": "ups-ground, dhl-express-worldwide"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "shipping_labels",
+          "type": "[shipping_label_summary]",
+          "required": true,
+          "attributes": [],
+          "description": "Labels that are part of this manifest"
+        },
+        {
+          "name": "pdf",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "URL where to download generated manifest confirmation or bill of lading, if the service requires one be generated for pickup."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents closeout of a group of labels that have been transfered to the carrier for shipping"
+    },
+    {
+      "name": "manifest_form",
+      "plural": "manifest_forms",
+      "fields": [
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "dhl-express-worldwide"
+        },
+        {
+          "name": "tracking_number_type",
+          "type": "tracking_number_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "tracking_numbers",
+          "type": "[string]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "margin",
       "plural": "margins",
       "fields": [
@@ -12282,6 +12739,20 @@
           "required": false,
           "attributes": [],
           "description": "The current available and applied promotions for this order"
+        },
+        {
+          "name": "payments",
+          "type": "[order_payment]",
+          "required": false,
+          "attributes": [],
+          "description": "Represents the list of payments on an order. Each payment will be typed - supporting options like a $25 account credit applied to an order plus a balance baid by a card, paypal, cash on delivery, etc. The list of payments here is summary information only for display back to the user; each individual payment will have varying levels of detail based on the actual type of the payment"
+        },
+        {
+          "name": "balance",
+          "type": "localized_total",
+          "required": false,
+          "attributes": [],
+          "description": "The remaining balance on this order. Will be marked required in a future version of the Flow API"
         }
       ],
       "attributes": [],
@@ -12410,6 +12881,13 @@
           "required": false,
           "attributes": [],
           "description": "A list of all of the item numbers that are not available"
+        },
+        {
+          "name": "destination_country",
+          "type": "country",
+          "required": false,
+          "attributes": [],
+          "description": "Destination country of the order, if available."
         }
       ],
       "attributes": []
@@ -12794,6 +13272,48 @@
       "attributes": []
     },
     {
+      "name": "order_payment",
+      "plural": "order_payments",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "type",
+          "type": "order_payment_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The reference identifier for the details behind this order payment. For example, if this payment was a card payment, the reference will be the unique authorization key."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Human understandable description of this payment method",
+          "example": "VISA ending with 4111"
+        },
+        {
+          "name": "total",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "An Order Payment represents an individual payment applied to an order. The type of the payment can be used to further lookup transaction level detail"
+    },
+    {
       "name": "order_price_detail",
       "plural": "order_price_details",
       "fields": [
@@ -13057,6 +13577,12 @@
           "name": "prices",
           "type": "[object]",
           "required": true,
+          "attributes": []
+        },
+        {
+          "name": "payments",
+          "type": "[object]",
+          "required": false,
           "attributes": []
         },
         {
@@ -13442,6 +13968,18 @@
           "description": "Refers to your organization's account identifier"
         },
         {
+          "name": "visitor",
+          "type": "session_visitor",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "visit",
+          "type": "session_visit",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "environment",
           "type": "environment",
           "required": true,
@@ -13469,7 +14007,8 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Represents a session created for an organization. Primary method to select an experience for a given user session and ensure that experience does not change throughout the user's activity. Provides authentication to objects created during this session (e.g. order)."
     },
     {
       "name": "organization_session_authorization",
@@ -14394,6 +14933,86 @@
       ],
       "attributes": [],
       "description": "Rule outcome where shipping surfaced in quote is actual cost plus a predefined margin percentage"
+    },
+    {
+      "name": "phrase_hint",
+      "plural": "phrase_hints",
+      "fields": [
+        {
+          "name": "phrase",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system.",
+          "example": "Mens 100% Cotton Shorts"
+        },
+        {
+          "name": "hs10_code",
+          "type": "hs10_code",
+          "required": true,
+          "attributes": [],
+          "description": "The actual HS-10 code for a destination country.",
+          "example": "392620123"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "phrase_hint_form",
+      "plural": "phrase_hint_forms",
+      "fields": [
+        {
+          "name": "phrase",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system.",
+          "example": "Mens 100% Cotton Shorts"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the destination country"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "physical_delivery",
+      "plural": "physical_deliveries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "center",
+          "type": "center_summary",
+          "required": false,
+          "attributes": [],
+          "description": "Origin center for this delivery."
+        },
+        {
+          "name": "items",
+          "type": "[line_item_form]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "options",
+          "type": "[delivery_option]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a collection of items, the available delivery option tier for that collection of items, and metadata about those options"
     },
     {
       "name": "price",
@@ -16471,6 +17090,29 @@
       "description": "Authorize a request using a session id"
     },
     {
+      "name": "session_expiration_config",
+      "plural": "session_expiration_configs",
+      "fields": [
+        {
+          "name": "unit",
+          "type": "unit_of_time",
+          "required": true,
+          "attributes": [],
+          "default": "minute"
+        },
+        {
+          "name": "value",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "default": "30",
+          "minimum": 0
+        }
+      ],
+      "attributes": [],
+      "description": "Configures session expiration time. We default to 30 minutes to follow Google Analytics"
+    },
+    {
       "name": "session_form",
       "plural": "session_forms",
       "fields": [
@@ -16637,6 +17279,43 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "session_visit",
+      "plural": "session_visits",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "expires_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "description": "The date / time on which this visit expires. The default session duration may vary by organization."
+        }
+      ],
+      "attributes": [],
+      "description": "A session visit expires after a configurable period of inactivity (e.g. 30 minutes)."
+    },
+    {
+      "name": "session_visitor",
+      "plural": "session_visitors",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": [],
+      "description": "A session visitor is a unique identifier for our best guess as to who the individual user is interacting with Flow."
     },
     {
       "name": "shipping_address",
@@ -16873,6 +17552,32 @@
       "description": "Describes a package to be shipped, including dimensions and items included"
     },
     {
+      "name": "shipping_label_summary",
+      "plural": "shipping_label_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "flow_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "shipping_label_version",
       "plural": "shipping_label_versions",
       "fields": [
@@ -17083,74 +17788,6 @@
           "type": "shipping_notification",
           "required": true,
           "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "shopify_session",
-      "plural": "shopify_sessions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "environment",
-          "type": "environment",
-          "required": true,
-          "attributes": [],
-          "description": "The Flow organization environment",
-          "example": "sandbox"
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The latest IP Address associated with this session, if known"
-        },
-        {
-          "name": "local",
-          "type": "local_session",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "shop",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "cart",
-          "type": "cart_reference",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "experiments",
-          "type": "map[experiment_status]",
-          "required": true,
-          "attributes": [],
-          "description": "Returns the status for this session of all active experiments, if any. The ids of the map will be the 'experiment.key' (e.g. 'checkout').",
-          "default": "{}"
         }
       ],
       "attributes": []
@@ -19338,6 +19975,55 @@
       "attributes": []
     },
     {
+      "name": "unharmonized_item_export_type",
+      "plural": "unharmonized_item_export_types",
+      "fields": [
+        {
+          "name": "origin",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The specific origin to export"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The specific destination to export"
+        },
+        {
+          "name": "numbers",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "The specific list of item numbers to export"
+        },
+        {
+          "name": "has_codes",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "Indicates items with assigned or unassigned codes should be exported"
+        },
+        {
+          "name": "has_origins",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "Indicates items with assigned or unassigned origins should be exported"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Combines HS10 export and catalog item export for items that require harmonization."
+    },
+    {
       "name": "upload",
       "plural": "uploads",
       "fields": [
@@ -20729,6 +21415,494 @@
         }
       ],
       "path": "/:organization"
+    },
+    {
+      "type": "credit_payment",
+      "plural": "credit_payments",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/credit/payments",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "order_number",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "order"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[credit_payment]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "key"
+                  },
+                  {
+                    "value": "order_number"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/credit/payments",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "order"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "credit_payment",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "credit_payment_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "credit_payment_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/credit/payments/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "order"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "credit_payment",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/credit/payments/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "order"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "credit_payment",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "credit_payment",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "credit_payment_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "credit_payment_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/credit/payments/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/credit/payments/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[credit_payment_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "key"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/credit/payments",
+      "description": "A Credit Payment records a 'non cash' payment against an order (e.g. a store credit, gift card, etc.), recording the amount of that credit and additional details to reconcile payments. The primary purpose of the credit payment is to record that a payment has been made against an order so the remaining balance can be correctly computed."
     },
     {
       "type": "experience",
@@ -30565,7 +31739,7 @@
         }
       ],
       "path": "/harmonization/codes",
-      "description": "Harmonized System codes."
+      "description": "API to fetch current HS-6 codes."
     },
     {
       "type": "authorization",
@@ -33882,6 +35056,308 @@
       "description": "Represents a single update on inventory quantity"
     },
     {
+      "type": "manifest",
+      "plural": "manifests",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/manifests",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "carrier_tracking_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "flow_tracking_number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "service",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[manifest]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  },
+                  {
+                    "value": "carrier_tracking_number"
+                  },
+                  {
+                    "value": "flow_tracking_number"
+                  },
+                  {
+                    "value": "service"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/manifests/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "manifest",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/manifests/type/all",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "service",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "example": "dhl-express-worldwide"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 302
+                }
+              },
+              "type": "string"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              }
+            }
+          ],
+          "description": "Generates a new manifest with all outstanding labels and redirects to a downloadable PDF of carrier-generated manifest or bill of lading (BOL). If no outstanding labels, this will generate a 422 error."
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/manifests/type/list",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "manifest",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Generate a new manifest/carrier BOL with specific tracking numbers",
+          "body": {
+            "type": "manifest_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/manifests",
+      "description": "Represents closeout of a group of labels that have been transfered to the carrier for shipping"
+    },
+    {
       "type": "quote",
       "plural": "quotes",
       "operations": [
@@ -35483,6 +36959,13 @@
               "required": false,
               "description": "Filter by one or more IDs of this resource",
               "maximum": 100
+            },
+            {
+              "name": "tier_direction",
+              "type": "tier_direction",
+              "location": "Query",
+              "required": false,
+              "example": "outbound"
             },
             {
               "name": "experience",
@@ -42369,53 +43852,6 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "organization_session",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "body": {
-            "type": "session_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "POST",
-          "path": "/sessions/shopify/:shop",
-          "parameters": [
-            {
-              "name": "shop",
-              "type": "string",
-              "location": "Path",
-              "required": true
             }
           ],
           "responses": [

@@ -1,6 +1,6 @@
 # [API](README.md).hsCodes - Flow Commerce API - Node SDK Documentation
 
-Harmonized System codes.
+API to fetch current HS-6 codes.
 
 ## Usage
 

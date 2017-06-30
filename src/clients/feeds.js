@@ -20,21 +20,21 @@ export default class Feeds extends Client {
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/feeds/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
   postCatalog(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/feeds/catalog`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
   putCatalogById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/feeds/catalog/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 

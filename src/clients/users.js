@@ -20,7 +20,7 @@ export default class Users extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/users`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,28 +31,28 @@ export default class Users extends Client {
   putById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   patchPasswordsById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/${id}/passwords`, {
       ...options,
-      method: 'PATCH',
+       method: 'PATCH',
     });
   }
 
   deletePasswordsById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/${id}/passwords`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
   postAuthenticate(options = {}) {
     return this.makeRequest(`${this.host}/users/authenticate`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 

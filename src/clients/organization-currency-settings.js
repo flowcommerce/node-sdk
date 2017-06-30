@@ -20,7 +20,7 @@ export default class OrganizationCurrencySettings extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/currency/settings`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class OrganizationCurrencySettings extends Client {
   putById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/currency/settings/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/currency/settings/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

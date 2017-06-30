@@ -20,7 +20,7 @@ export default class Experiences extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class Experiences extends Client {
   postMarginsByExperienceKey(organization, experienceKey, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -42,14 +42,14 @@ export default class Experiences extends Client {
   putMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
@@ -64,7 +64,7 @@ export default class Experiences extends Client {
   putPaymentMethodRulesByExperienceKey(organization, experienceKey, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-rules`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
@@ -79,14 +79,14 @@ export default class Experiences extends Client {
   putByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
@@ -101,7 +101,7 @@ export default class Experiences extends Client {
   putPricingByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/pricing`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 

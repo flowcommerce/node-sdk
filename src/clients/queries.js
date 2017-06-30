@@ -16,7 +16,7 @@ export default class Queries extends Client {
   postValidations(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/query/validations`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 

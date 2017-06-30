@@ -16,7 +16,7 @@ export default class OrderEstimates extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order-estimates`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -27,7 +27,7 @@ export default class OrderEstimates extends Client {
   putById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order-estimates/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 

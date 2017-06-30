@@ -20,7 +20,7 @@ export default class Centers extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/centers`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class Centers extends Client {
   putByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/centers/${key}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 

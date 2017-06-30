@@ -28,7 +28,7 @@ export default class Organizations extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/organizations`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -39,14 +39,14 @@ export default class Organizations extends Client {
   putById(id, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteById(id, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

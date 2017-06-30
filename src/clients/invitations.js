@@ -20,7 +20,7 @@ export default class Invitations extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/invitations`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class Invitations extends Client {
   deleteById(id, options = {}) {
     return this.makeRequest(`${this.host}/invitations/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
@@ -42,7 +42,7 @@ export default class Invitations extends Client {
   putTokensByToken(token, options = {}) {
     return this.makeRequest(`${this.host}/invitations/tokens/${token}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 

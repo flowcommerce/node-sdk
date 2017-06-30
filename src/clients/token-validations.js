@@ -16,7 +16,7 @@ export default class TokenValidations extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/token-validations`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
