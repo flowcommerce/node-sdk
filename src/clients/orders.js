@@ -20,7 +20,7 @@ export default class Orders extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,21 +31,21 @@ export default class Orders extends Client {
   putByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 
   deleteByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 
   putSubmissionsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 

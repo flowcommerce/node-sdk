@@ -20,7 +20,7 @@ export default class Trackings extends Client {
   postTrackingsByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/trackings`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

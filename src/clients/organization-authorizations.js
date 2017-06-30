@@ -16,7 +16,7 @@ export default class OrganizationAuthorizations extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/organization-authorizations`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
