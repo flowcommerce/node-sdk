@@ -4,7 +4,7 @@
   "description": "Node apidoc clients",
   "main": "lib/index.js",
   "scripts": {
-    "pregenerate": "curl curl https://api.apibuilder.io/flow/api/latest > api.service.json",
+    "pregenerate": "curl https://api.apibuilder.io/flow/api/latest > api.service.json",
     "generate": "rm -rf ./src/clients/* && babel-node sync",
     "lint": "eslint ./src --format=codeframe",
     "lint:fix": "npm run lint -- --fix",
