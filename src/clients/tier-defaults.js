@@ -20,7 +20,7 @@ export default class TierDefaults extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tier_defaults`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

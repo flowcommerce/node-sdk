@@ -20,7 +20,7 @@ export default class Imports extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/imports`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class Imports extends Client {
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/imports/${id}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 
