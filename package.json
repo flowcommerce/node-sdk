@@ -8,7 +8,7 @@
     "generate": "rm -rf ./src/clients/* && babel-node sync",
     "prepublish": "babel src --out-dir lib",
     "postpublish": "rm -rf lib",
-    "test": "eslint src && mocha --compilers js:babel-core/register --recursive"
+    "test": "eslint src"
   },
   "files": [
     "lib"
@@ -33,9 +33,7 @@
     "eslint-plugin-import": "2.1.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.6.0",
-    "expect": "1.20.2",
-    "lodash": "4.17.2",
-    "mocha": "3.2.0"
+    "lodash": "4.17.2"
   },
   "dependencies": {
     "@flowio/lib-apidoc": "1.5.31",
