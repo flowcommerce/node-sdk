@@ -20,7 +20,7 @@ export default class Quotes extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/quotes`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

@@ -20,7 +20,7 @@ export default class InventoryRules extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_rules`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
