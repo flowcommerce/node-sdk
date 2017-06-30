@@ -20,7 +20,7 @@ export default class Refunds extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/refunds`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

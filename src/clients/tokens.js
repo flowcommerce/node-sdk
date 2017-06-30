@@ -20,7 +20,7 @@ export default class Tokens extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/tokens`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class Tokens extends Client {
   deleteById(id, options = {}) {
     return this.makeRequest(`${this.host}/tokens/${id}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 
@@ -42,7 +42,7 @@ export default class Tokens extends Client {
   postAuthentications(options = {}) {
     return this.makeRequest(`${this.host}/tokens/authentications`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

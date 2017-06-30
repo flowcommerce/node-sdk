@@ -16,7 +16,7 @@ export default class SessionAuthorizations extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/authorizations/sessions`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/flowcommerce/node-sdk.svg?branch=master)](https://travis-ci.org/flowcommerce/node-sdk)
+
 # node-sdk
 
 Node SDK for the Flow Commerce API.

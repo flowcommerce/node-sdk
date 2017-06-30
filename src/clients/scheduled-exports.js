@@ -20,7 +20,7 @@ export default class ScheduledExports extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/users/scheduled/exports`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class ScheduledExports extends Client {
   putById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 
   deleteById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/scheduled/exports/${id}`, {
       ...options,
-       method: 'DELETE',
+      method: 'DELETE',
     });
   }
 

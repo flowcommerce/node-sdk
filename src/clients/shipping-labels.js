@@ -20,7 +20,7 @@ export default class ShippingLabels extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/shipping_labels`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
