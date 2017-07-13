@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.3.28",
+  "version": "0.3.50",
   "info": {
     "license": {
       "name": "MIT",
@@ -747,11 +747,23 @@
           "attributes": []
         },
         {
+          "name": "localized_item_upserted_v2",
+          "attributes": []
+        },
+        {
           "name": "localized_item_deleted",
           "attributes": []
         },
         {
+          "name": "localized_item_deleted_v2",
+          "attributes": []
+        },
+        {
           "name": "localized_item_snapshot",
+          "attributes": []
+        },
+        {
+          "name": "localized_item_snapshot_v2",
           "attributes": []
         },
         {
@@ -1018,6 +1030,11 @@
           "name": "harmonization_codes",
           "attributes": [],
           "description": "Provides upload of HS-6 and HS-10 codes for the items in a catalog"
+        },
+        {
+          "name": "catalog_items",
+          "attributes": [],
+          "description": "Provides bulk upsert of items into an organization's catalog."
         }
       ],
       "attributes": []
@@ -2639,14 +2656,35 @@
         },
         {
           "type": "localized_item_upserted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use localized_item_upserted_v2"
+          }
+        },
+        {
+          "type": "localized_item_upserted_v2",
           "attributes": []
         },
         {
           "type": "localized_item_deleted",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use localized_item_deleted_v2"
+          }
+        },
+        {
+          "type": "localized_item_deleted_v2",
           "attributes": []
         },
         {
           "type": "localized_item_snapshot",
+          "attributes": [],
+          "deprecation": {
+            "description": "Use localized_item_snapshot_v2"
+          }
+        },
+        {
+          "type": "localized_item_snapshot_v2",
           "attributes": []
         },
         {
@@ -3260,6 +3298,42 @@
           "attributes": []
         },
         {
+          "name": "transaction_created_from",
+          "type": "date-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "transaction_created_to",
+          "type": "date-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "transaction_created_on_or_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "transaction_created_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "transaction_created_on_or_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "transaction_created_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
           "name": "transaction_posted_from",
           "type": "date-iso8601",
           "required": false,
@@ -3311,6 +3385,42 @@
         {
           "name": "transaction_summary_id",
           "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_from",
+          "type": "date-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_to",
+          "type": "date-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_on_or_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_after",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_on_or_before",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "created_before",
+          "type": "date-time-iso8601",
           "required": false,
           "attributes": []
         },
@@ -7568,6 +7678,30 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "ISO 3166 3 currency code as defined in https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
+          "example": "en"
         }
       ],
       "attributes": [],
@@ -11403,6 +11537,39 @@
       "attributes": []
     },
     {
+      "name": "localized_item_deleted_v2",
+      "plural": "localized_item_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "localized_item_duty",
       "plural": "localized_item_duties",
       "fields": [
@@ -11517,6 +11684,57 @@
       "attributes": []
     },
     {
+      "name": "localized_item_snapshot_v2",
+      "plural": "localized_item_snapshot_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "item",
+          "type": "item",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "subcatalog_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "localized_item_upserted",
       "plural": "localized_item_upserteds",
       "fields": [
@@ -11612,6 +11830,52 @@
           "type": "object",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "localized_item_upserted_v2",
+      "plural": "localized_item_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "item",
+          "type": "item",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "catalog",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "example": "master"
         }
       ],
       "attributes": []
