@@ -17,4 +17,11 @@ export default class OrganizationTokens extends Client {
     return this.makeRequest(`${this.host}/${organization}/tokens`, options);
   }
 
+  post(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/tokens`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
 }

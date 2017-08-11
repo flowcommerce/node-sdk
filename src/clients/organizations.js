@@ -54,6 +54,28 @@ export default class Organizations extends Client {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/currencies`, options);
   }
 
+  getSettingsAndRegionsByOrganizationId(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions`, options);
+  }
+
+  putSettingsAndRegionsByOrganizationId(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteSettingsAndRegionsByOrganizationIdAndId(organizationId, id, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
+  getSettingsAndRegionsAndCountriesAndAvailableByOrganizationId(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/countries/available`, options);
+  }
+
   getVersions(options = {}) {
     return this.makeRequest(`${this.host}/organizations/versions`, options);
   }

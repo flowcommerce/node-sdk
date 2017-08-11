@@ -17,13 +17,6 @@ export default class Tokens extends Client {
     return this.makeRequest(`${this.host}/tokens`, options);
   }
 
-  post(options = {}) {
-    return this.makeRequest(`${this.host}/tokens`, {
-      ...options,
-       method: 'POST',
-    });
-  }
-
   getById(id, options = {}) {
     return this.makeRequest(`${this.host}/tokens/${id}`, options);
   }

@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.12.8"
+    "version": "0.12.53"
   },
   "name": "API",
   "organization": {
@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.3.50",
+  "version": "0.3.65",
   "info": {
     "license": {
       "name": "MIT",
@@ -46,6 +46,11 @@
       "plural": "attribute_data_types",
       "values": [
         {
+          "name": "boolean",
+          "attributes": [],
+          "description": "Boolean true/false data type"
+        },
+        {
           "name": "decimal",
           "attributes": [],
           "description": "Decimal datatype without size or precision restrictions. Commonly used for currency values."
@@ -64,9 +69,19 @@
       "plural": "attribute_intents",
       "values": [
         {
+          "name": "brand",
+          "attributes": [],
+          "description": "Attributes with this data type imply that this is the brand name of the item for retailers that sell multiple brands"
+        },
+        {
           "name": "fulfillment_method",
           "attributes": [],
           "description": "Attributes with this data type imply whether delivery is a package or digital good."
+        },
+        {
+          "name": "hazardous",
+          "attributes": [],
+          "description": "Attributes with this data type imply whether this item may contain hazardous materials."
         },
         {
           "name": "price",
@@ -188,17 +203,22 @@
         {
           "name": "pending",
           "attributes": [],
-          "description": "If an immediate response is not available, the state will be 'pending' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)"
+          "description": "If an immediate response is not available, the state will be 'pending'. For example, online payment methods like AliPay or PayPal will have a status of 'pending' until the user completes the payment. Pending authorizations expire if the user does not complete the payment in a timely fashion."
         },
         {
-          "name": "pending_call_bank",
+          "name": "expired",
           "attributes": [],
-          "description": "Bank is requesting consumer contact them directly to authorize the transaction"
+          "description": "Authorization has expired."
         },
         {
           "name": "authorized",
           "attributes": [],
           "description": "Authorization was successful"
+        },
+        {
+          "name": "review",
+          "attributes": [],
+          "description": "If an immediate response is not available, the state will be 'review' - this usually indicates fraud review requires additional time / verification (or a potential network issue with the issuing bank)"
         },
         {
           "name": "declined",
@@ -209,6 +229,21 @@
           "name": "voided",
           "attributes": [],
           "description": "Indicates the authorization has been voided. You can void an authorization up until the moment you capture funds; once you have captured funds you must create refunds."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "availability_status",
+      "plural": "availability_statuses",
+      "values": [
+        {
+          "name": "enabled",
+          "attributes": []
+        },
+        {
+          "name": "disabled",
+          "attributes": []
         }
       ],
       "attributes": []
@@ -225,7 +260,7 @@
         {
           "name": "partial",
           "attributes": [],
-          "description": "Partial match; see details in 'avs' model to undestand which components matched"
+          "description": "Partial match; see details in 'avs' model to understand which components matched"
         },
         {
           "name": "unsupported",
@@ -314,6 +349,11 @@
           "name": "invalid_expiration",
           "attributes": [],
           "description": "Invalid expiration date"
+        },
+        {
+          "name": "invalid_token_type",
+          "attributes": [],
+          "description": "Cannot create a permanent card via an unauthorized request"
         },
         {
           "name": "avs",
@@ -441,6 +481,11 @@
           "name": "amount_exceeds_balance",
           "attributes": [],
           "description": "Indicates the provided credit amount exceeds the remaining balance on the order"
+        },
+        {
+          "name": "insufficient_amount",
+          "attributes": [],
+          "description": "Indicates the provided credit amount exceeds the maximum amount of applicable credit"
         }
       ],
       "attributes": []
@@ -743,6 +788,14 @@
           "attributes": []
         },
         {
+          "name": "local_item_upserted",
+          "attributes": []
+        },
+        {
+          "name": "local_item_deleted",
+          "attributes": []
+        },
+        {
           "name": "localized_item_upserted",
           "attributes": []
         },
@@ -760,10 +813,6 @@
         },
         {
           "name": "localized_item_snapshot",
-          "attributes": []
-        },
-        {
-          "name": "localized_item_snapshot_v2",
           "attributes": []
         },
         {
@@ -848,6 +897,14 @@
         },
         {
           "name": "refund_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "organization_rates_published",
+          "attributes": []
+        },
+        {
+          "name": "organization_countries_published",
           "attributes": []
         },
         {
@@ -1030,6 +1087,11 @@
           "name": "harmonization_codes",
           "attributes": [],
           "description": "Provides upload of HS-6 and HS-10 codes for the items in a catalog"
+        },
+        {
+          "name": "harmonization_phrase_suggestion_request",
+          "attributes": [],
+          "description": "Request for phrase suggestions to harmonize items. Request (CSV) must include name, material, description columns. Response (CSV) will include up to 5 suggested phrases"
         },
         {
           "name": "catalog_items",
@@ -2084,6 +2146,23 @@
       "description": "Strategy to apply when there are multiple rates available for a tier"
     },
     {
+      "name": "token_type",
+      "plural": "token_types",
+      "values": [
+        {
+          "name": "permanent",
+          "attributes": [],
+          "description": "Create a permanent token for the card (stored up until normal purge interval)"
+        },
+        {
+          "name": "one_time",
+          "attributes": [],
+          "description": "Create a one time token for the card. This token can be used to either authorized payment or later exchange for a permanent token. Once used, this token cannot be used for future activity."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "tracking_number_type",
       "plural": "tracking_number_types",
       "values": [
@@ -2115,6 +2194,10 @@
           "attributes": []
         },
         {
+          "name": "picked_up",
+          "attributes": []
+        },
+        {
           "name": "in_transit",
           "attributes": []
         },
@@ -2132,6 +2215,10 @@
         },
         {
           "name": "exception",
+          "attributes": []
+        },
+        {
+          "name": "returned",
           "attributes": []
         },
         {
@@ -2410,7 +2497,12 @@
         {
           "type": "paypal_authorization_form",
           "attributes": [],
-          "description": "Enables authorization via paypal"
+          "description": "Enables authorization via PayPal"
+        },
+        {
+          "type": "unionpay_authorization_form",
+          "attributes": [],
+          "description": "Enables authorizations via UnionPay"
         }
       ],
       "attributes": [],
@@ -2655,6 +2747,14 @@
           "attributes": []
         },
         {
+          "type": "local_item_upserted",
+          "attributes": []
+        },
+        {
+          "type": "local_item_deleted",
+          "attributes": []
+        },
+        {
           "type": "localized_item_upserted",
           "attributes": [],
           "deprecation": {
@@ -2678,13 +2778,6 @@
         },
         {
           "type": "localized_item_snapshot",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use localized_item_snapshot_v2"
-          }
-        },
-        {
-          "type": "localized_item_snapshot_v2",
           "attributes": []
         },
         {
@@ -2794,6 +2887,14 @@
           "attributes": []
         },
         {
+          "type": "organization_rates_published",
+          "attributes": []
+        },
+        {
+          "type": "organization_countries_published",
+          "attributes": []
+        },
+        {
           "type": "return_upserted",
           "attributes": []
         },
@@ -2899,22 +3000,6 @@
         },
         {
           "type": "organization_reference",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator"
-    },
-    {
-      "name": "expandable_payment",
-      "plural": "expandable_payments",
-      "types": [
-        {
-          "type": "payment_paypal",
-          "attributes": []
-        },
-        {
-          "type": "payment_reference",
           "attributes": []
         }
       ],
@@ -3103,6 +3188,22 @@
       "description": "The localized prices for an item are returned as a list - the key of each element is defined here"
     },
     {
+      "name": "online_authorization_details",
+      "plural": "online_authorization_detailses",
+      "types": [
+        {
+          "type": "paypal_authorization_details",
+          "attributes": []
+        },
+        {
+          "type": "unionpay_authorization_details",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "payment",
       "plural": "payments",
       "types": [
@@ -3113,7 +3214,10 @@
       ],
       "attributes": [],
       "discriminator": "discriminator",
-      "description": "Represents data for a specific online payment method"
+      "description": "Represents data for a specific online payment method",
+      "deprecation": {
+        "description": "Remove after paypal_authorization_details goes live."
+      }
     },
     {
       "name": "payment_form",
@@ -3241,22 +3345,6 @@
         },
         {
           "type": "partner_token",
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator"
-    },
-    {
-      "name": "token_form",
-      "plural": "token_forms",
-      "types": [
-        {
-          "type": "organization_token_form",
-          "attributes": []
-        },
-        {
-          "type": "partner_token_form",
           "attributes": []
         }
       ],
@@ -4649,6 +4737,36 @@
       "description": "Capture actually transfers funds. You can capture as many times as you'd like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires)."
     },
     {
+      "name": "capture_error",
+      "plural": "capture_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "generic_error_code",
+          "required": true,
+          "attributes": [],
+          "description": "To maintain compatibility with generic_error",
+          "default": "generic_error"
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "To maintain compatibility with generic_error",
+          "minimum": 1
+        },
+        {
+          "name": "decline_code",
+          "type": "capture_decline_code",
+          "required": true,
+          "attributes": [],
+          "description": "Contains details related to the reason for which a capture failed."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "capture_form",
       "plural": "capture_forms",
       "fields": [
@@ -5113,7 +5231,7 @@
         }
       ],
       "attributes": [],
-      "description": "Details for why a card was declined"
+      "description": "Details for why a card was not created"
     },
     {
       "name": "card_form",
@@ -5186,14 +5304,21 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases. The Flow JavaScript API uses the challenge to verify that the assymetric encryption is working properly in the client."
+          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases. The Flow JavaScript API uses the challenge to verify that the asymmetric encryption is working properly in the client."
         },
         {
           "name": "challenge_cipher",
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases. The Flow JavaScript API uses the challenge to verify that the assymetric encryption is working properly in the client."
+          "description": "When providing a cipher, you can optionally provide a challenge text and challenge cipher that will allow us to verify that client side encryption worked properly, returning better error messages in some cases. The Flow JavaScript API uses the challenge to verify that the asymmetric encryption is working properly in the client."
+        },
+        {
+          "name": "token_type",
+          "type": "token_type",
+          "required": false,
+          "attributes": [],
+          "description": "Determines whether or not you want to create a permanent, tokenized card or a one time use token. By default, authenticated API requests create permanent tokens. Unauthenticated requests will create one-time tokens - and you will get an error if you try to create a permanent token via an unauthorized request."
         }
       ],
       "attributes": []
@@ -5212,7 +5337,7 @@
         }
       ],
       "attributes": [],
-      "description": "The card nonce form presents a one time token to exchance server side for a permanent, secure tokenized card"
+      "description": "The card nonce form presents a one time token to exchange server side for a permanent, secure tokenized card"
     },
     {
       "name": "card_reference",
@@ -5722,6 +5847,27 @@
       ],
       "attributes": [],
       "description": "Defines the filters that can be applied when requesting a catalog item data export"
+    },
+    {
+      "name": "catalog_item_reference",
+      "plural": "catalog_item_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "catalog_item_summary",
@@ -6328,10 +6474,10 @@
         },
         {
           "name": "original",
-          "type": "price",
+          "type": "original_prices",
           "required": true,
           "attributes": [],
-          "description": "The original value and currency of the store credit"
+          "description": "The provided value and maximum value amounts and currencies applicable fot the store credit"
         },
         {
           "name": "attributes",
@@ -6401,6 +6547,13 @@
           "attributes": []
         },
         {
+          "name": "max",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "Indicates the maximum amount applicable for this credit payment."
+        },
+        {
           "name": "currency",
           "type": "string",
           "required": true,
@@ -6445,6 +6598,13 @@
           "required": true,
           "attributes": [],
           "description": "The ISO-4217 3 character currency code in which the amount is calculated."
+        },
+        {
+          "name": "max",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "Indicates the maximum amount applicable for this credit payment."
         },
         {
           "name": "attributes",
@@ -6904,6 +7064,14 @@
           "type": "date-time-iso8601",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Timezone of the destination based on the destination address of the shipment.",
+          "example": "America/New_York"
         },
         {
           "name": "label",
@@ -10084,6 +10252,7 @@
           "type": "map[string]",
           "required": true,
           "attributes": [],
+          "description": "Attributes of the items. An attribute of type intent must be given as a string representation of a decimal to be correctly localized.",
           "default": "{}"
         },
         {
@@ -11309,10 +11478,142 @@
         },
         {
           "name": "attributes",
-          "type": "object",
+          "type": "map[string]",
           "required": false,
           "attributes": [],
-          "description": "This contains localized attributes, such as prices."
+          "description": "This field contains the localized attributes. For instance a base attribute of intent price will be converted in the target currency."
+        },
+        {
+          "name": "price_attributes",
+          "type": "map[price_with_base]",
+          "required": false,
+          "attributes": [],
+          "description": "This field contains the localized prices attributes."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "local_item",
+      "plural": "local_items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "experience",
+          "type": "experience_summary",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "item",
+          "type": "catalog_item_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "pricing",
+          "type": "local_item_pricing",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "subcatalog_item_status",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The Local Item represents all of the data for a given item that is localized to a given experinece."
+    },
+    {
+      "name": "local_item_deleted",
+      "plural": "local_item_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "local_item",
+          "type": "local_item",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "local_item_pricing",
+      "plural": "local_item_pricings",
+      "fields": [
+        {
+          "name": "price",
+          "type": "localized_item_price",
+          "required": true,
+          "attributes": [],
+          "description": "The localized item.price for this experience. This represents the price a consumer will pay to purchase this item in this experience."
+        },
+        {
+          "name": "attributes",
+          "type": "map[price_with_base]",
+          "required": true,
+          "attributes": [],
+          "description": "All attributes with intent price as keys of this map - with each of those attributes mapped to its value in the local currency. For example, given an attribute named 'msrp' with intent 'price', this map will contain a key named 'msrp'"
+        }
+      ],
+      "attributes": [],
+      "description": "Localized item pricing information"
+    },
+    {
+      "name": "local_item_upserted",
+      "plural": "local_item_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "local_item",
+          "type": "local_item",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -11667,57 +11968,6 @@
           "required": true,
           "attributes": [],
           "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "subcatalog_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "url",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "localized_item_snapshot_v2",
-      "plural": "localized_item_snapshot_v2s",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "item",
-          "type": "item",
-          "required": true,
-          "attributes": []
         },
         {
           "name": "subcatalog_id",
@@ -12686,11 +12936,27 @@
           "attributes": []
         },
         {
-          "name": "payment",
-          "type": "expandable_payment",
-          "required": true,
+          "name": "method",
+          "type": "payment_method",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "details",
+          "type": "online_authorization_details",
+          "required": false,
           "attributes": [],
-          "description": "The associated online payment"
+          "description": "The associated online authorization details, if any."
+        },
+        {
+          "name": "payment",
+          "type": "object",
+          "required": false,
+          "attributes": [],
+          "description": "The associated online payment",
+          "deprecation": {
+            "description": "Remove after `method` and `details` fields are added to the authorization model."
+          }
         },
         {
           "name": "amount",
@@ -14007,6 +14273,54 @@
       "attributes": []
     },
     {
+      "name": "organization_countries_data",
+      "plural": "organization_countries_data",
+      "fields": [
+        {
+          "name": "available",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "List of ISO 3166-3 country codes available as defined in https://api.flow.io/reference/countries",
+          "example": "[CAN, FRA]"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization_countries_published",
+      "plural": "organization_countries_publisheds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "data",
+          "type": "organization_countries_data",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents the list of countries that are currently marked available for an organization. This is a bulk event - meaning any time an organization enables or disables a specific region, we publish the new list of all of the countries that the organization is making available to its consumers."
+    },
+    {
       "name": "organization_currency_setting",
       "plural": "organization_currency_settings",
       "fields": [
@@ -14200,6 +14514,52 @@
       "description": "Data required to upsert an organization."
     },
     {
+      "name": "organization_rates_data",
+      "plural": "organization_rates_data",
+      "fields": [
+        {
+          "name": "rates",
+          "type": "[rate]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization_rates_published",
+      "plural": "organization_rates_publisheds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "data",
+          "type": "organization_rates_data",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents the full list of exchange rates in effect for an organization. This is a bulk event - meaning any time an individual rate changes, we publish the new complete list of exchange rates. Note this event is published a few minutes after a rate is published, allowing us to aggregate multiple changes in a short period of time to reduce the number of organization_rates_published we publish."
+    },
+    {
       "name": "organization_reference",
       "plural": "organization_references",
       "fields": [
@@ -14374,13 +14734,6 @@
       "name": "organization_token_form",
       "plural": "organization_token_forms",
       "fields": [
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
         {
           "name": "environment",
           "type": "environment",
@@ -14566,6 +14919,26 @@
       "attributes": []
     },
     {
+      "name": "original_prices",
+      "plural": "original_prices",
+      "fields": [
+        {
+          "name": "value",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "max",
+          "type": "price",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Model representing original and max values and currencies."
+    },
+    {
       "name": "outgoing_feed",
       "plural": "outgoing_feeds",
       "fields": [
@@ -14698,12 +15071,6 @@
       "name": "partner_token_form",
       "plural": "partner_token_forms",
       "fields": [
-        {
-          "name": "partner",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
         {
           "name": "environment",
           "type": "environment",
@@ -15009,7 +15376,7 @@
           "type": "authorization_order_reference",
           "required": false,
           "attributes": [],
-          "description": "If this authorization was made for a specific order number, that order will be referenced here"
+          "description": "If this authorization was made for a specific order number, that order will be referenced here."
         },
         {
           "name": "amount",
@@ -15032,11 +15399,14 @@
           "type": "payment_paypal_data",
           "required": true,
           "attributes": [],
-          "description": "Specific data from paypal"
+          "description": "Specific data from PayPal."
         }
       ],
       "attributes": [],
-      "description": "Represents on line payment"
+      "description": "Represents an online payment processed through PayPal.",
+      "deprecation": {
+        "description": "Remove after paypal_authorization_details goes live."
+      }
     },
     {
       "name": "payment_paypal_data",
@@ -15047,12 +15417,15 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The payment ID in paypal",
+          "description": "The payment ID in PayPal.",
           "example": "PAY-lkj23lk4j23l42341123"
         }
       ],
       "attributes": [],
-      "description": "Represents on line payment"
+      "description": "Represents on line payment",
+      "deprecation": {
+        "description": "Remove after paypal_authorization_details goes live."
+      }
     },
     {
       "name": "payment_reference",
@@ -15140,6 +15513,22 @@
       "attributes": []
     },
     {
+      "name": "paypal_authorization_details",
+      "plural": "paypal_authorization_detailses",
+      "fields": [
+        {
+          "name": "payment_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The payment ID in paypal",
+          "example": "PAY-lkj23lk4j23l42341123"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents on line payment"
+    },
+    {
       "name": "paypal_authorization_form",
       "plural": "paypal_authorization_forms",
       "fields": [
@@ -15148,14 +15537,14 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The Paypal Payment Id"
+          "description": "The PayPal payment id"
         },
         {
           "name": "paypal_payer_id",
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "The Paypal Id of the person who is paying"
+          "description": "The PayPal id of the person who is paying"
         },
         {
           "name": "key",
@@ -15181,7 +15570,7 @@
         }
       ],
       "attributes": [],
-      "description": "Executes the Paypal payment"
+      "description": "Executes the PayPal payment"
     },
     {
       "name": "percent_margin",
@@ -15277,6 +15666,26 @@
       ],
       "attributes": [],
       "description": "Represents a collection of items, the available delivery option tier for that collection of items, and metadata about those options"
+    },
+    {
+      "name": "post_payment_redirect_urls",
+      "plural": "post_payment_redirect_urlses",
+      "fields": [
+        {
+          "name": "success",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "failure",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The URLs to which the customer will be redirected based on the authorization status."
     },
     {
       "name": "price",
@@ -16358,6 +16767,36 @@
       "description": "Refund captures provide the detailed information on the amount refunded against a specific capture"
     },
     {
+      "name": "refund_error",
+      "plural": "refund_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "generic_error_code",
+          "required": true,
+          "attributes": [],
+          "description": "To maintain compatibility with generic_error",
+          "default": "generic_error"
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "description": "To maintain compatibility with generic_error",
+          "minimum": 1
+        },
+        {
+          "name": "decline_code",
+          "type": "refund_decline_code",
+          "required": true,
+          "attributes": [],
+          "description": "Contains details related to the reason for which a refund failed."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "refund_form",
       "plural": "refund_forms",
       "fields": [
@@ -16402,7 +16841,7 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Required if amount is specified. Case insensitive. Note you will get an error if the currency does not match the related authrization's currency. See https://api.flow.io/reference/currencies",
+          "description": "The ISO 4217-3 code for the currency. Required if amount is specified. Case insensitive. Note you will get an error if the currency does not match the related authorization's currency. See https://api.flow.io/reference/currencies",
           "example": "CAD"
         },
         {
@@ -16486,7 +16925,7 @@
           "type": "decimal",
           "required": false,
           "attributes": [],
-          "description": "The balance minus shipping costs. If there was either no shipping cost or the remaining balance is < shipping cost, this field will not be provided.",
+          "description": "The balance minus shipping costs. If there was either no shipping cost or the remaining balance is less than the shipping cost, this field will not be provided.",
           "example": "100.38"
         },
         {
@@ -16499,7 +16938,7 @@
         }
       ],
       "attributes": [],
-      "description": "Detailed examples of amount to refund following common ecommerce use cases."
+      "description": "Detailed examples of amount to refund following common e-commerce use cases."
     },
     {
       "name": "refund_upserted",
@@ -16718,6 +17157,52 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "region_setting",
+      "plural": "region_settings",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "region",
+          "type": "region",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "availability_status",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "region_setting_form",
+      "plural": "region_setting_forms",
+      "fields": [
+        {
+          "name": "region_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The id of the region. Case insensitive. See https://api.flow.io/reference/regions"
+        },
+        {
+          "name": "status",
+          "type": "availability_status",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -19723,6 +20208,12 @@
           "attributes": []
         },
         {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "window",
           "type": "datetime_range",
           "required": false,
@@ -20243,41 +20734,6 @@
       "plural": "unharmonized_item_export_types",
       "fields": [
         {
-          "name": "origin",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The specific origin to export"
-        },
-        {
-          "name": "destination",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The specific destination to export"
-        },
-        {
-          "name": "numbers",
-          "type": "[string]",
-          "required": false,
-          "attributes": [],
-          "description": "The specific list of item numbers to export"
-        },
-        {
-          "name": "has_codes",
-          "type": "boolean",
-          "required": false,
-          "attributes": [],
-          "description": "Indicates items with assigned or unassigned codes should be exported"
-        },
-        {
-          "name": "has_origins",
-          "type": "boolean",
-          "required": false,
-          "attributes": [],
-          "description": "Indicates items with assigned or unassigned origins should be exported"
-        },
-        {
           "name": "sort",
           "type": "string",
           "required": false,
@@ -20285,7 +20741,89 @@
         }
       ],
       "attributes": [],
-      "description": "Combines HS10 export and catalog item export for items that require harmonization."
+      "description": "Export for items that require harmonization."
+    },
+    {
+      "name": "unionpay_authorization_details",
+      "plural": "unionpay_authorization_detailses",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The id of the record containing expanded authorization details for this authorization."
+        },
+        {
+          "name": "payment_redirect_url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The URL to which the customer should be redirected to complete payment."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents on line payment"
+    },
+    {
+      "name": "unionpay_authorization_form",
+      "plural": "unionpay_authorization_forms",
+      "fields": [
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client order number for which to authorize payment."
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "post_payment_redirect_urls",
+          "type": "post_payment_redirect_urls",
+          "required": true,
+          "attributes": [],
+          "description": "The success and optional failure URLs to which the user will be redirected after completing (or failing to complete) payment."
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to an authorization object"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        }
+      ],
+      "attributes": [],
+      "description": "Executes the UnionPay payment"
     },
     {
       "name": "upload",
@@ -26353,6 +26891,218 @@
         },
         {
           "method": "GET",
+          "path": "/organizations/:organization_id/settings/regions",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[region_setting]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Returns the region settings associated to a specific organization."
+        },
+        {
+          "method": "PUT",
+          "path": "/organizations/:organization_id/settings/regions",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "region_setting",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "region_setting",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Updates or creates a region setting for a specific organization",
+          "body": {
+            "type": "region_setting_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/organizations/:organization_id/settings/regions/:id",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Removes the setting for this region for a specific organization"
+        },
+        {
+          "method": "GET",
+          "path": "/organizations/:organization_id/settings/regions/countries/available",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[country]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Returns the list of enabled countries based on the region settings for a specific organization"
+        },
+        {
+          "method": "GET",
           "path": "/organizations/versions",
           "parameters": [
             {
@@ -32074,8 +32824,8 @@
               "location": "Query",
               "required": false,
               "minimum": 0,
-              "maximum": 2,
-              "example": "card, payment"
+              "maximum": 1,
+              "example": "card"
             }
           ],
           "responses": [
@@ -32134,8 +32884,8 @@
               "location": "Query",
               "required": false,
               "minimum": 0,
-              "maximum": 2,
-              "example": "card, payment"
+              "maximum": 1,
+              "example": "card"
             }
           ],
           "responses": [
@@ -32197,8 +32947,8 @@
               "location": "Query",
               "required": false,
               "minimum": 0,
-              "maximum": 2,
-              "example": "card, payment"
+              "maximum": 1,
+              "example": "card"
             }
           ],
           "responses": [
@@ -32542,7 +33292,7 @@
                   "value": 422
                 }
               },
-              "type": "generic_error",
+              "type": "capture_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -33782,7 +34532,7 @@
                   "value": 422
                 }
               },
-              "type": "generic_error",
+              "type": "refund_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
@@ -43371,6 +44121,54 @@
             }
           ],
           "description": "Get all tokens for the specifed organization"
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/tokens",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "organization_token",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new organization",
+          "body": {
+            "type": "organization_token_form",
+            "attributes": []
+          }
         }
       ],
       "attributes": [
@@ -43487,6 +44285,53 @@
             }
           ],
           "description": "Get all tokens for the specifed partner"
+        },
+        {
+          "method": "POST",
+          "path": "/partners/:partner/tokens",
+          "parameters": [
+            {
+              "name": "partner",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "partner_token",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new partner",
+          "body": {
+            "type": "partner_token_form",
+            "attributes": []
+          }
         }
       ],
       "attributes": [
@@ -44051,6 +44896,60 @@
         },
         {
           "method": "PUT",
+          "path": "/sessions/:session/organizations/:organization",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
           "path": "/sessions/:session/reset",
           "parameters": [
             {
@@ -44527,46 +45426,6 @@
             }
           ],
           "description": "Get all tokens that you are authorized to view. Note that the cleartext token value is never sent. To view the API token itself, see the resource path /tokens/:id/cleartext"
-        },
-        {
-          "method": "POST",
-          "path": "/tokens",
-          "parameters": [],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "token",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Create a new token for the requesting user",
-          "body": {
-            "type": "token_form",
-            "attributes": []
-          }
         },
         {
           "method": "GET",

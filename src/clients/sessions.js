@@ -31,6 +31,13 @@ export default class Sessions extends Client {
     });
   }
 
+  putOrganizationsBySessionAndOrganization(session, organization, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}/organizations/${organization}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   putResetBySession(session, options = {}) {
     return this.makeRequest(`${this.host}/sessions/${session}/reset`, {
       ...options,

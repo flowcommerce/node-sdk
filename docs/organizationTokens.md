@@ -30,3 +30,12 @@ const organizationTokens = client().organizationTokens;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`post(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+

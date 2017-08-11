@@ -39,6 +39,16 @@ const sessions = client().sessions;
 | session | string |  |
 
 
+##`putOrganizationsBySessionAndOrganization(session, organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
 ##`putResetBySession(session, options = {})`
 
 ### Function Parameters

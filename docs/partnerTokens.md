@@ -30,3 +30,12 @@ const partnerTokens = client().partnerTokens;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`post(partner, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| partner | string |  |
+
+

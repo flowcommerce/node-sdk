@@ -27,10 +27,6 @@ const tokens = client().tokens;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(options = {})`
-
-
-
 ##`getById(id, options = {})`
 
 ### Function Parameters
