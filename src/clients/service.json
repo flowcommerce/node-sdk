@@ -161,29 +161,6 @@
       "description": "Contains details related to the reason for which an authorization was declined."
     },
     {
-      "name": "authorization_delete_error_code",
-      "plural": "authorization_delete_error_codes",
-      "values": [
-        {
-          "name": "expired",
-          "attributes": [],
-          "description": "Payment authorization has expired"
-        },
-        {
-          "name": "captured",
-          "attributes": [],
-          "description": "Payment authorization has already been captured. Please create a refund."
-        },
-        {
-          "name": "unknown",
-          "attributes": [],
-          "description": "Failed due to another reason (details not known)"
-        }
-      ],
-      "attributes": [],
-      "description": "Contains details related to the reason for which a cancel failed."
-    },
-    {
       "name": "authorization_option",
       "plural": "authorization_options",
       "values": [
@@ -226,9 +203,9 @@
           "description": "Indicates the authorization has been declined by the issuing bank. See the authorization decline code for more details as to the reason for decline."
         },
         {
-          "name": "voided",
+          "name": "reversed",
           "attributes": [],
-          "description": "Indicates the authorization has been voided. You can void an authorization up until the moment you capture funds; once you have captured funds you must create refunds."
+          "description": "Indicates the authorization has been fully reversed. You can fully reverse an authorization up until the moment you capture funds; once you have captured funds you must create refunds."
         }
       ],
       "attributes": []
@@ -768,6 +745,10 @@
           "attributes": []
         },
         {
+          "name": "harmonized_landed_cost_upserted",
+          "attributes": []
+        },
+        {
           "name": "snapshot_upserted",
           "attributes": []
         },
@@ -793,26 +774,6 @@
         },
         {
           "name": "local_item_deleted",
-          "attributes": []
-        },
-        {
-          "name": "localized_item_upserted",
-          "attributes": []
-        },
-        {
-          "name": "localized_item_upserted_v2",
-          "attributes": []
-        },
-        {
-          "name": "localized_item_deleted",
-          "attributes": []
-        },
-        {
-          "name": "localized_item_deleted_v2",
-          "attributes": []
-        },
-        {
-          "name": "localized_item_snapshot",
           "attributes": []
         },
         {
@@ -897,6 +858,10 @@
         },
         {
           "name": "refund_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "reversal_upserted",
           "attributes": []
         },
         {
@@ -1089,14 +1054,14 @@
           "description": "Provides upload of HS-6 and HS-10 codes for the items in a catalog"
         },
         {
-          "name": "harmonization_phrase_suggestion_request",
-          "attributes": [],
-          "description": "Request for phrase suggestions to harmonize items. Request (CSV) must include name, material, description columns. Response (CSV) will include up to 5 suggested phrases"
-        },
-        {
           "name": "catalog_items",
           "attributes": [],
           "description": "Provides bulk upsert of items into an organization's catalog."
+        },
+        {
+          "name": "customs_descriptions",
+          "attributes": [],
+          "description": "Provides upload of customs descriptions for the products in a catalog."
         }
       ],
       "attributes": []
@@ -1297,11 +1262,13 @@
         },
         {
           "name": "order_identifier_error",
-          "attributes": []
+          "attributes": [],
+          "description": "Indicates that there is no order with the specified number (nor an order for which an order identifier with that number has been created)"
         },
         {
           "name": "domestic_shipping_unavailable",
-          "attributes": []
+          "attributes": [],
+          "description": "Indicates that an order was created for a country to which you have asked Flow not to ship. Usually this indicates an error that a request was made to create an order for your domestic country"
         }
       ],
       "attributes": []
@@ -1594,6 +1561,18 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "payment_method_rule_content_key",
+      "plural": "payment_method_rule_content_keys",
+      "values": [
+        {
+          "name": "description",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Indicates the intent of a given instance of payment method rule content."
     },
     {
       "name": "payment_method_type",
@@ -1926,6 +1905,85 @@
         {
           "name": "refunded",
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reversal_error_code",
+      "plural": "reversal_error_codes",
+      "values": [
+        {
+          "name": "amount_exceeds_balance",
+          "attributes": [],
+          "description": "Amount specified exceeds the remaining authorization balance."
+        },
+        {
+          "name": "authorization_declined",
+          "attributes": [],
+          "description": "The authorization was initially declined; there is nothing to reverse."
+        },
+        {
+          "name": "authorization_expired",
+          "attributes": [],
+          "description": "The authorization has expired and can no longer be reversed."
+        },
+        {
+          "name": "invalid_authorization",
+          "attributes": [],
+          "description": "The authorization was not found."
+        },
+        {
+          "name": "invalid_key",
+          "attributes": [],
+          "description": "Invalid key"
+        },
+        {
+          "name": "invalid_amount",
+          "attributes": [],
+          "description": "Amount is not valid - usually because amount was <= 0"
+        },
+        {
+          "name": "invalid_currency",
+          "attributes": [],
+          "description": "Currency is either not known or invalid"
+        },
+        {
+          "name": "no_remaining_balance",
+          "attributes": [],
+          "description": "The authorization has already been fully captured and/or reversed - there are no additional funds to reverse."
+        },
+        {
+          "name": "partial_reversal_not_supported",
+          "attributes": [],
+          "description": "Indiciates a request for a partial reversal when the underlying processor does not support it"
+        },
+        {
+          "name": "unknown",
+          "attributes": [],
+          "description": "Unknown or other"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reversal_status",
+      "plural": "reversal_statuses",
+      "values": [
+        {
+          "name": "pending",
+          "attributes": [],
+          "description": "Reversal is pending processing"
+        },
+        {
+          "name": "processed",
+          "attributes": [],
+          "description": "Reversal has been processed successfully."
+        },
+        {
+          "name": "failed",
+          "attributes": [],
+          "description": "Reversal failed to process"
         }
       ],
       "attributes": []
@@ -2485,6 +2543,11 @@
       "plural": "authorization_forms",
       "types": [
         {
+          "type": "authorization_copy_form",
+          "attributes": [],
+          "description": "Creates a new authorization by copying an existing on"
+        },
+        {
           "type": "direct_authorization_form",
           "attributes": [],
           "description": "Enables card payments"
@@ -2500,9 +2563,9 @@
           "description": "Enables authorization via PayPal"
         },
         {
-          "type": "unionpay_authorization_form",
+          "type": "redirect_authorization_form",
           "attributes": [],
-          "description": "Enables authorizations via UnionPay"
+          "description": "Enables authorizations via redirect-based alternative payment methods, such as AliPay."
         }
       ],
       "attributes": [],
@@ -2727,6 +2790,10 @@
           "attributes": []
         },
         {
+          "type": "harmonized_landed_cost_upserted",
+          "attributes": []
+        },
+        {
           "type": "snapshot_upserted",
           "attributes": []
         },
@@ -2752,32 +2819,6 @@
         },
         {
           "type": "local_item_deleted",
-          "attributes": []
-        },
-        {
-          "type": "localized_item_upserted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use localized_item_upserted_v2"
-          }
-        },
-        {
-          "type": "localized_item_upserted_v2",
-          "attributes": []
-        },
-        {
-          "type": "localized_item_deleted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use localized_item_deleted_v2"
-          }
-        },
-        {
-          "type": "localized_item_deleted_v2",
-          "attributes": []
-        },
-        {
-          "type": "localized_item_snapshot",
           "attributes": []
         },
         {
@@ -2884,6 +2925,10 @@
         },
         {
           "type": "refund_upserted_v2",
+          "attributes": []
+        },
+        {
+          "type": "reversal_upserted",
           "attributes": []
         },
         {
@@ -3196,7 +3241,7 @@
           "attributes": []
         },
         {
-          "type": "unionpay_authorization_details",
+          "type": "redirect_authorization_details",
           "attributes": []
         }
       ],
@@ -4224,25 +4269,49 @@
       "attributes": []
     },
     {
-      "name": "authorization_delete_error",
-      "plural": "authorization_delete_errors",
+      "name": "authorization_copy_form",
+      "plural": "authorization_copy_forms",
       "fields": [
         {
-          "name": "code",
-          "type": "authorization_delete_error_code",
+          "name": "source_authorization_key",
+          "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Specific reason for the error"
+          "description": "The key of the source authorization that we are copying"
         },
         {
-          "name": "messages",
-          "type": "[string]",
+          "name": "amount",
+          "type": "decimal",
           "required": true,
           "attributes": [],
-          "minimum": 1
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to an authorization object"
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "Creates a new authorization based on the underlying information in an existing authorization. A common use case here is to create a new auth when the existing one has expired."
     },
     {
       "name": "authorization_deleted",
@@ -4720,6 +4789,13 @@
           "example": "CAD"
         },
         {
+          "name": "original",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The original amount/currency of the capture when created. We record this value as it will be converted to the currency of the authorization automatically if it does not match."
+        },
+        {
           "name": "created_at",
           "type": "date-time-iso8601",
           "required": true,
@@ -5086,6 +5162,13 @@
           "type": "date-time-iso8601",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "expires_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "The time at which this authorization expires, if any."
         }
       ],
       "attributes": [],
@@ -8989,6 +9072,45 @@
       "description": "Duty and tax information for a given item. Note that the internal implementation supports multiple countries of origin."
     },
     {
+      "name": "harmonized_landed_cost_upserted",
+      "plural": "harmonized_landed_cost_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The harmonizaed landed cost item id"
+        },
+        {
+          "name": "landed_cost",
+          "type": "harmonized_landed_cost",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "header",
       "plural": "headers",
       "fields": [
@@ -9026,8 +9148,8 @@
       "plural": "hint_results",
       "fields": [
         {
-          "name": "hs10_code",
-          "type": "hs10_code",
+          "name": "tariff_code",
+          "type": "tariff_code",
           "required": true,
           "attributes": [],
           "description": "The actual HS-10 code for a destination country.",
@@ -9087,44 +9209,6 @@
       ],
       "attributes": [],
       "description": "The (Harmonized System) HS-10 code assigned to an item with a given origin/destination pair."
-    },
-    {
-      "name": "hs10_code",
-      "plural": "hs10_codes",
-      "fields": [
-        {
-          "name": "code",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The actual HS-10 code for a destination country.",
-          "example": "392620123"
-        },
-        {
-          "name": "destination",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 3166 3 character code for the destination country"
-        },
-        {
-          "name": "parent",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The parent harmonization code, if there is one.",
-          "example": "392620"
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Description of this code"
-        }
-      ],
-      "attributes": [],
-      "description": "Harmonized System codes for specific countries, up to 10 digits (HS-10). Not all countries use all 10 digits of precision."
     },
     {
       "name": "hs10_code_deleted",
@@ -11689,7 +11773,10 @@
         }
       ],
       "attributes": [],
-      "description": "If we found an experience for the given session, the localized information will be presented here"
+      "description": "If we found an experience for the given session, the localized information will be presented here",
+      "deprecation": {
+        "description": "Going forward, use session.geo and session.experience directly"
+      }
     },
     {
       "name": "locale",
@@ -11798,79 +11885,6 @@
       "attributes": []
     },
     {
-      "name": "localized_item_deleted",
-      "plural": "localized_item_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "catalog",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "example": "master"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "localized_item_deleted_v2",
-      "plural": "localized_item_deleted_v2s",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "localized_item_duty",
       "plural": "localized_item_duties",
       "fields": [
@@ -11942,190 +11956,6 @@
           "required": false,
           "attributes": [],
           "description": "Describes which levies are included in the price, if any."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "localized_item_snapshot",
-      "plural": "localized_item_snapshots",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "subcatalog_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "url",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "localized_item_upserted",
-      "plural": "localized_item_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client's unique identifier for this object"
-        },
-        {
-          "name": "catalog",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "example": "master"
-        },
-        {
-          "name": "locale",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "price",
-          "type": "double",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "categories",
-          "type": "[string]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": []
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "dimensions",
-          "type": "object",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "images",
-          "type": "[object]",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "local",
-          "type": "object",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "localized_item_upserted_v2",
-      "plural": "localized_item_upserted_v2s",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "item",
-          "type": "item",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "catalog",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "example": "master"
         }
       ],
       "attributes": []
@@ -13021,6 +12851,13 @@
           "type": "date-time-iso8601",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "expires_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "The time at which this authorization expires, if any."
         }
       ],
       "attributes": []
@@ -14629,6 +14466,20 @@
           "type": "local_session",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "geo",
+          "type": "session_geo",
+          "required": false,
+          "attributes": [],
+          "description": "The geolocated information for this particular session. Note will always be present. Marked optional for backwards compatibility"
+        },
+        {
+          "name": "experience",
+          "type": "experience_geo",
+          "required": false,
+          "attributes": [],
+          "description": "Present if the session maps to an enabled experience"
         }
       ],
       "attributes": [],
@@ -15348,7 +15199,8 @@
           "name": "payment_method",
           "type": "payment_method",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The payment method associated with this rule."
         },
         {
           "name": "display_position",
@@ -15356,6 +15208,34 @@
           "required": true,
           "attributes": [],
           "description": "The order in which payment methods will be displayed. Lower numbers will have priority."
+        },
+        {
+          "name": "content",
+          "type": "[payment_method_rule_content]",
+          "required": false,
+          "attributes": [],
+          "description": "Contains content necessary to render the given payment method, such as instructions that explain how to pay."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "payment_method_rule_content",
+      "plural": "payment_method_rule_contents",
+      "fields": [
+        {
+          "name": "key",
+          "type": "payment_method_rule_content_key",
+          "required": true,
+          "attributes": [],
+          "description": "The key identifying the value of this content."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The value of this content."
         }
       ],
       "attributes": []
@@ -15600,8 +15480,8 @@
           "example": "Mens 100% Cotton Shorts"
         },
         {
-          "name": "hs10_code",
-          "type": "hs10_code",
+          "name": "tariff_code",
+          "type": "tariff_code",
           "required": true,
           "attributes": [],
           "description": "The actual HS-10 code for a destination country.",
@@ -16681,6 +16561,95 @@
       "attributes": []
     },
     {
+      "name": "redirect_authorization_details",
+      "plural": "redirect_authorization_detailses",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The id of the record containing expanded authorization details for this authorization."
+        },
+        {
+          "name": "payment_redirect_url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The URL to which the customer should be redirected to complete payment."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an online payment that requires the user to redirect to another site before entering their payment information."
+    },
+    {
+      "name": "redirect_authorization_form",
+      "plural": "redirect_authorization_forms",
+      "fields": [
+        {
+          "name": "method",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The name (or brand code) of the redirect-based payment method for which to create an authorization, e.g. 'unionpay'."
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client order number for which to authorize payment."
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "redirect_urls",
+          "type": "post_payment_redirect_urls",
+          "required": true,
+          "attributes": [],
+          "description": "The success and optional failure URLs to which the user will be redirected after completing (or failing to complete) payment."
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to an authorization object"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        }
+      ],
+      "attributes": [],
+      "description": "Executes a redirect-based payment based on the provided payment method."
+    },
+    {
       "name": "refund",
       "plural": "refunds",
       "fields": [
@@ -17528,6 +17497,257 @@
       "attributes": []
     },
     {
+      "name": "reversal",
+      "plural": "reversals",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "authorization",
+          "type": "authorization_reference",
+          "required": true,
+          "attributes": [],
+          "description": "The authorization that this reversal undoes"
+        },
+        {
+          "name": "status",
+          "type": "reversal_status",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount reversed",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "original",
+          "type": "money",
+          "required": true,
+          "attributes": [],
+          "description": "The original amount/currency of the capture when created. We record this value as it will be converted to the currency of the authorization automatically if it does not match."
+        },
+        {
+          "name": "created_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a reversal object"
+        }
+      ],
+      "attributes": [],
+      "description": "A reversal is used to clear an authorization (full or partial)."
+    },
+    {
+      "name": "reversal_error",
+      "plural": "reversal_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "default": "reversal_error"
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "codes",
+          "type": "[reversal_error_code]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "Details for why a reversal could not be created"
+    },
+    {
+      "name": "reversal_form",
+      "plural": "reversal_forms",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "authorization_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ID of the authorization to reverse."
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "The amount to reverse. If not specified, reverse the full or remaining amount.",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency to reverse. Required if amount is provided. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a reversal object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reversal_put_form",
+      "plural": "reversal_put_forms",
+      "fields": [
+        {
+          "name": "authorization_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ID of the authorization to reverse."
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "The amount to reverse. If not specified, reverse the full or remaining amount.",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency to reverse. Required if amount is provided. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to a reversal object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reversal_upserted",
+      "plural": "reversal_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "reversal",
+          "type": "reversal",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reversal_version",
+      "plural": "reversal_versions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "type",
+          "type": "change_type",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "reversal",
+          "type": "reversal",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "rounding",
       "plural": "roundings",
       "fields": [
@@ -17920,6 +18140,38 @@
       "attributes": []
     },
     {
+      "name": "session_geo",
+      "plural": "session_geos",
+      "fields": [
+        {
+          "name": "country",
+          "type": "country",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "currency",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "language",
+          "type": "language",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "locale",
+          "type": "locale",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The geolocated information for this session"
+    },
+    {
       "name": "session_put_form",
       "plural": "session_put_forms",
       "fields": [
@@ -17973,58 +18225,6 @@
           "type": "map[string]",
           "required": false,
           "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "session_reset_form",
-      "plural": "session_reset_forms",
-      "fields": [
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
-        },
-        {
-          "name": "experience",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "If specified, we will render the items in the context of the experience with this key."
-        },
-        {
-          "name": "country",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience."
-        },
-        {
-          "name": "language",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
-          "example": "en"
-        },
-        {
-          "name": "locale",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Locale ID as defined in https://api.flow.io/reference/locales",
-          "example": "en-US"
         }
       ],
       "attributes": []
@@ -19507,6 +19707,36 @@
       "attributes": []
     },
     {
+      "name": "tariff_code",
+      "plural": "tariff_codes",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The digits of the tariff code, without any formatting spaces or dashes.",
+          "example": "392620123"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the destination country"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Description of this code"
+        }
+      ],
+      "attributes": [],
+      "description": "Harmonized System codes for specific products imported into specific countries. These are between 4 and 12 digits and are used to select the correct duty rate."
+    },
+    {
       "name": "tax",
       "plural": "taxes",
       "fields": [
@@ -20742,88 +20972,6 @@
       ],
       "attributes": [],
       "description": "Export for items that require harmonization."
-    },
-    {
-      "name": "unionpay_authorization_details",
-      "plural": "unionpay_authorization_detailses",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The id of the record containing expanded authorization details for this authorization."
-        },
-        {
-          "name": "payment_redirect_url",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The URL to which the customer should be redirected to complete payment."
-        }
-      ],
-      "attributes": [],
-      "description": "Represents on line payment"
-    },
-    {
-      "name": "unionpay_authorization_form",
-      "plural": "unionpay_authorization_forms",
-      "fields": [
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Client order number for which to authorize payment."
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "description": "The amount to authorize",
-          "example": "120.38"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "CAD"
-        },
-        {
-          "name": "post_payment_redirect_urls",
-          "type": "post_payment_redirect_urls",
-          "required": true,
-          "attributes": [],
-          "description": "The success and optional failure URLs to which the user will be redirected after completing (or failing to complete) payment."
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "description": "A set of key/value pairs that you can attach to an authorization object"
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The IP address of the consumer",
-          "example": "96.242.151.245"
-        }
-      ],
-      "attributes": [],
-      "description": "Executes the UnionPay payment"
     },
     {
       "name": "upload",
@@ -27200,6 +27348,143 @@
       "path": "/organizations"
     },
     {
+      "type": "payment_method_rule",
+      "plural": "payment_method_rules",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/payment-method-rules",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Filters available payment methods to those available for the experience associated with the provided country."
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Filters available payment methods to those that support the provided currency."
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If provided, the payment methods available for the corresponding experience will be returned."
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If provided, will be used to help pick the experience if the country or experience key are not provided."
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "display_position"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[payment_method_rule]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "display_position"
+                  },
+                  {
+                    "value": "payment_method"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions",
+                  "sort_parameter_default"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/payment-method-rules",
+      "description": "Returns payment methods that are enabled for an organization and available for the provided country and currency."
+    },
+    {
       "type": "query",
       "plural": "queries",
       "operations": [
@@ -32756,6 +33041,172 @@
       "description": "API to fetch current HS-6 codes."
     },
     {
+      "type": "tariff_code",
+      "plural": "tariff_codes",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/harmonization/tariff-codes/:destination",
+          "parameters": [
+            {
+              "name": "destination",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "tariff_code"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[tariff_code]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "tariff_code"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions",
+                  "sort_parameter_default"
+                ]
+              }
+            }
+          ],
+          "description": "Search harmonization codes. Always paginated."
+        },
+        {
+          "method": "GET",
+          "path": "/harmonization/tariff-codes/:destination/:code",
+          "parameters": [
+            {
+              "name": "destination",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "code",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tariff_code",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "generic_error",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions",
+                  "sort_parameter_default"
+                ]
+              }
+            }
+          ],
+          "description": "Returns information about a specific tariff code."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "landed cost"
+          }
+        }
+      ],
+      "path": "/harmonization/tariff-codes/:destination",
+      "description": "API to fetch current tariff codes."
+    },
+    {
       "type": "authorization",
       "plural": "authorizations",
       "operations": [
@@ -33035,12 +33486,60 @@
                   "value": 422
                 }
               },
-              "type": "authorization_delete_error",
+              "type": "reversal_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [],
-          "description": "Deletes a given authorization. This method will return a 422 if funds have already been captured."
+          "description": "Deprecated. This end point no longer deletes an authorization and is implemented by creating a reversal for the remaining balance on the auth."
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/authorizations/online",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "online_authorization",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new online authorization.",
+          "body": {
+            "type": "authorization_form",
+            "attributes": []
+          }
         },
         {
           "method": "GET",
@@ -34748,6 +35247,387 @@
       ],
       "path": "/:organization/refunds",
       "description": "Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund)."
+    },
+    {
+      "type": "reversal",
+      "plural": "reversals",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/reversals",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "authorization_id",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "authorization_key",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[reversal]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "key"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/reversals",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "reversal",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "No such authorization"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "reversal_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "reversal_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/reversals/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "reversal",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/reversals/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "reversal",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "No such authorization"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "reversal_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Try inserting or updating a new reversal. Useful for retrying pending reversals",
+          "body": {
+            "type": "reversal_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/reversals/versions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[long]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "reversal_id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter to reversals with any of these IDs",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "journal_timestamp"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[reversal_version]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "reversal_id"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "payment"
+          }
+        }
+      ],
+      "path": "/:organization/reversals",
+      "description": "A reversal is used to clear an authorization (full or partial)."
     },
     {
       "type": "center",
@@ -45001,7 +45881,7 @@
           ],
           "description": "Resets the session based on the provided geo parameters.",
           "body": {
-            "type": "session_reset_form",
+            "type": "session_put_form",
             "attributes": []
           }
         },
@@ -45303,6 +46183,56 @@
             }
           ],
           "description": "Returns search suggestions for harmonization data"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/suggestion/harmonization/phrases",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "url",
+              "type": "string",
+              "location": "Query",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "string",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Returns link to CSV with suggested phrases for harmonization"
         }
       ],
       "attributes": [

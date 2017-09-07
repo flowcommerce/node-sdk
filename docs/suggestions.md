@@ -46,3 +46,17 @@ const suggestions = client().suggestions;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`getHarmonizationAndPhrases(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| url | string |  |
+

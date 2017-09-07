@@ -35,6 +35,13 @@ export default class Authorizations extends Client {
     });
   }
 
+  postOnline(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/online`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/authorizations/versions`, options);
   }

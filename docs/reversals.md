@@ -1,13 +1,13 @@
-# [API](README.md).authorizations - Flow Commerce API - Node SDK Documentation
+# [API](README.md).reversals - Flow Commerce API - Node SDK Documentation
 
-
+A reversal is used to clear an authorization (full or partial).
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const authorizations = client().authorizations;
+const reversals = client().reversals;
 ```
 
 ## Operations
@@ -26,11 +26,11 @@ const authorizations = client().authorizations;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | key | [string] |  |
-| order_number | string |  |
+| authorization_id | string |  |
+| authorization_key | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
-| expand | [string] |  |
 
 ##`post(organization, options = {})`
 
@@ -40,11 +40,6 @@ const authorizations = client().authorizations;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
 
 ##`getByKey(organization, key, options = {})`
 
@@ -55,13 +50,8 @@ const authorizations = client().authorizations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
 
-### Query Parameters
 
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
-
-##`deleteByKey(organization, key, options = {})`
+##`putByKey(organization, key, options = {})`
 
 ### Function Parameters
 
@@ -69,15 +59,6 @@ const authorizations = client().authorizations;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
-
-
-##`postOnline(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
 
 
 ##`getVersions(organization, options = {})`
@@ -93,7 +74,7 @@ const authorizations = client().authorizations;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [long] | Filter by one or more IDs of this resource |
-| authorization_id | [string] | Filter to authorizations with any one of these ids. |
+| reversal_id | [string] | Filter to reversals with any of these IDs |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

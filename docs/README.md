@@ -18,6 +18,7 @@ These resources mirror the official documentation located at
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
 | [orderIdentifiers](orderIdentifiers.md) | Represents alternate numbers with which to identify an order. |
 | [organizations](organizations.md) |  |
+| [paymentMethodRules](paymentMethodRules.md) | Returns payment methods that are enabled for an organization and available for the provided country and currency. |
 | [queries](queries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
@@ -34,12 +35,14 @@ These resources mirror the official documentation located at
 | [hs10](hs10.md) | API to fetch HS-10 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. That is, each code is unique across your item number, country of origin and destination. |
 | [hs6](hs6.md) | API to fetch HS-6 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. |
 | [hsCodes](hsCodes.md) | API to fetch current HS-6 codes. |
+| [tariffCodes](tariffCodes.md) | API to fetch current tariff codes. |
 | [authorizations](authorizations.md) |  |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
 | [payments](payments.md) | Represents data for a specific online payment method |
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
+| [reversals](reversals.md) | A reversal is used to clear an authorization (full or partial). |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) |  |
 | [inventoryRules](inventoryRules.md) | Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization |
