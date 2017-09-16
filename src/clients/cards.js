@@ -20,7 +20,7 @@ export default class Cards extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/cards`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class Cards extends Client {
   deleteByToken(organization, token, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/cards/${token}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
   postNonces(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/cards/nonces`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 

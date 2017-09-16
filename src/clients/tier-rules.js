@@ -20,7 +20,7 @@ export default class TierRules extends Client {
   post(organization, tierId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class TierRules extends Client {
   putById(organization, tierId, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteById(organization, tierId, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

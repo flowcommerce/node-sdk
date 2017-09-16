@@ -20,7 +20,7 @@ export default class Payments extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/payments`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class Payments extends Client {
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/payments/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

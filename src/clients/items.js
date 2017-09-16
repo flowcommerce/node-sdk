@@ -20,7 +20,7 @@ export default class Items extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class Items extends Client {
   putByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

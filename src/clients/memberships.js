@@ -20,7 +20,7 @@ export default class Memberships extends Client {
   post(options = {}) {
     return this.makeRequest(`${this.host}/memberships`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class Memberships extends Client {
   putById(id, options = {}) {
     return this.makeRequest(`${this.host}/memberships/${id}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteById(id, options = {}) {
     return this.makeRequest(`${this.host}/memberships/${id}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

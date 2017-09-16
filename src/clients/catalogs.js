@@ -28,14 +28,14 @@ export default class Catalogs extends Client {
   putCatalogAndRestrictionsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/restrictions/${number}`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 
   deleteCatalogAndRestrictionsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/restrictions/${number}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 

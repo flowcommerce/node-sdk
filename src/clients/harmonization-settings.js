@@ -20,7 +20,7 @@ export default class HarmonizationSettings extends Client {
   put(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/harmonization/settings`, {
       ...options,
-      method: 'PUT',
+       method: 'PUT',
     });
   }
 

@@ -20,7 +20,7 @@ export default class TrackingLabels extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tracking-labels`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 

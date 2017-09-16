@@ -20,7 +20,7 @@ export default class Authorizations extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/authorizations`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
@@ -31,14 +31,14 @@ export default class Authorizations extends Client {
   deleteByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, {
       ...options,
-      method: 'DELETE',
+       method: 'DELETE',
     });
   }
 
   postOnline(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/authorizations/online`, {
       ...options,
-      method: 'POST',
+       method: 'POST',
     });
   }
 
