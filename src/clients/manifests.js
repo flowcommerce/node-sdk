@@ -28,7 +28,7 @@ export default class Manifests extends Client {
   postTypeAndList(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/manifests/type/list`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 

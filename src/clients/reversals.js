@@ -20,7 +20,7 @@ export default class Reversals extends Client {
   post(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/reversals`, {
       ...options,
-       method: 'POST',
+      method: 'POST',
     });
   }
 
@@ -31,7 +31,7 @@ export default class Reversals extends Client {
   putByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/reversals/${key}`, {
       ...options,
-       method: 'PUT',
+      method: 'PUT',
     });
   }
 
