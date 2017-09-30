@@ -100,15 +100,6 @@ const organizations = client().organizations;
 | organization_id | string |  |
 
 
-##`putSettingsAndRegionsByOrganizationId(organizationId, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization_id | string |  |
-
-
 ##`deleteSettingsAndRegionsByOrganizationIdAndId(organizationId, id, options = {})`
 
 ### Function Parameters
@@ -117,6 +108,16 @@ const organizations = client().organizations;
 | ---- | ---- | ---- |
 | organization_id | string |  |
 | id | string | Filter by one or more IDs of this resource |
+
+
+##`putSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization_id | string |  |
+| region | string |  |
 
 
 ##`getSettingsAndRegionsAndCountriesAndAvailableByOrganizationId(organizationId, options = {})`

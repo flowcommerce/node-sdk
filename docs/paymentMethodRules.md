@@ -12,7 +12,27 @@ const paymentMethodRules = client().paymentMethodRules;
 
 ## Operations
 
-##`get(organization, options = {})`
+##`getPaymentMethodRules(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| country | string | Filters available payment methods to those available for the experience associated with the provided country. |
+| currency | string | Filters available payment methods to those that support the provided currency. |
+| experience | string | If provided, the payment methods available for the corresponding experience will be returned. |
+| ip | string | If provided, will be used to help pick the experience if the country or experience key are not provided. |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
+##`getPaymentAndMethodAndRules(organization, options = {})`
 
 ### Function Parameters
 

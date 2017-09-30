@@ -57,19 +57,19 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/versions`, options);
   }
 
-  getPaymentMethodRulesByExperienceKey(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-rules`, options);
+  getPaymentMethodTypesByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-types`, options);
   }
 
-  putPaymentMethodRulesByExperienceKey(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-rules`, {
+  getPaymentAndMethodAndRulesByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment/method/rules`, options);
+  }
+
+  putPaymentAndMethodAndRulesByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment/method/rules`, {
       ...options,
        method: 'PUT',
     });
-  }
-
-  getPaymentMethodTypesByExperienceKey(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/payment-method-types`, options);
   }
 
   getByKey(organization, key, options = {}) {

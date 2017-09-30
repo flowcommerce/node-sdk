@@ -58,17 +58,17 @@ export default class Organizations extends Client {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions`, options);
   }
 
-  putSettingsAndRegionsByOrganizationId(organizationId, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
   deleteSettingsAndRegionsByOrganizationIdAndId(organizationId, id, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/${id}`, {
       ...options,
        method: 'DELETE',
+    });
+  }
+
+  putSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/${region}`, {
+      ...options,
+       method: 'PUT',
     });
   }
 

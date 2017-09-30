@@ -42,6 +42,13 @@ export default class Orders extends Client {
     });
   }
 
+  putPromotionsAndFreeShippingByNumberAndKey(organization, number, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/promotions/${key}/free_shipping`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   putSubmissionsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, {
       ...options,

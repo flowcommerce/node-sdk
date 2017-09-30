@@ -96,6 +96,22 @@ const orders = client().orders;
 | number | string |  |
 
 
+##`putPromotionsAndFreeShippingByNumberAndKey(organization, number, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+| key | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
 ##`putSubmissionsByNumber(organization, number, options = {})`
 
 ### Function Parameters

@@ -122,6 +122,21 @@
           "description": "Invalid expiration date"
         },
         {
+          "name": "invalid_address",
+          "attributes": [],
+          "description": "Invalid billing address"
+        },
+        {
+          "name": "invalid_token_type",
+          "attributes": [],
+          "description": "Cannot create a permanent card via an unauthorized request"
+        },
+        {
+          "name": "invalid_token",
+          "attributes": [],
+          "description": "The provided card token is invalid or it does not exist."
+        },
+        {
           "name": "no_account",
           "attributes": [],
           "description": "The provided payment method is not known by the issuing bank (the account does not exist)"
@@ -746,6 +761,14 @@
         },
         {
           "name": "harmonized_landed_cost_upserted",
+          "attributes": []
+        },
+        {
+          "name": "rule_upserted",
+          "attributes": []
+        },
+        {
+          "name": "rule_deleted",
           "attributes": []
         },
         {
@@ -1788,11 +1811,18 @@
       "plural": "promotion_trigger_types",
       "values": [
         {
+          "name": "automatic",
+          "attributes": [],
+          "description": "Automatic indicates the the promotion will be automatically applied to the order"
+        },
+        {
           "name": "order_subtotal",
-          "attributes": []
+          "attributes": [],
+          "description": "Order subtotal sets a minimum value - orders whose subtotal is greater than the minimum will have the promotion applied. A common use case is to offer free shipping to orders about 150 CAD."
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "description": "The Promotion Trigger Type defines the conditions we evaluate when deciding if a particular promotion should be applied to an order."
     },
     {
       "name": "province_type",
@@ -2558,7 +2588,7 @@
         {
           "type": "authorization_copy_form",
           "attributes": [],
-          "description": "Creates a new authorization by copying an existing on"
+          "description": "Creates a new authorization by copying an existing one."
         },
         {
           "type": "direct_authorization_form",
@@ -2579,11 +2609,33 @@
           "type": "redirect_authorization_form",
           "attributes": [],
           "description": "Enables authorizations via redirect-based alternative payment methods, such as AliPay."
+        },
+        {
+          "type": "card_authorization_form",
+          "attributes": [],
+          "description": "Enables authorizations for a credit card; will eventually replace direct and merchant of record authorization forms."
         }
       ],
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Flow provides several different options for creating an authorization"
+    },
+    {
+      "name": "card_authorization_data",
+      "plural": "card_authorization_data",
+      "types": [
+        {
+          "type": "card_token_form",
+          "attributes": []
+        },
+        {
+          "type": "card_form",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Represents the data needed to create a card authorization."
     },
     {
       "name": "delivery",
@@ -2804,6 +2856,14 @@
         },
         {
           "type": "harmonized_landed_cost_upserted",
+          "attributes": []
+        },
+        {
+          "type": "rule_upserted",
+          "attributes": []
+        },
+        {
+          "type": "rule_deleted",
           "attributes": []
         },
         {
@@ -3263,6 +3323,30 @@
         },
         {
           "type": "redirect_authorization_details",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "order_promotion",
+      "plural": "order_promotions",
+      "types": [
+        {
+          "type": "free_shipping_order_promotion",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "order_promotion_form",
+      "plural": "order_promotion_forms",
+      "types": [
+        {
+          "type": "free_shipping_order_promotion_form",
           "attributes": []
         }
       ],
@@ -3836,7 +3920,15 @@
           "name": "total",
           "type": "price_with_base",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Represents the total price of this line item, which equals the price times the quantity."
+        },
+        {
+          "name": "price",
+          "type": "price_with_base",
+          "required": false,
+          "attributes": [],
+          "description": "Represents the price of all included detail components for one unit of this line item."
         }
       ],
       "attributes": [],
@@ -3856,7 +3948,8 @@
           "name": "total",
           "type": "price_with_base",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "Represents the total price of this line item, which equals the price times the quantity."
         },
         {
           "name": "rate",
@@ -3871,6 +3964,13 @@
           "required": true,
           "attributes": [],
           "description": "The name of the levy, for display purposes."
+        },
+        {
+          "name": "price",
+          "type": "price_with_base",
+          "required": false,
+          "attributes": [],
+          "description": "Represents the price of all included detail components for one unit of this line item."
         }
       ],
       "attributes": [],
@@ -4400,6 +4500,42 @@
       "attributes": []
     },
     {
+      "name": "authorization_error",
+      "plural": "authorization_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "authorization_decline_code",
+          "required": true,
+          "attributes": [],
+          "description": "Specific reason for the error"
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "avs",
+          "type": "avs",
+          "required": false,
+          "attributes": [],
+          "description": "Specific AVS information if applicable"
+        },
+        {
+          "name": "cvv",
+          "type": "cvv",
+          "required": false,
+          "attributes": [],
+          "description": "Specific CVV information if applicable"
+        }
+      ],
+      "attributes": [],
+      "description": "Details for why an authorization was not created"
+    },
+    {
       "name": "authorization_order_reference",
       "plural": "authorization_order_references",
       "fields": [
@@ -4596,6 +4732,30 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "authorization_value_form",
+      "plural": "authorization_value_forms",
+      "fields": [
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount to authorize.",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        }
+      ],
+      "attributes": [],
+      "description": "Used to authorize funds for a pending card authorization."
     },
     {
       "name": "authorization_version",
@@ -5137,6 +5297,13 @@
           "example": "CAD"
         },
         {
+          "name": "original",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The amount/currency of the order when created."
+        },
+        {
           "name": "customer",
           "type": "customer",
           "required": true,
@@ -5194,6 +5361,80 @@
       ],
       "attributes": [],
       "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
+    },
+    {
+      "name": "card_authorization_form",
+      "plural": "card_authorization_forms",
+      "fields": [
+        {
+          "name": "card",
+          "type": "card_authorization_data",
+          "required": true,
+          "attributes": [],
+          "description": "Either a reference to the previously tokenized card, or the card details with which to authorize this payment."
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Client order number for which to authorize payment. We will automatically verify that this order exists and will authorize the total amount of the order in the currency of the order."
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": false,
+          "attributes": [],
+          "description": "The amount to authorize - if specified, will be used to confirm that the amount exactly matches the order total",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
+        },
+        {
+          "name": "cvv",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs that you can attach to an authorization object"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The IP address of the consumer",
+          "example": "96.242.151.245"
+        },
+        {
+          "name": "options",
+          "type": "[authorization_option]",
+          "required": false,
+          "attributes": [],
+          "description": "Optional behaviors to enable for this authorization"
+        }
+      ],
+      "attributes": [],
+      "description": "Similar to a merchant of record authorization form, but it allows card information to be included rather than tokenizing first. If the amount is $0, then"
     },
     {
       "name": "card_authorization_upserted",
@@ -5459,6 +5700,20 @@
           "type": "string",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "card_token_form",
+      "plural": "card_token_forms",
+      "fields": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The token referring to a previously tokenized card."
         }
       ],
       "attributes": []
@@ -8380,6 +8635,88 @@
           "required": true,
           "attributes": [],
           "description": "Trigger used to calculate eligibility for free shipping, showing information necessary."
+        },
+        {
+          "name": "max",
+          "type": "price",
+          "required": false,
+          "attributes": [],
+          "description": "Maximum value for this promotion. For example, a free shipping promo may be setup with a max of 10 CAD meaning we will apply free shipping up to a maximum value of 10 CAD"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "free_shipping_order_promotion",
+      "plural": "free_shipping_order_promotions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "order",
+          "type": "expandable_order",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "trigger",
+          "type": "order_promotion_trigger",
+          "required": true,
+          "attributes": [],
+          "description": "Trigger used to calculate eligibility for free shipping, showing information necessary."
+        },
+        {
+          "name": "max",
+          "type": "price",
+          "required": false,
+          "attributes": [],
+          "description": "Maximum value for this promotion. For example, a free shipping promo may be setup with a max of 10 CAD meaning we will apply free shipping up to a maximum value of 10 CAD"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "A set of key/value pairs"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "free_shipping_order_promotion_form",
+      "plural": "free_shipping_order_promotion_forms",
+      "fields": [
+        {
+          "name": "trigger",
+          "type": "promotion_trigger_form",
+          "required": true,
+          "attributes": [],
+          "description": "Trigger used to calculate eligibility for free shipping, showing information necessary."
+        },
+        {
+          "name": "max",
+          "type": "price_form",
+          "required": false,
+          "attributes": [],
+          "description": "Maximum value for this promotion. For example, a free shipping promo may be setup with a max of 10 CAD meaning we will apply free shipping up to a maximum value of 10 CAD."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A set of key/value pairs"
         }
       ],
       "attributes": []
@@ -12915,6 +13252,13 @@
           "example": "CAD"
         },
         {
+          "name": "original",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The amount/currency of the order when created."
+        },
+        {
           "name": "customer",
           "type": "customer",
           "required": true,
@@ -13890,6 +14234,27 @@
           "required": false,
           "attributes": [],
           "description": "The display name for this order price detail component."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_promotion_trigger",
+      "plural": "order_promotion_triggers",
+      "fields": [
+        {
+          "name": "type",
+          "type": "promotion_trigger_type",
+          "required": true,
+          "attributes": [],
+          "example": "order_subtotal"
+        },
+        {
+          "name": "min",
+          "type": "price",
+          "required": false,
+          "attributes": [],
+          "description": "Minimum amount to be eligible for the trigger"
         }
       ],
       "attributes": []
@@ -16169,13 +16534,27 @@
           "required": true,
           "attributes": [],
           "description": "Remaining value necessary to apply the trigger"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "promotion_trigger_form",
+      "plural": "promotion_trigger_forms",
+      "fields": [
+        {
+          "name": "type",
+          "type": "promotion_trigger_type",
+          "required": true,
+          "attributes": [],
+          "example": "order_subtotal"
         },
         {
-          "name": "max",
-          "type": "price",
+          "name": "min",
+          "type": "price_form",
           "required": false,
           "attributes": [],
-          "description": "Maximum value covered by trigger"
+          "description": "Minimum amount to be eligible for the trigger"
         }
       ],
       "attributes": []
@@ -16715,7 +17094,7 @@
           "type": "decimal",
           "required": true,
           "attributes": [],
-          "description": "The amount to authorize",
+          "description": "The amount to authorize.",
           "example": "120.38"
         },
         {
@@ -16797,6 +17176,13 @@
           "attributes": [],
           "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
           "example": "CAD"
+        },
+        {
+          "name": "original",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The amount/currency of the request to refund."
         },
         {
           "name": "captures",
@@ -17253,7 +17639,7 @@
         },
         {
           "name": "region",
-          "type": "region",
+          "type": "string",
           "required": true,
           "attributes": []
         },
@@ -17270,13 +17656,6 @@
       "name": "region_setting_form",
       "plural": "region_setting_forms",
       "fields": [
-        {
-          "name": "region_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "The id of the region. Case insensitive. See https://api.flow.io/reference/regions"
-        },
         {
           "name": "status",
           "type": "availability_status",
@@ -17876,6 +18255,63 @@
         {
           "name": "value",
           "type": "decimal",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "rule_deleted",
+      "plural": "rule_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "rule_upserted",
+      "plural": "rule_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "rule",
+          "type": "inventory_rule",
           "required": true,
           "attributes": []
         }
@@ -23609,7 +24045,85 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/experiences/:experience_key/payment-method-rules",
+          "path": "/:organization/experiences/:experience_key/payment-method-types",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[payment_method_type]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:experience_key/payment/method/rules",
           "parameters": [
             {
               "name": "organization",
@@ -23723,7 +24237,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/experiences/:experience_key/payment-method-rules",
+          "path": "/:organization/experiences/:experience_key/payment/method/rules",
           "parameters": [
             {
               "name": "organization",
@@ -23783,84 +24297,6 @@
             "type": "[experience_payment_method_rule_form]",
             "attributes": []
           }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/experiences/:experience_key/payment-method-types",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "experience_key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[payment_method_type]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "get",
-                  "versions"
-                ]
-              }
-            }
-          ]
         },
         {
           "method": "GET",
@@ -25697,6 +26133,93 @@
         },
         {
           "method": "PUT",
+          "path": "/:organization/orders/:number/promotions/:key/free_shipping",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "order"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "free_shipping_order_promotion",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "free_shipping_order_promotion",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "order_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Creates a free shipping promotion to the order, automatically applying it to the order if the order meets the defined promotion trigger.",
+          "body": {
+            "type": "free_shipping_order_promotion_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
           "path": "/:organization/orders/:number/submissions",
           "parameters": [
             {
@@ -26681,6 +27204,80 @@
       "description": "Represents alternate numbers with which to identify an order."
     },
     {
+      "type": "order_promotion",
+      "plural": "order_promotions",
+      "operations": [
+        {
+          "method": "DELETE",
+          "path": "/:organization/order/promotions/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "order_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Deletes the order promotion with the specified key"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/order/promotions"
+    },
+    {
       "type": "organization",
       "plural": "organizations",
       "operations": [
@@ -27201,11 +27798,67 @@
           "description": "Returns the region settings associated to a specific organization."
         },
         {
-          "method": "PUT",
-          "path": "/organizations/:organization_id/settings/regions",
+          "method": "DELETE",
+          "path": "/organizations/:organization_id/settings/regions/:id",
           "parameters": [
             {
               "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Removes the setting for this region for a specific organization"
+        },
+        {
+          "method": "PUT",
+          "path": "/organizations/:organization_id/settings/regions/:region",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "region",
               "type": "string",
               "location": "Path",
               "required": true
@@ -27255,56 +27908,6 @@
             "type": "region_setting_form",
             "attributes": []
           }
-        },
-        {
-          "method": "DELETE",
-          "path": "/organizations/:organization_id/settings/regions/:id",
-          "parameters": [
-            {
-              "name": "organization_id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [],
-          "description": "Removes the setting for this region for a specific organization"
         },
         {
           "method": "GET",
@@ -27580,6 +28183,130 @@
                 ]
               }
             }
+          ],
+          "deprecation": {
+            "description": "Path is deprecated. Use /:organization/payment/method/rules"
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/payment/method/rules",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Filters available payment methods to those available for the experience associated with the provided country."
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Filters available payment methods to those that support the provided currency."
+            },
+            {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If provided, the payment methods available for the corresponding experience will be returned."
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If provided, will be used to help pick the experience if the country or experience key are not provided."
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "display_position"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[payment_method_rule]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "display_position"
+                  },
+                  {
+                    "value": "payment_method"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions",
+                  "sort_parameter_default"
+                ]
+              }
+            }
           ]
         }
       ],
@@ -27591,7 +28318,7 @@
           }
         }
       ],
-      "path": "/:organization/payment-method-rules",
+      "path": "/:organization",
       "description": "Returns payment methods that are enabled for an organization and available for the provided country and currency."
     },
     {
@@ -33602,6 +34329,126 @@
           ],
           "attributes": [],
           "description": "Deprecated. This end point no longer deletes an authorization and is implemented by creating a reversal for the remaining balance on the auth."
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/authorizations/:key/value",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "card"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "authorization",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Updates the value of the authorization, or returns the authorization as-is if the value is the same.",
+          "body": {
+            "type": "authorization_value_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/authorizations/card",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "card_authorization",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "authorization_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Create a new card authorization using card details, or the token of a previously tokenized card.",
+          "body": {
+            "type": "card_authorization_form",
+            "attributes": []
+          }
         },
         {
           "method": "POST",
