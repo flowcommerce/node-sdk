@@ -69,6 +69,16 @@ const items = client().items;
 | number | string |  |
 
 
+##`putPriceByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
 ##`getVersions(organization, options = {})`
 
 ### Function Parameters

@@ -764,6 +764,10 @@
           "attributes": []
         },
         {
+          "name": "fully_harmonized_item_upserted",
+          "attributes": []
+        },
+        {
           "name": "rule_upserted",
           "attributes": []
         },
@@ -1008,6 +1012,28 @@
       "description": "Describes the field in a Flow catalog that will be used to link to an incoming catalog feed. Failure to link an incoming feed item to a Flow catalog item will cause that item to be removed from localized feeds."
     },
     {
+      "name": "fraud_status",
+      "plural": "fraud_statuses",
+      "values": [
+        {
+          "name": "pending",
+          "attributes": [],
+          "description": "If an immediate response is not available, the state will be 'pending'."
+        },
+        {
+          "name": "approved",
+          "attributes": [],
+          "description": "Fraud check has passed and the order is approved."
+        },
+        {
+          "name": "declined",
+          "attributes": [],
+          "description": "Indicates the fraud check has been declined by the fraud providing service."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "fulfillment_method_type",
       "plural": "fulfillment_method_types",
       "values": [
@@ -1212,23 +1238,6 @@
         {
           "name": "maximum",
           "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "manifest_type",
-      "plural": "manifest_types",
-      "values": [
-        {
-          "name": "all",
-          "attributes": [],
-          "description": "Manifest all open shipping labels that are not part of a manifest yet for the organization and carrier service"
-        },
-        {
-          "name": "list",
-          "attributes": [],
-          "description": "Manifest only the list of specified labels"
         }
       ],
       "attributes": []
@@ -2856,6 +2865,10 @@
         },
         {
           "type": "harmonized_landed_cost_upserted",
+          "attributes": []
+        },
+        {
+          "type": "fully_harmonized_item_upserted",
           "attributes": []
         },
         {
@@ -4565,6 +4578,12 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "order",
+          "type": "authorization_order_reference",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -4970,11 +4989,11 @@
           "example": "CAD"
         },
         {
-          "name": "original",
+          "name": "requested",
           "type": "money",
           "required": false,
           "attributes": [],
-          "description": "The original amount/currency of the capture when created. We record this value as it will be converted to the currency of the authorization automatically if it does not match."
+          "description": "The requested amount/currency of the capture when created. We record this value as it will be converted to the currency of the authorization automatically if it does not match."
         },
         {
           "name": "created_at",
@@ -5297,7 +5316,7 @@
           "example": "CAD"
         },
         {
-          "name": "original",
+          "name": "requested",
           "type": "money",
           "required": false,
           "attributes": [],
@@ -7716,6 +7735,13 @@
           "required": false,
           "attributes": [],
           "description": "Describes the duty de minimis if there is one for this destination"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Generally used for Where this rate came from and potentially its type."
         }
       ],
       "attributes": [],
@@ -8353,42 +8379,6 @@
       "attributes": []
     },
     {
-      "name": "experiment",
-      "plural": "experiments",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a single experiment / test (e.g. for an incremental rollout or AB Test)"
-    },
-    {
-      "name": "experiment_status",
-      "plural": "experiment_statuses",
-      "fields": [
-        {
-          "name": "enabled",
-          "type": "boolean",
-          "required": true,
-          "attributes": [],
-          "description": "If true, this experiment is enabled"
-        }
-      ],
-      "attributes": [],
-      "description": "Represents a single instance of an experiment (e.g. page request) resulting in a decision as to the status of a given experiment"
-    },
-    {
       "name": "expiration",
       "plural": "expirations",
       "fields": [
@@ -8572,20 +8562,6 @@
       "description": "A brief packet of statistics about a live feed. Will be blank for most new feeds."
     },
     {
-      "name": "ference",
-      "plural": "ferences",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "flat_rate",
       "plural": "flat_rates",
       "fields": [
@@ -8742,6 +8718,59 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "fully_harmonized_item_upserted",
+      "plural": "fully_harmonized_item_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "item_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "customs_description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Flow curated description of the product. Intended for use on commercial invoices and other customs documents."
+        },
+        {
+          "name": "hs6_code",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "landed_costs",
+          "type": "[lane_landed_cost]",
+          "required": true,
+          "attributes": [],
+          "description": "Landed costs for all the lanes for which a result exists in Harmonization."
+        }
+      ],
+      "attributes": [],
+      "description": "Event indicating insertion or changes to the details of a fully harmonized item. Will be triggered upon any change to the item being harmonized, its duties or taxes. If two changes occur within minutes of each other, it is possible only one upserted event will be produced, aggregating both changes."
     },
     {
       "name": "generic_error",
@@ -10640,6 +10669,20 @@
       "attributes": []
     },
     {
+      "name": "issuer_reference",
+      "plural": "issuer_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "item",
       "plural": "items",
       "fields": [
@@ -11325,6 +11368,36 @@
       "description": "Event raised whenever an item is assigned a country of origin. Note that one item may have multiple countries of origin."
     },
     {
+      "name": "item_price_update_put_form",
+      "plural": "item_price_update_put_forms",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "usd"
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The actual price of the item as offered to a customer. This price must be in the currency specified for this item."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "description": "Attributes of the items. An attribute of type intent must be given as a string representation of a decimal to be correctly localized.",
+          "default": "{}"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "item_sales_margin_deleted",
       "plural": "item_sales_margin_deleteds",
       "fields": [
@@ -11717,6 +11790,48 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "lane_landed_cost",
+      "plural": "lane_landed_costs",
+      "fields": [
+        {
+          "name": "origin",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the country of origin"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 3166 3 character code for the destination country"
+        },
+        {
+          "name": "tariff_code",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The assigned tariff code for a product"
+        },
+        {
+          "name": "effective_duty",
+          "type": "duty",
+          "required": true,
+          "attributes": [],
+          "description": "A percentage duty rate. Note that in the case of complex duties this will be calculated from the details of the item in question and may not scale with changes to price."
+        },
+        {
+          "name": "tax",
+          "type": "tax",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The tariff codes, duty rates and tax rates associated with an origin/destination pair. Does not take into account sales province"
     },
     {
       "name": "language",
@@ -12476,13 +12591,6 @@
           "description": "Globally unique identifier"
         },
         {
-          "name": "type",
-          "type": "manifest_type",
-          "required": true,
-          "attributes": [],
-          "description": "Can be all or specific: This field tells us whether labels on this manifest were generated because an external party told us they were actually shipped or if we just do a manifest on all open shipments that do not already have one."
-        },
-        {
           "name": "timestamp",
           "type": "date-time-iso8601",
           "required": true,
@@ -12518,12 +12626,6 @@
       "name": "manifest_form",
       "plural": "manifest_forms",
       "fields": [
-        {
-          "name": "tracking_number_type",
-          "type": "tracking_number_type",
-          "required": true,
-          "attributes": []
-        },
         {
           "name": "tracking_numbers",
           "type": "[string]",
@@ -13252,7 +13354,7 @@
           "example": "CAD"
         },
         {
-          "name": "original",
+          "name": "requested",
           "type": "money",
           "required": false,
           "attributes": [],
@@ -13646,6 +13748,20 @@
       "attributes": []
     },
     {
+      "name": "order_cancellation_form",
+      "plural": "order_cancellation_forms",
+      "fields": [
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "An order cancellation form will update all item quantities to 0. The implementation is a convenience method that wraps an order_update_form"
+    },
+    {
       "name": "order_deleted",
       "plural": "order_deleteds",
       "fields": [
@@ -13928,6 +14044,25 @@
       "description": "The order form is used to create an open order, providing the details on pricing and delivery options for destination and items/quantities specified"
     },
     {
+      "name": "order_fraud_status",
+      "plural": "order_fraud_statuses",
+      "fields": [
+        {
+          "name": "order",
+          "type": "order_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "type": "fraud_status",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_identifier",
       "plural": "order_identifiers",
       "fields": [
@@ -14088,6 +14223,28 @@
           "type": "order_identifier",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_line_update_form",
+      "plural": "order_line_update_forms",
+      "fields": [
+        {
+          "name": "item_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The item number for which you want to reset quantity. Note if the item number shows up in multiple lines, we apply the update in order (e.g. look at first order line before proceeding)."
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "The new quantity for this line item.",
+          "minimum": 0
         }
       ],
       "attributes": []
@@ -14333,6 +14490,25 @@
           "required": true,
           "attributes": [],
           "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_update_form",
+      "plural": "order_update_forms",
+      "fields": [
+        {
+          "name": "lines",
+          "type": "[order_line_update_form]",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -15660,6 +15836,26 @@
       "attributes": []
     },
     {
+      "name": "payment_method_issuer",
+      "plural": "payment_method_issuers",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "payment_method_rule",
       "plural": "payment_method_rules",
       "fields": [
@@ -15690,6 +15886,13 @@
           "required": false,
           "attributes": [],
           "description": "Contains content necessary to render the given payment method, such as instructions that explain how to pay."
+        },
+        {
+          "name": "issuers",
+          "type": "[payment_method_issuer]",
+          "required": false,
+          "attributes": [],
+          "description": "Certain payment methods, such as iDEAL, require the customer to select an issuing bank before they are redirected to submit payment details. If any issuers are present in this field, the customer must select one which will then be included in the call to get the redirect URL."
         }
       ],
       "attributes": []
@@ -16745,6 +16948,14 @@
           "attributes": [],
           "description": "Desired delivered duty options to be returned as part of this quote. If not provided, default to paid.",
           "default": "paid"
+        },
+        {
+          "name": "delivered_duties",
+          "type": "[delivered_duty]",
+          "required": true,
+          "attributes": [],
+          "description": "Desired delivered duty options to be returned as part of this quote",
+          "minimum": 1
         }
       ],
       "attributes": [],
@@ -16805,6 +17016,13 @@
         {
           "name": "delivered_duty",
           "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "description": "Desired delivered duty options to be returned as part of this quote. If not provided, service will use all available rates."
+        },
+        {
+          "name": "delivered_duties",
+          "type": "[delivered_duty]",
           "required": false,
           "attributes": [],
           "description": "Desired delivered duty options to be returned as part of this quote. If not provided, service will use all available rates."
@@ -17083,6 +17301,13 @@
           "description": "The name (or brand code) of the redirect-based payment method for which to create an authorization, e.g. 'unionpay'."
         },
         {
+          "name": "issuer",
+          "type": "issuer_reference",
+          "required": false,
+          "attributes": [],
+          "description": "The id of the issuing bank, if required by the selected payment method. For payment methods such as iDEAL, the customer must select an issuer before being redirected to provide payment details."
+        },
+        {
           "name": "order_number",
           "type": "string",
           "required": true,
@@ -17178,7 +17403,7 @@
           "example": "CAD"
         },
         {
-          "name": "original",
+          "name": "requested",
           "type": "money",
           "required": false,
           "attributes": [],
@@ -18032,11 +18257,11 @@
           "example": "CAD"
         },
         {
-          "name": "original",
+          "name": "requested",
           "type": "money",
           "required": true,
           "attributes": [],
-          "description": "The original amount/currency of the capture when created. We record this value as it will be converted to the currency of the authorization automatically if it does not match."
+          "description": "The requested amount/currency of the capture when created. We record this value as it will be converted to the currency of the authorization automatically if it does not match."
         },
         {
           "name": "created_at",
@@ -21501,6 +21726,46 @@
           "type": "tracking_summary",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "transit_window",
+      "plural": "transit_windows",
+      "fields": [
+        {
+          "name": "service_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "example: FedEx, Landmark, etc."
+        },
+        {
+          "name": "origin_country",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination_country",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "min transit"
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "max transit"
         }
       ],
       "attributes": []
@@ -25556,6 +25821,78 @@
           "description": "Delete the item with this number"
         },
         {
+          "method": "PUT",
+          "path": "/:organization/catalog/items/:number/price",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "item",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Update item with the specified number, creating if it does not exist.",
+          "body": {
+            "type": "item_price_update_put_form",
+            "attributes": []
+          }
+        },
+        {
           "method": "GET",
           "path": "/:organization/catalog/items/versions",
           "parameters": [
@@ -26133,6 +26470,77 @@
         },
         {
           "method": "PUT",
+          "path": "/:organization/orders/:number/cancellations",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order",
+              "description": "Request was valid but resulted in no update to the order"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "order",
+              "description": "Order was modified as a result of the request"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "order_cancellation_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
           "path": "/:organization/orders/:number/promotions/:key/free_shipping",
           "parameters": [
             {
@@ -26212,7 +26620,7 @@
             }
           ],
           "attributes": [],
-          "description": "Creates a free shipping promotion to the order, automatically applying it to the order if the order meets the defined promotion trigger.",
+          "description": "Creates a free shipping promotion for this order, automatically applying it to the order if the order meets the defined promotion trigger.",
           "body": {
             "type": "free_shipping_order_promotion_form",
             "attributes": []
@@ -26294,6 +26702,77 @@
           ],
           "attributes": [],
           "description": "Submits an order. You will get a validation error if the order has already expired (and a new quote could not be automatically recreated for a lower or same price). This method is idempotent - submitting an order a second time has no effect."
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/orders/:number/updates",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order",
+              "description": "Request was valid but resulted in no update to the order"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "order",
+              "description": "Order was modified as a result of the request"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "order_update_form",
+            "attributes": []
+          }
         },
         {
           "method": "GET",
@@ -26458,6 +26937,56 @@
             }
           ],
           "description": "Provides visibility into recent changes of each order, including deletion"
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/orders/:number/status/fraud",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order_fraud_status",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Returns the current fraud status for this order"
         }
       ],
       "attributes": [
@@ -27548,14 +28077,13 @@
         },
         {
           "method": "GET",
-          "path": "/organizations/:id",
+          "path": "/organizations/:organization_id",
           "parameters": [
             {
-              "name": "id",
+              "name": "organization_id",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -27592,14 +28120,13 @@
         },
         {
           "method": "PUT",
-          "path": "/organizations/:id",
+          "path": "/organizations/:organization_id",
           "parameters": [
             {
-              "name": "id",
+              "name": "organization_id",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -27649,14 +28176,13 @@
         },
         {
           "method": "DELETE",
-          "path": "/organizations/:id",
+          "path": "/organizations/:organization_id",
           "parameters": [
             {
-              "name": "id",
+              "name": "organization_id",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -27798,56 +28324,6 @@
           "description": "Returns the region settings associated to a specific organization."
         },
         {
-          "method": "DELETE",
-          "path": "/organizations/:organization_id/settings/regions/:id",
-          "parameters": [
-            {
-              "name": "organization_id",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found"
-            }
-          ],
-          "attributes": [],
-          "description": "Removes the setting for this region for a specific organization"
-        },
-        {
           "method": "PUT",
           "path": "/organizations/:organization_id/settings/regions/:region",
           "parameters": [
@@ -27908,6 +28384,55 @@
             "type": "region_setting_form",
             "attributes": []
           }
+        },
+        {
+          "method": "DELETE",
+          "path": "/organizations/:organization_id/settings/regions/:region",
+          "parameters": [
+            {
+              "name": "organization_id",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "region",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found"
+            }
+          ],
+          "attributes": [],
+          "description": "Removes the setting for this region for a specific organization"
         },
         {
           "method": "GET",
@@ -28281,6 +28806,15 @@
               },
               "type": "unit",
               "description": "Resource was not found"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
             }
           ],
           "attributes": [
@@ -38049,6 +38583,54 @@
           ]
         },
         {
+          "method": "POST",
+          "path": "/:organization/manifests",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "manifest",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Creates a new manifest/carrier BOL with specific tracking numbers",
+          "body": {
+            "type": "manifest_form",
+            "attributes": []
+          }
+        },
+        {
           "method": "GET",
           "path": "/:organization/manifests/:id",
           "parameters": [
@@ -38100,7 +38682,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/manifests/type/all",
+          "path": "/:organization/manifests/services/:service/outstanding",
           "parameters": [
             {
               "name": "organization",
@@ -38112,7 +38694,7 @@
             {
               "name": "service",
               "type": "string",
-              "location": "Query",
+              "location": "Path",
               "required": true,
               "example": "dhl-express-worldwide"
             }
@@ -38147,54 +38729,6 @@
             }
           ],
           "description": "Generates a new manifest with all outstanding labels and redirects to a downloadable PDF of carrier-generated manifest or bill of lading (BOL). If no outstanding labels, this will generate a 422 error."
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/manifests/type/list",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "manifest",
-              "description": "Operation succeeded and the resource was created"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [],
-          "description": "Generate a new manifest/carrier BOL with specific tracking numbers",
-          "body": {
-            "type": "manifest_form",
-            "attributes": []
-          }
         }
       ],
       "attributes": [
@@ -41788,6 +42322,120 @@
       ],
       "path": "/:organization/tracking-labels",
       "description": "Represents a specific label being tracked as part of the tracking bucket"
+    },
+    {
+      "type": "transit_window",
+      "plural": "transit_windows",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/transit-windows",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[transit_window]",
+              "description": "Successful response"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/transit-windows"
     },
     {
       "type": "webhook",

@@ -96,6 +96,16 @@ const orders = client().orders;
 | number | string |  |
 
 
+##`putCancellationsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
 ##`putPromotionsAndFreeShippingByNumberAndKey(organization, number, key, options = {})`
 
 ### Function Parameters
@@ -113,6 +123,16 @@ const orders = client().orders;
 | expand | [string] |  |
 
 ##`putSubmissionsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
+##`putUpdatesByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
@@ -154,4 +174,14 @@ const orders = client().orders;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
+
+##`getStatusAndFraudByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
 

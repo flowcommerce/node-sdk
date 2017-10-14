@@ -51,6 +51,7 @@ import TierRules from './tier-rules';
 import Trackings from './trackings';
 import TrackingEvents from './tracking-events';
 import TrackingLabels from './tracking-labels';
+import TransitWindows from './transit-windows';
 import Webhooks from './webhooks';
 import WebhookDeliveries from './webhook-deliveries';
 import Addresses from './addresses';
@@ -107,11 +108,12 @@ const enums = {
   deliveredDuty: ['paid', 'unpaid'],
   direction: ['outbound', 'return'],
   environment: ['sandbox', 'production'],
-  eventType: ['attribute_upserted', 'attribute_deleted', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted', 'allocation_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'pricing_deleted', 'pricing_upserted', 'tier_upserted', 'tier_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'rule_upserted', 'rule_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'reversal_upserted', 'organization_rates_published', 'organization_countries_published', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
+  eventType: ['attribute_upserted', 'attribute_deleted', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted', 'allocation_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'pricing_deleted', 'pricing_upserted', 'tier_upserted', 'tier_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'fully_harmonized_item_upserted', 'rule_upserted', 'rule_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'reversal_upserted', 'organization_rates_published', 'organization_countries_published', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   experiencePaymentMethodTag: ['display'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   flowFieldName: ['item-number', 'sku-attribute', 'product_id-attribute'],
+  fraudStatus: ['pending', 'approved', 'declined'],
   fulfillmentMethodType: ['fulfillment_method'],
   fulfillmentMethodValue: ['digital', 'physical'],
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
@@ -123,7 +125,6 @@ const enums = {
   invitationErrorCode: ['expired', 'invalid_email'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
-  manifestType: ['all', 'list'],
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
@@ -236,6 +237,7 @@ export default class ApiClient {
     this.trackings = new Trackings(options);
     this.trackingEvents = new TrackingEvents(options);
     this.trackingLabels = new TrackingLabels(options);
+    this.transitWindows = new TransitWindows(options);
     this.webhooks = new Webhooks(options);
     this.webhookDeliveries = new WebhookDeliveries(options);
     this.addresses = new Addresses(options);

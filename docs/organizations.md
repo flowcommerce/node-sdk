@@ -55,31 +55,31 @@ const organizations = client().organizations;
 
 
 
-##`getById(id, options = {})`
+##`getByOrganizationId(organizationId, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
+| organization_id | string |  |
 
 
-##`putById(id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`deleteById(id, options = {})`
+##`putByOrganizationId(organizationId, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
+| organization_id | string |  |
+
+
+##`deleteByOrganizationId(organizationId, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization_id | string |  |
 
 
 ##`getSettingsAndCurrenciesByOrganizationId(organizationId, options = {})`
@@ -100,17 +100,17 @@ const organizations = client().organizations;
 | organization_id | string |  |
 
 
-##`deleteSettingsAndRegionsByOrganizationIdAndId(organizationId, id, options = {})`
+##`putSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization_id | string |  |
-| id | string | Filter by one or more IDs of this resource |
+| region | string |  |
 
 
-##`putSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {})`
+##`deleteSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {})`
 
 ### Function Parameters
 

@@ -42,6 +42,13 @@ export default class Orders extends Client {
     });
   }
 
+  putCancellationsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/cancellations`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   putPromotionsAndFreeShippingByNumberAndKey(organization, number, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/promotions/${key}/free_shipping`, {
       ...options,
@@ -56,12 +63,23 @@ export default class Orders extends Client {
     });
   }
 
+  putUpdatesByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/updates`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getIdentifierByIdentifierNumber(organization, identifierNumber, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/identifier/${identifierNumber}`, options);
   }
 
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/versions`, options);
+  }
+
+  getStatusAndFraudByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/status/fraud`, options);
   }
 
 }

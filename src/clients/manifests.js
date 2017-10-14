@@ -17,19 +17,19 @@ export default class Manifests extends Client {
     return this.makeRequest(`${this.host}/${organization}/manifests`, options);
   }
 
+  post(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/manifests`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/manifests/${id}`, options);
   }
 
-  getTypeAndAll(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/manifests/type/all`, options);
-  }
-
-  postTypeAndList(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/manifests/type/list`, {
-      ...options,
-       method: 'POST',
-    });
+  getServicesAndOutstandingByService(organization, service, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/manifests/services/${service}/outstanding`, options);
   }
 
 }

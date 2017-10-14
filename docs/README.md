@@ -60,6 +60,7 @@ These resources mirror the official documentation located at
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
 | [trackingEvents](trackingEvents.md) |  |
 | [trackingLabels](trackingLabels.md) | Represents a specific label being tracked as part of the tracking bucket |
+| [transitWindows](transitWindows.md) |  |
 | [webhooks](webhooks.md) |  |
 | [webhookDeliveries](webhookDeliveries.md) | A webhook delivery represents an event that matched a webhook&#x27;s event types. Each delivery will be attempted one or more times subject to the settings of your webhook. |
 | [addresses](addresses.md) |  |

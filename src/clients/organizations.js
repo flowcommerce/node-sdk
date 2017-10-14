@@ -32,19 +32,19 @@ export default class Organizations extends Client {
     });
   }
 
-  getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${id}`, options);
+  getByOrganizationId(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}`, options);
   }
 
-  putById(id, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${id}`, {
+  putByOrganizationId(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}`, {
       ...options,
        method: 'PUT',
     });
   }
 
-  deleteById(id, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${id}`, {
+  deleteByOrganizationId(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}`, {
       ...options,
        method: 'DELETE',
     });
@@ -58,17 +58,17 @@ export default class Organizations extends Client {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions`, options);
   }
 
-  deleteSettingsAndRegionsByOrganizationIdAndId(organizationId, id, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/${id}`, {
-      ...options,
-       method: 'DELETE',
-    });
-  }
-
   putSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/${region}`, {
       ...options,
        method: 'PUT',
+    });
+  }
+
+  deleteSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/${region}`, {
+      ...options,
+       method: 'DELETE',
     });
   }
 

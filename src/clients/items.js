@@ -42,6 +42,13 @@ export default class Items extends Client {
     });
   }
 
+  putPriceByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}/price`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items/versions`, options);
   }

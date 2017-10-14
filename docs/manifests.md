@@ -32,6 +32,15 @@ const manifests = client().manifests;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`post(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
 ##`getById(organization, id, options = {})`
 
 ### Function Parameters
@@ -42,26 +51,13 @@ const manifests = client().manifests;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getTypeAndAll(organization, options = {})`
+##`getServicesAndOutstandingByService(organization, service, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
 | service | string |  |
-
-##`postTypeAndList(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
 
 
