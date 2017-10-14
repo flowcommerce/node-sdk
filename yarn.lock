@@ -11,20 +11,20 @@
     babel-preset-react "^6.24.1"
     babel-preset-stage-1 "^6.24.1"
 
-"@flowio/eslint-config-flowio@^11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@flowio/eslint-config-flowio/-/eslint-config-flowio-11.0.1.tgz#4db1b3d22c30b918f04f194924be15eedda92744"
+"@flowio/eslint-config-flowio@^11.0.2":
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/@flowio/eslint-config-flowio/-/eslint-config-flowio-11.0.2.tgz#9c3f6975e95e5354dd549e0ffe8f79c592c09044"
   dependencies:
     eslint-config-airbnb "^16.0.0"
     eslint-config-airbnb-base "^12.0.2"
 
-"@flowio/lib-apidoc@^1.5.33":
-  version "1.5.33"
-  resolved "https://registry.yarnpkg.com/@flowio/lib-apidoc/-/lib-apidoc-1.5.33.tgz#551ec3a8acd70cbe3c88356aeec281c1301beef1"
+"@flowio/lib-apidoc@^1.5.34":
+  version "1.5.34"
+  resolved "https://registry.yarnpkg.com/@flowio/lib-apidoc/-/lib-apidoc-1.5.34.tgz#4052b5dea57b32ab1e56a0edf6cb8e6dcd7c0951"
   dependencies:
-    handlebars "4.0.5"
-    lodash "4.15.0"
-    marked "0.3.5"
+    handlebars "^4.0.10"
+    lodash "^4.17.4"
+    marked "^0.3.6"
     mkdirp "^0.5.1"
 
 "@flowio/lib-registry@0.0.5":
@@ -1683,19 +1683,9 @@ growl@1.10.3:
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.3.tgz#1926ba90cf3edfe2adb4927f5880bc22c66c790f"
 
-handlebars@4.0.10:
+handlebars@4.0.10, handlebars@^4.0.10:
   version "4.0.10"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.10.tgz#3d30c718b09a3d96f23ea4cc1f403c4d3ba9ff4f"
-  dependencies:
-    async "^1.4.0"
-    optimist "^0.6.1"
-    source-map "^0.4.4"
-  optionalDependencies:
-    uglify-js "^2.6"
-
-handlebars@4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.5.tgz#92c6ed6bb164110c50d4d8d0fbddc70806c6f8e7"
   dependencies:
     async "^1.4.0"
     optimist "^0.6.1"
@@ -2094,10 +2084,6 @@ lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
 
-lodash@4.15.0:
-  version "4.15.0"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.15.0.tgz#3162391d8f0140aa22cf8f6b3c34d6b7f63d3aa9"
-
 lodash@4.17.4, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
@@ -2119,9 +2105,9 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-marked@0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.5.tgz#4113a15ac5d7bca158a5aae07224587b9fa15b94"
+marked@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
 micromatch@^2.1.5:
   version "2.3.11"
