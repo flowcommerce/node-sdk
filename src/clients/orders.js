@@ -42,6 +42,13 @@ export default class Orders extends Client {
     });
   }
 
+  postAuthorizationsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/authorizations`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   putCancellationsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/cancellations`, {
       ...options,
@@ -70,8 +77,8 @@ export default class Orders extends Client {
     });
   }
 
-  getIdentifierByIdentifierNumber(organization, identifierNumber, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/identifier/${identifierNumber}`, options);
+  getIdentifierByIdentifier(organization, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/identifier/${identifier}`, options);
   }
 
   getVersions(organization, options = {}) {
@@ -80,6 +87,13 @@ export default class Orders extends Client {
 
   getStatusAndFraudByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/status/fraud`, options);
+  }
+
+  postLabelsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/labels`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
 }

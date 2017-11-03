@@ -1,6 +1,6 @@
 # [API](README.md).orderIdentifiers - Flow Commerce API - Node SDK Documentation
 
-Represents alternate numbers with which to identify an order.
+Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders.
 
 ## Usage
 
@@ -25,7 +25,7 @@ const orderIdentifiers = client().orderIdentifiers;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| number | [string] |  |
+| identifier | [string] |  |
 | order_number | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
@@ -40,34 +40,34 @@ const orderIdentifiers = client().orderIdentifiers;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByNumber(organization, number, options = {})`
+##`getByIdentifier(organization, identifier, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
+| identifier | string |  |
 
 
-##`putByNumber(organization, number, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
-
-
-##`deleteByNumber(organization, number, options = {})`
+##`putByIdentifier(organization, identifier, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
+| identifier | string |  |
+
+
+##`deleteByIdentifier(organization, identifier, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| identifier | string |  |
 
 
 ##`getVersions(organization, options = {})`
@@ -83,8 +83,6 @@ const orderIdentifiers = client().orderIdentifiers;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| number | [string] |  |
-| order_number | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

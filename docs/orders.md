@@ -96,6 +96,21 @@ const orders = client().orders;
 | number | string |  |
 
 
+##`postAuthorizationsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
 ##`putCancellationsByNumber(organization, number, options = {})`
 
 ### Function Parameters
@@ -142,14 +157,14 @@ const orders = client().orders;
 | number | string |  |
 
 
-##`getIdentifierByIdentifierNumber(organization, identifierNumber, options = {})`
+##`getIdentifierByIdentifier(organization, identifier, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| identifier_number | string |  |
+| identifier | string |  |
 
 ### Query Parameters
 
@@ -176,6 +191,16 @@ const orders = client().orders;
 | sort | string |  |
 
 ##`getStatusAndFraudByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
+##`postLabelsByNumber(organization, number, options = {})`
 
 ### Function Parameters
 

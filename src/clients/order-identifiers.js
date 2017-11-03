@@ -24,19 +24,19 @@ export default class OrderIdentifiers extends Client {
     });
   }
 
-  getByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, options);
+  getByIdentifier(organization, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${identifier}`, options);
   }
 
-  putByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, {
+  putByIdentifier(organization, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${identifier}`, {
       ...options,
        method: 'PUT',
     });
   }
 
-  deleteByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${number}`, {
+  deleteByIdentifier(organization, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${identifier}`, {
       ...options,
        method: 'DELETE',
     });

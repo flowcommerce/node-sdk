@@ -16,7 +16,7 @@ These resources mirror the official documentation located at
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see a payment authorization for an order. |
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
-| [orderIdentifiers](orderIdentifiers.md) | Represents alternate numbers with which to identify an order. |
+| [orderIdentifiers](orderIdentifiers.md) | Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders. |
 | [orderPromotions](orderPromotions.md) |  |
 | [organizations](organizations.md) |  |
 | [paymentMethodRules](paymentMethodRules.md) | Returns payment methods that are enabled for an organization and available for the provided country and currency. |
@@ -60,7 +60,6 @@ These resources mirror the official documentation located at
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
 | [trackingEvents](trackingEvents.md) |  |
 | [trackingLabels](trackingLabels.md) | Represents a specific label being tracked as part of the tracking bucket |
-| [transitWindows](transitWindows.md) |  |
 | [webhooks](webhooks.md) |  |
 | [webhookDeliveries](webhookDeliveries.md) | A webhook delivery represents an event that matched a webhook&#x27;s event types. Each delivery will be attempted one or more times subject to the settings of your webhook. |
 | [addresses](addresses.md) |  |

@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.3.65",
+  "version": "0.4.11",
   "info": {
     "license": {
       "name": "MIT",
@@ -712,6 +712,14 @@
           "attributes": []
         },
         {
+          "name": "order_identifier_deleted_v2",
+          "attributes": []
+        },
+        {
+          "name": "order_identifier_upserted_v2",
+          "attributes": []
+        },
+        {
           "name": "pricing_deleted",
           "attributes": []
         },
@@ -905,6 +913,10 @@
         },
         {
           "name": "organization_countries_published",
+          "attributes": []
+        },
+        {
+          "name": "organization_ratecard_transit_windows_published",
           "attributes": []
         },
         {
@@ -1306,6 +1318,11 @@
           "description": "Indicates that there is no order with the specified number (nor an order for which an order identifier with that number has been created)"
         },
         {
+          "name": "authorization_invalid",
+          "attributes": [],
+          "description": "The authorization key specified is invalid - either because it does not exist or is not associated with this order"
+        },
+        {
           "name": "domestic_shipping_unavailable",
           "attributes": [],
           "description": "Indicates that an order was created for a country to which you have asked Flow not to ship. Usually this indicates an error that a request was made to create an order for your domestic country"
@@ -1313,7 +1330,7 @@
         {
           "name": "value_threshold_exceeded",
           "attributes": [],
-          "description": "Indicates the order value exceeds the value threshold for destination and cannot be shipped."
+          "description": "Indicates the order value exceeds the value threshold for destination and cannot be shipped. When specified, the order will also populate the threshold attribute."
         }
       ],
       "attributes": []
@@ -1414,6 +1431,11 @@
           "name": "item_price",
           "attributes": [],
           "description": "The sum of the price of the order's items with their currency margins, percent margins, and fixed margins included."
+        },
+        {
+          "name": "item_discount",
+          "attributes": [],
+          "description": "The sum of all discounts applied to the order's items."
         },
         {
           "name": "rounding",
@@ -2816,6 +2838,14 @@
           "attributes": []
         },
         {
+          "type": "order_identifier_deleted_v2",
+          "attributes": []
+        },
+        {
+          "type": "order_identifier_upserted_v2",
+          "attributes": []
+        },
+        {
           "type": "pricing_deleted",
           "attributes": []
         },
@@ -3031,6 +3061,10 @@
         },
         {
           "type": "organization_countries_published",
+          "attributes": []
+        },
+        {
+          "type": "organization_ratecard_transit_windows_published",
           "attributes": []
         },
         {
@@ -11787,6 +11821,18 @@
           "type": "string",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "direction",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "package",
+          "type": "object",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -11955,6 +12001,13 @@
           "required": true,
           "attributes": [],
           "minimum": 1
+        },
+        {
+          "name": "shipment_estimate",
+          "type": "datetime_range",
+          "required": false,
+          "attributes": [],
+          "description": "For items that may not immediately ship out from the origin because of different models of inventory (e.g. drop-ship, sell-first), this is a way for a client to communicate when the items can ship out. This will be used to calculate delivery option windows."
         },
         {
           "name": "price",
@@ -12526,10 +12579,10 @@
         },
         {
           "name": "discount",
-          "type": "money",
+          "type": "localized_line_item_discount",
           "required": false,
           "attributes": [],
-          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here"
+          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity."
         },
         {
           "name": "attributes",
@@ -12543,10 +12596,61 @@
           "type": "local",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "shipment_estimate",
+          "type": "datetime_range",
+          "required": false,
+          "attributes": [],
+          "description": "For items that may not immediately ship out from the origin because of different models of inventory (e.g. drop-ship, sell-first), this is a way for a client to communicate when the items can ship out. This will be used to calculate delivery option windows."
         }
       ],
       "attributes": [],
       "description": "Line items on the order, with localized pricing information"
+    },
+    {
+      "name": "localized_line_item_discount",
+      "plural": "localized_line_item_discounts",
+      "fields": [
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": [],
+          "description": "The amount of the discount after being converted to the local currency."
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The formatted label of the localized discount."
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": false,
+          "attributes": [],
+          "description": "The discount converted to the base currency in which your organization operates."
+        },
+        {
+          "name": "requested",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "description": "The requested discount amount."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents the requested, base, and localized amounts for a discount on a given line item. It applies to the entire line regardless of quantity."
     },
     {
       "name": "localized_total",
@@ -13825,6 +13929,13 @@
           "required": false,
           "attributes": [],
           "description": "Destination country of the order, if available."
+        },
+        {
+          "name": "threshold",
+          "type": "value_threshold_exceeded_details",
+          "required": false,
+          "attributes": [],
+          "description": "When the order error is value_threshold_exceeded, we include the details on the threshold itself."
         }
       ],
       "attributes": []
@@ -14038,6 +14149,13 @@
           "required": false,
           "attributes": [],
           "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "authorization_keys",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Sets the authorization keys to associate with this order. Each authorization, if valid, will then be added to the order.payments field."
         }
       ],
       "attributes": [],
@@ -14080,15 +14198,31 @@
           "attributes": []
         },
         {
-          "name": "number",
+          "name": "identifier",
           "type": "string",
           "required": true,
+          "attributes": []
+        },
+        {
+          "name": "primary",
+          "type": "boolean",
+          "required": true,
           "attributes": [],
-          "description": "Client's unique identifier for this object"
+          "description": "An order can optionally have a single additional primary identifier. Common pattern here is using a random UUID in checkout sessions, then later assigning a human readable order number."
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Client's unique identifier for this object",
+          "deprecation": {
+            "description": "This field was renamed to 'identifier'"
+          }
         }
       ],
       "attributes": [],
-      "description": "Represents alternate numbers with which to identify an order."
+      "description": "Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders."
     },
     {
       "name": "order_identifier_deleted",
@@ -14117,6 +14251,39 @@
       "attributes": []
     },
     {
+      "name": "order_identifier_deleted_v2",
+      "plural": "order_identifier_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_identifier_form",
       "plural": "order_identifier_forms",
       "fields": [
@@ -14124,14 +14291,31 @@
           "name": "order",
           "type": "string",
           "required": true,
+          "attributes": [],
+          "description": "The order number for which you are assigning this identifier"
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "required": false,
           "attributes": []
         },
         {
           "name": "number",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": [],
-          "description": "Client's unique identifier for this object"
+          "description": "Client's unique identifier for this object",
+          "deprecation": {
+            "description": "This field is deprecated. Please use the 'identifier' field"
+          }
+        },
+        {
+          "name": "primary",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "If you set this to true, creates the order identifier and marks it as primary. If there already exists a prior primary identifier, that identifier will be updated to no longer by the primary"
         }
       ],
       "attributes": []
@@ -14144,7 +14328,15 @@
           "name": "order",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "The order number for which you are assigning this identifier"
+        },
+        {
+          "name": "primary",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "If you set this to true, creates the order identifier and marks it as primary. If there already exists a prior primary identifier, that identifier will be updated to no longer by the primary"
         }
       ],
       "attributes": []
@@ -14189,6 +14381,57 @@
         {
           "name": "order_number",
           "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_identifier_upserted_v2",
+      "plural": "order_identifier_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "primary",
+          "type": "boolean",
           "required": true,
           "attributes": []
         }
@@ -14468,6 +14711,13 @@
           "required": false,
           "attributes": [],
           "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "authorization_keys",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Sets the authorization keys to associate with this order. Each authorization, if valid, will then be added to the order.payments field."
         }
       ],
       "attributes": [],
@@ -15000,6 +15250,52 @@
       ],
       "attributes": [],
       "description": "Data required to upsert an organization."
+    },
+    {
+      "name": "organization_ratecard_transit_windows_data",
+      "plural": "organization_ratecard_transit_windows_data",
+      "fields": [
+        {
+          "name": "transit_windows",
+          "type": "[transit_window]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization_ratecard_transit_windows_published",
+      "plural": "organization_ratecard_transit_windows_publisheds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "data",
+          "type": "organization_ratecard_transit_windows_data",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents the list of transit windows available for an organization. This is a bulk event - meaning any time a transit window changes, we publish a new complete list of all transit windows."
     },
     {
       "name": "organization_rates_data",
@@ -18147,7 +18443,7 @@
         },
         {
           "name": "items",
-          "type": "object",
+          "type": "[object]",
           "required": true,
           "attributes": []
         },
@@ -18159,7 +18455,7 @@
         },
         {
           "name": "labels",
-          "type": "object",
+          "type": "[object]",
           "required": true,
           "attributes": []
         },
@@ -18797,19 +19093,30 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Globally unique identifier"
+          "description": "Globally unique identifier",
+          "example": "ups-ground"
         },
         {
           "name": "carrier",
           "type": "carrier_reference",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "example": "ups"
         },
         {
           "name": "name",
           "type": "string",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "example": "UPS Ground"
+        },
+        {
+          "name": "center_code",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Optional identifier for the service level at the organization's center. This code can be used to communicate service level to the center/3PL.",
+          "example": "UPSGND"
         }
       ],
       "attributes": []
@@ -20613,6 +20920,14 @@
           "description": "Public or Private. Private ones appear as inactive/disabled to the public"
         },
         {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Currency to be used for the tier. May be different from the experience currency, but enforce all rules use this currency. ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "USD"
+        },
+        {
           "name": "description",
           "type": "string",
           "required": false,
@@ -20745,7 +21060,8 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "description": "Currency to use for the tier, should be coming from Experience API"
+          "description": "Currency to be used for the tier. May be different from the experience currency, but enforce all rules use this currency. ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "USD"
         },
         {
           "name": "experience",
@@ -20973,6 +21289,14 @@
           "required": true,
           "attributes": [],
           "description": "Public or Private. Private ones appear as inactive/disabled to the public"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Currency to be used for the tier. May be different from the experience currency, but enforce all rules use this currency. ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "USD"
         }
       ],
       "attributes": []
@@ -21047,6 +21371,12 @@
           "name": "visibility",
           "type": "string",
           "required": true,
+          "attributes": []
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
           "attributes": []
         },
         {
@@ -21735,13 +22065,6 @@
       "plural": "transit_windows",
       "fields": [
         {
-          "name": "service_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "example: FedEx, Landmark, etc."
-        },
-        {
           "name": "origin_country",
           "type": "string",
           "required": true,
@@ -21755,17 +22078,19 @@
         },
         {
           "name": "from",
-          "type": "string",
+          "type": "long",
           "required": true,
           "attributes": [],
-          "description": "min transit"
+          "description": "min transit",
+          "minimum": 0
         },
         {
           "name": "to",
-          "type": "string",
+          "type": "long",
           "required": true,
           "attributes": [],
-          "description": "max transit"
+          "description": "max transit",
+          "minimum": 0
         }
       ],
       "attributes": []
@@ -21942,6 +22267,27 @@
           "type": "user",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "value_threshold_exceeded_details",
+      "plural": "value_threshold_exceeded_detailses",
+      "fields": [
+        {
+          "name": "local",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The actual limit in the local currency of the order"
+        },
+        {
+          "name": "original",
+          "type": "price",
+          "required": true,
+          "attributes": [],
+          "description": "The actual limit in the original currency in which the rule was defined. For example, Canada may restrict exports over CA$2000 - this value would be set to 2000"
         }
       ],
       "attributes": []
@@ -26469,6 +26815,69 @@
           "description": "Delete an order. Note that production orders that have already been submitted cannot be deleted (you will see a 422 response in these cases)."
         },
         {
+          "method": "POST",
+          "path": "/:organization/orders/:number/authorizations",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "card"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "authorization",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Creates an authorization, automatically associating to this order.",
+          "body": {
+            "type": "authorization_form",
+            "attributes": []
+          }
+        },
+        {
           "method": "PUT",
           "path": "/:organization/orders/:number/cancellations",
           "parameters": [
@@ -26776,7 +27185,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/orders/identifier/:identifier_number",
+          "path": "/:organization/orders/identifier/:identifier",
           "parameters": [
             {
               "name": "organization",
@@ -26786,7 +27195,7 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "identifier_number",
+              "name": "identifier",
               "type": "string",
               "location": "Path",
               "required": true
@@ -26987,6 +27396,56 @@
           ],
           "attributes": [],
           "description": "Returns the current fraud status for this order"
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/orders/:number/labels",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shipping_label",
+              "description": "Operation succeeded and the resource was created"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+            }
+          ],
+          "attributes": [],
+          "description": "Generate a shipping label given only an order number for the organziation. This will assume all items in the order will be shipped and that there are no updates to the contact or destination address information."
         }
       ],
       "attributes": [
@@ -27293,7 +27752,7 @@
               "maximum": 100
             },
             {
-              "name": "number",
+              "name": "identifier",
               "type": "[string]",
               "location": "Query",
               "required": false,
@@ -27371,7 +27830,7 @@
                     "value": "id"
                   },
                   {
-                    "value": "number"
+                    "value": "identifier"
                   },
                   {
                     "value": "order_number"
@@ -27442,7 +27901,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/order-identifiers/:number",
+          "path": "/:organization/order-identifiers/:identifier",
           "parameters": [
             {
               "name": "organization",
@@ -27452,7 +27911,7 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "number",
+              "name": "identifier",
               "type": "string",
               "location": "Path",
               "required": true
@@ -27491,7 +27950,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/order-identifiers/:number",
+          "path": "/:organization/order-identifiers/:identifier",
           "parameters": [
             {
               "name": "organization",
@@ -27501,7 +27960,7 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "number",
+              "name": "identifier",
               "type": "string",
               "location": "Path",
               "required": true
@@ -27562,7 +28021,7 @@
         },
         {
           "method": "DELETE",
-          "path": "/:organization/order-identifiers/:number",
+          "path": "/:organization/order-identifiers/:identifier",
           "parameters": [
             {
               "name": "organization",
@@ -27572,7 +28031,7 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "number",
+              "name": "identifier",
               "type": "string",
               "location": "Path",
               "required": true
@@ -27626,20 +28085,6 @@
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "number",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "order_number",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
               "maximum": 100
             },
             {
@@ -27730,7 +28175,7 @@
         }
       ],
       "path": "/:organization/order-identifiers",
-      "description": "Represents alternate numbers with which to identify an order."
+      "description": "Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders."
     },
     {
       "type": "order_promotion",
@@ -42322,120 +42767,6 @@
       ],
       "path": "/:organization/tracking-labels",
       "description": "Represents a specific label being tracked as part of the tracking bucket"
-    },
-    {
-      "type": "transit_window",
-      "plural": "transit_windows",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/transit-windows",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[transit_window]",
-              "description": "Successful response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "versions"
-                ]
-              }
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "logistics"
-          }
-        }
-      ],
-      "path": "/:organization/transit-windows"
     },
     {
       "type": "webhook",
