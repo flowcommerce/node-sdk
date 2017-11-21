@@ -49,10 +49,10 @@ export default class Orders extends Client {
     });
   }
 
-  putCancellationsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/cancellations`, {
+  postInstallmentAndPlanAndAuthorizationsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/installment/plan/authorizations`, {
       ...options,
-       method: 'PUT',
+       method: 'POST',
     });
   }
 
@@ -65,13 +65,6 @@ export default class Orders extends Client {
 
   putSubmissionsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
-  putUpdatesByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/updates`, {
       ...options,
        method: 'PUT',
     });

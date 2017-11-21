@@ -44,8 +44,9 @@ These resources mirror the official documentation located at
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
 | [reversals](reversals.md) | A reversal is used to clear an authorization (full or partial). |
+| [virtualCards](virtualCards.md) | Virtual card details |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
-| [deliveryWindows](deliveryWindows.md) |  |
+| [deliveryWindows](deliveryWindows.md) | Flow&#x27;s estimate of when a shipment for this delivery will actually arrive at the final destination, taking into account a shipment estimate, center schedules, and carrier transit windows. |
 | [inventoryRules](inventoryRules.md) | Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization |
 | [inventorySnapshots](inventorySnapshots.md) | Inventory snapshot reflects the current quantity and available number of units for a given center / item |
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
@@ -76,6 +77,7 @@ These resources mirror the official documentation located at
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
 | [feeds](feeds.md) | Describes types of feeds that may be produced by Flow. |
+| [fulfillments](fulfillments.md) | Used to track and manage the fulfillment of an order. |
 | [healthchecks](healthchecks.md) |  |
 | [imports](imports.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |

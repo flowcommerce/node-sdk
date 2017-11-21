@@ -109,6 +109,13 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/promotions/available`, options);
   }
 
+  putStatusByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/status`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getConversionsByBaseAndAmount(organization, base, amount, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/conversions/${base}/${amount}`, options);
   }

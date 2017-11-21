@@ -61,6 +61,21 @@ const authorizations = client().authorizations;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
+##`putByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
 ##`deleteByKey(organization, key, options = {})`
 
 ### Function Parameters

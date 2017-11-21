@@ -1,6 +1,6 @@
 # [API](README.md).deliveryWindows - Flow Commerce API - Node SDK Documentation
 
-
+Flow&#x27;s estimate of when a shipment for this delivery will actually arrive at the final destination, taking into account a shipment estimate, center schedules, and carrier transit windows.
 
 ## Usage
 

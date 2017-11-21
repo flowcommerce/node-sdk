@@ -28,6 +28,13 @@ export default class Authorizations extends Client {
     return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, options);
   }
 
+  putByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   deleteByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, {
       ...options,
