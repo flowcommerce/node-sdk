@@ -44,6 +44,26 @@ const experiences = client().experiences;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`getCurrencyAndFormatsByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+
+##`putCurrencyAndFormatsByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+
 ##`getMarginsByExperienceKey(organization, experienceKey, options = {})`
 
 ### Function Parameters

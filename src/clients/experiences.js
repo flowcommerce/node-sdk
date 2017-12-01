@@ -24,6 +24,17 @@ export default class Experiences extends Client {
     });
   }
 
+  getCurrencyAndFormatsByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/currency/formats`, options);
+  }
+
+  putCurrencyAndFormatsByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/currency/formats`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getMarginsByExperienceKey(organization, experienceKey, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins`, options);
   }

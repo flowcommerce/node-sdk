@@ -11,6 +11,8 @@ import OrderIdentifiers from './order-identifiers';
 import OrderPromotions from './order-promotions';
 import Organizations from './organizations';
 import PaymentMethodRules from './payment-method-rules';
+import PriceBooks from './price-books';
+import PriceBookItems from './price-book-items';
 import Queries from './queries';
 import Subcatalogs from './subcatalogs';
 import SubcatalogItems from './subcatalog-items';
@@ -105,13 +107,15 @@ const enums = {
   cardType: ['american_express', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   changeType: ['insert', 'update', 'delete'],
   creditPaymentErrorCode: ['generic_error', 'invalid_order_number', 'invalid_currency', 'invalid_description', 'duplicate', 'amount_must_be_positive', 'amount_exceeds_balance', 'insufficient_amount'],
+  currencyLabelFormatter: ['strip_trailing_zeros'],
+  currencySymbolFormat: ['narrow', 'primary'],
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   dayOfWeek: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
   deliveredDuty: ['paid', 'unpaid'],
   deliveryWindowComponentSource: ['flow', 'organization', 'carrier', 'center'],
   direction: ['outbound', 'return'],
   environment: ['sandbox', 'production'],
-  eventType: ['attribute_upserted', 'attribute_deleted', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted', 'allocation_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'order_identifier_deleted_v2', 'order_identifier_upserted_v2', 'pricing_deleted', 'pricing_upserted', 'tier_upserted', 'tier_deleted', 'delivery_option_upserted', 'delivery_option_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'fully_harmonized_item_upserted', 'rule_upserted', 'rule_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'reversal_upserted', 'organization_rates_published', 'organization_countries_published', 'organization_ratecard_transit_windows_published', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
+  eventType: ['attribute_upserted', 'attribute_deleted', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted', 'allocation_upserted', 'currency_format_deleted', 'currency_format_upserted', 'experience_deleted', 'experience_upserted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'order_identifier_deleted_v2', 'order_identifier_upserted_v2', 'pricing_deleted', 'pricing_upserted', 'fraud_status_changed', 'tier_upserted', 'tier_deleted', 'delivery_option_upserted', 'delivery_option_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'fully_harmonized_item_upserted', 'rule_upserted', 'rule_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'reversal_upserted', 'price_book_upserted', 'price_book_deleted', 'price_book_item_upserted', 'price_book_item_deleted', 'organization_rates_published', 'organization_countries_published', 'organization_ratecard_transit_windows_published', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   experiencePaymentMethodTag: ['display'],
   experienceStatus: ['draft', 'active', 'archived'],
@@ -204,6 +208,8 @@ export default class ApiClient {
     this.orderPromotions = new OrderPromotions(options);
     this.organizations = new Organizations(options);
     this.paymentMethodRules = new PaymentMethodRules(options);
+    this.priceBooks = new PriceBooks(options);
+    this.priceBookItems = new PriceBookItems(options);
     this.queries = new Queries(options);
     this.subcatalogs = new Subcatalogs(options);
     this.subcatalogItems = new SubcatalogItems(options);

@@ -20,6 +20,8 @@ These resources mirror the official documentation located at
 | [orderPromotions](orderPromotions.md) |  |
 | [organizations](organizations.md) |  |
 | [paymentMethodRules](paymentMethodRules.md) | Returns payment methods that are enabled for an organization and available for the provided country and currency. |
+| [priceBooks](priceBooks.md) |  |
+| [priceBookItems](priceBookItems.md) |  |
 | [queries](queries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
