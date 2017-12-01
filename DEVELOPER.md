@@ -10,3 +10,4 @@
     go run release.go
 
 NOTE: Do not use `npm version` to release. It does not work well with release script.
+NOTE: You need schema evolution manager which can be found [here](https://github.com/mbryzek/schema-evolution-manager)
