@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.4.42",
+  "version": "0.4.50",
   "info": {
     "license": {
       "name": "MIT",
@@ -72,6 +72,11 @@
           "name": "brand",
           "attributes": [],
           "description": "Attributes with this data type imply that this is the brand name of the item for retailers that sell multiple brands"
+        },
+        {
+          "name": "checkout_content",
+          "attributes": [],
+          "description": "Checkout content attributes are included in the item content when rendered for the checkout context."
         },
         {
           "name": "fulfillment_method",
@@ -634,6 +639,11 @@
         {
           "name": "center",
           "attributes": []
+        },
+        {
+          "name": "mixed",
+          "attributes": [],
+          "description": "A delivery estimate may be a combination of multiple sources"
         }
       ],
       "attributes": []
@@ -682,6 +692,14 @@
         },
         {
           "name": "attribute_deleted",
+          "attributes": []
+        },
+        {
+          "name": "attribute_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "attribute_deleted_v2",
           "attributes": []
         },
         {
@@ -754,6 +772,14 @@
         },
         {
           "name": "experience_upserted",
+          "attributes": []
+        },
+        {
+          "name": "experience_price_book_mapping_deleted",
+          "attributes": []
+        },
+        {
+          "name": "experience_price_book_mapping_upserted",
           "attributes": []
         },
         {
@@ -998,6 +1024,10 @@
         },
         {
           "name": "refund_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "refund_capture_upserted_v2",
           "attributes": []
         },
         {
@@ -1269,6 +1299,23 @@
       "attributes": []
     },
     {
+      "name": "image_tag",
+      "plural": "image_tags",
+      "values": [
+        {
+          "name": "thumbnail",
+          "attributes": [],
+          "description": "Thumbnail images identify the image to use when displaying products in the Flow Console."
+        },
+        {
+          "name": "checkout",
+          "attributes": [],
+          "description": "Checkout images identify the item image to use when displaying the item in the context of a consumer checkout (e.g. cart, checkout page)."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "import_type",
       "plural": "import_types",
       "values": [
@@ -1304,6 +1351,10 @@
         },
         {
           "name": "vat_and_duty",
+          "attributes": []
+        },
+        {
+          "name": "none",
           "attributes": []
         }
       ],
@@ -1878,6 +1929,25 @@
       ],
       "attributes": [],
       "description": "The payment method type defines at a high level different user experiences that are required to accept payment of this type. By enabling a payment method type, you are specifying that you have completed the integration and all payment methods of this type become available for offer to your users."
+    },
+    {
+      "name": "price_book_status",
+      "plural": "price_book_statuses",
+      "values": [
+        {
+          "name": "draft",
+          "attributes": []
+        },
+        {
+          "name": "published",
+          "attributes": []
+        },
+        {
+          "name": "archived",
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "price_detail_component_key",
@@ -2785,11 +2855,13 @@
       "types": [
         {
           "type": "allocation_detail_component",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "allocation_detail_component"
         },
         {
           "type": "allocation_levy_component",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "allocation_levy_component"
         }
       ],
       "attributes": [],
@@ -2801,11 +2873,13 @@
       "types": [
         {
           "type": "allocation_line_detail",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "allocation_line_detail"
         },
         {
           "type": "allocation_order_detail",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "allocation_order_detail"
         }
       ],
       "attributes": [],
@@ -2817,11 +2891,13 @@
       "types": [
         {
           "type": "card_authorization",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card_authorization"
         },
         {
           "type": "online_authorization",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "online_authorization"
         }
       ],
       "attributes": [],
@@ -2834,32 +2910,38 @@
         {
           "type": "authorization_copy_form",
           "attributes": [],
-          "description": "Creates a new authorization by copying an existing one."
+          "description": "Creates a new authorization by copying an existing one.",
+          "discriminator_value": "authorization_copy_form"
         },
         {
           "type": "direct_authorization_form",
           "attributes": [],
-          "description": "Enables card payments"
+          "description": "Enables card payments",
+          "discriminator_value": "direct_authorization_form"
         },
         {
           "type": "merchant_of_record_authorization_form",
           "attributes": [],
-          "description": "Enables card payments with Flow as Merchant of Record"
+          "description": "Enables card payments with Flow as Merchant of Record",
+          "discriminator_value": "merchant_of_record_authorization_form"
         },
         {
           "type": "paypal_authorization_form",
           "attributes": [],
-          "description": "Enables authorization via PayPal"
+          "description": "Enables authorization via PayPal",
+          "discriminator_value": "paypal_authorization_form"
         },
         {
           "type": "redirect_authorization_form",
           "attributes": [],
-          "description": "Enables authorizations via redirect-based alternative payment methods, such as AliPay."
+          "description": "Enables authorizations via redirect-based alternative payment methods, such as AliPay.",
+          "discriminator_value": "redirect_authorization_form"
         },
         {
           "type": "card_authorization_form",
           "attributes": [],
-          "description": "Enables authorizations for a credit card; will eventually replace direct and merchant of record authorization forms."
+          "description": "Enables authorizations for a credit card; will eventually replace direct and merchant of record authorization forms.",
+          "discriminator_value": "card_authorization_form"
         }
       ],
       "attributes": [],
@@ -2872,11 +2954,13 @@
       "types": [
         {
           "type": "card_token_form",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card_token_form"
         },
         {
           "type": "card_form",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card_form"
         }
       ],
       "attributes": [],
@@ -2890,13 +2974,15 @@
         {
           "type": "digital_delivery",
           "attributes": [],
-          "description": "Represents items that can be delivered electronically (e.g. a gift card delivered via email)"
+          "description": "Represents items that can be delivered electronically (e.g. a gift card delivered via email)",
+          "discriminator_value": "digital_delivery"
         },
         {
           "type": "physical_delivery",
           "attributes": [],
           "description": "Represents items that are physical and require shipment",
-          "default": true
+          "default": true,
+          "discriminator_value": "physical_delivery"
         }
       ],
       "attributes": [],
@@ -2909,11 +2995,13 @@
       "types": [
         {
           "type": "deminimis_simple",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "deminimis_simple"
         },
         {
           "type": "deminimis_per_item",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "deminimis_per_item"
         }
       ],
       "attributes": [],
@@ -2926,11 +3014,13 @@
       "types": [
         {
           "type": "catalog_item_document",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "catalog_item_document"
         },
         {
           "type": "harmonization_document",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "harmonization_document"
         }
       ],
       "attributes": [],
@@ -2942,235 +3032,313 @@
       "types": [
         {
           "type": "attribute_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "attribute_upserted"
         },
         {
           "type": "attribute_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "attribute_deleted"
+        },
+        {
+          "type": "attribute_upserted_v2",
+          "attributes": [],
+          "discriminator_value": "attribute_upserted_v2"
+        },
+        {
+          "type": "attribute_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "attribute_deleted_v2"
         },
         {
           "type": "catalog_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "catalog_upserted"
         },
         {
           "type": "catalog_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "catalog_deleted"
         },
         {
           "type": "subcatalog_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "subcatalog_upserted"
         },
         {
           "type": "subcatalog_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "subcatalog_deleted"
         },
         {
           "type": "catalog_item_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "catalog_item_upserted"
         },
         {
           "type": "catalog_item_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "catalog_item_deleted"
         },
         {
           "type": "subcatalog_item_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "subcatalog_item_upserted"
         },
         {
           "type": "subcatalog_item_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "subcatalog_item_deleted"
         },
         {
           "type": "rate_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "rate_deleted"
         },
         {
           "type": "rate_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "rate_upserted"
         },
         {
           "type": "available_promotions_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "available_promotions_upserted"
         },
         {
           "type": "available_promotions_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "available_promotions_deleted"
         },
         {
           "type": "allocation_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "allocation_deleted"
         },
         {
           "type": "allocation_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "allocation_upserted"
         },
         {
           "type": "currency_format_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "currency_format_deleted"
         },
         {
           "type": "currency_format_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "currency_format_upserted"
         },
         {
           "type": "experience_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "experience_deleted"
         },
         {
           "type": "experience_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "experience_upserted"
+        },
+        {
+          "type": "experience_price_book_mapping_deleted",
+          "attributes": [],
+          "discriminator_value": "experience_price_book_mapping_deleted"
+        },
+        {
+          "type": "experience_price_book_mapping_upserted",
+          "attributes": [],
+          "discriminator_value": "experience_price_book_mapping_upserted"
         },
         {
           "type": "item_margin_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_margin_deleted"
         },
         {
           "type": "item_margin_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_margin_upserted"
         },
         {
           "type": "item_sales_margin_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_sales_margin_deleted"
         },
         {
           "type": "item_sales_margin_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_sales_margin_upserted"
         },
         {
           "type": "label_format_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "label_format_deleted"
         },
         {
           "type": "label_format_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "label_format_upserted"
         },
         {
           "type": "order_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_deleted"
         },
         {
           "type": "order_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_upserted"
         },
         {
           "type": "order_identifier_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_identifier_deleted"
         },
         {
           "type": "order_identifier_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_identifier_upserted"
         },
         {
           "type": "order_identifier_deleted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_identifier_deleted_v2"
         },
         {
           "type": "order_identifier_upserted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_identifier_upserted_v2"
         },
         {
           "type": "pricing_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "pricing_deleted"
         },
         {
           "type": "pricing_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "pricing_upserted"
         },
         {
           "type": "fraud_status_changed",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "fraud_status_changed"
         },
         {
           "type": "tier_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "tier_upserted"
         },
         {
           "type": "tier_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "tier_deleted"
         },
         {
           "type": "delivery_option_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "delivery_option_upserted"
         },
         {
           "type": "delivery_option_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "delivery_option_deleted"
         },
         {
           "type": "hs6_code_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "hs6_code_upserted"
         },
         {
           "type": "hs6_code_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "hs6_code_deleted"
         },
         {
           "type": "hs10_code_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "hs10_code_upserted"
         },
         {
           "type": "hs10_code_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "hs10_code_deleted"
         },
         {
           "type": "item_origin_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_origin_upserted"
         },
         {
           "type": "item_origin_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_origin_deleted"
         },
         {
           "type": "harmonized_item_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "harmonized_item_upserted"
         },
         {
           "type": "harmonized_item_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "harmonized_item_deleted"
         },
         {
           "type": "harmonized_landed_cost_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "harmonized_landed_cost_upserted"
         },
         {
           "type": "fully_harmonized_item_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "fully_harmonized_item_upserted"
         },
         {
           "type": "rule_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "rule_upserted"
         },
         {
           "type": "rule_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "rule_deleted"
         },
         {
           "type": "snapshot_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "snapshot_upserted"
         },
         {
           "type": "snapshot_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "snapshot_deleted"
         },
         {
           "type": "label_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "label_upserted"
         },
         {
           "type": "notification_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "notification_upserted"
         },
         {
           "type": "notification_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "notification_deleted"
         },
         {
           "type": "manifested_label_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "manifested_label_upserted"
         },
         {
           "type": "manifested_label_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "manifested_label_deleted"
         },
         {
           "type": "local_item_upserted",
@@ -3182,129 +3350,160 @@
         },
         {
           "type": "membership_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "membership_upserted"
         },
         {
           "type": "membership_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "membership_deleted"
         },
         {
           "type": "organization_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_upserted"
         },
         {
           "type": "organization_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_deleted"
         },
         {
           "type": "authorization_upserted",
           "attributes": [],
           "deprecation": {
             "description": "Use card_authorization_upserted and online_authorization_upserted"
-          }
+          },
+          "discriminator_value": "authorization_upserted"
         },
         {
           "type": "authorization_deleted",
           "attributes": [],
           "deprecation": {
             "description": "Use authorization_deleted_v2"
-          }
+          },
+          "discriminator_value": "authorization_deleted"
         },
         {
           "type": "authorization_deleted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "authorization_deleted_v2"
         },
         {
           "type": "authorization_status_changed",
           "attributes": [],
-          "description": "Trigger whenever an auth status changes (e.g. from pending to authorized). Common use case is to subscribe to this event to know when an auth is cleared from fraud review."
+          "description": "Trigger whenever an auth status changes (e.g. from pending to authorized). Common use case is to subscribe to this event to know when an auth is cleared from fraud review.",
+          "discriminator_value": "authorization_status_changed"
         },
         {
           "type": "card_authorization_upserted",
           "attributes": [],
           "deprecation": {
             "description": "Use card_authorization_upserted_v2"
-          }
+          },
+          "discriminator_value": "card_authorization_upserted"
         },
         {
           "type": "card_authorization_upserted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card_authorization_upserted_v2"
         },
         {
           "type": "online_authorization_upserted",
           "attributes": [],
           "deprecation": {
             "description": "Use online_authorization_upserted_v2"
-          }
+          },
+          "discriminator_value": "online_authorization_upserted"
         },
         {
           "type": "online_authorization_upserted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "online_authorization_upserted_v2"
         },
         {
           "type": "capture_upserted",
           "attributes": [],
           "deprecation": {
             "description": "Use capture_upserted_v2"
-          }
+          },
+          "discriminator_value": "capture_upserted"
         },
         {
           "type": "capture_upserted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "capture_upserted_v2"
         },
         {
           "type": "card_upserted",
           "attributes": [],
           "deprecation": {
             "description": "Use card_upserted_v2"
-          }
+          },
+          "discriminator_value": "card_upserted"
         },
         {
           "type": "card_upserted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card_upserted_v2"
         },
         {
           "type": "card_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card_deleted"
         },
         {
           "type": "payment_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "payment_upserted"
         },
         {
           "type": "payment_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "payment_deleted"
         },
         {
           "type": "refund_upserted",
           "attributes": [],
           "deprecation": {
             "description": "Use refund_upserted_v2"
-          }
+          },
+          "discriminator_value": "refund_upserted"
         },
         {
           "type": "refund_upserted_v2",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "refund_upserted_v2"
+        },
+        {
+          "type": "refund_capture_upserted_v2",
+          "attributes": [],
+          "discriminator_value": "refund_capture_upserted_v2"
         },
         {
           "type": "reversal_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "reversal_upserted"
         },
         {
           "type": "price_book_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "price_book_upserted"
         },
         {
           "type": "price_book_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "price_book_deleted"
         },
         {
           "type": "price_book_item_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "price_book_item_upserted"
         },
         {
           "type": "price_book_item_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "price_book_item_deleted"
         },
         {
           "type": "organization_rates_published",
@@ -3320,23 +3519,28 @@
         },
         {
           "type": "return_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "return_upserted"
         },
         {
           "type": "return_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "return_deleted"
         },
         {
           "type": "targeting_item_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "targeting_item_upserted"
         },
         {
           "type": "targeting_item_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "targeting_item_deleted"
         },
         {
           "type": "tracking_label_event_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "tracking_label_event_upserted"
         }
       ],
       "attributes": [
@@ -3355,11 +3559,13 @@
       "types": [
         {
           "type": "card",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card"
         },
         {
           "type": "card_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "card_reference"
         }
       ],
       "attributes": [],
@@ -3371,11 +3577,13 @@
       "types": [
         {
           "type": "experience",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "experience"
         },
         {
           "type": "experience_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "experience_reference"
         }
       ],
       "attributes": [],
@@ -3387,11 +3595,13 @@
       "types": [
         {
           "type": "item_function",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_function"
         },
         {
           "type": "item_function_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "item_function_reference"
         }
       ],
       "attributes": [],
@@ -3404,11 +3614,13 @@
       "types": [
         {
           "type": "order",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order"
         },
         {
           "type": "order_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_reference"
         }
       ],
       "attributes": [],
@@ -3420,11 +3632,13 @@
       "types": [
         {
           "type": "organization",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization"
         },
         {
           "type": "organization_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_reference"
         }
       ],
       "attributes": [],
@@ -3436,11 +3650,13 @@
       "types": [
         {
           "type": "subcatalog",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "subcatalog"
         },
         {
           "type": "subcatalog_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "subcatalog_reference"
         }
       ],
       "attributes": [],
@@ -3453,11 +3669,13 @@
       "types": [
         {
           "type": "user",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "user"
         },
         {
           "type": "user_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "user_reference"
         }
       ],
       "attributes": [],
@@ -3469,7 +3687,8 @@
       "types": [
         {
           "type": "export_delivery_email",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "export_delivery_email"
         }
       ],
       "attributes": [],
@@ -3482,43 +3701,53 @@
       "types": [
         {
           "type": "account_transactions_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "account_transactions_export_type"
         },
         {
           "type": "account_orders_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "account_orders_export_type"
         },
         {
           "type": "catalog_item_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "catalog_item_export_type"
         },
         {
           "type": "harmonization_overview_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "harmonization_overview_export_type"
         },
         {
           "type": "harmonization_hs6_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "harmonization_hs6_export_type"
         },
         {
           "type": "harmonization_hs10_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "harmonization_hs10_export_type"
         },
         {
           "type": "unharmonized_item_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "unharmonized_item_export_type"
         },
         {
           "type": "order_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "order_export_type"
         },
         {
           "type": "solidus_product_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "solidus_product_export_type"
         },
         {
           "type": "solidus_variant_export_type",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "solidus_variant_export_type"
         }
       ],
       "attributes": [],
@@ -3532,7 +3761,8 @@
         {
           "type": "catalog_feed",
           "attributes": [],
-          "description": "A localized product catalog."
+          "description": "A localized product catalog.",
+          "discriminator_value": "catalog_feed"
         }
       ],
       "attributes": [],
@@ -3546,7 +3776,8 @@
         {
           "type": "phrase_hint_form",
           "attributes": [],
-          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system. Hints of this type must provide an exact match and will never return more than one result."
+          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system. Hints of this type must provide an exact match and will never return more than one result.",
+          "discriminator_value": "phrase_hint_form"
         }
       ],
       "attributes": [],
@@ -3560,17 +3791,20 @@
         {
           "type": "inventory_backorder",
           "attributes": [],
-          "description": "Enables backorders, setting an optional number of units that we allow for backorder. For example, a backorder w/ quantity 10 will enable selling until the actual inventory quantity is -10."
+          "description": "Enables backorders, setting an optional number of units that we allow for backorder. For example, a backorder w/ quantity 10 will enable selling until the actual inventory quantity is -10.",
+          "discriminator_value": "inventory_backorder"
         },
         {
           "type": "inventory_stock",
           "attributes": [],
-          "description": "Treats inventory as available as long as the actual inventory quantity is > the specified quantity. A common use case is to set quantity to zero to indicate availability as long as there is at least 1 unit available."
+          "description": "Treats inventory as available as long as the actual inventory quantity is > the specified quantity. A common use case is to set quantity to zero to indicate availability as long as there is at least 1 unit available.",
+          "discriminator_value": "inventory_stock"
         },
         {
           "type": "inventory_unlimited",
           "attributes": [],
-          "description": "Items affected with rules pursuing an unlimited strategy will always be available"
+          "description": "Items affected with rules pursuing an unlimited strategy will always be available",
+          "discriminator_value": "inventory_unlimited"
         }
       ],
       "attributes": [],
@@ -3583,19 +3817,23 @@
       "types": [
         {
           "type": "localized_item_price",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "localized_item_price"
         },
         {
           "type": "localized_item_vat",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "localized_item_vat"
         },
         {
           "type": "localized_item_duty",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "localized_item_duty"
         },
         {
           "type": "localized_total",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "localized_total"
         }
       ],
       "attributes": [
@@ -3617,11 +3855,13 @@
       "types": [
         {
           "type": "paypal_authorization_details",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "paypal_authorization_details"
         },
         {
           "type": "redirect_authorization_details",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "redirect_authorization_details"
         }
       ],
       "attributes": [],
@@ -3633,7 +3873,8 @@
       "types": [
         {
           "type": "free_shipping_order_promotion",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "free_shipping_order_promotion"
         }
       ],
       "attributes": [],
@@ -3645,7 +3886,8 @@
       "types": [
         {
           "type": "free_shipping_order_promotion_form",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "free_shipping_order_promotion_form"
         }
       ],
       "attributes": [],
@@ -3657,7 +3899,8 @@
       "types": [
         {
           "type": "payment_paypal",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "payment_paypal"
         }
       ],
       "attributes": [],
@@ -3673,7 +3916,8 @@
       "types": [
         {
           "type": "merchant_of_record_payment_form",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "merchant_of_record_payment_form"
         }
       ],
       "attributes": [],
@@ -3686,11 +3930,13 @@
       "types": [
         {
           "type": "organization_payment_method_tag",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_payment_method_tag"
         },
         {
           "type": "experience_payment_method_tag",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "experience_payment_method_tag"
         }
       ],
       "attributes": [],
@@ -3702,11 +3948,27 @@
       "types": [
         {
           "type": "free_shipping",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "free_shipping"
         }
       ],
       "attributes": [],
       "discriminator": "discriminator"
+    },
+    {
+      "name": "reservation_error",
+      "plural": "reservation_errors",
+      "types": [
+        {
+          "type": "no_inventory_reservation_error",
+          "attributes": [],
+          "description": "Inventory is not available for all or subset of item quantities requested",
+          "discriminator_value": "no_inventory"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "code",
+      "description": "Types of failed inventory reservation reasons"
     },
     {
       "name": "session",
@@ -3714,7 +3976,8 @@
       "types": [
         {
           "type": "organization_session",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_session"
         }
       ],
       "attributes": [],
@@ -3726,7 +3989,8 @@
       "types": [
         {
           "type": "organization_session_authorization",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_session_authorization"
         }
       ],
       "attributes": [],
@@ -3739,20 +4003,24 @@
         {
           "type": "amount_margin",
           "attributes": [],
-          "description": "Add a certain amount on the actual base cost"
+          "description": "Add a certain amount on the actual base cost",
+          "discriminator_value": "amount_margin"
         },
         {
           "type": "at_cost",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "at_cost"
         },
         {
           "type": "flat_rate",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "flat_rate"
         },
         {
           "type": "percent_margin",
           "attributes": [],
-          "description": "Add a certain percentage of the actual base cost"
+          "description": "Add a certain percentage of the actual base cost",
+          "discriminator_value": "percent_margin"
         }
       ],
       "attributes": [],
@@ -3765,19 +4033,23 @@
       "types": [
         {
           "type": "amount_margin_form",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "amount_margin_form"
         },
         {
           "type": "flat_rate_form",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "flat_rate_form"
         },
         {
           "type": "at_cost",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "at_cost"
         },
         {
           "type": "percent_margin",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "percent_margin"
         }
       ],
       "attributes": [],
@@ -3789,11 +4061,13 @@
       "types": [
         {
           "type": "organization_token",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_token"
         },
         {
           "type": "partner_token",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "partner_token"
         }
       ],
       "attributes": [],
@@ -3805,11 +4079,13 @@
       "types": [
         {
           "type": "organization_token_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "organization_token_reference"
         },
         {
           "type": "partner_token_reference",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "partner_token_reference"
         }
       ],
       "attributes": [],
@@ -4502,6 +4778,13 @@
           "attributes": [],
           "description": "Optionally tag attributes with their data type so they are properly validated. If omitted, we will default to string",
           "example": "string"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "minimum": 0
         }
       ],
       "attributes": [],
@@ -4535,6 +4818,39 @@
           "type": "string",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "attribute_deleted_v2",
+      "plural": "attribute_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
         }
       ],
       "attributes": []
@@ -4581,6 +4897,14 @@
           "attributes": [],
           "description": "Optionally tag attributes with their data type so they are properly validated. If omitted, we will default to string",
           "example": "string"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "The position of this attribute in the set of attributes. If not specified, will default to last",
+          "minimum": 0
         }
       ],
       "attributes": []
@@ -4629,6 +4953,38 @@
         {
           "name": "type",
           "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "attribute_upserted_v2",
+      "plural": "attribute_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "attribute",
+          "type": "attribute",
           "required": true,
           "attributes": []
         }
@@ -6941,6 +7297,66 @@
       "attributes": []
     },
     {
+      "name": "checkout_item_content",
+      "plural": "checkout_item_contents",
+      "fields": [
+        {
+          "name": "item",
+          "type": "item",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "attributes",
+          "type": "[checkout_item_content_attribute]",
+          "required": true,
+          "attributes": [],
+          "description": "Returns a list of item attributes w/ intent 'checkout_content'",
+          "minimum": 0
+        },
+        {
+          "name": "image",
+          "type": "image",
+          "required": false,
+          "attributes": [],
+          "description": "Provides the primary image to use in checkout. This image will be selected by finding the item image with tag 'checkout', defaulting to another available image if there is one."
+        }
+      ],
+      "attributes": [],
+      "description": "A Checkout Item Content provides information about an item to support rendering of that item in the context of checkout"
+    },
+    {
+      "name": "checkout_item_content_attribute",
+      "plural": "checkout_item_content_attributes",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "cleartext",
       "plural": "cleartexts",
       "fields": [
@@ -8725,6 +9141,126 @@
       "attributes": []
     },
     {
+      "name": "experience_price_book_mapping",
+      "plural": "experience_price_book_mappings",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "experience",
+          "type": "experience_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "price_book",
+          "type": "price_book_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "description": "Position of this experience price book mapping. Lower position indicates experience price book mapping should be considered first.",
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "experience_price_book_mapping_deleted",
+      "plural": "experience_price_book_mapping_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "experience_price_book_mapping_form",
+      "plural": "experience_price_book_mapping_forms",
+      "fields": [
+        {
+          "name": "price_book_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Position of this experience price book mapping. Lower position indicates experience price book mapping should be considered first.",
+          "minimum": 0
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "experience_price_book_mapping_upserted",
+      "plural": "experience_price_book_mapping_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "experience_price_book_mapping",
+          "type": "experience_price_book_mapping",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "experience_reference",
       "plural": "experience_references",
       "fields": [
@@ -9338,7 +9874,7 @@
         },
         {
           "name": "center",
-          "type": "[center_summary]",
+          "type": "center_summary",
           "required": false,
           "attributes": [],
           "description": "The fulfillment center we expect this order to be fulfilled from."
@@ -10710,7 +11246,7 @@
         },
         {
           "name": "tags",
-          "type": "[string]",
+          "type": "[image_tag]",
           "required": true,
           "attributes": [],
           "description": "Tags can be used to identify the type of image being sent",
@@ -10734,10 +11270,10 @@
         },
         {
           "name": "tags",
-          "type": "[string]",
+          "type": "[image_tag]",
           "required": false,
           "attributes": [],
-          "description": "Optional tags that can keep track of which image this is"
+          "description": "Optional tags that can keep track of the primary purpose of this image throughout the Flow platform."
         }
       ],
       "attributes": [],
@@ -12669,6 +13205,20 @@
           "type": "object",
           "required": false,
           "attributes": []
+        },
+        {
+          "name": "order_identifier",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The order identifier this label is associated with. Will be blank if not specified when a label was created."
+        },
+        {
+          "name": "fulfillment_key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The key of a fulfillment this label is associated with. Will be blank if not specified when a label was created."
         }
       ],
       "attributes": []
@@ -13667,6 +14217,20 @@
           "type": "string",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "order_identifier",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The order identifier this label is associated with. Will be blank if not specified when a label was created."
+        },
+        {
+          "name": "fulfillment_key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The key of a fulfillment this label is associated with. Will be blank if not specified when a label was created."
         }
       ],
       "attributes": []
@@ -14059,6 +14623,52 @@
           "name": "last",
           "type": "string",
           "required": false,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "no_inventory_reservation_error",
+      "plural": "no_inventory_reservation_errors",
+      "fields": [
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        },
+        {
+          "name": "items",
+          "type": "[no_inventory_reservation_error_item]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "no_inventory_reservation_error_item",
+      "plural": "no_inventory_reservation_error_items",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "requested_quantity",
+          "type": "long",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "available_quantity",
+          "type": "long",
+          "required": true,
           "attributes": []
         }
       ],
@@ -17388,6 +17998,13 @@
           "description": "A unique string that identifies a price book within Flow."
         },
         {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "A unique string that identifies a price book within an organization, which defaults to the id if none is set."
+        },
+        {
           "name": "currency",
           "type": "string",
           "required": true,
@@ -17402,11 +18019,18 @@
           "description": "A display name for the price book."
         },
         {
-          "name": "key",
-          "type": "string",
+          "name": "includes",
+          "type": "included_levies",
           "required": true,
           "attributes": [],
-          "description": "A unique string that identifies a price book within an organization, which defaults to the id if none is set."
+          "description": "Describes which levies are included in the price book item prices."
+        },
+        {
+          "name": "status",
+          "type": "price_book_status",
+          "required": true,
+          "attributes": [],
+          "description": "Represents the status of a price book within Flow."
         }
       ],
       "attributes": [],
@@ -17469,6 +18093,21 @@
           "required": false,
           "attributes": [],
           "description": "A unique string that identifies a price book within an organization, which defaults to the id if none is set."
+        },
+        {
+          "name": "includes",
+          "type": "included_levies",
+          "required": true,
+          "attributes": [],
+          "description": "Describes which levies are included in the price book item prices."
+        },
+        {
+          "name": "status",
+          "type": "price_book_status",
+          "required": true,
+          "attributes": [],
+          "description": "Represents the status of a price book within Flow.",
+          "default": "draft"
         }
       ],
       "attributes": [],
@@ -17505,11 +18144,11 @@
           "description": "Corresponds with the product id from the ingested price book."
         },
         {
-          "name": "includes",
-          "type": "included_levies",
-          "required": false,
+          "name": "schedule",
+          "type": "price_book_item_schedule",
+          "required": true,
           "attributes": [],
-          "description": "Describes which levies are included in the price, if any."
+          "description": "The schedule used to indicate when the price applies to the price book item."
         }
       ],
       "attributes": [],
@@ -17573,15 +18212,30 @@
           "description": "Corresponds with the unique product id from the ingested price book."
         },
         {
-          "name": "includes",
-          "type": "included_levies",
-          "required": false,
+          "name": "schedule",
+          "type": "price_book_item_schedule",
+          "required": true,
           "attributes": [],
-          "description": "Describes which levies are included in the price, if any."
+          "description": "The schedule used to indicate when the price applies to the price book item."
         }
       ],
       "attributes": [],
       "description": "Represents the form to create an item in a pricebook."
+    },
+    {
+      "name": "price_book_item_schedule",
+      "plural": "price_book_item_schedules",
+      "fields": [
+        {
+          "name": "starts_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "The date and time for the price to take effect. If not provided, value will be set to the current date and time."
+        }
+      ],
+      "attributes": [],
+      "description": "Represents schedule applied to a price book item"
     },
     {
       "name": "price_book_item_upserted",
@@ -17625,6 +18279,12 @@
           "required": true,
           "attributes": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -18799,7 +19459,7 @@
         },
         {
           "name": "captures",
-          "type": "[refund_capture]",
+          "type": "[refund_capture_summary]",
           "required": true,
           "attributes": [],
           "description": "The specific captures and the amounts refunded against each to match the total refund amount.",
@@ -18827,6 +19487,55 @@
       "plural": "refund_captures",
       "fields": [
         {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "refund",
+          "type": "refund",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "capture",
+          "type": "capture",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "description": "The amount refunded against this capture, in the currency of the refund",
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Refund captures provide the detailed information on the amount refunded against a specific capture"
+    },
+    {
+      "name": "refund_capture_summary",
+      "plural": "refund_capture_summaries",
+      "fields": [
+        {
           "name": "capture",
           "type": "capture",
           "required": true,
@@ -18843,6 +19552,45 @@
       ],
       "attributes": [],
       "description": "Refund captures provide the detailed information on the amount refunded against a specific capture"
+    },
+    {
+      "name": "refund_capture_upserted_v2",
+      "plural": "refund_capture_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "refund_capture",
+          "type": "refund_capture",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "refund_error",
@@ -19274,6 +20022,126 @@
           "type": "availability_status",
           "required": true,
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reservation",
+      "plural": "reservations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order",
+          "type": "reservation_order_reference",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "items",
+          "type": "[reservation_item]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "Inventory reservation for a set of items in organization that potentially expires at specified date/time"
+    },
+    {
+      "name": "reservation_form",
+      "plural": "reservation_forms",
+      "fields": [
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "items",
+          "type": "[reservation_item_form]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reservation_item",
+      "plural": "reservation_items",
+      "fields": [
+        {
+          "name": "item",
+          "type": "reservation_item_reference",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reservation_item_form",
+      "plural": "reservation_item_forms",
+      "fields": [
+        {
+          "name": "item_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reservation_item_reference",
+      "plural": "reservation_item_references",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "reservation_order_reference",
+      "plural": "reservation_order_references",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
         }
       ],
       "attributes": []
@@ -20644,6 +21512,20 @@
           "deprecation": {
             "description": "Use label.png"
           }
+        },
+        {
+          "name": "order_identifier",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The order identifier this label is associated with. Will be blank if not specified when a label was created."
+        },
+        {
+          "name": "fulfillment_key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The key of a fulfillment this label is associated with. Will be blank if not specified when a label was created."
         }
       ],
       "attributes": [],
@@ -24038,7 +24920,7 @@
               "type": "string",
               "location": "Query",
               "required": true,
-              "default": "key"
+              "default": "position"
             }
           ],
           "responses": [
@@ -24083,6 +24965,9 @@
                   },
                   {
                     "value": "key"
+                  },
+                  {
+                    "value": "position"
                   },
                   {
                     "value": "created_at"
@@ -24863,6 +25748,116 @@
         }
       ],
       "path": "/:organization"
+    },
+    {
+      "type": "checkout_item_content",
+      "plural": "checkout_item_contents",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:experience_key/item/content/checkout",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "number",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[checkout_item_content]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "sort",
+                  "get"
+                ]
+              }
+            },
+            {
+              "name": "non-crud",
+              "value": {}
+            }
+          ],
+          "description": "Returns a localized view of 1 or more items in the context of checkout, returning data specifically related to rendering a view of an item in a cart or checkout page."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/experiences/:experience_key/item/content",
+      "description": "A Checkout Item Content provides information about an item to support rendering of that item in the context of checkout"
     },
     {
       "type": "credit_payment",
@@ -26451,6 +27446,335 @@
             "type": "[experience_payment_method_rule_form]",
             "attributes": []
           }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:experience_key/price/books",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "price_book_key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "position"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[experience_price_book_mapping]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "created_at"
+                  },
+                  {
+                    "value": "position"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "sort_parameter_default",
+                  "versions"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/experiences/:experience_key/price/books",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "experience_price_book_mapping",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "experience_price_book_mapping",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "experience_price_book_mapping_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/experiences/:experience_key/price/books/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "experience_price_book_mapping",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/experiences/:experience_key/price/books/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "experience_key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
         },
         {
           "method": "GET",
@@ -29004,7 +30328,8 @@
                 }
               },
               "type": "order_fraud_status",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -29013,7 +30338,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -29022,7 +30348,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -29144,6 +30471,15 @@
               "required": false,
               "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
               "example": "en"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -29197,7 +30533,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/order-estimates/:id",
+          "path": "/:organization/order-estimates/:number",
           "parameters": [
             {
               "name": "organization",
@@ -29207,11 +30543,19 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "number",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -29250,7 +30594,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/order-estimates/:id",
+          "path": "/:organization/order-estimates/:number",
           "parameters": [
             {
               "name": "organization",
@@ -29260,11 +30604,10 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "id",
+              "name": "number",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             },
             {
               "name": "experience",
@@ -29302,6 +30645,15 @@
               "required": false,
               "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available)",
               "example": "en"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
             }
           ],
           "responses": [
@@ -30125,7 +31477,8 @@
                 }
               },
               "type": "[organization]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30134,7 +31487,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -30169,7 +31523,8 @@
                 }
               },
               "type": "organization",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -30178,7 +31533,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30187,7 +31543,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -30216,7 +31573,8 @@
                 }
               },
               "type": "organization",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30225,7 +31583,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30234,7 +31593,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -30259,7 +31619,8 @@
                 }
               },
               "type": "organization",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30268,7 +31629,8 @@
                 }
               },
               "type": "organization",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -30277,7 +31639,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30286,7 +31649,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -30315,7 +31679,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -30324,7 +31689,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30333,7 +31699,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -30358,7 +31725,8 @@
                 }
               },
               "type": "[currency]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30367,7 +31735,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30376,7 +31745,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -30411,7 +31781,8 @@
                 }
               },
               "type": "[region_setting]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30420,7 +31791,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30429,7 +31801,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -30470,7 +31843,8 @@
                 }
               },
               "type": "region_setting",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30479,7 +31853,8 @@
                 }
               },
               "type": "region_setting",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -30488,7 +31863,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30497,7 +31873,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -30532,7 +31909,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -30541,7 +31919,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30550,7 +31929,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -30575,7 +31955,8 @@
                 }
               },
               "type": "[country]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30584,7 +31965,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -30593,7 +31975,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -30664,7 +32047,8 @@
                 }
               },
               "type": "[organization_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -30673,7 +32057,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -31546,7 +32931,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/price/books/:key/items/:item_number",
+          "path": "/:organization/price/books/:key/items/:id",
           "parameters": [
             {
               "name": "organization",
@@ -31562,10 +32947,11 @@
               "required": true
             },
             {
-              "name": "item_number",
+              "name": "id",
               "type": "string",
               "location": "Path",
-              "required": true
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
             }
           ],
           "responses": [
@@ -31605,7 +32991,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/price/books/:key/items/:item_number",
+          "path": "/:organization/price/books/:key/items/:id",
           "parameters": [
             {
               "name": "organization",
@@ -31621,10 +33007,11 @@
               "required": true
             },
             {
-              "name": "item_number",
+              "name": "id",
               "type": "string",
               "location": "Path",
-              "required": true
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
             }
           ],
           "responses": [
@@ -31678,7 +33065,7 @@
         },
         {
           "method": "DELETE",
-          "path": "/:organization/price/books/:key/items/:item_number",
+          "path": "/:organization/price/books/:key/items/:id",
           "parameters": [
             {
               "name": "organization",
@@ -31694,10 +33081,11 @@
               "required": true
             },
             {
-              "name": "item_number",
+              "name": "id",
               "type": "string",
               "location": "Path",
-              "required": true
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
             }
           ],
           "responses": [
@@ -42514,6 +43902,247 @@
       "description": "Represents a collection of deliveries and available options for fulfillment of that delivery"
     },
     {
+      "type": "reservation",
+      "plural": "reservations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/:organization/inventory/reservation",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "reservation",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "no_inventory_reservation_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "reservation_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/inventory/reservation/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "reservation",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "sort_parameter_default",
+                  "id",
+                  "limit",
+                  "offset",
+                  "sort",
+                  "versions"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/inventory/reservation/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "reservation",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "no_inventory_reservation_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "reservation_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/inventory/reservation/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/inventory/reservation",
+      "description": "Inventory reservation for a set of items in organization that potentially expires at specified date/time"
+    },
+    {
       "type": "return",
       "plural": "returns",
       "operations": [
@@ -42606,7 +44235,8 @@
                 }
               },
               "type": "[return]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -42615,7 +44245,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -42624,7 +44255,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -42678,7 +44310,8 @@
                 }
               },
               "type": "return",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -42687,7 +44320,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -42696,7 +44330,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -42731,7 +44366,8 @@
                 }
               },
               "type": "return",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -42740,7 +44376,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -42749,7 +44386,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -42780,7 +44418,8 @@
                 }
               },
               "type": "return",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -42789,7 +44428,8 @@
                 }
               },
               "type": "return",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -42798,7 +44438,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -42807,7 +44448,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -42816,7 +44458,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -42851,7 +44494,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -42860,7 +44504,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -42869,7 +44514,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -42878,7 +44524,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -42944,7 +44591,8 @@
                 }
               },
               "type": "[return_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -42953,7 +44601,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -42962,7 +44611,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -43150,6 +44800,12 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "show_commercial_invoice",
+              "type": "boolean",
+              "location": "Query",
+              "required": false
             }
           ],
           "responses": [
@@ -45119,7 +46775,8 @@
                 }
               },
               "type": "[tracking]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45128,7 +46785,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -45164,7 +46822,8 @@
                 }
               },
               "type": "tracking",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -45173,7 +46832,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -45182,7 +46842,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -45252,7 +46913,8 @@
                 }
               },
               "type": "[tracking_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45261,7 +46923,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -45303,7 +46966,8 @@
                 }
               },
               "type": "tracking",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45312,7 +46976,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -45321,7 +46986,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -45411,7 +47077,8 @@
                 }
               },
               "type": "[tracking_event]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45420,7 +47087,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -45472,7 +47140,8 @@
                 }
               },
               "type": "tracking_event",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45481,7 +47150,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -45490,7 +47160,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -45556,7 +47227,8 @@
                 }
               },
               "type": "[tracking_event_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45565,7 +47237,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -45663,7 +47336,8 @@
                 }
               },
               "type": "[tracking_label]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45672,7 +47346,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -45711,7 +47386,8 @@
                 }
               },
               "type": "tracking_label",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -45720,7 +47396,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -45729,7 +47406,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -45765,7 +47443,8 @@
                 }
               },
               "type": "tracking_label",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45774,7 +47453,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -45783,7 +47463,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -45849,7 +47530,8 @@
                 }
               },
               "type": "[tracking_label_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45858,7 +47540,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -45947,7 +47630,8 @@
                 }
               },
               "type": "[webhook]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -45956,7 +47640,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -45965,7 +47650,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46006,7 +47692,8 @@
                 }
               },
               "type": "webhook",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -46015,7 +47702,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46024,7 +47712,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -46033,7 +47722,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46070,7 +47760,8 @@
                 }
               },
               "type": "webhook",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46079,7 +47770,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46088,7 +47780,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46121,7 +47814,8 @@
                 }
               },
               "type": "webhook",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46130,7 +47824,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46139,7 +47834,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -46148,7 +47844,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46185,7 +47882,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -46194,7 +47892,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46203,7 +47902,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46229,7 +47929,8 @@
                 }
               },
               "type": "webhook_settings",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46238,7 +47939,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46247,7 +47949,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46278,7 +47981,8 @@
                 }
               },
               "type": "webhook_settings",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46287,7 +47991,8 @@
                 }
               },
               "type": "webhook_settings",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -46296,7 +48001,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46305,7 +48011,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -46314,7 +48021,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46399,7 +48107,8 @@
                 }
               },
               "type": "[webhook_delivery]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46408,7 +48117,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46417,7 +48127,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46471,7 +48182,8 @@
                 }
               },
               "type": "webhook_delivery",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46480,7 +48192,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46489,7 +48202,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46522,7 +48236,8 @@
                 }
               },
               "type": "webhook_request",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -46531,7 +48246,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46540,7 +48256,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -46549,7 +48266,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46598,7 +48316,8 @@
                 }
               },
               "type": "[address]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46607,7 +48326,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46616,7 +48336,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -46625,7 +48346,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46653,7 +48375,8 @@
                 }
               },
               "type": "address_verification",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46662,7 +48385,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46671,7 +48395,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -46730,7 +48455,8 @@
                 }
               },
               "type": "[country_defaults]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46739,7 +48465,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46748,7 +48475,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -46757,7 +48485,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46793,7 +48522,8 @@
                 }
               },
               "type": "country_defaults",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46802,7 +48532,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46811,7 +48542,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46869,7 +48601,8 @@
                 }
               },
               "type": "[timezone]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46878,7 +48611,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -46887,7 +48621,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -46896,7 +48631,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46932,7 +48668,8 @@
                 }
               },
               "type": "[timezone]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -46941,7 +48678,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -46993,7 +48731,8 @@
                 }
               },
               "type": "[country]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47002,7 +48741,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47054,7 +48794,8 @@
                 }
               },
               "type": "[currency]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47063,7 +48804,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47115,7 +48857,8 @@
                 }
               },
               "type": "[language]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47124,7 +48867,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47176,7 +48920,8 @@
                 }
               },
               "type": "[locale]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47185,7 +48930,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47221,7 +48967,8 @@
                 }
               },
               "type": "locale",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47230,7 +48977,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -47239,7 +48987,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -47281,7 +49030,8 @@
                 }
               },
               "type": "[payment_method]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47290,7 +49040,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47350,7 +49101,8 @@
                 }
               },
               "type": "[province]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47359,7 +49111,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47395,7 +49148,8 @@
                 }
               },
               "type": "province",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47404,7 +49158,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -47413,7 +49168,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -47455,7 +49211,8 @@
                 }
               },
               "type": "[region]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47464,7 +49221,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47500,7 +49258,8 @@
                 }
               },
               "type": "region",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47509,7 +49268,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -47518,7 +49278,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -47593,7 +49354,8 @@
                 }
               },
               "type": "[catalog_item_document]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47602,7 +49364,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47690,7 +49453,8 @@
                 }
               },
               "type": "[harmonization_document]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47699,7 +49463,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47874,7 +49639,8 @@
                 }
               },
               "type": "[export]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -47883,7 +49649,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -47934,7 +49701,8 @@
                 }
               },
               "type": "export",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -47943,7 +49711,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -47952,7 +49721,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -47961,7 +49731,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -47998,7 +49769,8 @@
                 }
               },
               "type": "export",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -48007,7 +49779,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48016,7 +49789,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -48049,7 +49823,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -48058,7 +49833,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48067,7 +49843,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -48133,7 +49910,8 @@
                 }
               },
               "type": "[export_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -48142,7 +49920,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -48234,7 +50013,8 @@
                 }
               },
               "type": "[feed]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -48243,7 +50023,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48252,7 +50033,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -48304,7 +50086,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -48313,7 +50096,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48322,7 +50106,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -48347,7 +50132,8 @@
                 }
               },
               "type": "catalog_feed",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -48356,7 +50142,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48365,7 +50152,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -48374,7 +50162,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -48410,7 +50199,8 @@
                 }
               },
               "type": "catalog_feed",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -48419,7 +50209,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48428,7 +50219,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -48437,7 +50229,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -48802,7 +50595,8 @@
                 }
               },
               "type": "[import]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -48811,7 +50605,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -48862,7 +50657,8 @@
                 }
               },
               "type": "import",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -48871,7 +50667,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48880,7 +50677,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -48889,7 +50687,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -48926,7 +50725,8 @@
                 }
               },
               "type": "import",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -48935,7 +50735,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48944,7 +50745,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -48977,7 +50779,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -48986,7 +50789,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -48995,7 +50799,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -49061,7 +50866,8 @@
                 }
               },
               "type": "[import_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49070,7 +50876,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -49185,7 +50992,8 @@
                 }
               },
               "type": "[invitation]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49194,7 +51002,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -49232,7 +51041,8 @@
                 }
               },
               "type": "invitation",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -49241,7 +51051,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49250,7 +51061,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -49289,7 +51101,8 @@
                 }
               },
               "type": "invitation",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49298,7 +51111,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49307,7 +51121,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -49333,7 +51148,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -49342,7 +51158,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49351,7 +51168,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -49360,7 +51178,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -49393,7 +51212,8 @@
                 }
               },
               "type": "invitation",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49402,7 +51222,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49411,7 +51232,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -49436,7 +51258,8 @@
                 }
               },
               "type": "membership",
-              "description": "Indicates user was previously a member of the organization"
+              "description": "Indicates user was previously a member of the organization",
+              "attributes": []
             },
             {
               "code": {
@@ -49445,7 +51268,8 @@
                 }
               },
               "type": "membership",
-              "description": "The new membership record for this user/organization"
+              "description": "The new membership record for this user/organization",
+              "attributes": []
             },
             {
               "code": {
@@ -49454,7 +51278,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49463,7 +51288,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -49472,7 +51298,8 @@
                 }
               },
               "type": "invitation_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -49533,7 +51360,8 @@
                 }
               },
               "type": "[invitation_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49542,7 +51370,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -49731,7 +51560,8 @@
                 }
               },
               "type": "[membership]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49740,7 +51570,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -49781,7 +51612,8 @@
                 }
               },
               "type": "membership",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -49790,7 +51622,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49799,7 +51632,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -49838,7 +51672,8 @@
                 }
               },
               "type": "membership",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49847,7 +51682,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49856,7 +51692,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -49882,7 +51719,8 @@
                 }
               },
               "type": "membership",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -49891,7 +51729,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49900,7 +51739,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -49909,7 +51749,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -49939,7 +51780,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -49948,7 +51790,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -49957,7 +51800,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -49966,7 +51810,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -50042,7 +51887,8 @@
                 }
               },
               "type": "[membership_version]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50051,7 +51897,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -50107,7 +51954,8 @@
                 }
               },
               "type": "organization_authorization",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50116,7 +51964,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50125,7 +51974,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -50155,7 +52005,8 @@
                 }
               },
               "type": "organization_authorization",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50164,7 +52015,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50173,7 +52025,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -50256,7 +52109,8 @@
                 }
               },
               "type": "[organization_token]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50265,7 +52119,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -50316,7 +52171,8 @@
                 }
               },
               "type": "organization_token",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50325,7 +52181,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50334,7 +52191,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -50420,7 +52278,8 @@
                 }
               },
               "type": "[partner_token]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50429,7 +52288,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -50479,7 +52339,8 @@
                 }
               },
               "type": "partner_token",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50488,7 +52349,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50497,7 +52359,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -50689,7 +52552,8 @@
                 }
               },
               "type": "[scheduled_export]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50698,7 +52562,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -50738,7 +52603,8 @@
                 }
               },
               "type": "scheduled_export",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -50747,7 +52613,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50756,7 +52623,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -50765,7 +52633,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -50795,7 +52664,8 @@
                 }
               },
               "type": "scheduled_export",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -50804,7 +52674,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50813,7 +52684,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -50839,7 +52711,8 @@
                 }
               },
               "type": "scheduled_export",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -50848,7 +52721,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50857,7 +52731,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -50866,7 +52741,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -50896,7 +52772,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -50905,7 +52782,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -50914,7 +52792,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -51374,7 +53253,8 @@
                 }
               },
               "type": "[suggestion]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51383,7 +53263,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -51465,7 +53346,8 @@
                 }
               },
               "type": "[suggestion]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51474,7 +53356,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -51529,7 +53412,8 @@
                 }
               },
               "type": "string",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51538,7 +53422,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -51547,7 +53432,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -51636,7 +53522,8 @@
                 }
               },
               "type": "[token]",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51645,7 +53532,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -51696,7 +53584,8 @@
                 }
               },
               "type": "token",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51705,7 +53594,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -51714,7 +53604,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -51740,7 +53631,8 @@
                 }
               },
               "type": "unit",
-              "description": "Operation succeeded. No content is returned"
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
             },
             {
               "code": {
@@ -51749,7 +53641,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -51758,7 +53651,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": []
@@ -51783,7 +53677,8 @@
                 }
               },
               "type": "cleartext",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51792,7 +53687,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -51801,7 +53697,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -51819,7 +53716,8 @@
                 }
               },
               "type": "token_reference",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51828,7 +53726,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -51837,7 +53736,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -51846,7 +53746,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -51883,7 +53784,8 @@
                 }
               },
               "type": "token_validation",
-              "description": "Successful response"
+              "description": "Successful response",
+              "attributes": []
             },
             {
               "code": {
@@ -51892,7 +53794,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -51901,7 +53804,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [],
@@ -51954,7 +53858,8 @@
                 }
               },
               "type": "upload",
-              "description": "Operation succeeded and the resource was created"
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
             },
             {
               "code": {
@@ -51963,7 +53868,8 @@
                 }
               },
               "type": "unit",
-              "description": "Authorization failed"
+              "description": "Authorization failed",
+              "attributes": []
             },
             {
               "code": {
@@ -51972,7 +53878,8 @@
                 }
               },
               "type": "unit",
-              "description": "Resource was not found"
+              "description": "Resource was not found",
+              "attributes": []
             },
             {
               "code": {
@@ -51981,7 +53888,8 @@
                 }
               },
               "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation."
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": []

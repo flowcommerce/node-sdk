@@ -83,6 +83,28 @@ export default class Experiences extends Client {
     });
   }
 
+  getPriceAndBooksByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/price/books`, options);
+  }
+
+  postPriceAndBooksByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/price/books`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  getPriceAndBooksByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/price/books/${key}`, options);
+  }
+
+  deletePriceAndBooksByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/price/books/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}`, options);
   }

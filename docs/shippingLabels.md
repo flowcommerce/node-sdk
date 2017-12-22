@@ -41,6 +41,11 @@ const shippingLabels = client().shippingLabels;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| show_commercial_invoice | boolean |  |
 
 ##`getById(organization, id, options = {})`
 

@@ -20,12 +20,12 @@ export default class OrderEstimates extends Client {
     });
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order-estimates/${id}`, options);
+  getByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order-estimates/${number}`, options);
   }
 
-  putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order-estimates/${id}`, {
+  putByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order-estimates/${number}`, {
       ...options,
        method: 'PUT',
     });

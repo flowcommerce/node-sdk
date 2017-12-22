@@ -10,6 +10,7 @@ These resources mirror the official documentation located at
 | [allocations](allocations.md) |  |
 | [attributes](attributes.md) | An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console. |
 | [catalogs](catalogs.md) |  |
+| [checkoutItemContents](checkoutItemContents.md) | A Checkout Item Content provides information about an item to support rendering of that item in the context of checkout |
 | [creditPayments](creditPayments.md) | A Credit Payment records a &#x27;non cash&#x27; payment against an order (e.g. a store credit, gift card, etc.), recording the amount of that credit and additional details to reconcile payments. The primary purpose of the credit payment is to record that a payment has been made against an order so the remaining balance can be correctly computed. |
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
 | [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
@@ -54,6 +55,7 @@ These resources mirror the official documentation located at
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
 | [manifests](manifests.md) | Represents closeout of a group of labels that have been transfered to the carrier for shipping |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
+| [reservations](reservations.md) | Inventory reservation for a set of items in organization that potentially expires at specified date/time |
 | [returns](returns.md) |  |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |

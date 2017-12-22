@@ -190,6 +190,57 @@ const experiences = client().experiences;
 | experience_key | string |  |
 
 
+##`getPriceAndBooksByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| price_book_key | [string] |  |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
+##`postPriceAndBooksByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+
+##`getPriceAndBooksByExperienceKeyAndKey(organization, experienceKey, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+| key | string |  |
+
+
+##`deletePriceAndBooksByExperienceKeyAndKey(organization, experienceKey, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+| key | string |  |
+
+
 ##`getByKey(organization, key, options = {})`
 
 ### Function Parameters

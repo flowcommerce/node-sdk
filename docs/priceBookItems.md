@@ -41,7 +41,7 @@ const priceBookItems = client().priceBookItems;
 | key | string |  |
 
 
-##`getByItemNumber(organization, key, itemNumber, options = {})`
+##`getById(organization, key, id, options = {})`
 
 ### Function Parameters
 
@@ -49,21 +49,10 @@ const priceBookItems = client().priceBookItems;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
-| item_number | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 
-##`putByItemNumber(organization, key, itemNumber, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-| item_number | string |  |
-
-
-##`deleteByItemNumber(organization, key, itemNumber, options = {})`
+##`putById(organization, key, id, options = {})`
 
 ### Function Parameters
 
@@ -71,6 +60,17 @@ const priceBookItems = client().priceBookItems;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
-| item_number | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`deleteById(organization, key, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 

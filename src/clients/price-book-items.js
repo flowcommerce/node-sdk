@@ -24,19 +24,19 @@ export default class PriceBookItems extends Client {
     });
   }
 
-  getByItemNumber(organization, key, itemNumber, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${itemNumber}`, options);
+  getById(organization, key, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${id}`, options);
   }
 
-  putByItemNumber(organization, key, itemNumber, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${itemNumber}`, {
+  putById(organization, key, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
-  deleteByItemNumber(organization, key, itemNumber, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${itemNumber}`, {
+  deleteById(organization, key, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${id}`, {
       ...options,
        method: 'DELETE',
     });
