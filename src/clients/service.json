@@ -4441,7 +4441,7 @@
       "fields": [
         {
           "name": "order",
-          "type": "order_reference",
+          "type": "allocation_order_summary",
           "required": true,
           "attributes": []
         },
@@ -4452,7 +4452,10 @@
           "attributes": []
         }
       ],
-      "attributes": []
+      "attributes": [],
+      "deprecation": {
+        "description": "Use 'allocation_v2'"
+      }
     },
     {
       "name": "allocation_deleted",
@@ -4639,6 +4642,34 @@
       "description": "Represents an order-specific detail such as shipping, insurance, or an order-level discount."
     },
     {
+      "name": "allocation_order_summary",
+      "plural": "allocation_order_summaries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "submitted_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "The timestamp on which the order is submitted"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "allocation_upserted",
       "plural": "allocation_upserteds",
       "fields": [
@@ -4683,6 +4714,38 @@
         {
           "name": "details",
           "type": "[object]",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "allocation_v2",
+      "plural": "allocation_v2s",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "order",
+          "type": "allocation_order_summary",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "details",
+          "type": "[allocation_detail]",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "total",
+          "type": "localized_total",
           "required": true,
           "attributes": []
         }
@@ -18125,6 +18188,12 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
           "name": "price_book",
           "type": "price_book_reference",
           "required": true,
@@ -18232,6 +18301,13 @@
           "required": false,
           "attributes": [],
           "description": "The date and time for the price to take effect. If not provided, value will be set to the current date and time."
+        },
+        {
+          "name": "ends_at",
+          "type": "date-time-iso8601",
+          "required": false,
+          "attributes": [],
+          "description": "The date and time for the price to stop taking effect. If not provided, no default end time will be set."
         }
       ],
       "attributes": [],
@@ -24816,7 +24892,7 @@
                   "value": 200
                 }
               },
-              "type": "allocation",
+              "type": "allocation_v2",
               "description": "Successful response",
               "attributes": []
             },
@@ -24864,7 +24940,10 @@
           }
         }
       ],
-      "path": "/:organization/orders/allocations/:number"
+      "path": "/:organization/orders/allocations/:number",
+      "deprecation": {
+        "description": "Use allocation_v2 resource"
+      }
     },
     {
       "type": "attribute",
@@ -29836,6 +29915,59 @@
           "description": "Delete an order. Note that production orders that have already been submitted cannot be deleted (you will see a 422 response in these cases)."
         },
         {
+          "method": "GET",
+          "path": "/:organization/orders/:number/allocations",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "allocation_v2",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Order allocations provide a granular view of an order that is targeted for accounting / financial views of an order"
+        },
+        {
           "method": "POST",
           "path": "/:organization/orders/:number/authorizations",
           "parameters": [
@@ -32755,7 +32887,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/:organization/price/books/:key/items",
+          "path": "/:organization/price/books/:price_book_key/items",
           "parameters": [
             {
               "name": "organization",
@@ -32765,7 +32897,7 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "key",
+              "name": "price_book_key",
               "type": "string",
               "location": "Path",
               "required": true
@@ -32776,6 +32908,13 @@
               "location": "Query",
               "required": false,
               "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "key",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
               "maximum": 100
             },
             {
@@ -32843,6 +32982,9 @@
                     "value": "id"
                   },
                   {
+                    "value": "key"
+                  },
+                  {
                     "value": "number"
                   },
                   {
@@ -32864,7 +33006,7 @@
         },
         {
           "method": "POST",
-          "path": "/:organization/price/books/:key/items",
+          "path": "/:organization/price/books/:price_book_key/items",
           "parameters": [
             {
               "name": "organization",
@@ -32874,7 +33016,7 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "key",
+              "name": "price_book_key",
               "type": "string",
               "location": "Path",
               "required": true
@@ -32931,7 +33073,7 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/price/books/:key/items/:id",
+          "path": "/:organization/price/books/:price_book_key/items/:key",
           "parameters": [
             {
               "name": "organization",
@@ -32941,17 +33083,16 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "key",
+              "name": "price_book_key",
               "type": "string",
               "location": "Path",
               "required": true
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -32991,7 +33132,7 @@
         },
         {
           "method": "PUT",
-          "path": "/:organization/price/books/:key/items/:id",
+          "path": "/:organization/price/books/:price_book_key/items/:key",
           "parameters": [
             {
               "name": "organization",
@@ -33001,17 +33142,16 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "key",
+              "name": "price_book_key",
               "type": "string",
               "location": "Path",
               "required": true
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -33023,6 +33163,16 @@
               },
               "type": "price_book_item",
               "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "price_book_item",
+              "description": "Operation succeeded and the resource was created",
               "attributes": []
             },
             {
@@ -33065,7 +33215,7 @@
         },
         {
           "method": "DELETE",
-          "path": "/:organization/price/books/:key/items/:id",
+          "path": "/:organization/price/books/:price_book_key/items/:key",
           "parameters": [
             {
               "name": "organization",
@@ -33075,17 +33225,16 @@
               "description": "Refers to your organization's account identifier"
             },
             {
-              "name": "key",
+              "name": "price_book_key",
               "type": "string",
               "location": "Path",
               "required": true
             },
             {
-              "name": "id",
+              "name": "key",
               "type": "string",
               "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
+              "required": true
             }
           ],
           "responses": [
@@ -33142,7 +33291,7 @@
           }
         }
       ],
-      "path": "/:organization/price/books/:key/items"
+      "path": "/:organization/price/books/:price_book_key/items"
     },
     {
       "type": "query",

@@ -42,6 +42,10 @@ export default class Orders extends Client {
     });
   }
 
+  getAllocationsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/allocations`, options);
+  }
+
   postAuthorizationsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/authorizations`, {
       ...options,

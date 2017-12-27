@@ -13,30 +13,30 @@ export default class PriceBookItems extends Client {
     super(options);
   }
 
-  get(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items`, options);
+  get(organization, priceBookKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items`, options);
   }
 
-  post(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items`, {
+  post(organization, priceBookKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items`, {
       ...options,
        method: 'POST',
     });
   }
 
-  getById(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${id}`, options);
+  getByKey(organization, priceBookKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items/${key}`, options);
   }
 
-  putById(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${id}`, {
+  putByKey(organization, priceBookKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
-  deleteById(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/price/books/${key}/items/${id}`, {
+  deleteByKey(organization, priceBookKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items/${key}`, {
       ...options,
        method: 'DELETE',
     });

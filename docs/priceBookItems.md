@@ -12,65 +12,66 @@ const priceBookItems = client().priceBookItems;
 
 ## Operations
 
-##`get(organization, key, options = {})`
+##`get(organization, priceBookKey, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| price_book_key | string |  |
 
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
+| key | [string] |  |
 | number | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, key, options = {})`
+##`post(organization, priceBookKey, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| price_book_key | string |  |
 
 
-##`getById(organization, key, id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`putById(organization, key, id, options = {})`
+##`getByKey(organization, priceBookKey, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| price_book_key | string |  |
 | key | string |  |
-| id | string | Filter by one or more IDs of this resource |
 
 
-##`deleteById(organization, key, id, options = {})`
+##`putByKey(organization, priceBookKey, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| price_book_key | string |  |
 | key | string |  |
-| id | string | Filter by one or more IDs of this resource |
+
+
+##`deleteByKey(organization, priceBookKey, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| price_book_key | string |  |
+| key | string |  |
 
 

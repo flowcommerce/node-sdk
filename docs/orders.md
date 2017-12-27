@@ -96,6 +96,16 @@ const orders = client().orders;
 | number | string |  |
 
 
+##`getAllocationsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
 ##`postAuthorizationsByNumber(organization, number, options = {})`
 
 ### Function Parameters
