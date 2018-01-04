@@ -10,12 +10,14 @@ These resources mirror the official documentation located at
 | [allocations](allocations.md) |  |
 | [attributes](attributes.md) | An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console. |
 | [catalogs](catalogs.md) |  |
+| [checkoutAttributes](checkoutAttributes.md) | A Checkout Attribute defines an attribute that will be made available via the checkout item content. This is useful if you would like to surface a specific attribute (like &#x27;size&#x27; or &#x27;color&#x27;) in checkout. |
 | [checkoutItemContents](checkoutItemContents.md) | A Checkout Item Content provides information about an item to support rendering of that item in the context of checkout |
 | [creditPayments](creditPayments.md) | A Credit Payment records a &#x27;non cash&#x27; payment against an order (e.g. a store credit, gift card, etc.), recording the amount of that credit and additional details to reconcile payments. The primary purpose of the credit payment is to record that a payment has been made against an order so the remaining balance can be correctly computed. |
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
 | [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see a payment authorization for an order. |
+| [orderBuilders](orderBuilders.md) | The Order Builder resource provides an incremental approach to building an order - returning the order details as they exist along with validation errors. The main difference is that this API will never return a 422 - rather it provides a container to view the order in its current state as well as all validation errors |
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
 | [orderIdentifiers](orderIdentifiers.md) | Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders. |
 | [orderPromotions](orderPromotions.md) |  |
