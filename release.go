@@ -10,7 +10,6 @@ func main() {
 	executor = executor.Add("git pull origin master")
 	executor = executor.Add("npm install")
 	executor = executor.Add("npm run generate")
-	// executor = executor.Add("npm version --no-git-tag-version `node -p \"require('./api.service.json').service.version\"`")
 	executor = executor.Add("git add src docs package.json")
 	executor = executor.Add("git commit -m 'autocommit: version and generated src and docs directories. API Version `node -p \"require('./api.service.json').service.version\"`'")
 	executor = executor.Add("dev tag")
