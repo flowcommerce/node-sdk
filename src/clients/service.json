@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.4.50",
+  "version": "0.4.51",
   "info": {
     "license": {
       "name": "MIT",
@@ -74,9 +74,9 @@
           "description": "Attributes with this data type imply that this is the brand name of the item for retailers that sell multiple brands"
         },
         {
-          "name": "checkout_content",
+          "name": "product_id",
           "attributes": [],
-          "description": "Checkout content attributes are included in the item content when rendered for the checkout context."
+          "description": "Attributes with this data type imply that the value of this attribute identifies the product Id which can then be used to group multiple items together."
         },
         {
           "name": "fulfillment_method",
@@ -92,6 +92,16 @@
           "name": "price",
           "attributes": [],
           "description": "Attributes with this data type are inferred to be prices in the organization's base currency and will be localized based on each Experience's pricing policy."
+        },
+        {
+          "name": "size",
+          "attributes": [],
+          "description": "Attributes with this data type imply that that this is the clothing size of the item."
+        },
+        {
+          "name": "sku",
+          "attributes": [],
+          "description": "Attributes with this data type imply that this is the retailers SKU for the item."
         },
         {
           "name": "taxability",
@@ -751,14 +761,6 @@
           "attributes": []
         },
         {
-          "name": "allocation_deleted",
-          "attributes": []
-        },
-        {
-          "name": "allocation_upserted",
-          "attributes": []
-        },
-        {
           "name": "allocation_deleted_v2",
           "attributes": []
         },
@@ -924,6 +926,10 @@
         },
         {
           "name": "label_upserted",
+          "attributes": []
+        },
+        {
+          "name": "label_upserted_v2",
           "attributes": []
         },
         {
@@ -1341,6 +1347,11 @@
           "name": "customs_descriptions",
           "attributes": [],
           "description": "Provides upload of customs descriptions for the products in a catalog."
+        },
+        {
+          "name": "item_form_overlays",
+          "attributes": [],
+          "description": "Provides upload of item form overlays for the items in a catalog."
         }
       ],
       "attributes": []
@@ -3119,16 +3130,6 @@
           "discriminator_value": "available_promotions_deleted"
         },
         {
-          "type": "allocation_deleted",
-          "attributes": [],
-          "discriminator_value": "allocation_deleted"
-        },
-        {
-          "type": "allocation_upserted",
-          "attributes": [],
-          "discriminator_value": "allocation_upserted"
-        },
-        {
           "type": "allocation_deleted_v2",
           "attributes": [],
           "discriminator_value": "allocation_deleted_v2"
@@ -3337,6 +3338,11 @@
           "type": "label_upserted",
           "attributes": [],
           "discriminator_value": "label_upserted"
+        },
+        {
+          "type": "label_upserted_v2",
+          "attributes": [],
+          "discriminator_value": "label_upserted_v2"
         },
         {
           "type": "notification_upserted",
@@ -3982,6 +3988,12 @@
           "attributes": [],
           "description": "Inventory is not available for all or subset of item quantities requested",
           "discriminator_value": "no_inventory"
+        },
+        {
+          "type": "external_api_timeout_reservation_error",
+          "attributes": [],
+          "description": "API call to external API (ex: PFS) timed out",
+          "discriminator_value": "external_api_timeout"
         }
       ],
       "attributes": [],
@@ -4476,32 +4488,6 @@
       }
     },
     {
-      "name": "allocation_deleted",
-      "plural": "allocation_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "allocation_deleted_v2",
       "plural": "allocation_deleted_v2s",
       "fields": [
@@ -4716,57 +4702,6 @@
           "required": false,
           "attributes": [],
           "description": "The timestamp on which the order is submitted"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "allocation_upserted",
-      "plural": "allocation_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "order_id",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": true,
-          "attributes": []
-        },
-        {
-          "name": "details",
-          "type": "[object]",
-          "required": true,
-          "attributes": []
         }
       ],
       "attributes": []
@@ -9876,6 +9811,20 @@
       "attributes": []
     },
     {
+      "name": "external_api_timeout_reservation_error",
+      "plural": "external_api_timeout_reservation_errors",
+      "fields": [
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "feed_statistics_summary",
       "plural": "feed_statistics_summaries",
       "fields": [
@@ -10211,13 +10160,6 @@
           "type": "[fulfillment_item_quantity]",
           "required": true,
           "attributes": []
-        },
-        {
-          "name": "warehouse_sku",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "The sku of an item in a warehouse"
         }
       ],
       "attributes": [],
@@ -12482,6 +12424,127 @@
       "description": "The item form defines the data required to create an item."
     },
     {
+      "name": "item_form_overlay",
+      "plural": "item_form_overlays",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "minimum": 0
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A list of categories associated with this item."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If provided, the item description is used to improve classification."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Attributes represent all other product data that you have regarding this item. Common attributes include 'country_of_origin', 'color', 'size', 'material', etc. We recommend including as many attributes as possible, even if you are not currently planning to use them."
+        },
+        {
+          "name": "dimensions",
+          "type": "dimensions",
+          "required": false,
+          "attributes": [],
+          "description": "If provided, dimensions are used to drive more accurate shipping estimates."
+        },
+        {
+          "name": "images",
+          "type": "[image_form]",
+          "required": false,
+          "attributes": [],
+          "description": "If provided, the item images will be used to enhance the user experience in Flow's online tools."
+        }
+      ],
+      "attributes": [],
+      "description": "The item form overlay defines data to merge into an item form."
+    },
+    {
+      "name": "item_form_overlay_form",
+      "plural": "item_form_overlay_forms",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "position",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "description": "Position determines the order in which item form overlays are merged.  If not provided, will be treated as the last overlay to be merged.",
+          "minimum": 0
+        },
+        {
+          "name": "categories",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "description": "A list of categories associated with this item."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If provided, the item description is used to improve classification."
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "description": "Attributes represent all other product data that you have regarding this item. Common attributes include 'country_of_origin', 'color', 'size', 'material', etc. We recommend including as many attributes as possible, even if you are not currently planning to use them."
+        },
+        {
+          "name": "dimensions",
+          "type": "dimensions",
+          "required": false,
+          "attributes": [],
+          "description": "If provided, dimensions are used to drive more accurate shipping estimates."
+        },
+        {
+          "name": "images",
+          "type": "[image_form]",
+          "required": false,
+          "attributes": [],
+          "description": "If provided, the item images will be used to enhance the user experience in Flow's online tools."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "item_function",
       "plural": "item_functions",
       "fields": [
@@ -13450,6 +13513,136 @@
           "required": false,
           "attributes": [],
           "description": "The key of a fulfillment this label is associated with. Will be blank if not specified when a label was created."
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "label_upserted_v2",
+      "plural": "label_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "label_id",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "flow_tracking_number",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "destination",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "origin",
+          "type": "object",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "carrier_tracking_number_url",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "flow_tracking_number_url",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "center_key",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "direction",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "package",
+          "type": "object",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "order_identifier",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The order identifier this label is associated with. Will be blank if not specified when a label was created."
+        },
+        {
+          "name": "fulfillment_key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The key of a fulfillment this label is associated with. Will be blank if not specified when a label was created."
+        },
+        {
+          "name": "label",
+          "type": "object",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "return",
+          "type": "object",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -21727,6 +21920,13 @@
           "description": "Contains all the output documents for the commercial invoice"
         },
         {
+          "name": "return",
+          "type": "shipping_label_document",
+          "required": false,
+          "attributes": [],
+          "description": "Contains all the output documents for return cover sheets"
+        },
+        {
           "name": "order",
           "type": "label_order_summary",
           "required": false,
@@ -21739,46 +21939,6 @@
           "required": false,
           "attributes": [],
           "description": "Package to be shipped, including dimensions and items included"
-        },
-        {
-          "name": "commercial_invoice",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed URL containing generated PDF commercial invoice required for international shipments",
-          "deprecation": {
-            "description": "Use invoice.pdf"
-          }
-        },
-        {
-          "name": "zpl",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Base64 encoded ZPL2-formatted data of the shipping label",
-          "deprecation": {
-            "description": "Use label.zpl"
-          }
-        },
-        {
-          "name": "pdf",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed URL containing PDF copy of the shipping label. This is generated asynchronously and may not be immediately available.",
-          "deprecation": {
-            "description": "Use label.pdf"
-          }
-        },
-        {
-          "name": "png",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "description": "Pre-signed URL containing PNG copy of the shipping label. This is generated asynchronously and may not be immediately available.",
-          "deprecation": {
-            "description": "Use label.png"
-          }
         },
         {
           "name": "order_identifier",
@@ -21822,6 +21982,13 @@
           "required": false,
           "attributes": [],
           "description": "Pre-signed URL containing PNG copy of the shipping label. This is generated asynchronously and may not be immediately available."
+        },
+        {
+          "name": "html",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Base64 encoded ZPL2-formatted HTML data for use with Return cover sheets"
         }
       ],
       "attributes": [],
@@ -23723,6 +23890,12 @@
         },
         {
           "name": "description",
+          "type": "string",
+          "required": false,
+          "attributes": []
+        },
+        {
+          "name": "direction",
           "type": "string",
           "required": false,
           "attributes": []
@@ -30655,6 +30828,78 @@
         },
         {
           "method": "PUT",
+          "path": "/:organization/orders/:number/inventory/reservations",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "reservation",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "reservation",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "reservation_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
           "path": "/:organization/orders/:number/promotions/:key/free_shipping",
           "parameters": [
             {
@@ -33584,6 +33829,16 @@
               },
               "type": "price_book",
               "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "price_book",
+              "description": "Operation succeeded and the resource was created",
               "attributes": []
             },
             {
@@ -44913,7 +45168,7 @@
                   "value": 422
                 }
               },
-              "type": "no_inventory_reservation_error",
+              "type": "reservation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": []
             }
@@ -45036,7 +45291,7 @@
                   "value": 422
                 }
               },
-              "type": "no_inventory_reservation_error",
+              "type": "reservation_error",
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": []
             }
@@ -51249,7 +51504,7 @@
                   "value": 200
                 }
               },
-              "type": "fulfillment",
+              "type": "[fulfillment]",
               "description": "Successful response",
               "attributes": []
             },

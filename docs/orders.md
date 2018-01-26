@@ -131,6 +131,16 @@ const orders = client().orders;
 | number | string |  |
 
 
+##`putInventoryAndReservationsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
 ##`putPromotionsAndFreeShippingByNumberAndKey(organization, number, key, options = {})`
 
 ### Function Parameters
