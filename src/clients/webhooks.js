@@ -24,6 +24,17 @@ export default class Webhooks extends Client {
     });
   }
 
+  getSettings(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/webhooks/settings`, options);
+  }
+
+  putSettings(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/webhooks/settings`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, options);
   }
@@ -39,17 +50,6 @@ export default class Webhooks extends Client {
     return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, {
       ...options,
        method: 'DELETE',
-    });
-  }
-
-  getSettings(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhooks/settings`, options);
-  }
-
-  putSettings(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhooks/settings`, {
-      ...options,
-       method: 'PUT',
     });
   }
 

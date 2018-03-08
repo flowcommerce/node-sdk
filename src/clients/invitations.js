@@ -24,17 +24,6 @@ export default class Invitations extends Client {
     });
   }
 
-  getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/invitations/${id}`, options);
-  }
-
-  deleteById(id, options = {}) {
-    return this.makeRequest(`${this.host}/invitations/${id}`, {
-      ...options,
-       method: 'DELETE',
-    });
-  }
-
   getTokensByToken(token, options = {}) {
     return this.makeRequest(`${this.host}/invitations/tokens/${token}`, options);
   }
@@ -48,6 +37,17 @@ export default class Invitations extends Client {
 
   getVersions(options = {}) {
     return this.makeRequest(`${this.host}/invitations/versions`, options);
+  }
+
+  getById(id, options = {}) {
+    return this.makeRequest(`${this.host}/invitations/${id}`, options);
+  }
+
+  deleteById(id, options = {}) {
+    return this.makeRequest(`${this.host}/invitations/${id}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
 }

@@ -24,6 +24,10 @@ export default class TierRules extends Client {
     });
   }
 
+  getVersions(organization, tierId, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/versions`, options);
+  }
+
   getById(organization, tierId, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/${id}`, options);
   }
@@ -40,10 +44,6 @@ export default class TierRules extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, tierId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tiers/${tierId}/rules/versions`, options);
   }
 
 }

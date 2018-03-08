@@ -24,12 +24,12 @@ export default class InventoryUpdates extends Client {
     });
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory_updates/${id}`, options);
-  }
-
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/inventory_updates/versions`, options);
+  }
+
+  getById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/inventory_updates/${id}`, options);
   }
 
 }

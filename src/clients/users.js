@@ -24,6 +24,17 @@ export default class Users extends Client {
     });
   }
 
+  postAuthenticate(options = {}) {
+    return this.makeRequest(`${this.host}/users/authenticate`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  getVersions(options = {}) {
+    return this.makeRequest(`${this.host}/users/versions`, options);
+  }
+
   getById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/${id}`, options);
   }
@@ -47,17 +58,6 @@ export default class Users extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  postAuthenticate(options = {}) {
-    return this.makeRequest(`${this.host}/users/authenticate`, {
-      ...options,
-       method: 'POST',
-    });
-  }
-
-  getVersions(options = {}) {
-    return this.makeRequest(`${this.host}/users/versions`, options);
   }
 
 }

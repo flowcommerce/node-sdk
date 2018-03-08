@@ -38,6 +38,23 @@ const subcatalogs = client().subcatalogs;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`getVersions(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
 ##`getById(organization, id, options = {})`
 
 ### Function Parameters
@@ -168,6 +185,24 @@ const subcatalogs = client().subcatalogs;
 | subcatalog_id | string |  |
 
 
+##`getFunctionsAndVersionsBySubcatalogId(organization, subcatalogId, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| subcatalog_id | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
 ##`getFunctionsBySubcatalogIdAndId(organization, subcatalogId, id, options = {})`
 
 ### Function Parameters
@@ -189,24 +224,6 @@ const subcatalogs = client().subcatalogs;
 | subcatalog_id | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
-
-##`getFunctionsAndVersionsBySubcatalogId(organization, subcatalogId, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog_id | string |  |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 
 ##`getInclusionsBySubcatalogId(organization, subcatalogId, options = {})`
 
@@ -320,21 +337,4 @@ const subcatalogs = client().subcatalogs;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | subcatalog_id | string |  |
 
-
-##`getVersions(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 

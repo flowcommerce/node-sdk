@@ -51,3 +51,33 @@ const orderBuilders = client().orderBuilders;
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 | expand | [string] |  |
 
+##`putDestinationByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
+##`putDutyByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+

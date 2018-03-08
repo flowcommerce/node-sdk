@@ -13,6 +13,13 @@ export default class Sessions extends Client {
     super(options);
   }
 
+  postOrganizationsByOrganization(organization, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/organizations/${organization}`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getBySession(session, options = {}) {
     return this.makeRequest(`${this.host}/sessions/${session}`, options);
   }
@@ -42,13 +49,6 @@ export default class Sessions extends Client {
     return this.makeRequest(`${this.host}/sessions/${session}/reset`, {
       ...options,
        method: 'PUT',
-    });
-  }
-
-  postOrganizationsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/organizations/${organization}`, {
-      ...options,
-       method: 'POST',
     });
   }
 

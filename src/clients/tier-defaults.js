@@ -24,12 +24,12 @@ export default class TierDefaults extends Client {
     });
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tier_defaults/${id}`, options);
-  }
-
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tier_defaults/versions`, options);
+  }
+
+  getById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/tier_defaults/${id}`, options);
   }
 
 }

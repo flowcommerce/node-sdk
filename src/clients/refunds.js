@@ -24,16 +24,16 @@ export default class Refunds extends Client {
     });
   }
 
-  getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/${key}`, options);
-  }
-
   getSummaryByOrderNumber(organization, orderNumber, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/refunds/summary/${orderNumber}`, options);
   }
 
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/refunds/versions`, options);
+  }
+
+  getByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/refunds/${key}`, options);
   }
 
 }

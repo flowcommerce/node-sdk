@@ -24,6 +24,10 @@ export default class Payments extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/payments/versions`, options);
+  }
+
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/payments/${id}`, options);
   }
@@ -33,10 +37,6 @@ export default class Payments extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/payments/versions`, options);
   }
 
 }

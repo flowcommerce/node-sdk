@@ -24,6 +24,10 @@ export default class Subcatalogs extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/versions`, options);
+  }
+
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, options);
   }
@@ -86,6 +90,10 @@ export default class Subcatalogs extends Client {
     });
   }
 
+  getFunctionsAndVersionsBySubcatalogId(organization, subcatalogId, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/versions`, options);
+  }
+
   getFunctionsBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/${id}`, options);
   }
@@ -95,10 +103,6 @@ export default class Subcatalogs extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getFunctionsAndVersionsBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/versions`, options);
   }
 
   getInclusionsBySubcatalogId(organization, subcatalogId, options = {}) {
@@ -147,10 +151,6 @@ export default class Subcatalogs extends Client {
 
   getStatisticsBySubcatalogId(organization, subcatalogId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/statistics`, options);
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/versions`, options);
   }
 
 }

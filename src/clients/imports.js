@@ -24,6 +24,10 @@ export default class Imports extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/imports/versions`, options);
+  }
+
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/imports/${id}`, options);
   }
@@ -33,10 +37,6 @@ export default class Imports extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/imports/versions`, options);
   }
 
 }

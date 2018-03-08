@@ -40,6 +40,25 @@ const tierRules = client().tierRules;
 | tier_id | string |  |
 
 
+##`getVersions(organization, tierId, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| tier_id | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| tier_rule | [string] |  |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
 ##`getById(organization, tierId, id, options = {})`
 
 ### Function Parameters
@@ -72,23 +91,4 @@ const tierRules = client().tierRules;
 | tier_id | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
-
-##`getVersions(organization, tierId, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| tier_id | string |  |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| tier_rule | [string] |  |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 

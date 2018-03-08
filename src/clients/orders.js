@@ -24,6 +24,14 @@ export default class Orders extends Client {
     });
   }
 
+  getIdentifierByIdentifier(organization, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/identifier/${identifier}`, options);
+  }
+
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/versions`, options);
+  }
+
   getByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}`, options);
   }
@@ -79,14 +87,6 @@ export default class Orders extends Client {
       ...options,
        method: 'PUT',
     });
-  }
-
-  getIdentifierByIdentifier(organization, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/identifier/${identifier}`, options);
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/versions`, options);
   }
 
   getStatusAndFraudByNumber(organization, number, options = {}) {

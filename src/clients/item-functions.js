@@ -24,6 +24,10 @@ export default class ItemFunctions extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/item-functions/versions`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/item-functions/${key}`, options);
   }
@@ -40,10 +44,6 @@ export default class ItemFunctions extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/item-functions/versions`, options);
   }
 
 }

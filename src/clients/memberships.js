@@ -24,6 +24,10 @@ export default class Memberships extends Client {
     });
   }
 
+  getVersions(options = {}) {
+    return this.makeRequest(`${this.host}/memberships/versions`, options);
+  }
+
   getById(id, options = {}) {
     return this.makeRequest(`${this.host}/memberships/${id}`, options);
   }
@@ -40,10 +44,6 @@ export default class Memberships extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(options = {}) {
-    return this.makeRequest(`${this.host}/memberships/versions`, options);
   }
 
 }

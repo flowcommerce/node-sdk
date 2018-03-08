@@ -61,7 +61,7 @@ These resources mirror the official documentation located at
 | [returns](returns.md) |  |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |
-| [tiers](tiers.md) | Service shipping tier available in this tier gorup. e.g. Standard tier, Express tier, Economy tier |
+| [tiers](tiers.md) | Service shipping tier available in this tier group. e.g. Standard tier, Express tier, Economy tier |
 | [tierDefaults](tierDefaults.md) | Grouping of shipping tiers by experience to provide logical default functionality. |
 | [tierRules](tierRules.md) | System to filter incoming quote for a shipment request based on a query and output corresponding outcomes. |
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
@@ -86,6 +86,7 @@ These resources mirror the official documentation located at
 | [fulfillments](fulfillments.md) | Used to track and manage the fulfillment of an order. |
 | [healthchecks](healthchecks.md) |  |
 | [imports](imports.md) |  |
+| [importTemplates](importTemplates.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
 | [links](links.md) |  |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |

@@ -24,6 +24,10 @@ export default class Reversals extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/reversals/versions`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/reversals/${key}`, options);
   }
@@ -33,10 +37,6 @@ export default class Reversals extends Client {
       ...options,
        method: 'PUT',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/reversals/versions`, options);
   }
 
 }

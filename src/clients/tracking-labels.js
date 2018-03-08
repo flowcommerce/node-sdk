@@ -24,12 +24,12 @@ export default class TrackingLabels extends Client {
     });
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tracking-labels/${id}`, options);
-  }
-
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tracking-labels/versions`, options);
+  }
+
+  getById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels/${id}`, options);
   }
 
 }

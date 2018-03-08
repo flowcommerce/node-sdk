@@ -29,16 +29,6 @@ const feeds = client().feeds;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`deleteById(organization, id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
-
-
 ##`postCatalog(organization, options = {})`
 
 ### Function Parameters
@@ -49,6 +39,16 @@ const feeds = client().feeds;
 
 
 ##`putCatalogById(organization, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`deleteById(organization, id, options = {})`
 
 ### Function Parameters
 

@@ -17,12 +17,12 @@ export default class TrackingEvents extends Client {
     return this.makeRequest(`${this.host}/${organization}/tracking-events`, options);
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tracking-events/${id}`, options);
-  }
-
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tracking-events/versions`, options);
+  }
+
+  getById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/tracking-events/${id}`, options);
   }
 
 }

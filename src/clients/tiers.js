@@ -24,6 +24,10 @@ export default class Tiers extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/tiers/versions`, options);
+  }
+
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/tiers/${id}`, options);
   }
@@ -40,10 +44,6 @@ export default class Tiers extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tiers/versions`, options);
   }
 
 }

@@ -55,6 +55,19 @@ const organizations = client().organizations;
 
 
 
+##`getVersions(options = {})`
+
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| organization | [string] | Filter to organizations with any one of these ids. |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
 ##`getByOrganizationId(organizationId, options = {})`
 
 ### Function Parameters
@@ -100,6 +113,15 @@ const organizations = client().organizations;
 | organization_id | string |  |
 
 
+##`getSettingsAndRegionsAndCountriesAndAvailableByOrganizationId(organizationId, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization_id | string |  |
+
+
 ##`putSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {})`
 
 ### Function Parameters
@@ -119,26 +141,4 @@ const organizations = client().organizations;
 | organization_id | string |  |
 | region | string |  |
 
-
-##`getSettingsAndRegionsAndCountriesAndAvailableByOrganizationId(organizationId, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization_id | string |  |
-
-
-##`getVersions(options = {})`
-
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| organization | [string] | Filter to organizations with any one of these ids. |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 

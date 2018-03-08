@@ -24,12 +24,12 @@ export default class Manifests extends Client {
     });
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/manifests/${id}`, options);
-  }
-
   getServicesAndOutstandingByService(organization, service, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/manifests/services/${service}/outstanding`, options);
+  }
+
+  getById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/manifests/${id}`, options);
   }
 
 }

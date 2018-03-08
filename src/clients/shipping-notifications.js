@@ -24,6 +24,10 @@ export default class ShippingNotifications extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/versions`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${key}`, options);
   }
@@ -40,10 +44,6 @@ export default class ShippingNotifications extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/versions`, options);
   }
 
 }

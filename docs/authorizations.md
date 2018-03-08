@@ -46,6 +46,42 @@ const authorizations = client().authorizations;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
+##`postCard(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`postOnline(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`getVersions(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [long] | Filter by one or more IDs of this resource |
+| authorization_id | [string] | Filter to authorizations with any one of these ids. |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
 ##`getByKey(organization, key, options = {})`
 
 ### Function Parameters
@@ -100,40 +136,4 @@ const authorizations = client().authorizations;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
-
-##`postCard(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`postOnline(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`getVersions(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [long] | Filter by one or more IDs of this resource |
-| authorization_id | [string] | Filter to authorizations with any one of these ids. |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 

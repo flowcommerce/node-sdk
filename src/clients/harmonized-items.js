@@ -24,6 +24,10 @@ export default class HarmonizedItems extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/harmonization/items/versions`, options);
+  }
+
   getByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/harmonization/items/${number}`, options);
   }
@@ -40,10 +44,6 @@ export default class HarmonizedItems extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/harmonization/items/versions`, options);
   }
 
 }

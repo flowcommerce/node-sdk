@@ -17,6 +17,13 @@ export default class Tokens extends Client {
     return this.makeRequest(`${this.host}/tokens`, options);
   }
 
+  postAuthentications(options = {}) {
+    return this.makeRequest(`${this.host}/tokens/authentications`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getById(id, options = {}) {
     return this.makeRequest(`${this.host}/tokens/${id}`, options);
   }
@@ -30,13 +37,6 @@ export default class Tokens extends Client {
 
   getCleartextById(id, options = {}) {
     return this.makeRequest(`${this.host}/tokens/${id}/cleartext`, options);
-  }
-
-  postAuthentications(options = {}) {
-    return this.makeRequest(`${this.host}/tokens/authentications`, {
-      ...options,
-       method: 'POST',
-    });
   }
 
 }

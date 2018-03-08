@@ -24,12 +24,12 @@ export default class Captures extends Client {
     });
   }
 
-  getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/captures/${key}`, options);
-  }
-
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/captures/versions`, options);
+  }
+
+  getByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}`, options);
   }
 
 }

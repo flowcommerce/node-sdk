@@ -13,6 +13,10 @@ export default class Trackings extends Client {
     super(options);
   }
 
+  getTrackingsById(id, options = {}) {
+    return this.makeRequest(`${this.host}/trackings/${id}`, options);
+  }
+
   getTrackingsByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/trackings`, options);
   }
@@ -26,10 +30,6 @@ export default class Trackings extends Client {
 
   getTrackingsAndVersionsByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/trackings/versions`, options);
-  }
-
-  getTrackingsById(id, options = {}) {
-    return this.makeRequest(`${this.host}/trackings/${id}`, options);
   }
 
 }

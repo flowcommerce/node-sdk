@@ -32,6 +32,10 @@ export default class Organizations extends Client {
     });
   }
 
+  getVersions(options = {}) {
+    return this.makeRequest(`${this.host}/organizations/versions`, options);
+  }
+
   getByOrganizationId(organizationId, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${organizationId}`, options);
   }
@@ -58,6 +62,10 @@ export default class Organizations extends Client {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions`, options);
   }
 
+  getSettingsAndRegionsAndCountriesAndAvailableByOrganizationId(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/countries/available`, options);
+  }
+
   putSettingsAndRegionsByOrganizationIdAndRegion(organizationId, region, options = {}) {
     return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/${region}`, {
       ...options,
@@ -70,14 +78,6 @@ export default class Organizations extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getSettingsAndRegionsAndCountriesAndAvailableByOrganizationId(organizationId, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${organizationId}/settings/regions/countries/available`, options);
-  }
-
-  getVersions(options = {}) {
-    return this.makeRequest(`${this.host}/organizations/versions`, options);
   }
 
 }

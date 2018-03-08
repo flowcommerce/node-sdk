@@ -24,6 +24,10 @@ export default class Centers extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/centers/versions`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/centers/${key}`, options);
   }
@@ -33,10 +37,6 @@ export default class Centers extends Client {
       ...options,
        method: 'PUT',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers/versions`, options);
   }
 
 }

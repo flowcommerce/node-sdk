@@ -12,6 +12,15 @@ const sessions = client().sessions;
 
 ## Operations
 
+##`postOrganizationsByOrganization(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
 ##`getBySession(session, options = {})`
 
 ### Function Parameters
@@ -56,14 +65,5 @@ const sessions = client().sessions;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | session | string |  |
-
-
-##`postOrganizationsByOrganization(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
 
 

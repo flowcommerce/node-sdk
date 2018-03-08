@@ -24,6 +24,10 @@ export default class Targetings extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/versions`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/targetings/${key}`, options);
   }
@@ -40,10 +44,6 @@ export default class Targetings extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/versions`, options);
   }
 
 }

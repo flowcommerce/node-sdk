@@ -32,6 +32,21 @@ const memberships = client().memberships;
 
 
 
+##`getVersions(options = {})`
+
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| membership | [string] | Filter membership changes with any one of these ids. |
+| user | string | Filter membership changes for this user id |
+| organization | string | Filter membership changes for this organization id |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
 ##`getById(id, options = {})`
 
 ### Function Parameters
@@ -63,19 +78,4 @@ const memberships = client().memberships;
 | ---- | ---- | ---- |
 | id | string | Filter by one or more IDs of this resource |
 
-
-##`getVersions(options = {})`
-
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| membership | [string] | Filter membership changes with any one of these ids. |
-| user | string | Filter membership changes for this user id |
-| organization | string | Filter membership changes for this organization id |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 

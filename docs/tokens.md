@@ -27,6 +27,10 @@ const tokens = client().tokens;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`postAuthentications(options = {})`
+
+
+
 ##`getById(id, options = {})`
 
 ### Function Parameters
@@ -52,9 +56,5 @@ const tokens = client().tokens;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | string | Filter by one or more IDs of this resource |
-
-
-##`postAuthentications(options = {})`
-
 
 

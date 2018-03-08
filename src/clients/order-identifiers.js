@@ -24,6 +24,10 @@ export default class OrderIdentifiers extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/versions`, options);
+  }
+
   getByIdentifier(organization, identifier, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order-identifiers/${identifier}`, options);
   }
@@ -40,10 +44,6 @@ export default class OrderIdentifiers extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order-identifiers/versions`, options);
   }
 
 }

@@ -33,17 +33,6 @@ const subcatalogItems = client().subcatalogItems;
 | sort | string |  |
 | expand | [string] |  |
 
-##`getByNumber(organization, subcatalogId, number, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| subcatalog_id | string |  |
-| number | string |  |
-
-
 ##`getVersions(organization, subcatalogId, options = {})`
 
 ### Function Parameters
@@ -62,4 +51,15 @@ const subcatalogItems = client().subcatalogItems;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
+
+##`getByNumber(organization, subcatalogId, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| subcatalog_id | string |  |
+| number | string |  |
+
 

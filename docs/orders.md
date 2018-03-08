@@ -27,6 +27,8 @@ const orders = client().orders;
 | id | [string] | Filter by one or more IDs of this resource |
 | number | [string] |  |
 | identifier | string |  |
+| status | order_status |  |
+| submitted_at_on_or_after | date-time-iso8601 | If specified, we filter to all records that have a &#x27;submitted_at&#x27; &gt;&#x3D; &#x27;submitted_at_on_or_after&#x27; |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -50,6 +52,40 @@ const orders = client().orders;
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 | expand | [string] |  |
+
+##`getIdentifierByIdentifier(organization, identifier, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| identifier | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
+##`getVersions(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| number | [string] |  |
+| journal_timestamp_on_or_after | date-time-iso8601 | If specified, we filter to all records that have a &#x27;journal_timestamp&#x27; &gt;&#x3D; &#x27;journal_timestamp_on_or_after&#x27; |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
 
 ##`getByNumber(organization, number, options = {})`
 
@@ -166,39 +202,6 @@ const orders = client().orders;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | number | string |  |
 
-
-##`getIdentifierByIdentifier(organization, identifier, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| identifier | string |  |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
-
-##`getVersions(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| number | [string] |  |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 
 ##`getStatusAndFraudByNumber(organization, number, options = {})`
 

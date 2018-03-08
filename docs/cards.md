@@ -39,26 +39,6 @@ const cards = client().cards;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByToken(organization, token, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| token | string |  |
-
-
-##`deleteByToken(organization, token, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| token | string |  |
-
-
 ##`postNonces(organization, options = {})`
 
 ### Function Parameters
@@ -86,4 +66,24 @@ const cards = client().cards;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
+
+##`getByToken(organization, token, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| token | string |  |
+
+
+##`deleteByToken(organization, token, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| token | string |  |
+
 

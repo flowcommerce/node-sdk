@@ -24,6 +24,10 @@ export default class Items extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/versions`, options);
+  }
+
   getByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, options);
   }
@@ -47,10 +51,6 @@ export default class Items extends Client {
       ...options,
        method: 'PUT',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/items/versions`, options);
   }
 
 }

@@ -24,12 +24,12 @@ export default class ShippingLabels extends Client {
     });
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_labels/${id}`, options);
-  }
-
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/shipping_labels/versions`, options);
+  }
+
+  getById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/shipping_labels/${id}`, options);
   }
 
 }

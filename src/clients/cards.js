@@ -24,17 +24,6 @@ export default class Cards extends Client {
     });
   }
 
-  getByToken(organization, token, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, options);
-  }
-
-  deleteByToken(organization, token, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, {
-      ...options,
-       method: 'DELETE',
-    });
-  }
-
   postNonces(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/cards/nonces`, {
       ...options,
@@ -44,6 +33,17 @@ export default class Cards extends Client {
 
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/cards/versions`, options);
+  }
+
+  getByToken(organization, token, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, options);
+  }
+
+  deleteByToken(organization, token, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, {
+      ...options,
+       method: 'DELETE',
+    });
   }
 
 }

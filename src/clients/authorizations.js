@@ -24,6 +24,24 @@ export default class Authorizations extends Client {
     });
   }
 
+  postCard(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/card`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  postOnline(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/online`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/versions`, options);
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, options);
   }
@@ -47,24 +65,6 @@ export default class Authorizations extends Client {
       ...options,
        method: 'PUT',
     });
-  }
-
-  postCard(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/authorizations/card`, {
-      ...options,
-       method: 'POST',
-    });
-  }
-
-  postOnline(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/authorizations/online`, {
-      ...options,
-       method: 'POST',
-    });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/authorizations/versions`, options);
   }
 
 }

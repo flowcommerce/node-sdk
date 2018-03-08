@@ -24,6 +24,10 @@ export default class OrganizationCurrencySettings extends Client {
     });
   }
 
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/currency/settings/versions`, options);
+  }
+
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/currency/settings/${id}`, options);
   }
@@ -40,10 +44,6 @@ export default class OrganizationCurrencySettings extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/currency/settings/versions`, options);
   }
 
 }

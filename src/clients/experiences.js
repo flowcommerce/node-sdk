@@ -24,6 +24,22 @@ export default class Experiences extends Client {
     });
   }
 
+  getConversionsByBaseAndAmount(organization, base, amount, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/conversions/${base}/${amount}`, options);
+  }
+
+  getItems(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/items`, options);
+  }
+
+  getItemsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/items/${number}`, options);
+  }
+
+  getVersions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/versions`, options);
+  }
+
   getCurrencyAndFormatsByExperienceKey(organization, experienceKey, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/currency/formats`, options);
   }
@@ -46,6 +62,10 @@ export default class Experiences extends Client {
     });
   }
 
+  getMarginsAndVersionsByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/versions`, options);
+  }
+
   getMarginsByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/${key}`, options);
   }
@@ -62,10 +82,6 @@ export default class Experiences extends Client {
       ...options,
        method: 'DELETE',
     });
-  }
-
-  getMarginsAndVersionsByExperienceKey(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/margins/versions`, options);
   }
 
   getPaymentMethodTypesByExperienceKey(organization, experienceKey, options = {}) {
@@ -147,22 +163,6 @@ export default class Experiences extends Client {
       ...options,
        method: 'PUT',
     });
-  }
-
-  getConversionsByBaseAndAmount(organization, base, amount, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/conversions/${base}/${amount}`, options);
-  }
-
-  getItems(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/items`, options);
-  }
-
-  getItemsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/items/${number}`, options);
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/versions`, options);
   }
 
 }
