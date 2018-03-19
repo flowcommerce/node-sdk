@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 import EventEmitter from 'events';
 import querystring from 'querystring';
 
@@ -40,6 +39,16 @@ export default class Client extends EventEmitter {
     const queryStr = querystring.stringify(opts.params);
     const paramString = queryStr ? `?${queryStr}` : '';
     return `${url}${paramString}`;
+  }
+
+  static generateRandomBytes(len) {
+    var loops = Math.max(Math.ceil(len / 10), 1);
+    var randomBits = '';
+
+    for (var x = 0; x < loops; x++) {
+      randomBits += (Date.now() * Math.random()).toString(16).replace(/\./g, '').slice(0, 10);
+    }
+    return randomBits.slice(0, len);
   }
 
   static possiblyConvertAuthorizationHeader(auth) {
@@ -113,7 +122,7 @@ export default class Client extends EventEmitter {
   makeRequest(url, opts = {}) {
     const startTimeMs = new Date().getTime();
     const finalUrl = Client.getFinalUrl(url, opts);
-    const requestId = crypto.randomBytes(20).toString('hex');
+    const requestId = Client.generateRandomBytes(40)
     const headers = this.calculateFinalHeaders(opts);
     const body = opts.body && typeof opts.body !== 'string' ? JSON.stringify(opts.body) : opts.body;
     const options = {
