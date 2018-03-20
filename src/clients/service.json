@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.13.29"
+    "version": "0.14.9"
   },
   "name": "API",
   "organization": {
@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.4.90",
+  "version": "0.4.96",
   "info": {
     "license": {
       "name": "MIT",
@@ -641,6 +641,23 @@
           "name": "unpaid",
           "attributes": [],
           "description": "Delivered Duty Unpaid (DDU). See https://en.wikipedia.org/wiki/Incoterms for more information"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "delivered_duty_display_type",
+      "plural": "delivered_duty_display_types",
+      "values": [
+        {
+          "name": "all",
+          "attributes": [],
+          "description": "Displays all available options to the customer."
+        },
+        {
+          "name": "single",
+          "attributes": [],
+          "description": "Displays a single option (either DDU or DDP), while the other can be displayed by changing duties and tax preferences at checkout."
         }
       ],
       "attributes": []
@@ -8334,6 +8351,12 @@
           "required": true,
           "attributes": [],
           "description": "Available delivered duty options to pick."
+        },
+        {
+          "name": "display",
+          "type": "delivered_duty_display_type",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -10108,7 +10131,8 @@
           "name": "price_attributes",
           "type": "map[price_with_base]",
           "required": true,
-          "attributes": []
+          "attributes": [],
+          "description": "All attributes for this item having a price intent."
         }
       ],
       "attributes": []
@@ -22634,6 +22658,13 @@
           "required": false,
           "attributes": [],
           "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a submitted order, if applicable."
+        },
+        {
+          "name": "shipment_recipient",
+          "type": "shipment_recipient",
+          "required": false,
+          "attributes": [],
+          "description": "Tells us who the recipient of the package is. This will determine information passed on to carriers to make sure the correct label and accounts are used"
         }
       ],
       "attributes": [],

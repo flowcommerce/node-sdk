@@ -117,6 +117,7 @@ const enums = {
   cvvCode: ['match', 'suspicious', 'unsupported', 'no_match'],
   dayOfWeek: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
   deliveredDuty: ['paid', 'unpaid'],
+  deliveredDutyDisplayType: ['all', 'single'],
   deliveryWindowComponentSource: ['flow', 'organization', 'carrier', 'center', 'mixed'],
   deliveryWindowLocation: ['center', 'crossdock', 'customer'],
   direction: ['outbound', 'return'],
