@@ -88,6 +88,7 @@ These resources mirror the official documentation located at
 | [imports](imports.md) |  |
 | [importTemplates](importTemplates.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
+| [itemQuerySuggestions](itemQuerySuggestions.md) |  |
 | [links](links.md) |  |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |
 | [organizationAuthorizations](organizationAuthorizations.md) | Defines the data used for broad authorization of user access to org level data |
@@ -97,6 +98,7 @@ These resources mirror the official documentation located at
 | [scheduledExports](scheduledExports.md) |  |
 | [sessions](sessions.md) |  |
 | [sessionAuthorizations](sessionAuthorizations.md) |  |
+| [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |

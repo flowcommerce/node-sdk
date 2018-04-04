@@ -79,6 +79,7 @@ import Healthchecks from './healthchecks';
 import Imports from './imports';
 import ImportTemplates from './import-templates';
 import Invitations from './invitations';
+import ItemQuerySuggestions from './item-query-suggestions';
 import Links from './links';
 import Memberships from './memberships';
 import OrganizationAuthorizations from './organization-authorizations';
@@ -88,6 +89,7 @@ import PasswordResetForms from './password-reset-forms';
 import ScheduledExports from './scheduled-exports';
 import Sessions from './sessions';
 import SessionAuthorizations from './session-authorizations';
+import ShopifyPrivateApps from './shopify-private-apps';
 import Suggestions from './suggestions';
 import Tokens from './tokens';
 import TokenValidations from './token-validations';
@@ -147,7 +149,7 @@ const enums = {
   measurementSystem: ['imperial', 'metric'],
   method: ['post'],
   orderChangeSource: ['consumer', 'retailer', 'fulfillment', 'flow', 'carrier'],
-  orderErrorCode: ['generic_error', 'order_item_not_available', 'order_identifier_error', 'authorization_invalid', 'domestic_shipping_unavailable', 'value_threshold_exceeded'],
+  orderErrorCode: ['generic_error', 'order_item_not_available', 'order_identifier_error', 'authorization_invalid', 'domestic_shipping_unavailable', 'value_threshold_exceeded', 'invalid_currency', 'invalid_country', 'invalid_region', 'invalid_language'],
   orderPaymentType: ['card', 'online', 'credit', 'installment_plan', 'cash_on_delivery'],
   orderPriceDetailComponentKey: ['adjustment', 'vat_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'item_discount', 'rounding', 'insurance', 'shipping', 'order_discount', 'subtotal_percent_sales_margin', 'subtotal_vat_percent_sales_margin', 'subtotal_duty_percent_sales_margin', 'vat_subsidy', 'duty_subsidy'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
@@ -175,6 +177,7 @@ const enums = {
   scheduleExceptionStatus: ['Open', 'Closed'],
   shipmentIntegrationType: ['direct', 'information', 'preadvice'],
   shipmentRecipient: ['customer', 'return', 'crossdock'],
+  shopifyGrant: ['discount', 'gift_card', 'metafield', 'order'],
   sortDirection: ['ascending', 'descending'],
   strategy: ['range', 'from', 'to'],
   subcatalogItemStatus: ['excluded', 'included', 'restricted'],
@@ -287,6 +290,7 @@ export default class ApiClient {
     this.imports = new Imports(options);
     this.importTemplates = new ImportTemplates(options);
     this.invitations = new Invitations(options);
+    this.itemQuerySuggestions = new ItemQuerySuggestions(options);
     this.links = new Links(options);
     this.memberships = new Memberships(options);
     this.organizationAuthorizations = new OrganizationAuthorizations(options);
@@ -296,6 +300,7 @@ export default class ApiClient {
     this.scheduledExports = new ScheduledExports(options);
     this.sessions = new Sessions(options);
     this.sessionAuthorizations = new SessionAuthorizations(options);
+    this.shopifyPrivateApps = new ShopifyPrivateApps(options);
     this.suggestions = new Suggestions(options);
     this.tokens = new Tokens(options);
     this.tokenValidations = new TokenValidations(options);

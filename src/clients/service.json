@@ -1,6 +1,6 @@
 {
   "apidoc": {
-    "version": "0.14.9"
+    "version": "0.14.12"
   },
   "name": "API",
   "organization": {
@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.4.96",
+  "version": "0.4.99",
   "info": {
     "license": {
       "name": "MIT",
@@ -1662,6 +1662,26 @@
           "name": "value_threshold_exceeded",
           "attributes": [],
           "description": "Indicates the order value exceeds the value threshold for destination and cannot be shipped. When specified, the order will also populate the threshold attribute."
+        },
+        {
+          "name": "invalid_currency",
+          "attributes": [],
+          "description": "Indicates that the specified currency code is not valid"
+        },
+        {
+          "name": "invalid_country",
+          "attributes": [],
+          "description": "Indicates that the specified country code is not valid"
+        },
+        {
+          "name": "invalid_region",
+          "attributes": [],
+          "description": "Indicates that the specified region code is not valid"
+        },
+        {
+          "name": "invalid_language",
+          "attributes": [],
+          "description": "Indicates that the specified language code is not valid"
         }
       ],
       "attributes": []
@@ -2487,8 +2507,7 @@
           "attributes": []
         }
       ],
-      "attributes": [],
-      "description": "Pending better name"
+      "attributes": []
     },
     {
       "name": "shipment_integration_type",
@@ -2531,6 +2550,33 @@
           "name": "crossdock",
           "attributes": [],
           "description": "Outbound shipment to a crossdock"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_grant",
+      "plural": "shopify_grants",
+      "values": [
+        {
+          "name": "discount",
+          "attributes": [],
+          "description": "Access to /admin/price_rules/:id/discount_codes.json"
+        },
+        {
+          "name": "gift_card",
+          "attributes": [],
+          "description": "Access to /admin/gift_cards.json"
+        },
+        {
+          "name": "metafield",
+          "attributes": [],
+          "description": "Access to /admin/variants/:id/metafields.json"
+        },
+        {
+          "name": "order",
+          "attributes": [],
+          "description": "Access to /admin/orders/:id/metafields.json"
         }
       ],
       "attributes": []
@@ -7406,12 +7452,11 @@
           "description": "Capabilities of each center. This is used when determining if a crossdock solution is required."
         },
         {
-          "name": "partner_reference",
-          "type": "partner_reference",
+          "name": "partner_center",
+          "type": "partner_center",
           "required": false,
           "attributes": [],
-          "description": "Partner that is associated with the crossdock center",
-          "example": "Flexe"
+          "description": "If a center operates as a crossdock this contains information about the crossdock"
         }
       ],
       "attributes": [],
@@ -7515,12 +7560,11 @@
           "description": "Capabilities of each center. This is used when determining if a crossdock solution is required"
         },
         {
-          "name": "partner_id",
-          "type": "string",
+          "name": "partner_center_form",
+          "type": "partner_center_form",
           "required": false,
           "attributes": [],
-          "description": "Partner that is associated with the crossdock center",
-          "example": "Flexe"
+          "description": "If a center operates as a crossdock this contains information about the crossdock"
         }
       ],
       "attributes": []
@@ -8425,7 +8469,7 @@
         },
         {
           "name": "send_to",
-          "type": "address",
+          "type": "shipping_address",
           "required": false,
           "attributes": [],
           "description": "Intermediate destination required before going to final destination"
@@ -11304,6 +11348,27 @@
           "type": "[string]",
           "required": true,
           "attributes": []
+        },
+        {
+          "name": "source_address",
+          "type": "address",
+          "required": false,
+          "attributes": [],
+          "description": "The center address from where the items were shipped"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "The order number"
+        },
+        {
+          "name": "submitted",
+          "type": "boolean",
+          "required": false,
+          "attributes": [],
+          "description": "If the order has been submitted. If false the tax and duty calculation will be a quote."
         }
       ],
       "attributes": [],
@@ -13527,6 +13592,26 @@
           "attributes": [],
           "description": "Attributes of the items. An attribute of type intent must be given as a string representation of a decimal to be correctly localized.",
           "default": "{}"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "item_query_suggestion",
+      "plural": "item_query_suggestions",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "ex: 'brand:theory' 'category:rugs'"
+        },
+        {
+          "name": "count",
+          "type": "long",
+          "required": false,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -15966,6 +16051,13 @@
           "required": false,
           "attributes": [],
           "description": "The remaining balance on this order. Will be marked required in a future version of the Flow API"
+        },
+        {
+          "name": "rules",
+          "type": "order_rules_summary",
+          "required": false,
+          "attributes": [],
+          "description": "Represents a summary of the rules related to this order."
         }
       ],
       "attributes": [],
@@ -16946,6 +17038,39 @@
           "required": true,
           "attributes": [],
           "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_rule_reference",
+      "plural": "order_rule_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_rules_summary",
+      "plural": "order_rules_summaries",
+      "fields": [
+        {
+          "name": "applied",
+          "type": "[order_rule_reference]",
+          "required": true,
+          "attributes": []
         }
       ],
       "attributes": []
@@ -18009,6 +18134,50 @@
       ],
       "attributes": [],
       "description": "Represents packaging available to ship items"
+    },
+    {
+      "name": "partner_center",
+      "plural": "partner_centers",
+      "fields": [
+        {
+          "name": "partner_reference",
+          "type": "partner_reference",
+          "required": true,
+          "attributes": [],
+          "description": "Partner that is associated with this crossdock center",
+          "example": "Flexe"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Identifier used by the partner for this center"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "partner_center_form",
+      "plural": "partner_center_forms",
+      "fields": [
+        {
+          "name": "partner_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Partner that is associated with this crossdock center",
+          "example": "Flexe"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "Identifier used by the partner for this center"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "partner_reference",
@@ -21974,7 +22143,7 @@
         {
           "name": "variant",
           "type": "session_experiment_variant",
-          "required": true,
+          "required": false,
           "attributes": []
         }
       ],
@@ -22245,6 +22414,13 @@
           "required": true,
           "attributes": [],
           "description": "Attributes of the physical location"
+        },
+        {
+          "name": "center_key",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "description": "If this address corresponds to a center this is the center's key"
         }
       ],
       "attributes": []
@@ -22768,6 +22944,54 @@
         {
           "name": "shipping_notification",
           "type": "shipping_notification",
+          "required": true,
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_private_app",
+      "plural": "shopify_private_apps",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "api_key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Redacted api key, only last 2 characters will be displayed."
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "description": "Redacted password, only last 2 characters will be displayed."
+        }
+      ],
+      "attributes": [],
+      "description": "Shopify private app information."
+    },
+    {
+      "name": "shopify_private_app_form",
+      "plural": "shopify_private_app_forms",
+      "fields": [
+        {
+          "name": "api_key",
+          "type": "string",
+          "required": true,
+          "attributes": []
+        },
+        {
+          "name": "password",
+          "type": "string",
           "required": true,
           "attributes": []
         }
@@ -27803,6 +28027,12 @@
               "location": "Query",
               "required": false,
               "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
+            },
+            {
+              "name": "status",
+              "type": "experience_status",
+              "location": "Query",
+              "required": false
             },
             {
               "name": "limit",
@@ -53470,6 +53700,94 @@
       "description": "An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization."
     },
     {
+      "type": "item_query_suggestion",
+      "plural": "item_query_suggestions",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/search/item/query/suggestions",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "example": "gucci category:handbag price:10"
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[item_query_suggestion]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions",
+                  "sort_parameter_default"
+                ]
+              }
+            }
+          ],
+          "description": "Returns search suggestions for catalog items"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/:organization/search/item/query/suggestions"
+    },
+    {
       "type": "link",
       "plural": "links",
       "operations": [
@@ -55261,6 +55579,287 @@
       "path": "/authorizations/sessions"
     },
     {
+      "type": "shopify_private_app",
+      "plural": "shopify_private_apps",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/shopify/private/apps",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[shopify_private_app]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "-created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/shopify/private/apps",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_private_app",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shopify_private_app",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "shopify_private_app_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/shopify/private/apps/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_private_app",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/shopify/private/apps/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/:organization/shopify/private/apps",
+      "description": "Shopify private app information."
+    },
+    {
       "type": "suggestion",
       "plural": "suggestions",
       "operations": [
@@ -55366,7 +55965,10 @@
           }
         }
       ],
-      "path": "/:organization/suggestion"
+      "path": "/:organization/suggestion",
+      "deprecation": {
+        "description": "Use /:organization/search/item/query/suggestions"
+      }
     },
     {
       "type": "token",
