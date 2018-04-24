@@ -61,6 +61,13 @@ export default class Orders extends Client {
     });
   }
 
+  putDestinationByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/destination`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   postInstallmentAndPlanAndAuthorizationsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/installment/plan/authorizations`, {
       ...options,

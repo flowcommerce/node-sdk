@@ -24,6 +24,7 @@ const experiences = client().experiences;
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
+| q | string |  |
 | id | [string] | Filter by one or more IDs of this resource |
 | key | [string] |  |
 | name | string |  |

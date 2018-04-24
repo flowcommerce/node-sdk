@@ -1,6 +1,6 @@
 # [API](README.md).orders - Flow Commerce API - Node SDK Documentation
 
-An order represents all of the information about a particular line item, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see a payment authorization for an order.
+An order represents all of the information about a particular set of line items, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see payment authorization(s) covering the full balance of an order.
 
 ## Usage
 
@@ -156,6 +156,16 @@ const orders = client().orders;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
+
+##`putDestinationByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
 
 ##`postInstallmentAndPlanAndAuthorizationsByNumber(organization, number, options = {})`
 
