@@ -36,4 +36,22 @@ export default class Refunds extends Client {
     return this.makeRequest(`${this.host}/${organization}/refunds/${key}`, options);
   }
 
+  getIdentifiersByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/refunds/${key}/identifiers`, options);
+  }
+
+  putIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/refunds/${key}/identifiers/${identifier}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/refunds/${key}/identifiers/${identifier}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
 }

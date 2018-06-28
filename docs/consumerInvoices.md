@@ -1,13 +1,13 @@
-# [API](README.md).manifests - Flow Commerce API - Node SDK Documentation
+# [API](README.md).consumerInvoices - Flow Commerce API - Node SDK Documentation
 
-Represents closeout of a group of labels that have been transferred to the carrier for shipping
+The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment.
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const manifests = client().manifests;
+const consumerInvoices = client().consumerInvoices;
 ```
 
 ## Operations
@@ -25,9 +25,7 @@ const manifests = client().manifests;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| carrier_tracking_number | [string] |  |
-| flow_tracking_number | [string] |  |
-| service | [string] |  |
+| key | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -40,24 +38,44 @@ const manifests = client().manifests;
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
 
+### Query Parameters
 
-##`getServicesAndOutstandingByService(organization, service, options = {})`
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| language | string | Optional language in which to generate the invoice |
+
+##`getByKey(organization, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| service | string |  |
+| key | string |  |
 
 
-##`getById(organization, id, options = {})`
+##`putByKey(organization, key, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
+| key | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| language | string | Optional language in which to generate the invoice |
+
+##`deleteByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
 
 

@@ -20,8 +20,22 @@ export default class OrderBuilders extends Client {
     });
   }
 
+  putCartsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order/builders/carts/${number}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   putByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order/builders/${number}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putAttributesByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/attributes`, {
       ...options,
        method: 'PUT',
     });

@@ -39,6 +39,15 @@ const centers = client().centers;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`postQuery(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
 ##`getVersions(organization, options = {})`
 
 ### Function Parameters

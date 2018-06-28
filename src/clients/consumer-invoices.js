@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Reservations extends Client {
+export default class ConsumerInvoices extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -13,26 +13,30 @@ export default class Reservations extends Client {
     super(options);
   }
 
+  get(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices`, options);
+  }
+
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/reservation`, {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/reservation/${key}`, options);
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/reservation/${key}`, {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/reservation/${key}`, {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${key}`, {
       ...options,
        method: 'DELETE',
     });

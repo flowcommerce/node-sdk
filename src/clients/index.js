@@ -6,6 +6,7 @@ import CheckoutItemContents from './checkout-item-contents';
 import CreditPayments from './credit-payments';
 import Experiences from './experiences';
 import ExperienceDefaults from './experience-defaults';
+import ExperienceLogisticsSettings from './experience-logistics-settings';
 import Items from './items';
 import Orders from './orders';
 import OrderBuilders from './order-builders';
@@ -36,11 +37,14 @@ import TariffCodes from './tariff-codes';
 import Authorizations from './authorizations';
 import Captures from './captures';
 import Cards from './cards';
+import GatewayAuthenticationData from './gateway-authentication-data';
 import Payments from './payments';
 import PublicKeys from './public-keys';
 import Refunds from './refunds';
 import Reversals from './reversals';
 import VirtualCards from './virtual-cards';
+import VirtualCardCaptures from './virtual-card-captures';
+import VirtualCardRefunds from './virtual-card-refunds';
 import Centers from './centers';
 import DeliveryWindows from './delivery-windows';
 import InventoryRules from './inventory-rules';
@@ -48,9 +52,10 @@ import InventorySnapshots from './inventory-snapshots';
 import InventoryUpdates from './inventory-updates';
 import Manifests from './manifests';
 import Quotes from './quotes';
-import Reservations from './reservations';
 import Returns from './returns';
 import Serials from './serials';
+import ShippingConfigurations from './shipping-configurations';
+import ShippingConfigurationCopies from './shipping-configuration-copies';
 import ShippingLabels from './shipping-labels';
 import ShippingNotifications from './shipping-notifications';
 import Tiers from './tiers';
@@ -71,6 +76,8 @@ import Locales from './locales';
 import PaymentMethods from './payment-methods';
 import Provinces from './provinces';
 import Regions from './regions';
+import ConsumerInvoices from './consumer-invoices';
+import ConsumerInvoiceUrls from './consumer-invoice-urls';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Exports from './exports';
@@ -112,9 +119,12 @@ const enums = {
   cancelReason: ['out_of_stock', 'consumer_requested', 'flow_cancel'],
   capability: ['crossdock'],
   captureDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
+  captureStatus: ['pending', 'succeeded', 'failed', 'canceled'],
   cardErrorCode: ['invalid_address', 'invalid_name', 'invalid_number', 'invalid_expiration', 'invalid_token_type', 'avs', 'cvv', 'fraud', 'unknown'],
   cardType: ['american_express', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
+  centerCapability: ['international', 'domestic', 'crossdock', 'commercial_invoice'],
   changeType: ['insert', 'update', 'delete'],
+  consumerInvoiceDocumentType: ['pdf'],
   creditPaymentErrorCode: ['generic_error', 'invalid_order_number', 'invalid_currency', 'invalid_description', 'duplicate', 'amount_must_be_positive', 'amount_exceeds_balance', 'insufficient_amount'],
   currencyLabelFormatter: ['strip_trailing_zeros'],
   currencySymbolFormat: ['narrow', 'primary'],
@@ -128,13 +138,14 @@ const enums = {
   deliveryWindowLocation: ['center', 'crossdock', 'customer'],
   direction: ['outbound', 'return'],
   environment: ['sandbox', 'production'],
-  eventType: ['attribute_upserted', 'attribute_deleted', 'attribute_upserted_v2', 'attribute_deleted_v2', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'crossdock_shipment_upserted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted_v2', 'allocation_upserted_v2', 'currency_format_deleted', 'currency_format_upserted', 'experience_deleted', 'experience_upserted', 'experience_price_book_mapping_deleted', 'experience_price_book_mapping_upserted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_identifier_deleted', 'order_identifier_upserted', 'order_identifier_deleted_v2', 'order_identifier_upserted_v2', 'pricing_deleted', 'pricing_upserted', 'fraud_status_changed', 'tier_upserted', 'tier_deleted', 'delivery_option_upserted', 'delivery_option_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'fully_harmonized_item_upserted', 'rule_upserted', 'rule_deleted', 'serial_upserted', 'serial_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'refund_capture_upserted_v2', 'reversal_upserted', 'price_book_upserted', 'price_book_deleted', 'price_book_item_upserted', 'price_book_item_deleted', 'organization_rates_published', 'organization_countries_published', 'organization_ratecard_transit_windows_published', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
+  eventType: ['attribute_upserted', 'attribute_deleted', 'attribute_upserted_v2', 'attribute_deleted_v2', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'crossdock_shipment_upserted', 'rate_deleted', 'rate_upserted', 'available_promotions_upserted', 'available_promotions_deleted', 'allocation_deleted_v2', 'allocation_upserted_v2', 'currency_format_deleted', 'currency_format_upserted', 'experience_deleted', 'experience_upserted', 'experience_deleted_v2', 'experience_upserted_v2', 'experience_price_book_mapping_deleted', 'experience_price_book_mapping_upserted', 'experience_logistics_settings_upserted', 'experience_logistics_settings_deleted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_deleted_v2', 'order_upserted_v2', 'order_identifier_deleted', 'order_identifier_upserted', 'order_identifier_deleted_v2', 'order_identifier_upserted_v2', 'pricing_deleted', 'pricing_upserted', 'fraud_status_changed', 'tier_upserted', 'tier_deleted', 'delivery_option_upserted', 'delivery_option_deleted', 'shipping_configuration_upserted', 'shipping_configuration_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'fully_harmonized_item_upserted', 'rule_upserted', 'rule_deleted', 'serial_upserted', 'serial_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'membership_upserted', 'membership_deleted', 'organization_upserted', 'organization_deleted', 'authorization_upserted', 'authorization_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted', 'card_authorization_upserted_v2', 'online_authorization_upserted', 'online_authorization_upserted_v2', 'capture_upserted', 'capture_upserted_v2', 'card_upserted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted', 'refund_upserted_v2', 'refund_capture_upserted_v2', 'reversal_upserted', 'capture_identifier_upserted', 'capture_identifier_deleted', 'refund_identifier_upserted', 'refund_identifier_deleted', 'virtual_card_capture_upserted', 'virtual_card_capture_deleted', 'virtual_card_refund_upserted', 'virtual_card_refund_deleted', 'price_book_upserted', 'price_book_deleted', 'price_book_item_upserted', 'price_book_item_deleted', 'organization_rates_published', 'organization_countries_published', 'organization_ratecard_transit_windows_published', 'return_upserted', 'return_deleted', 'targeting_item_upserted', 'targeting_item_deleted', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
   experiencePaymentMethodTag: ['display'],
-  experienceStatus: ['draft', 'active', 'archived'],
+  experienceStatus: ['draft', 'active', 'archiving', 'archived'],
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   flowFieldName: ['item-number', 'sku-attribute', 'product_id-attribute'],
-  fraudStatus: ['pending', 'approved', 'declined'],
+  fraudLiability: ['flow', 'organization'],
+  fraudStatus: ['pending', 'approved', 'declined', 'review'],
   fulfillmentItemQuantityStatus: ['new', 'shipped', 'cancelled'],
   fulfillmentMethodType: ['fulfillment_method'],
   fulfillmentMethodValue: ['digital', 'physical'],
@@ -145,15 +156,19 @@ const enums = {
   includedLevyKey: ['duty', 'vat', 'vat_and_duty', 'none'],
   incomingFeedFormat: ['google-xml', 'google-sheet'],
   incomingFieldName: ['id', 'mpn'],
+  incoterm: ['EXW', 'FCA', 'CPT', 'CIP', 'DAT', 'DAP', 'DDP', 'FAS', 'FOB', 'CFR', 'CIF', 'DAF', 'DES', 'DEQ', 'DDU'],
   installmentPlanPaymentErrorCode: ['invalid_authorization', 'invalid_authorization_amount', 'invalid_installment_plan'],
+  inventoryStatus: ['has_inventory', 'no_inventory'],
   invitationErrorCode: ['expired', 'invalid_email'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
+  merchantOfRecord: ['flow', 'organization'],
   method: ['post'],
   orderChangeSource: ['consumer', 'retailer', 'fulfillment', 'flow', 'carrier'],
   orderErrorCode: ['generic_error', 'order_item_not_available', 'order_identifier_error', 'authorization_invalid', 'domestic_shipping_unavailable', 'shipping_unavailable', 'value_threshold_exceeded', 'invalid_currency', 'invalid_country', 'invalid_region', 'invalid_language'],
+  orderMerchantOfRecord: ['flow', 'organization', 'mixed'],
   orderPaymentType: ['card', 'online', 'credit', 'installment_plan', 'cash_on_delivery'],
   orderPriceDetailComponentKey: ['adjustment', 'vat_deminimis', 'duty_deminimis', 'duties_item_price', 'duties_freight', 'duties_insurance', 'vat_item_price', 'vat_freight', 'vat_insurance', 'vat_duties_item_price', 'vat_duties_freight', 'vat_duties_insurance', 'item_price', 'item_discount', 'rounding', 'insurance', 'shipping', 'order_discount', 'subtotal_percent_sales_margin', 'subtotal_vat_percent_sales_margin', 'subtotal_duty_percent_sales_margin', 'vat_subsidy', 'duty_subsidy'],
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount'],
@@ -172,6 +187,7 @@ const enums = {
   queryType: ['exclusion', 'inclusion'],
   quoteErrorCode: ['generic_error', 'items_not_available'],
   refundDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
+  refundStatus: ['pending', 'succeeded', 'failed', 'canceled'],
   returnStatus: ['open', 'refunded'],
   reversalErrorCode: ['amount_exceeds_balance', 'authorization_declined', 'authorization_expired', 'invalid_authorization', 'invalid_key', 'invalid_amount', 'invalid_currency', 'no_remaining_balance', 'partial_reversal_not_supported', 'unknown'],
   reversalStatus: ['pending', 'processed', 'failed'],
@@ -182,7 +198,8 @@ const enums = {
   serialStatus: ['available', 'reserved', 'sold'],
   shipmentIntegrationType: ['direct', 'information', 'preadvice'],
   shipmentRecipient: ['customer', 'return', 'crossdock'],
-  shopifyGrant: ['discount', 'gift_card', 'metafield', 'order'],
+  shippingConfigurationType: ['default', 'variant'],
+  shopifyGrant: ['customer', 'discount', 'gift_card', 'metafield', 'order'],
   sortDirection: ['ascending', 'descending'],
   strategy: ['range', 'from', 'to'],
   subcatalogItemStatus: ['excluded', 'included', 'restricted'],
@@ -222,6 +239,7 @@ export default class ApiClient {
     this.creditPayments = new CreditPayments(options);
     this.experiences = new Experiences(options);
     this.experienceDefaults = new ExperienceDefaults(options);
+    this.experienceLogisticsSettings = new ExperienceLogisticsSettings(options);
     this.items = new Items(options);
     this.orders = new Orders(options);
     this.orderBuilders = new OrderBuilders(options);
@@ -252,11 +270,14 @@ export default class ApiClient {
     this.authorizations = new Authorizations(options);
     this.captures = new Captures(options);
     this.cards = new Cards(options);
+    this.gatewayAuthenticationData = new GatewayAuthenticationData(options);
     this.payments = new Payments(options);
     this.publicKeys = new PublicKeys(options);
     this.refunds = new Refunds(options);
     this.reversals = new Reversals(options);
     this.virtualCards = new VirtualCards(options);
+    this.virtualCardCaptures = new VirtualCardCaptures(options);
+    this.virtualCardRefunds = new VirtualCardRefunds(options);
     this.centers = new Centers(options);
     this.deliveryWindows = new DeliveryWindows(options);
     this.inventoryRules = new InventoryRules(options);
@@ -264,9 +285,10 @@ export default class ApiClient {
     this.inventoryUpdates = new InventoryUpdates(options);
     this.manifests = new Manifests(options);
     this.quotes = new Quotes(options);
-    this.reservations = new Reservations(options);
     this.returns = new Returns(options);
     this.serials = new Serials(options);
+    this.shippingConfigurations = new ShippingConfigurations(options);
+    this.shippingConfigurationCopies = new ShippingConfigurationCopies(options);
     this.shippingLabels = new ShippingLabels(options);
     this.shippingNotifications = new ShippingNotifications(options);
     this.tiers = new Tiers(options);
@@ -287,6 +309,8 @@ export default class ApiClient {
     this.paymentMethods = new PaymentMethods(options);
     this.provinces = new Provinces(options);
     this.regions = new Regions(options);
+    this.consumerInvoices = new ConsumerInvoices(options);
+    this.consumerInvoiceUrls = new ConsumerInvoiceUrls(options);
     this.documents = new Documents(options);
     this.emailVerifications = new EmailVerifications(options);
     this.exports = new Exports(options);

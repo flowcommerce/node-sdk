@@ -47,7 +47,7 @@ const serials = client().serials;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| aggregate | aggregate | Returns the serial price computed for the specificed aggregate |
+| aggregate | aggregate | Returns the serial price computed for the specified aggregate |
 
 ### Query Parameters
 

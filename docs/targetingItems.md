@@ -1,6 +1,6 @@
 # [API](README.md).targetingItems - Flow Commerce API - Node SDK Documentation
 
-Represents catalog items where a targeteing query is applicable
+Represents catalog items where a targeting query is applicable
 
 ## Usage
 

@@ -48,6 +48,15 @@ const sessions = client().sessions;
 | session | string |  |
 
 
+##`putClearBySession(session, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+
+
 ##`putOrganizationsBySessionAndOrganization(session, organization, options = {})`
 
 ### Function Parameters

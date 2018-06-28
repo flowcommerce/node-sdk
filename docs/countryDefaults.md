@@ -20,7 +20,6 @@ const countryDefaults = client().countryDefaults;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | country | string | The ISO 3166 2 or 3 character code for the country. Case insensitive. See https://api.flow.io/reference/countries |
-| address | string |  |
 | ip | string |  |
 
 ##`getByCountry(country, options = {})`

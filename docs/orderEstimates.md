@@ -30,6 +30,7 @@ const orderEstimates = client().orderEstimates;
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 
 ##`getByNumber(organization, number, options = {})`
 
@@ -45,6 +46,7 @@ const orderEstimates = client().orderEstimates;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 
 ##`putByNumber(organization, number, options = {})`
 
@@ -65,4 +67,5 @@ const orderEstimates = client().orderEstimates;
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 

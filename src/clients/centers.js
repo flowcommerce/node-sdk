@@ -24,6 +24,13 @@ export default class Centers extends Client {
     });
   }
 
+  postQuery(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/centers/query`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/centers/versions`, options);
   }

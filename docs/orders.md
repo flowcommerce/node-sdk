@@ -29,6 +29,7 @@ const orders = client().orders;
 | identifier | string |  |
 | status | order_status |  |
 | submitted_at_on_or_after | date-time-iso8601 | If specified, we filter to all records that have a &#x27;submitted_at&#x27; &gt;&#x3D; &#x27;submitted_at_on_or_after&#x27; |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -52,6 +53,7 @@ const orders = client().orders;
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 
 ##`getIdentifierByIdentifier(organization, identifier, options = {})`
 
@@ -101,6 +103,7 @@ const orders = client().orders;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 
 ##`putByNumber(organization, number, options = {})`
 
@@ -121,6 +124,7 @@ const orders = client().orders;
 | currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 
 ##`deleteByNumber(organization, number, options = {})`
 

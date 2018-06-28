@@ -32,4 +32,22 @@ export default class Captures extends Client {
     return this.makeRequest(`${this.host}/${organization}/captures/${key}`, options);
   }
 
+  getIdentifiersByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}/identifiers`, options);
+  }
+
+  putIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}/identifiers/${identifier}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}/identifiers/${identifier}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
 }

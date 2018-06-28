@@ -15,6 +15,7 @@ These resources mirror the official documentation located at
 | [creditPayments](creditPayments.md) | A Credit Payment records a &#x27;non cash&#x27; payment against an order (e.g. a store credit, gift card, etc.), recording the amount of that credit and additional details to reconcile payments. The primary purpose of the credit payment is to record that a payment has been made against an order so the remaining balance can be correctly computed. |
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
 | [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
+| [experienceLogisticsSettings](experienceLogisticsSettings.md) | Controls logistics related settings per experience |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [orders](orders.md) | An order represents all of the information about a particular set of line items, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see payment authorization(s) covering the full balance of an order. |
 | [orderBuilders](orderBuilders.md) | The Order Builder resource provides an incremental approach to building an order - returning the order details as they exist along with validation errors. The main difference is that this API will never return a 422 - rather it provides a container to view the order in its current state as well as all validation errors |
@@ -29,7 +30,7 @@ These resources mirror the official documentation located at
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
 | [targetings](targetings.md) |  |
-| [targetingItems](targetingItems.md) | Represents catalog items where a targeteing query is applicable |
+| [targetingItems](targetingItems.md) | Represents catalog items where a targeting query is applicable |
 | [itemFunctions](itemFunctions.md) | Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created. |
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
@@ -45,21 +46,25 @@ These resources mirror the official documentation located at
 | [authorizations](authorizations.md) |  |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
+| [gatewayAuthenticationData](gatewayAuthenticationData.md) |  |
 | [payments](payments.md) | Represents data for a specific online payment method |
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
 | [reversals](reversals.md) | A reversal is used to clear an authorization (full or partial). |
 | [virtualCards](virtualCards.md) | Virtual card details |
+| [virtualCardCaptures](virtualCardCaptures.md) |  |
+| [virtualCardRefunds](virtualCardRefunds.md) |  |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) | Flow&#x27;s estimate of when a shipment for this delivery will actually arrive at the final destination, taking into account a shipment estimate, center schedules, and carrier transit windows. |
 | [inventoryRules](inventoryRules.md) | Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization |
 | [inventorySnapshots](inventorySnapshots.md) | Inventory snapshot reflects the current quantity and available number of units for a given center / item |
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
-| [manifests](manifests.md) | Represents closeout of a group of labels that have been transfered to the carrier for shipping |
+| [manifests](manifests.md) | Represents closeout of a group of labels that have been transferred to the carrier for shipping |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
-| [reservations](reservations.md) | Inventory reservation for a set of items in organization that potentially expires at specified date/time |
 | [returns](returns.md) |  |
 | [serials](serials.md) | A unique identifier assigned to an individual item. |
+| [shippingConfigurations](shippingConfigurations.md) |  |
+| [shippingConfigurationCopies](shippingConfigurationCopies.md) |  |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |
 | [tiers](tiers.md) | Service shipping tier available in this tier group. e.g. Standard tier, Express tier, Economy tier |
@@ -80,6 +85,8 @@ These resources mirror the official documentation located at
 | [paymentMethods](paymentMethods.md) | Represents a single payment method - e.g VISA or Paypal - and any associated metadata required for processing |
 | [provinces](provinces.md) | A subdivision/province/state within a country. These conform to the ISO 3166-2 standard for country subdivisions. See https://api.flow.io/reference/provinces |
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions |
+| [consumerInvoices](consumerInvoices.md) | The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment. |
+| [consumerInvoiceUrls](consumerInvoiceUrls.md) | Provides the underlying URL to a given document for this invoice |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |

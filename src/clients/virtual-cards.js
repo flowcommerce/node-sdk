@@ -13,6 +13,14 @@ export default class VirtualCards extends Client {
     super(options);
   }
 
+  get(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/virtual/cards`, options);
+  }
+
+  getByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/virtual/cards/${key}`, options);
+  }
+
   putAuthorizationsByKeyAndAuthorizationKey(organization, key, authorizationKey, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/virtual/cards/${key}/authorizations/${authorizationKey}`, {
       ...options,

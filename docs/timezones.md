@@ -19,7 +19,6 @@ const timezones = client().timezones;
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| address | string |  |
 | ip | string |  |
 
 ##`getReferenceAndTimezones(options = {})`
