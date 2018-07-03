@@ -106,6 +106,7 @@ These resources mirror the official documentation located at
 | [scheduledExports](scheduledExports.md) |  |
 | [sessions](sessions.md) |  |
 | [sessionAuthorizations](sessionAuthorizations.md) |  |
+| [shopifyCarts](shopifyCarts.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) |  |

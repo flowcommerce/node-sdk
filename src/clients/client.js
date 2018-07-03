@@ -1,20 +1,14 @@
+import crypto from 'crypto';
 import EventEmitter from 'events';
 import querystring from 'querystring';
 
-let fetch;
-let base64Encode;
-
 /**
- * Use the right implementation depending on the execution environment.
- *
- * NOTE: Consumer is expected to polyfill the browser environment when
- * implementation for btoa or fetch is not available.
+ * Use the right implementation of fetch depending on the execution environment
  */
+let fetch;
 if (process.browser) {
   fetch = window.fetch;
-  base64Encode = window.btoa;
 } else {
-  base64Encode = value => new Buffer(value).toString('base64');
   fetch = require('node-fetch'); // eslint-disable-line global-require
 }
 
@@ -119,10 +113,12 @@ export default class Client extends EventEmitter {
   makeRequest(url, opts = {}) {
     const startTimeMs = new Date().getTime();
     const finalUrl = Client.getFinalUrl(url, opts);
+    const requestId = crypto.randomBytes(20).toString('hex');
     const headers = this.calculateFinalHeaders(opts);
     const body = opts.body && typeof opts.body !== 'string' ? JSON.stringify(opts.body) : opts.body;
     const options = {
       credentials: 'same-origin',
+      requestId,
       ...opts,
       headers,
       body,
@@ -139,7 +135,7 @@ export default class Client extends EventEmitter {
         response.text().then((text) => {
           let result = text;
 
-          this.logResponse({ status: response.status, body: result, time: roundTripMs });
+          this.logResponse({ status: response.status, body: result, requestId, time: roundTripMs });
 
           // Return JSON if text can parse as such
           try {

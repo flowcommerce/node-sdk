@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.5.69",
+  "version": "0.5.76",
   "info": {
     "license": {
       "name": "MIT",
@@ -1088,6 +1088,14 @@
           "attributes": []
         },
         {
+          "name": "tier_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "tier_deleted_v2",
+          "attributes": []
+        },
+        {
           "name": "hs6_code_upserted",
           "attributes": []
         },
@@ -1345,6 +1353,10 @@
         },
         {
           "name": "targeting_item_deleted",
+          "attributes": []
+        },
+        {
+          "name": "targeting_item_deleted_v2",
           "attributes": []
         },
         {
@@ -3899,6 +3911,16 @@
           "discriminator_value": "shipping_configuration_deleted"
         },
         {
+          "type": "tier_upserted_v2",
+          "attributes": [],
+          "discriminator_value": "tier_upserted_v2"
+        },
+        {
+          "type": "tier_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "tier_deleted_v2"
+        },
+        {
           "type": "hs6_code_upserted",
           "attributes": [],
           "discriminator_value": "hs6_code_upserted"
@@ -4242,6 +4264,11 @@
           "type": "targeting_item_deleted",
           "attributes": [],
           "discriminator_value": "targeting_item_deleted"
+        },
+        {
+          "type": "targeting_item_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "targeting_item_deleted_v2"
         },
         {
           "type": "tracking_label_event_upserted",
@@ -4792,6 +4819,25 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Form for information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages."
+    },
+    {
+      "name": "shopify_cart_add_form",
+      "plural": "shopify_cart_add_forms",
+      "types": [
+        {
+          "type": "shopify_cart_add_single_form",
+          "attributes": [],
+          "default": true,
+          "discriminator_value": "shopify_cart_add_single_form"
+        },
+        {
+          "type": "shopify_cart_add_multiple_form",
+          "attributes": [],
+          "discriminator_value": "shopify_cart_add_multiple_form"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
     },
     {
       "name": "tier_rule_outcome",
@@ -12962,6 +13008,58 @@
       "attributes": []
     },
     {
+      "name": "geo_form",
+      "plural": "geo_forms",
+      "fields": [
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
+          "example": "en"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Locale Id as defined in https://api.flow.io/reference/locales",
+          "example": "en-US"
+        },
+        {
+          "name": "experience",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The ID of a specific experience to use"
+        }
+      ],
+      "attributes": [],
+      "description": "Form used to update geographic preferences"
+    },
+    {
       "name": "harmonization_document",
       "plural": "harmonization_documents",
       "fields": [
@@ -13650,6 +13748,13 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "tax_registration",
+          "type": "tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -13693,6 +13798,21 @@
         {
           "name": "line_items",
           "type": "[line_item]",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "tax_registration",
+          "type": "merchant_of_record_entity_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Tax registration that may affect applicable rates. e.g. EU VAT registration number."
+        },
+        {
+          "name": "tax_registration_name",
+          "type": "string",
           "required": false,
           "attributes": [],
           "annotations": []
@@ -18471,7 +18591,7 @@
         },
         {
           "name": "vat",
-          "type": "vat_registration",
+          "type": "merchant_of_record_entity_registration",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -18533,6 +18653,30 @@
       ],
       "attributes": [],
       "description": "The merchant of record entity provides the legal name and address of the specific Flow entity serving as merchant of record."
+    },
+    {
+      "name": "merchant_of_record_entity_registration",
+      "plural": "merchant_of_record_entity_registrations",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "In Europe, this is the VAT registration number for the entity. In the US, this is the EIN."
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The country in which this registration number is defined. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "merchant_of_record_payment_form",
@@ -20571,6 +20715,13 @@
           "attributes": [],
           "annotations": [],
           "description": "Sets the authorization keys to associate with this order. Each authorization, if valid, will then be added to the order.payments field."
+        },
+        {
+          "name": "tax_registration",
+          "type": "order_tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -20634,6 +20785,39 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "order_tax_registration",
+      "plural": "order_tax_registrations",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The person or company registered."
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "In Europe, this is the VAT registration number for the entity. In the US, this is the EIN."
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The country in which this registration number is defined. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        }
+      ],
+      "attributes": [],
+      "description": "Tax registration information used to calculate / apply taxes to a specific order."
     },
     {
       "name": "order_upserted",
@@ -26831,6 +27015,13 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -27995,6 +28186,338 @@
       "attributes": []
     },
     {
+      "name": "shopify_cart",
+      "plural": "shopify_carts",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Equivalent of the cart token"
+        },
+        {
+          "name": "items",
+          "type": "[shopify_cart_item]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "item_count",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "total_price",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "local",
+          "type": "shopify_local_cart_metadata",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "attributes",
+          "type": "object",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "note",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "requires_shipping",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "default": "true"
+        },
+        {
+          "name": "total_weight",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Representation of a Shopify cart exactly as defined by shopify.com"
+    },
+    {
+      "name": "shopify_cart_add_multiple_form",
+      "plural": "shopify_cart_add_multiple_forms",
+      "fields": [
+        {
+          "name": "items",
+          "type": "[shopify_cart_add_single_form]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_cart_add_single_form",
+      "plural": "shopify_cart_add_single_forms",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "properties",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "linter",
+          "value": {
+            "ignore": [
+              "common_field_types"
+            ]
+          },
+          "description": "id is a long in shopify"
+        }
+      ]
+    },
+    {
+      "name": "shopify_cart_change_form",
+      "plural": "shopify_cart_change_forms",
+      "fields": [
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "line",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "This correlates to the position of the item line in the cart. First item in shopify cart has line=1",
+          "minimum": 1
+        },
+        {
+          "name": "id",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The variant id"
+        },
+        {
+          "name": "properties",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "linter",
+          "value": {
+            "ignore": [
+              "common_field_types"
+            ]
+          },
+          "description": "id is a long in shopify"
+        }
+      ],
+      "description": "Must provide either line or id. If you provide both, they must match"
+    },
+    {
+      "name": "shopify_cart_item",
+      "plural": "shopify_cart_items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "handle",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "line_price",
+          "type": "double",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "price",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "product_id",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "product_title",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "variant_id",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "local",
+          "type": "shopify_local_cart_item_metadata",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "gift_card",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "default": "false"
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "product_description",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "product_type",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "properties",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "requires_shipping",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "default": "true"
+        },
+        {
+          "name": "sku",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "variant_title",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "variant_options",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "vendor",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "shopify_customer_metafield_value",
       "plural": "shopify_customer_metafield_values",
       "fields": [
@@ -28008,6 +28531,78 @@
       ],
       "attributes": [],
       "description": "Model to represent details available in a customer metafield."
+    },
+    {
+      "name": "shopify_local_cart_item_metadata",
+      "plural": "shopify_local_cart_item_metadata",
+      "fields": [
+        {
+          "name": "line_price",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "price",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_local_cart_metadata",
+      "plural": "shopify_local_cart_metadata",
+      "fields": [
+        {
+          "name": "total_price",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "promotions",
+          "type": "promotions",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The current available and applied promotions for this order"
+        },
+        {
+          "name": "rules",
+          "type": "order_rules_summary",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Represents a summary of the rules related to this cart."
+        },
+        {
+          "name": "subtotal",
+          "type": "price_with_base",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "vat",
+          "type": "price_with_base",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "duty",
+          "type": "price_with_base",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "shopify_local_price_metadata",
@@ -28106,6 +28701,20 @@
           "name": "duty",
           "type": "shopify_price",
           "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_order_attributes_form",
+      "plural": "shopify_order_attributes_forms",
+      "fields": [
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
           "attributes": [],
           "annotations": []
         }
@@ -29272,6 +29881,42 @@
       "attributes": []
     },
     {
+      "name": "targeting_item_deleted_v2",
+      "plural": "targeting_item_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "targeting_item",
+          "type": "targeting_item",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "targeting_item_upserted",
       "plural": "targeting_item_upserteds",
       "fields": [
@@ -29569,6 +30214,66 @@
       "description": "Represents a simple model of taxes that apply to a given item / destination."
     },
     {
+      "name": "tax_registration",
+      "plural": "tax_registrations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Unique ID generated by Flow."
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The ISO 3166 3 character code for the registration country"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The tax registration number"
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "isValid",
+          "type": "boolean",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company."
+    },
+    {
       "name": "tier",
       "plural": "tiers",
       "fields": [
@@ -29800,6 +30505,42 @@
           "attributes": [],
           "annotations": [],
           "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tier_deleted_v2",
+      "plural": "tier_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "tier",
+          "type": "tier",
+          "required": true,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": []
@@ -30268,6 +31009,42 @@
           "name": "display",
           "type": "tier_display",
           "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "tier_upserted_v2",
+      "plural": "tier_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "tier",
+          "type": "tier",
+          "required": true,
           "attributes": [],
           "annotations": []
         }
@@ -31327,30 +32104,6 @@
           "attributes": [],
           "annotations": [],
           "description": "The actual limit in the original currency in which the rule was defined. For example, Canada may restrict exports over CA$2000 - this value would be set to 2000"
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "vat_registration",
-      "plural": "vat_registrations",
-      "fields": [
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "In Europe, this is the VAT registration number for the entity. In the US, this is the EIN."
-        },
-        {
-          "name": "country",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "The country in which this registration number is defined. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
         }
       ],
       "attributes": []
@@ -64794,6 +65547,377 @@
       "operations": [
         {
           "method": "POST",
+          "path": "/sessions/shopify/organizations/:organization",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/sessions/shopify/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/sessions/shopify/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session/clear",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "description": "Clears the session geo parameters"
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session/organizations/:organization",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session/reset",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "description": "Resets the session based on the provided geo parameters.",
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
           "path": "/sessions/organizations/:organization",
           "parameters": [
             {
@@ -65230,6 +66354,463 @@
         }
       ],
       "path": "/authorizations/sessions"
+    },
+    {
+      "type": "shopify_cart",
+      "plural": "shopify_carts",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/shopify/carts/:id.html",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "string",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Retrieve representation of a Shopify cart given the unique cart id."
+        },
+        {
+          "method": "GET",
+          "path": "/shopify/carts/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_cart",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Retrieve representation of a Shopify cart given the unique cart id."
+        },
+        {
+          "method": "POST",
+          "path": "/shopify/carts/:id/add",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_cart",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shopify_cart",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Add an item to a Shopify cart given the unique cart id.",
+          "body": {
+            "type": "shopify_cart_add_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/shopify/carts/:id/attributes",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_cart",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Update the attribute information for the cart.",
+          "body": {
+            "type": "shopify_order_attributes_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/shopify/carts/:id/change",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_cart",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Change/Update an item in a Shopify cart given the unique cart id.",
+          "body": {
+            "type": "shopify_cart_change_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/shopify/carts/:id/clear",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_cart",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Remove all cart items given the unique cart id ."
+        },
+        {
+          "method": "PUT",
+          "path": "/shopify/carts/:id/geo",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_cart",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Update the geo information for the cart.",
+          "body": {
+            "type": "geo_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/shopify/carts/:id/orders",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Create an order from a cart."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/shopify/carts",
+      "description": "Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api"
     },
     {
       "type": "shopify_private_app",
@@ -66156,6 +67737,16 @@
               "type": "unit",
               "description": "Authorization failed",
               "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
             }
           ],
           "attributes": [
@@ -66174,9 +67765,18 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
             }
           ],
-          "description": "Search users. Always paginated."
+          "description": "Search users. Must specify an id or email."
         },
         {
           "method": "POST",
@@ -66273,95 +67873,6 @@
             "type": "authentication_form",
             "attributes": []
           }
-        },
-        {
-          "method": "GET",
-          "path": "/users/versions",
-          "parameters": [
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "user_id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter to users with any one of these ids.",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[user_version]",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "user_id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ],
-          "description": "Provides visibility into recent changes of each object, including deletion"
         },
         {
           "method": "GET",

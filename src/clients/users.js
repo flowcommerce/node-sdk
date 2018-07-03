@@ -31,10 +31,6 @@ export default class Users extends Client {
     });
   }
 
-  getVersions(options = {}) {
-    return this.makeRequest(`${this.host}/users/versions`, options);
-  }
-
   getById(id, options = {}) {
     return this.makeRequest(`${this.host}/users/${id}`, options);
   }
