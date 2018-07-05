@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.5.76",
+  "version": "0.5.84",
   "info": {
     "license": {
       "name": "MIT",
@@ -925,6 +925,14 @@
         },
         {
           "name": "subcatalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "name": "consumer_invoice_upserted",
+          "attributes": []
+        },
+        {
+          "name": "consumer_invoice_deleted",
           "attributes": []
         },
         {
@@ -3094,6 +3102,25 @@
       "description": "Status indicating availability of a subcatalog item in an experience."
     },
     {
+      "name": "tax_verification_result",
+      "plural": "tax_verification_results",
+      "values": [
+        {
+          "name": "valid",
+          "attributes": []
+        },
+        {
+          "name": "invalid",
+          "attributes": []
+        },
+        {
+          "name": "unable_to_validate",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "taxability_type",
       "plural": "taxability_types",
       "values": [
@@ -3709,6 +3736,16 @@
           "type": "subcatalog_item_deleted",
           "attributes": [],
           "discriminator_value": "subcatalog_item_deleted"
+        },
+        {
+          "type": "consumer_invoice_upserted",
+          "attributes": [],
+          "discriminator_value": "consumer_invoice_upserted"
+        },
+        {
+          "type": "consumer_invoice_deleted",
+          "attributes": [],
+          "discriminator_value": "consumer_invoice_deleted"
         },
         {
           "type": "crossdock_shipment_upserted",
@@ -9178,6 +9215,43 @@
       "description": "The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment."
     },
     {
+      "name": "consumer_invoice_deleted",
+      "plural": "consumer_invoice_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The date/time of the request"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "consumer_invoice",
+          "type": "consumer_invoice",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "consumer_invoice_document",
       "plural": "consumer_invoice_documents",
       "fields": [
@@ -9266,6 +9340,43 @@
           "attributes": [],
           "annotations": [],
           "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "consumer_invoice_upserted",
+      "plural": "consumer_invoice_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The date/time of the request"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "consumer_invoice",
+          "type": "consumer_invoice",
+          "required": true,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": []
@@ -28931,6 +29042,68 @@
       "attributes": []
     },
     {
+      "name": "shopify_variant_price_metafield",
+      "plural": "shopify_variant_price_metafields",
+      "fields": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The item price in local currency",
+          "example": "C$150.95"
+        },
+        {
+          "name": "includes",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Defines what is included in the item price",
+          "example": "Includes VAT"
+        },
+        {
+          "name": "vat",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The VAT in local currency",
+          "example": "C$20.00"
+        },
+        {
+          "name": "vat_name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The name of the VAT for this experience country",
+          "example": "VAT or HST"
+        },
+        {
+          "name": "duty",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The Duty in local currency",
+          "example": "C$10.00"
+        },
+        {
+          "name": "compare_at",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The compare at item price in local currency",
+          "example": "C$250.00"
+        }
+      ],
+      "attributes": [],
+      "description": "The shopify variant metafield defines the individual metafield values we write into Shopify for each variant. This model was introduced to enable server side rendering of content (e.g. the price on the product detail page). Each field in this model is available as its own metafield within a namespace named 'price_abc' where abc is a unique, short identifier for an experience."
+    },
+    {
       "name": "single_package_shipping_notification_form",
       "plural": "single_package_shipping_notification_forms",
       "fields": [
@@ -30249,8 +30422,8 @@
           "annotations": []
         },
         {
-          "name": "isValid",
-          "type": "boolean",
+          "name": "result",
+          "type": "tax_verification_result",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -32965,11 +33138,22 @@
       "plural": "zones",
       "fields": [
         {
-          "name": "province",
-          "type": "string",
+          "name": "postals",
+          "type": "[string]",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [],
+          "description": "Group of postal code prefixes included in this zone",
+          "example": "[M9P,M9R,M9V,M9W]"
+        },
+        {
+          "name": "provinces",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Group of provinces included in this zone. Values should in ISO 3166-2 province code format.",
+          "example": "[AB, ON]"
         },
         {
           "name": "country",
@@ -65547,377 +65731,6 @@
       "operations": [
         {
           "method": "POST",
-          "path": "/sessions/shopify/organizations/:organization",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "organization_session",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "body": {
-            "type": "session_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/sessions/shopify/:session",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ]
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/shopify/:session",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "body": {
-            "type": "session_put_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/sessions/shopify/:session",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/shopify/:session/clear",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "description": "Clears the session geo parameters"
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/shopify/:session/organizations/:organization",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "organization_session",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "body": {
-            "type": "session_put_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/shopify/:session/reset",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "description": "Resets the session based on the provided geo parameters.",
-          "body": {
-            "type": "session_put_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "POST",
           "path": "/sessions/organizations/:organization",
           "parameters": [
             {
@@ -66230,6 +66043,377 @@
         {
           "method": "PUT",
           "path": "/sessions/:session/reset",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "description": "Resets the session based on the provided geo parameters.",
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/sessions/shopify/organizations/:organization",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/sessions/shopify/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/sessions/shopify/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session/clear",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "description": "Clears the session geo parameters"
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session/organizations/:organization",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/shopify/:session/reset",
           "parameters": [
             {
               "name": "session",
