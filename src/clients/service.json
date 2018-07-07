@@ -9263,6 +9263,15 @@
           "annotations": []
         },
         {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The language in which this invoice was generated. Value is an ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
+          "example": "en"
+        },
+        {
           "name": "url",
           "type": "string",
           "required": true,
@@ -9380,21 +9389,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "consumer_invoice_url",
-      "plural": "consumer_invoice_urls",
-      "fields": [
-        {
-          "name": "url",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": [],
-      "description": "Provides the underlying URL to a given document for this invoice"
     },
     {
       "name": "contact",
@@ -13914,19 +13908,12 @@
           "annotations": []
         },
         {
-          "name": "tax_registration",
-          "type": "merchant_of_record_entity_registration",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Tax registration that may affect applicable rates. e.g. EU VAT registration number."
-        },
-        {
-          "name": "tax_registration_name",
+          "name": "tax_registration_id",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [],
+          "description": "The ID of a tax registration to use to evaluate the tax rates as the registration may affect applicable rates. e.g. EU VAT registration number."
         }
       ],
       "attributes": [],
@@ -19629,6 +19616,14 @@
           "attributes": [],
           "annotations": [],
           "description": "Represents a summary of the rules related to this order."
+        },
+        {
+          "name": "tax_registration",
+          "type": "tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Represents the tax registration on an order, if applicable."
         }
       ],
       "attributes": [],
@@ -20826,13 +20821,6 @@
           "attributes": [],
           "annotations": [],
           "description": "Sets the authorization keys to associate with this order. Each authorization, if valid, will then be added to the order.payments field."
-        },
-        {
-          "name": "tax_registration",
-          "type": "order_tax_registration",
-          "required": false,
-          "attributes": [],
-          "annotations": []
         }
       ],
       "attributes": [],
@@ -20896,39 +20884,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "order_tax_registration",
-      "plural": "order_tax_registrations",
-      "fields": [
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "The person or company registered."
-        },
-        {
-          "name": "number",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "In Europe, this is the VAT registration number for the entity. In the US, this is the EIN."
-        },
-        {
-          "name": "country",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "The country in which this registration number is defined. The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
-          "example": "CAN"
-        }
-      ],
-      "attributes": [],
-      "description": "Tax registration information used to calculate / apply taxes to a specific order."
     },
     {
       "name": "order_upserted",
@@ -21111,6 +21066,14 @@
           "attributes": [],
           "annotations": [],
           "default": "flow"
+        },
+        {
+          "name": "tax_registration",
+          "type": "tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Represents the tax registration on an order, if applicable."
         }
       ],
       "attributes": []
@@ -28923,6 +28886,14 @@
           "attributes": [],
           "annotations": [],
           "description": "Defines the specific incoterms under which this order should be processed / delivered"
+        },
+        {
+          "name": "tax_registration",
+          "type": "tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Represents the tax registration on an order (e.g user entered a valid VAT number in europe), if applicable, and its status."
         }
       ],
       "attributes": [],
@@ -30396,15 +30367,14 @@
           "required": true,
           "attributes": [],
           "annotations": [],
-          "description": "Unique ID generated by Flow."
+          "description": "Globally unique identifier"
         },
         {
-          "name": "country",
+          "name": "key",
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
-          "description": "The ISO 3166 3 character code for the registration country"
+          "annotations": []
         },
         {
           "name": "number",
@@ -30433,18 +30403,42 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [],
+          "description": "The name associated with the tax regigration number."
         },
         {
           "name": "address",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [],
+          "description": "The address associated with the tax regigration number."
         }
       ],
       "attributes": [],
       "description": "Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company."
+    },
+    {
+      "name": "tax_registration_form",
+      "plural": "tax_registration_forms",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The tax registration number"
+        },
+        {
+          "name": "company_name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tier",
@@ -39541,6 +39535,73 @@
           ],
           "attributes": [],
           "description": "Submits an order. You will get a validation error if the order has already expired (and a new quote could not be automatically recreated for a lower or same price). This method is idempotent - submitting an order a second time has no effect."
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/orders/:number/tax/registration",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tax_registration",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tax_registration",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Validates a tax registration number, proxying to underlying services and recording the result on the order.",
+          "body": {
+            "type": "tax_registration_form",
+            "attributes": []
+          }
         },
         {
           "method": "GET",
@@ -49010,6 +49071,158 @@
       ],
       "path": "/harmonization/tariff-codes/:destination",
       "description": "API to fetch current tariff codes."
+    },
+    {
+      "type": "tax_registration",
+      "plural": "tax_registrations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/:organization/tax/registrations",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tax_registration",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "tax_registration_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/tax/registrations/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "tax_registration",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "tax_registration",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "tax_registration_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "landed cost"
+          }
+        }
+      ],
+      "path": "/:organization/tax/registrations",
+      "description": "Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company."
     },
     {
       "type": "authorization",
@@ -61939,12 +62152,12 @@
       "description": "The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment."
     },
     {
-      "type": "consumer_invoice_url",
-      "plural": "consumer_invoice_urls",
+      "type": "consumer_invoice_document",
+      "plural": "consumer_invoice_documents",
       "operations": [
         {
           "method": "GET",
-          "path": "/consumer/invoice/tokens/:token/type/:type",
+          "path": "/consumer/invoice/document/tokens/:token/type/:type",
           "parameters": [
             {
               "name": "token",
@@ -61957,6 +62170,14 @@
               "type": "consumer_invoice_document_type",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "language",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Optional language for the invoice",
+              "example": "'en' or 'fr'"
             }
           ],
           "responses": [
@@ -61966,7 +62187,7 @@
                   "value": 200
                 }
               },
-              "type": "consumer_invoice_url",
+              "type": "consumer_invoice_document",
               "description": "Successful response",
               "attributes": []
             },
@@ -61988,6 +62209,16 @@
               },
               "type": "unit",
               "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": []
             }
           ],
@@ -62011,8 +62242,7 @@
           }
         }
       ],
-      "path": "/consumer/invoice",
-      "description": "Provides the underlying URL to a given document for this invoice"
+      "path": "/consumer/invoice/document"
     },
     {
       "type": "document",
@@ -65731,377 +65961,6 @@
       "operations": [
         {
           "method": "POST",
-          "path": "/sessions/organizations/:organization",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "organization_session",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "body": {
-            "type": "session_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/sessions/:session",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ]
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/:session",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "body": {
-            "type": "session_put_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/sessions/:session",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/:session/clear",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "description": "Clears the session geo parameters"
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/:session/organizations/:organization",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "organization_session",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "body": {
-            "type": "session_put_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "PUT",
-          "path": "/sessions/:session/reset",
-          "parameters": [
-            {
-              "name": "session",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "session",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "response_codes"
-                ]
-              },
-              "description": "401 not a required response since operation is anonymously authenticated."
-            }
-          ],
-          "description": "Resets the session based on the provided geo parameters.",
-          "body": {
-            "type": "session_put_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "POST",
           "path": "/sessions/shopify/organizations/:organization",
           "parameters": [
             {
@@ -66414,6 +66273,377 @@
         {
           "method": "PUT",
           "path": "/sessions/shopify/:session/reset",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "description": "Resets the session based on the provided geo parameters.",
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/sessions/organizations/:organization",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/sessions/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/sessions/:session",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/:session/clear",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "session",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "description": "Clears the session geo parameters"
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/:session/organizations/:organization",
+          "parameters": [
+            {
+              "name": "session",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "organization_session",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "401 not a required response since operation is anonymously authenticated."
+            }
+          ],
+          "body": {
+            "type": "session_put_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/sessions/:session/reset",
           "parameters": [
             {
               "name": "session",

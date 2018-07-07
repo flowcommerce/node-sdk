@@ -13,52 +13,6 @@ export default class Sessions extends Client {
     super(options);
   }
 
-  postOrganizationsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/organizations/${organization}`, {
-      ...options,
-       method: 'POST',
-    });
-  }
-
-  getBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/${session}`, options);
-  }
-
-  putBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/${session}`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
-  deleteBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/${session}`, {
-      ...options,
-       method: 'DELETE',
-    });
-  }
-
-  putClearBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/${session}/clear`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
-  putOrganizationsBySessionAndOrganization(session, organization, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/${session}/organizations/${organization}`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
-  putResetBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/${session}/reset`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
   postShopifyAndOrganizationsByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/sessions/shopify/organizations/${organization}`, {
       ...options,
@@ -100,6 +54,52 @@ export default class Sessions extends Client {
 
   putShopifyAndResetBySession(session, options = {}) {
     return this.makeRequest(`${this.host}/sessions/shopify/${session}/reset`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  postOrganizationsByOrganization(organization, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/organizations/${organization}`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  getBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}`, options);
+  }
+
+  putBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
+  putClearBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}/clear`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putOrganizationsBySessionAndOrganization(session, organization, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}/organizations/${organization}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putResetBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/${session}/reset`, {
       ...options,
        method: 'PUT',
     });

@@ -96,6 +96,13 @@ export default class Orders extends Client {
     });
   }
 
+  putTaxAndRegistrationByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/tax/registration`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getStatusAndFraudByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/status/fraud`, options);
   }

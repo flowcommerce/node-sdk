@@ -12,70 +12,6 @@ const sessions = client().sessions;
 
 ## Operations
 
-##`postOrganizationsByOrganization(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`getBySession(session, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| session | string |  |
-
-
-##`putBySession(session, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| session | string |  |
-
-
-##`deleteBySession(session, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| session | string |  |
-
-
-##`putClearBySession(session, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| session | string |  |
-
-
-##`putOrganizationsBySessionAndOrganization(session, organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| session | string |  |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`putResetBySession(session, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| session | string |  |
-
-
 ##`postShopifyAndOrganizationsByOrganization(organization, options = {})`
 
 ### Function Parameters
@@ -132,6 +68,70 @@ const sessions = client().sessions;
 
 
 ##`putShopifyAndResetBySession(session, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+
+
+##`postOrganizationsByOrganization(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`getBySession(session, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+
+
+##`putBySession(session, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+
+
+##`deleteBySession(session, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+
+
+##`putClearBySession(session, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+
+
+##`putOrganizationsBySessionAndOrganization(session, organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| session | string |  |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`putResetBySession(session, options = {})`
 
 ### Function Parameters
 
