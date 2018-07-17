@@ -26,6 +26,7 @@ const refunds = client().refunds;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | key | [string] |  |
+| identifier | string |  |
 | authorization_id | string |  |
 | authorization_key | string |  |
 | capture_id | string |  |

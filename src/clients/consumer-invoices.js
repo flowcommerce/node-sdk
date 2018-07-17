@@ -24,6 +24,27 @@ export default class ConsumerInvoices extends Client {
     });
   }
 
+  postCreditAndMemosByInvoiceKey(organization, invoiceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${invoiceKey}/credit/memos`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  putCreditAndMemosByInvoiceKeyAndKey(organization, invoiceKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${invoiceKey}/credit/memos/${key}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteCreditAndMemosByInvoiceKeyAndKey(organization, invoiceKey, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${invoiceKey}/credit/memos/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${key}`, options);
   }

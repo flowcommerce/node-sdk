@@ -13,6 +13,10 @@ export default class ShopifyCarts extends Client {
     super(options);
   }
 
+  getOrderByNumber(number, options = {}) {
+    return this.makeRequest(`${this.host}/shopify/carts/order/${number}`, options);
+  }
+
   getByIdhtml(id, options = {}) {
     return this.makeRequest(`${this.host}/shopify/carts/${id.html}`, options);
   }

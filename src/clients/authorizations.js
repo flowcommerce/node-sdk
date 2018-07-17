@@ -60,11 +60,4 @@ export default class Authorizations extends Client {
     });
   }
 
-  putValueByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}/value`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
 }

@@ -44,6 +44,38 @@ const consumerInvoices = client().consumerInvoices;
 | ---- | ---- | ---- |
 | language | string | Optional language in which to generate the invoice |
 
+##`postCreditAndMemosByInvoiceKey(organization, invoiceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| invoice_key | string |  |
+
+
+##`putCreditAndMemosByInvoiceKeyAndKey(organization, invoiceKey, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| invoice_key | string |  |
+| key | string |  |
+
+
+##`deleteCreditAndMemosByInvoiceKeyAndKey(organization, invoiceKey, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| invoice_key | string |  |
+| key | string |  |
+
+
 ##`getByKey(organization, key, options = {})`
 
 ### Function Parameters

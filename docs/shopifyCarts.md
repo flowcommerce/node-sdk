@@ -12,6 +12,15 @@ const shopifyCarts = client().shopifyCarts;
 
 ## Operations
 
+##`getOrderByNumber(number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| number | string |  |
+
+
 ##`getByIdhtml(id, options = {})`
 
 ### Function Parameters
