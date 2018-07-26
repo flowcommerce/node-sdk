@@ -27,6 +27,7 @@ const rates = client().rates;
 | id | [string] | Filter by one or more IDs of this resource |
 | base | [string] | Filter by one or more (case-insensitive) base currency ISO 4217 3-character codes, as defined in https://api.flow.io/reference/currencies |
 | target | string | Filter by the (case-insensitive) target currency&#x27;s ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies |
+| type | rate_type | Filter by rate type |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -46,6 +47,7 @@ const rates = client().rates;
 | id | [string] | Filter by one or more IDs of this resource |
 | base | string | Filter by the (case-insensitive) base currency&#x27;s ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies |
 | target | string | Filter by the (case-insensitive) target currency&#x27;s ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies |
+| type | rate_type | Filter by rate type |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

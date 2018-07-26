@@ -154,6 +154,13 @@ const experiences = client().experiences;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | experience_key | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| country | string | If not specified, we will use the experience default country. ISO 3166 3 country code as defined in https://api.flow.io/reference/countries |
+| currency | string | If not specified, we will use the experience default currency. ISO 3166 3 currency code as defined in https://api.flow.io/reference/currencies |
+| number | string | Specific item number for which to generate a summary |
 
 ##`getMarginsByExperienceKey(organization, experienceKey, options = {})`
 

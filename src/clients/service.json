@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.5.93",
+  "version": "0.6.5",
   "info": {
     "license": {
       "name": "MIT",
@@ -579,6 +579,28 @@
       ],
       "attributes": [],
       "description": "The invoice content type defines the type of content contained in a given url"
+    },
+    {
+      "name": "consumer_invoice_status",
+      "plural": "consumer_invoice_statuses",
+      "values": [
+        {
+          "name": "pending",
+          "attributes": [],
+          "description": "Indicates that the credit memo has been created but validation is pending (e.g. waiting for the associated refund to be confirmed)"
+        },
+        {
+          "name": "available",
+          "attributes": [],
+          "description": "Indicates that the credit memo is fully validated and available for the end consumer"
+        },
+        {
+          "name": "invalid",
+          "attributes": [],
+          "description": "Indicates that the credit memo failed to validate after multiple attempts and time"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "credit_payment_error_code",
@@ -1265,14 +1287,6 @@
           "attributes": []
         },
         {
-          "name": "authorization_upserted",
-          "attributes": []
-        },
-        {
-          "name": "authorization_deleted",
-          "attributes": []
-        },
-        {
           "name": "authorization_deleted_v2",
           "attributes": []
         },
@@ -1281,15 +1295,7 @@
           "attributes": []
         },
         {
-          "name": "card_authorization_upserted",
-          "attributes": []
-        },
-        {
           "name": "card_authorization_upserted_v2",
-          "attributes": []
-        },
-        {
-          "name": "online_authorization_upserted",
           "attributes": []
         },
         {
@@ -1297,15 +1303,11 @@
           "attributes": []
         },
         {
-          "name": "capture_upserted",
-          "attributes": []
-        },
-        {
           "name": "capture_upserted_v2",
           "attributes": []
         },
         {
-          "name": "card_upserted",
+          "name": "capture_deleted",
           "attributes": []
         },
         {
@@ -1325,10 +1327,6 @@
           "attributes": []
         },
         {
-          "name": "refund_upserted",
-          "attributes": []
-        },
-        {
           "name": "refund_upserted_v2",
           "attributes": []
         },
@@ -1338,6 +1336,10 @@
         },
         {
           "name": "reversal_upserted",
+          "attributes": []
+        },
+        {
+          "name": "reversal_deleted",
           "attributes": []
         },
         {
@@ -2782,6 +2784,24 @@
       "attributes": []
     },
     {
+      "name": "rate_type",
+      "plural": "rate_types",
+      "values": [
+        {
+          "name": "flow",
+          "attributes": [],
+          "description": "Represents a Flow rate type (which excludes currency margins)"
+        },
+        {
+          "name": "organization",
+          "attributes": [],
+          "description": "Represents an organization rate type (which includes currency margins)"
+        }
+      ],
+      "attributes": [],
+      "description": "Indicates the type of the rate"
+    },
+    {
       "name": "refund_decline_code",
       "plural": "refund_decline_codes",
       "values": [
@@ -4207,11 +4227,13 @@
         },
         {
           "type": "local_item_upserted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "local_item_upserted"
         },
         {
           "type": "local_item_deleted",
-          "attributes": []
+          "attributes": [],
+          "discriminator_value": "local_item_deleted"
         },
         {
           "type": "membership_upserted",
@@ -4264,22 +4286,6 @@
           "discriminator_value": "organization_short_id_deleted"
         },
         {
-          "type": "authorization_upserted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use card_authorization_upserted and online_authorization_upserted"
-          },
-          "discriminator_value": "authorization_upserted"
-        },
-        {
-          "type": "authorization_deleted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use authorization_deleted_v2"
-          },
-          "discriminator_value": "authorization_deleted"
-        },
-        {
           "type": "authorization_deleted_v2",
           "attributes": [],
           "discriminator_value": "authorization_deleted_v2"
@@ -4291,25 +4297,9 @@
           "discriminator_value": "authorization_status_changed"
         },
         {
-          "type": "card_authorization_upserted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use card_authorization_upserted_v2"
-          },
-          "discriminator_value": "card_authorization_upserted"
-        },
-        {
           "type": "card_authorization_upserted_v2",
           "attributes": [],
           "discriminator_value": "card_authorization_upserted_v2"
-        },
-        {
-          "type": "online_authorization_upserted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use online_authorization_upserted_v2"
-          },
-          "discriminator_value": "online_authorization_upserted"
         },
         {
           "type": "online_authorization_upserted_v2",
@@ -4317,25 +4307,14 @@
           "discriminator_value": "online_authorization_upserted_v2"
         },
         {
-          "type": "capture_upserted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use capture_upserted_v2"
-          },
-          "discriminator_value": "capture_upserted"
-        },
-        {
           "type": "capture_upserted_v2",
           "attributes": [],
           "discriminator_value": "capture_upserted_v2"
         },
         {
-          "type": "card_upserted",
+          "type": "capture_deleted",
           "attributes": [],
-          "deprecation": {
-            "description": "Use card_upserted_v2"
-          },
-          "discriminator_value": "card_upserted"
+          "discriminator_value": "capture_deleted"
         },
         {
           "type": "card_upserted_v2",
@@ -4358,14 +4337,6 @@
           "discriminator_value": "payment_deleted"
         },
         {
-          "type": "refund_upserted",
-          "attributes": [],
-          "deprecation": {
-            "description": "Use refund_upserted_v2"
-          },
-          "discriminator_value": "refund_upserted"
-        },
-        {
           "type": "refund_upserted_v2",
           "attributes": [],
           "discriminator_value": "refund_upserted_v2"
@@ -4379,6 +4350,11 @@
           "type": "reversal_upserted",
           "attributes": [],
           "discriminator_value": "reversal_upserted"
+        },
+        {
+          "type": "reversal_deleted",
+          "attributes": [],
+          "discriminator_value": "reversal_deleted"
         },
         {
           "type": "capture_identifier_upserted",
@@ -5383,7 +5359,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The bank account holder name."
         },
         {
@@ -5391,7 +5370,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The US bank account number from which the payment will be debited. The bank account number must be between 4 and 17 digits.",
           "minimum": 4,
           "maximum": 17
@@ -5401,15 +5383,21 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The ABA routing transit number."
         },
         {
           "name": "billing_address",
-          "type": "address",
+          "type": "billing_address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Billing address"
         },
         {
@@ -5459,7 +5447,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         }
@@ -5476,7 +5466,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Full text version of address"
         },
         {
@@ -5484,7 +5476,9 @@
           "type": "[string]",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Array for street line 1, street line 2, etc., in order"
         },
         {
@@ -5492,7 +5486,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The specific street number, if available."
         },
         {
@@ -5530,14 +5526,18 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "longitude",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": [],
@@ -5552,7 +5552,10 @@
           "type": "address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The suggested address"
         },
         {
@@ -5560,7 +5563,10 @@
           "type": "boolean",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "True if the streets are updated; false otherwise"
         },
         {
@@ -6378,14 +6384,18 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "password",
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -6431,42 +6441,6 @@
       ],
       "attributes": [],
       "description": "Creates a new authorization based on the underlying information in an existing authorization. A common use case here is to create a new auth when the existing one has expired."
-    },
-    {
-      "name": "authorization_deleted",
-      "plural": "authorization_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "authorization_deleted_v2",
@@ -6707,112 +6681,6 @@
       "attributes": []
     },
     {
-      "name": "authorization_upserted",
-      "plural": "authorization_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "card",
-          "type": "expandable_card",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "customer",
-          "type": "customer",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "destination",
-          "type": "address",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "result",
-          "type": "authorization_result",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "created_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "authorization_version",
       "plural": "authorization_versions",
       "fields": [
@@ -7007,6 +6875,73 @@
       "description": "Represents the address verification results"
     },
     {
+      "name": "billing_address",
+      "plural": "billing_addresses",
+      "fields": [
+        {
+          "name": "name",
+          "type": "name",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "description": "The name of the customer associated with the billing address"
+        },
+        {
+          "name": "streets",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "description": "Array for street line 1, street line 2, etc., in order"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "province",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "postal",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "company",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "description": "Business entity or organization name of this contact"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "capture",
       "plural": "captures",
       "fields": [
@@ -7085,6 +7020,42 @@
       ],
       "attributes": [],
       "description": "Capture actually transfers funds. You can capture as many times as you'd like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires)."
+    },
+    {
+      "name": "capture_deleted",
+      "plural": "capture_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "capture",
+          "type": "capture",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "capture_error",
@@ -7299,70 +7270,6 @@
       "attributes": []
     },
     {
-      "name": "capture_upserted",
-      "plural": "capture_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "authorization_key",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "created_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "capture_upserted_v2",
       "plural": "capture_upserted_v2s",
       "fields": [
@@ -7467,7 +7374,10 @@
           "type": "card_type",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "expiration",
@@ -7481,7 +7391,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The issuer identification number (IIN) (formerly known as the Bank Identification Number) which are the leading digits of the card number."
         },
         {
@@ -7489,7 +7402,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cleartext last 4 numbers of the card"
         },
         {
@@ -7497,15 +7413,21 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cardholder name"
         },
         {
           "name": "address",
-          "type": "address",
+          "type": "billing_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cardholder billing address"
         }
       ],
@@ -7551,7 +7473,10 @@
           "type": "expandable_card",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "If this authorization was made for a card payment method, this field will contain the details of the card used on the transaction"
         },
         {
@@ -7585,7 +7510,10 @@
           "type": "customer",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate and are recommended."
         },
         {
@@ -7601,7 +7529,21 @@
           "type": "address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Destination address, if relevant"
+        },
+        {
+          "name": "billing_address",
+          "type": "billing_address",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Destination address, if relevant"
         },
         {
@@ -7617,7 +7559,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         },
@@ -7698,7 +7643,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
         },
         {
@@ -7714,7 +7662,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         },
@@ -7729,43 +7679,6 @@
       ],
       "attributes": [],
       "description": "Similar to a merchant of record authorization form, but it allows card information to be included rather than tokenizing first. If the amount is $0, then"
-    },
-    {
-      "name": "card_authorization_upserted",
-      "plural": "card_authorization_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "authorization",
-          "type": "card_authorization",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents an authorization for a card payment method"
     },
     {
       "name": "card_authorization_upserted_v2",
@@ -7806,7 +7719,10 @@
           "type": "card_authorization",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         }
       ],
       "attributes": [],
@@ -7845,6 +7761,44 @@
           "attributes": [],
           "annotations": [],
           "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "card_deleted_v2",
+      "plural": "card_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "card",
+          "type": "card",
+          "required": true,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -7898,7 +7852,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cleartext card number. You must provide either this field or 'cipher', but not both. May contain integers only or integers with dashes. If dashes are provided, we will remove them, storing only the raw number.",
           "example": "4111111111111111 or 4111-1111-1111-1111"
         },
@@ -7907,7 +7864,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Card number encrypted using your assigned public key. You must provide either this field or 'number', but not both. Card number itself may contain integers only or integers with dashes. If dashes are provided, we will remove them, storing only the raw number."
         },
         {
@@ -7915,7 +7875,10 @@
           "type": "integer",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
           "minimum": 1,
           "maximum": 12,
@@ -7926,7 +7889,10 @@
           "type": "integer",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The 4 digit expiration year",
           "example": "2016"
         },
@@ -7935,7 +7901,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cardholder name."
         },
         {
@@ -7943,15 +7912,21 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The card verification number for the card that is used to verify the card details at creation time, making cvv optional for future payment authorizations."
         },
         {
           "name": "address",
-          "type": "address",
+          "type": "billing_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cardholder billing address"
         },
         {
@@ -7959,7 +7934,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         },
@@ -8045,85 +8023,6 @@
       "attributes": []
     },
     {
-      "name": "card_upserted",
-      "plural": "card_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "type",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "expiration",
-          "type": "expiration",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "iin",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "last4",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "address",
-          "type": "address",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "card_upserted_v2",
       "plural": "card_upserted_v2s",
       "fields": [
@@ -8162,7 +8061,9 @@
           "type": "card",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -9367,6 +9268,13 @@
           "description": "Globally unique identifier"
         },
         {
+          "name": "status",
+          "type": "consumer_invoice_status",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
           "name": "date",
           "type": "date-time-iso8601",
           "required": true,
@@ -9413,6 +9321,13 @@
           "name": "destination",
           "type": "order_address",
           "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "billing_address",
+          "type": "billing_address",
+          "required": false,
           "attributes": [],
           "annotations": []
         },
@@ -9801,6 +9716,13 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "billing_address",
+          "type": "billing_address",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": []
@@ -9866,7 +9788,9 @@
           "type": "name",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Personal information of point-of-contact"
         },
         {
@@ -9874,7 +9798,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Business entity or organization name of this contact"
         },
         {
@@ -9882,14 +9808,18 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "phone",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": [],
@@ -10019,6 +9949,13 @@
           "attributes": [],
           "annotations": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "status",
+          "type": "consumer_invoice_status",
+          "required": true,
+          "attributes": [],
+          "annotations": []
         },
         {
           "name": "date",
@@ -10659,14 +10596,19 @@
           "type": "name",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "number",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Client's unique identifier for this object"
         },
         {
@@ -10674,7 +10616,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Customer phone number. Useful for both fraud and order delivery."
         },
         {
@@ -10682,8 +10627,20 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Customer email address. Useful for fraud."
+        },
+        {
+          "name": "address",
+          "type": "billing_address",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": [],
@@ -10845,7 +10802,9 @@
           "type": "shipping_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Intermediate destination required before going to final destination"
         }
       ],
@@ -11512,7 +11471,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Destination contact information and structured address"
         },
         {
@@ -11545,7 +11507,10 @@
           "type": "shipping_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Origin contact information and structured address. If not provided, will default to center used for the selected delivery option in the order."
         },
         {
@@ -11681,7 +11646,10 @@
           "type": "customer",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The customer who is actually making the purchase. While optional, providing name and email at a minimum will significantly increase the acceptance rate."
         },
         {
@@ -11689,7 +11657,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
         },
         {
@@ -11697,7 +11668,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
         },
         {
@@ -11713,7 +11687,21 @@
           "type": "address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Destination address, if relevant"
+        },
+        {
+          "name": "billing_address",
+          "type": "billing_address",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Destination address, if relevant"
         },
         {
@@ -11721,7 +11709,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         },
@@ -11864,7 +11855,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": [],
@@ -13029,7 +13022,10 @@
           "type": "integer",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
           "minimum": 1,
           "maximum": 12,
@@ -13040,7 +13036,10 @@
           "type": "integer",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The 4 digit expiration year",
           "example": "2016"
         }
@@ -13133,7 +13132,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": [],
@@ -13444,7 +13445,10 @@
           "type": "expandable_order",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "key",
@@ -14569,6 +14573,13 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "tax_registration",
+          "type": "tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -14615,6 +14626,14 @@
           "required": false,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "tax_registration_id",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The ID of a tax registration to use to evaluate the tax rates as the registration may affect applicable rates. e.g. EU VAT registration number."
         }
       ],
       "attributes": [],
@@ -15321,7 +15340,9 @@
           "type": "[string]",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Once the import has completed, we will send an email notification to all of the emails provided."
         }
       ],
@@ -15563,7 +15584,10 @@
           "type": "issuer_reference",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The id of the issuing bank, if required by the selected payment method. For payment methods such as iDEAL, the customer must select an issuer before being redirected to provide payment details."
         },
         {
@@ -15594,10 +15618,13 @@
         },
         {
           "name": "billing_address",
-          "type": "address",
+          "type": "billing_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Billing address"
         },
         {
@@ -15621,7 +15648,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         }
@@ -16330,7 +16359,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The email address to which we send this invitation"
         },
         {
@@ -16338,14 +16369,18 @@
           "type": "name",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "role",
           "type": "role",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "expiration",
@@ -16399,21 +16434,27 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "name",
           "type": "name",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "role",
           "type": "role",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "default": "member"
         }
       ],
@@ -17853,14 +17894,20 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "origin",
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "carrier",
@@ -17881,21 +17928,30 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "pdf",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "png",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "order",
@@ -17930,7 +17986,10 @@
           "type": "shipment_recipient",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "package",
@@ -18961,92 +19020,6 @@
       "description": "Localized translation of a given province/region/country"
     },
     {
-      "name": "loyalty_program",
-      "plural": "loyalty_programs",
-      "fields": [
-        {
-          "name": "title",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Loyalty program title"
-        },
-        {
-          "name": "message",
-          "type": "loyalty_program_message",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "input_specification",
-          "type": "input_form_specification",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "rewards",
-          "type": "loyalty_program_rewards",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "loyalty_program_message",
-      "plural": "loyalty_program_messages",
-      "fields": [
-        {
-          "name": "content",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "loyalty_program_reward",
-      "plural": "loyalty_program_rewards",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "label",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "loyalty_program_rewards",
-      "plural": "loyalty_program_rewardses",
-      "fields": [
-        {
-          "name": "applied",
-          "type": "[loyalty_program_reward]",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "manifest",
       "plural": "manifests",
       "fields": [
@@ -19070,7 +19043,10 @@
           "type": "[shipping_label_summary]",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Labels that are part of this manifest"
         },
         {
@@ -19078,7 +19054,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "URL where to download generated manifest confirmation or bill of lading, if the service requires one be generated for pickup."
         },
         {
@@ -19302,7 +19281,9 @@
           "type": "role",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": [],
@@ -19390,7 +19371,9 @@
           "type": "role",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "default": "member"
         }
       ],
@@ -19406,7 +19389,9 @@
           "type": "role",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "default": "member"
         }
       ],
@@ -19452,14 +19437,18 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "role",
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -19579,7 +19568,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
         },
         {
@@ -19595,7 +19587,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         },
@@ -19795,14 +19789,18 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "last",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -19816,14 +19814,18 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "last",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -19931,14 +19933,20 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "origin",
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "carrier",
@@ -20023,14 +20031,20 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "origin",
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "carrier",
@@ -20184,7 +20198,10 @@
           "type": "customer",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate and are recommended."
         },
         {
@@ -20200,15 +20217,21 @@
           "type": "address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Destination address, if relevant"
         },
         {
           "name": "billing_address",
-          "type": "address",
+          "type": "billing_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Billing address, if relevant"
         },
         {
@@ -20224,7 +20247,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         },
@@ -20252,43 +20277,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "online_authorization_upserted",
-      "plural": "online_authorization_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "authorization",
-          "type": "online_authorization",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": [],
-      "description": "Represents an authorization for a card payment method"
     },
     {
       "name": "online_authorization_upserted_v2",
@@ -20329,7 +20317,10 @@
           "type": "online_authorization",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         }
       ],
       "attributes": [],
@@ -20433,7 +20424,10 @@
           "type": "customer",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The customer who is actually making the purchase"
         },
         {
@@ -20449,7 +20443,10 @@
           "type": "order_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "expires_at",
@@ -20582,7 +20579,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Full text version of address"
         },
         {
@@ -20590,7 +20590,10 @@
           "type": "[string]",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Array for street line 1, street line 2, etc., in order"
         },
         {
@@ -20628,21 +20631,30 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "longitude",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "contact",
           "type": "contact",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Contact information of entity at the address"
         }
       ],
@@ -20710,7 +20722,10 @@
           "type": "order_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         }
       ],
       "attributes": []
@@ -20874,7 +20889,10 @@
           "type": "order_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "deliveries",
@@ -20947,7 +20965,10 @@
           "type": "order_address",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "selections",
@@ -21036,7 +21057,10 @@
           "type": "customer",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console."
         },
         {
@@ -21068,7 +21092,10 @@
           "type": "order_address",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "discount",
@@ -21539,7 +21566,7 @@
         },
         {
           "name": "address",
-          "type": "address",
+          "type": "billing_address",
           "required": false,
           "attributes": [],
           "annotations": [],
@@ -21722,7 +21749,10 @@
           "type": "customer",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console."
         },
         {
@@ -21747,7 +21777,10 @@
           "type": "order_address",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "discount",
@@ -21896,7 +21929,10 @@
           "type": "customer",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "selections",
@@ -21917,14 +21953,20 @@
           "type": "order_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "deliveries",
           "type": "[delivery]",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "prices",
@@ -22148,7 +22190,9 @@
           "type": "role",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "environment",
@@ -22651,7 +22695,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The latest IP Address associated with this session, if known"
         },
         {
@@ -23454,7 +23500,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The current valid account password"
         },
         {
@@ -23462,7 +23510,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The new password"
         }
       ],
@@ -23477,7 +23527,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The token for the password reset request"
         },
         {
@@ -23485,7 +23537,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The new password"
         }
       ],
@@ -23500,7 +23554,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -23982,7 +24038,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The PayPal id of the person who is paying"
         },
         {
@@ -24006,7 +24065,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         }
@@ -25821,7 +25882,10 @@
           "type": "issuer_reference",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The id of the issuing bank, if required by the selected payment method. For payment methods such as iDEAL, the customer must select an issuer before being redirected to provide payment details."
         },
         {
@@ -25879,7 +25943,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
         }
@@ -26432,91 +26498,6 @@
       "attributes": []
     },
     {
-      "name": "refund_upserted",
-      "plural": "refund_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "authorization_key",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "captures",
-          "type": "[refund_capture_summary]",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "created_at",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "rma_key",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "refund_upserted_v2",
       "plural": "refund_upserted_v2s",
       "fields": [
@@ -26889,7 +26870,10 @@
           "type": "[shipping_label]",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         }
       ],
       "attributes": []
@@ -26967,7 +26951,10 @@
           "type": "shipping_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Destination of the return. If not provided, will default to calculated destination based on original location of the product and carrier service level."
         },
         {
@@ -26983,7 +26970,10 @@
           "type": "shipping_address",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Origin address of the return. If not provided, will default to destination address of the original order."
         }
       ],
@@ -27035,14 +27025,18 @@
           "type": "return_reason",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "notes",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Optional notes to provide explanation or context for the respective return reason."
         }
       ],
@@ -27158,7 +27152,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "items",
@@ -27179,7 +27176,10 @@
           "type": "[shipping_label]",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         },
         {
           "name": "service",
@@ -27193,7 +27193,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         }
       ],
       "attributes": []
@@ -27312,6 +27315,42 @@
       ],
       "attributes": [],
       "description": "A reversal is used to clear an authorization (full or partial)."
+    },
+    {
+      "name": "reversal_deleted",
+      "plural": "reversal_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "reversal",
+          "type": "reversal",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "reversal_error",
@@ -28231,7 +28270,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
         },
         {
@@ -28353,7 +28394,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address."
         },
         {
@@ -28465,7 +28508,9 @@
           "type": "contact",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Contact information of entity at the address"
         },
         {
@@ -28765,7 +28810,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Destination contact information and structured address"
         },
         {
@@ -28788,7 +28836,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Origin contact information and structured address"
         },
         {
@@ -28885,7 +28936,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Base64 encoded ZPL2-formatted data of the shipping label"
         },
         {
@@ -28893,7 +28947,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Pre-signed URL containing PDF copy of the shipping label. This is generated asynchronously and may not be immediately available."
         },
         {
@@ -28901,7 +28958,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Pre-signed URL containing PNG copy of the shipping label. This is generated asynchronously and may not be immediately available."
         },
         {
@@ -28909,7 +28969,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Base64 encoded ZPL2-formatted HTML data for use with Return cover sheets"
         }
       ],
@@ -28933,7 +28996,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Origin contact information and structured address"
         },
         {
@@ -28965,7 +29031,10 @@
           "type": "direction",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Tells us whether the ratecard is for outbound or reverse logistics. This will determine information passed on to carriers to make sure the correct label and accounts are used. If not specified, defaults to outbound."
         },
         {
@@ -29303,7 +29372,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Destination contact information and structured address"
         },
         {
@@ -29319,7 +29391,10 @@
           "type": "shipping_address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Origin contact information and structured address"
         },
         {
@@ -30058,6 +30133,21 @@
       ],
       "attributes": [],
       "description": "Model to represent details available in an order metafield."
+    },
+    {
+      "name": "shopify_order_romanization_metafield",
+      "plural": "shopify_order_romanization_metafields",
+      "fields": [
+        {
+          "name": "destination",
+          "type": "order_address",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Model to represent romanized order detail metafield"
     },
     {
       "name": "shopify_price",
@@ -32681,7 +32771,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
         }
       ],
       "attributes": []
@@ -32886,7 +32979,10 @@
           "type": "address",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Location of the label tracking event"
         },
         {
@@ -33319,7 +33415,9 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "If known, the user's primary email address. While in most common cases, we expect users to have email addresses, there are edge cases where it is useful to allow a user to NOT have an email address. For example, users interacting solely from mobile devices, guest user accounts, initial onboarding where email is not known, etc. We think by starting off with an optional primary email address we can support these use cases with very little implementation cost."
         },
         {
@@ -33327,7 +33425,9 @@
           "type": "name",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The user's name."
         },
         {
@@ -33352,21 +33452,27 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "password",
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "name",
           "type": "name_form",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -33380,14 +33486,18 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         },
         {
           "name": "name",
           "type": "name_form",
           "required": false,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -33491,7 +33601,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The actual card number. This will be populated on the first request but not returned for subsequent requests for the same card. The card number is not persisted to maintain PCI compliance.",
           "example": "4111111111111111"
         },
@@ -33500,7 +33613,10 @@
           "type": "string",
           "required": false,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The short card verification value. This will be populated on the first request but not returned for subsequent requests for the same card. The cvv is not persisted to maintain PCI compliance."
         },
         {
@@ -33529,7 +33645,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "The issuer identification number (IIN) (formerly known as the Bank Identification Number) which are the leading digits of the card number."
         },
         {
@@ -33537,7 +33656,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cleartext last 4 numbers of the card"
         },
         {
@@ -33545,7 +33667,10 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
           "description": "Cardholder name"
         },
         {
@@ -37134,6 +37259,29 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If not specified, we will use the experience default country. ISO 3166 3 country code as defined in https://api.flow.io/reference/countries",
+              "example": "CAN"
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If not specified, we will use the experience default currency. ISO 3166 3 currency code as defined in https://api.flow.io/reference/currencies",
+              "example": "CAD"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Specific item number for which to generate a summary"
             }
           ],
           "responses": [
@@ -39522,209 +39670,6 @@
       ],
       "path": "/:organization/catalog/items",
       "description": "The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku."
-    },
-    {
-      "type": "loyalty_program",
-      "plural": "loyalty_programs",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/loyalty/:number",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "loyalty_program",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": []
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/loyalty/:number",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "loyalty_program",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "loyalty_program",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "input_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "DELETE",
-          "path": "/:organization/loyalty/:number/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "number",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "type": "unit",
-              "description": "Operation succeeded. No content is returned",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": []
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "localization"
-          }
-        }
-      ],
-      "path": "/:organization/loyalty/:number",
-      "description": "Provides information regarding loyalty program associated with an order"
     },
     {
       "type": "order",
@@ -48371,6 +48316,14 @@
               "description": "Filter by the (case-insensitive) target currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
             },
             {
+              "name": "type",
+              "type": "rate_type",
+              "location": "Query",
+              "required": true,
+              "description": "Filter by rate type",
+              "default": "organization"
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -48484,6 +48437,14 @@
               "location": "Query",
               "required": false,
               "description": "Filter by the (case-insensitive) target currency's ISO 4217 3-character code as defined in https://api.flow.io/reference/currencies"
+            },
+            {
+              "name": "type",
+              "type": "rate_type",
+              "location": "Query",
+              "required": true,
+              "description": "Filter by rate type",
+              "default": "organization"
             },
             {
               "name": "limit",
@@ -57591,6 +57552,14 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
             }
           ]
         },
@@ -57643,100 +57612,6 @@
             "type": "shipping_configuration_form",
             "attributes": []
           }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/shipping/configuration/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "key",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[shipping_configuration_version]",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "key"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ]
         },
         {
           "method": "GET",
@@ -58018,6 +57893,14 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
             }
           ]
         },
@@ -58086,96 +57969,6 @@
             "type": "shipping_lane_form",
             "attributes": []
           }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/shipping/configuration/:key/lanes/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "key",
-              "type": "string",
-              "location": "Path",
-              "required": true
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[shipping_lane_version]",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ]
         },
         {
           "method": "GET",
@@ -70091,7 +69884,16 @@
     }
   ],
   "attributes": [],
-  "annotations": [],
+  "annotations": [
+    {
+      "name": "personal_data",
+      "description": "Identifies a field that contains Personal Data, as defined by GDPR. By default, any field marked with this annotation will be kept for 1 year and will be purgeable upon request provided there are no incomplete business activities associated with it."
+    },
+    {
+      "name": "consumer",
+      "description": "Identifies a field that contains data about a consumer [as opposed to an employee of Flow, an organization or a partner]."
+    }
+  ],
   "base_url": "https://api.flow.io",
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform."
 }

@@ -24,10 +24,6 @@ export default class ShippingConfigurations extends Client {
     });
   }
 
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/versions`, options);
-  }
-
   getByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}`, options);
   }
@@ -55,10 +51,6 @@ export default class ShippingConfigurations extends Client {
       ...options,
        method: 'POST',
     });
-  }
-
-  getLanesAndVersionsByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/versions`, options);
   }
 
   getLanesByKeyAndId(organization, key, id, options = {}) {
