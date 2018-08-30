@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.6.5",
+  "version": "0.6.19",
   "info": {
     "license": {
       "name": "MIT",
@@ -88,6 +88,16 @@
           "name": "brand",
           "attributes": [],
           "description": "A brand name of the item (for retailers that sell multiple brands)"
+        },
+        {
+          "name": "color",
+          "attributes": [],
+          "description": "The color of the item"
+        },
+        {
+          "name": "countries_of_origin",
+          "attributes": [],
+          "description": "A space separate list of the countries of origin for this item"
         },
         {
           "name": "product_id",
@@ -242,6 +252,11 @@
           "name": "redirect",
           "attributes": [],
           "description": "Indicates that the user should be redirected to the provided URL."
+        },
+        {
+          "name": "wait",
+          "attributes": [],
+          "description": "Indicates that more time is needed before the authorization result is known. In the case of 3D Secure, this means the authorization status should be polled until it is no longer pending."
         }
       ],
       "attributes": [],
@@ -999,6 +1014,14 @@
           "attributes": []
         },
         {
+          "name": "available_promotions_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "available_promotions_deleted_v2",
+          "attributes": []
+        },
+        {
           "name": "allocation_deleted_v2",
           "attributes": []
         },
@@ -1112,6 +1135,14 @@
         },
         {
           "name": "fraud_status_changed",
+          "attributes": []
+        },
+        {
+          "name": "center_upserted",
+          "attributes": []
+        },
+        {
+          "name": "center_deleted",
           "attributes": []
         },
         {
@@ -3130,6 +3161,25 @@
       "attributes": []
     },
     {
+      "name": "shopify_variant_inventory_metafield_status",
+      "plural": "shopify_variant_inventory_metafield_statuses",
+      "values": [
+        {
+          "name": "available",
+          "attributes": []
+        },
+        {
+          "name": "low",
+          "attributes": []
+        },
+        {
+          "name": "out_of_stock",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "sort_direction",
       "plural": "sort_directions",
       "values": [
@@ -3188,6 +3238,23 @@
       ],
       "attributes": [],
       "description": "Status indicating availability of a subcatalog item in an experience."
+    },
+    {
+      "name": "tax_applicability",
+      "plural": "tax_applicabilities",
+      "values": [
+        {
+          "name": "none",
+          "attributes": [],
+          "description": "In no scenario should a customer pay tax within the Flow system."
+        },
+        {
+          "name": "all",
+          "attributes": [],
+          "description": "In all scenarios a customer should pay tax within the Flow system."
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tax_verification_result",
@@ -3404,7 +3471,7 @@
         {
           "name": "inch",
           "attributes": [],
-          "description": "A unit of length equal to 0.01004 m (standard name in)."
+          "description": "A unit of length equal to 0.0254 m (standard name in)."
         },
         {
           "name": "foot",
@@ -3926,6 +3993,16 @@
           "discriminator_value": "available_promotions_deleted"
         },
         {
+          "type": "available_promotions_upserted_v2",
+          "attributes": [],
+          "discriminator_value": "available_promotions_upserted_v2"
+        },
+        {
+          "type": "available_promotions_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "available_promotions_deleted_v2"
+        },
+        {
           "type": "allocation_deleted_v2",
           "attributes": [],
           "discriminator_value": "allocation_deleted_v2"
@@ -4069,6 +4146,16 @@
           "type": "fraud_status_changed",
           "attributes": [],
           "discriminator_value": "fraud_status_changed"
+        },
+        {
+          "type": "center_upserted",
+          "attributes": [],
+          "discriminator_value": "center_upserted"
+        },
+        {
+          "type": "center_deleted",
+          "attributes": [],
+          "discriminator_value": "center_deleted"
         },
         {
           "type": "tier_upserted",
@@ -4485,6 +4572,24 @@
           "type": "card_reference",
           "attributes": [],
           "discriminator_value": "card_reference"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "expandable_center",
+      "plural": "expandable_centers",
+      "types": [
+        {
+          "type": "center",
+          "attributes": [],
+          "discriminator_value": "center"
+        },
+        {
+          "type": "center_reference",
+          "attributes": [],
+          "discriminator_value": "center_reference"
         }
       ],
       "attributes": [],
@@ -6628,7 +6733,7 @@
         {
           "name": "url",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": []
         }
@@ -6717,6 +6822,42 @@
       "attributes": []
     },
     {
+      "name": "available_promotion",
+      "plural": "available_promotions",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "shipping_configuration",
+          "type": "shipping_configuration_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "region",
+          "type": "region_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "promotions",
+          "type": "[promotion]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "available_promotions_deleted",
       "plural": "available_promotions_deleteds",
       "fields": [
@@ -6745,6 +6886,42 @@
         {
           "name": "experience_key",
           "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "available_promotions_deleted_v2",
+      "plural": "available_promotions_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "available_promotion",
+          "type": "available_promotion",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -6788,6 +6965,42 @@
         {
           "name": "available_promotions",
           "type": "[object]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "available_promotions_upserted_v2",
+      "plural": "available_promotions_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "available_promotion",
+          "type": "available_promotion",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -7016,6 +7229,14 @@
           "annotations": [],
           "description": "Indicates the status of the capture.",
           "default": "succeeded"
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The amount/currency of the capture in base currency. Added in Summer 2018 and always present since then."
         }
       ],
       "attributes": [],
@@ -7587,6 +7808,14 @@
           "attributes": [],
           "annotations": [],
           "description": "The time at which this authorization expires, if any."
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The amount/currency of the authorization in base currency. Added in Summer 2018 and always present since then."
         }
       ],
       "attributes": [],
@@ -8901,6 +9130,42 @@
       "description": "Represents a facility capable of fulfilling a shipment"
     },
     {
+      "name": "center_deleted",
+      "plural": "center_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "center",
+          "type": "center",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "center_form",
       "plural": "center_forms",
       "fields": [
@@ -9030,6 +9295,42 @@
         {
           "name": "key",
           "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "center_upserted",
+      "plural": "center_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "center",
+          "type": "center",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -9219,6 +9520,117 @@
           "name": "value",
           "type": "string",
           "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "checkout_token",
+      "plural": "checkout_tokens",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Cryptographically secure token to use when redirecting to checkout"
+        },
+        {
+          "name": "organization",
+          "type": "organization_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "order",
+          "type": "order_number_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "session",
+          "type": "session_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "urls",
+          "type": "checkout_urls",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "expires_at",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The date / time on which this token expires"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a secure token that can be used to redirect to Checkout UI"
+    },
+    {
+      "name": "checkout_token_form",
+      "plural": "checkout_token_forms",
+      "fields": [
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "session_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "We will update the order, if needed, to this session ID"
+        },
+        {
+          "name": "urls",
+          "type": "checkout_urls_form",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "checkout_urls",
+      "plural": "checkout_urlses",
+      "fields": [
+        {
+          "name": "continue_shopping",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "URL to continue shopping post purchase"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "checkout_urls_form",
+      "plural": "checkout_urls_forms",
+      "fields": [
+        {
+          "name": "continue_shopping",
+          "type": "string",
+          "required": false,
           "attributes": [],
           "annotations": []
         }
@@ -9455,6 +9867,20 @@
           "attributes": [],
           "annotations": []
         },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "consumer_invoice_form_by_order",
+      "plural": "consumer_invoice_form_by_orders",
+      "fields": [
         {
           "name": "attributes",
           "type": "map[string]",
@@ -10720,6 +11146,69 @@
       "attributes": []
     },
     {
+      "name": "delivery_item",
+      "plural": "delivery_items",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 1
+        },
+        {
+          "name": "shipment_estimate",
+          "type": "datetime_range",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "For items that may not immediately ship out from the origin because of different models of inventory (e.g. drop-ship, sell-first), this is a way for a client to communicate when the items can ship out. This will be used to calculate delivery option windows."
+        },
+        {
+          "name": "price",
+          "type": "money_with_optional_base",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The price of this item for this order. If not specified, we will use the item price from the experience"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format."
+        },
+        {
+          "name": "center",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup."
+        },
+        {
+          "name": "discount",
+          "type": "money_with_optional_base",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "delivery_option",
       "plural": "delivery_options",
       "fields": [
@@ -11539,7 +12028,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item_form]",
+          "type": "[delivery_item]",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -13204,6 +13693,13 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "status",
+          "type": "subcatalog_item_status",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": []
@@ -14634,6 +15130,14 @@
           "attributes": [],
           "annotations": [],
           "description": "The ID of a tax registration to use to evaluate the tax rates as the registration may affect applicable rates. e.g. EU VAT registration number."
+        },
+        {
+          "name": "billing_address",
+          "type": "billing_address",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The billing address. Used in some cases to determine tax jurisdiction."
         }
       ],
       "attributes": [],
@@ -14661,6 +15165,13 @@
           "name": "tax",
           "type": "tax",
           "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "tax_applicability",
+          "type": "tax_applicability",
+          "required": false,
           "attributes": [],
           "annotations": []
         }
@@ -16637,6 +17148,22 @@
       ],
       "attributes": [],
       "description": "The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku."
+    },
+    {
+      "name": "item_attributes_patch_form",
+      "plural": "item_attributes_patch_forms",
+      "fields": [
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Attributes of the item.",
+          "default": "{}"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "item_form",
@@ -19781,6 +20308,67 @@
       "description": "Money represents an amount in a given currency"
     },
     {
+      "name": "money_with_base",
+      "plural": "money_with_bases",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "money_with_optional_base",
+      "plural": "money_with_optional_bases",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Used to migrate older models to have a base value, without breaking compatibility"
+    },
+    {
       "name": "name",
       "plural": "names",
       "fields": [
@@ -20274,6 +20862,14 @@
           "attributes": [],
           "annotations": [],
           "description": "The time at which this authorization expires, if any."
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The amount/currency of the authorization in base currency. Added in Summer 2018 and always present since then."
         }
       ],
       "attributes": []
@@ -20409,7 +21005,7 @@
           "required": false,
           "attributes": [],
           "annotations": [],
-          "default": "flow"
+          "description": "Once an order is fully paid, we record who the merchant of record for this order is."
         },
         {
           "name": "experience",
@@ -20709,6 +21305,22 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_builder_destination_country_form",
+      "plural": "order_builder_destination_country_forms",
+      "fields": [
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
         }
       ],
       "attributes": []
@@ -21514,6 +22126,21 @@
       "attributes": []
     },
     {
+      "name": "order_number_reference",
+      "plural": "order_number_references",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Client's unique identifier for this object"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_payment",
       "plural": "order_payments",
       "fields": [
@@ -21578,6 +22205,15 @@
           "required": false,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Integration-specific attributes of this payment.",
+          "default": "{}"
         }
       ],
       "attributes": [],
@@ -22057,8 +22693,7 @@
           "type": "order_merchant_of_record",
           "required": false,
           "attributes": [],
-          "annotations": [],
-          "default": "flow"
+          "annotations": []
         },
         {
           "name": "tax_registration",
@@ -24219,7 +24854,7 @@
         },
         {
           "name": "items",
-          "type": "[line_item_form]",
+          "type": "[delivery_item]",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -26037,6 +26672,14 @@
           "annotations": [],
           "description": "Indicates the status of the refund.",
           "default": "succeeded"
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The amount/currency of the refund in base currency. Added in Summer 2018 and always present since then."
         }
       ],
       "attributes": [],
@@ -27311,6 +27954,14 @@
           "attributes": [],
           "annotations": [],
           "description": "A set of key/value pairs that you can attach to a reversal object"
+        },
+        {
+          "name": "base",
+          "type": "money",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The amount/currency of the reversal in base currency. Added in Summer 2018 and always present since then."
         }
       ],
       "attributes": [],
@@ -28460,6 +29111,21 @@
       "attributes": []
     },
     {
+      "name": "session_reference",
+      "plural": "session_references",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "session_visit",
       "plural": "session_visits",
       "fields": [
@@ -29192,7 +29858,7 @@
         },
         {
           "name": "centers",
-          "type": "[center_reference]",
+          "type": "[expandable_center]",
           "required": true,
           "attributes": [],
           "annotations": [],
@@ -29204,6 +29870,14 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "query",
+          "type": "query",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Query used to retrieve centers"
         }
       ],
       "attributes": []
@@ -29966,7 +30640,8 @@
           "type": "subcatalog_item_status",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [],
+          "description": "Indicates whether the variant should be included or excluded from being sold in this experience."
         }
       ],
       "attributes": [
@@ -30035,18 +30710,12 @@
       "plural": "shopify_order_delivery_metafields",
       "fields": [
         {
-          "name": "item_number",
-          "type": "string",
+          "name": "items",
+          "type": "[shopify_order_delivery_metafield_item]",
           "required": true,
           "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "quantity",
-          "type": "long",
-          "required": true,
-          "attributes": [],
-          "annotations": []
+          "annotations": [],
+          "minimum": 1
         },
         {
           "name": "service",
@@ -30061,6 +30730,30 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Model to represent a delivery metafield"
+    },
+    {
+      "name": "shopify_order_delivery_metafield_item",
+      "plural": "shopify_order_delivery_metafield_items",
+      "fields": [
+        {
+          "name": "number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Client's unique identifier for this object"
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 1
         }
       ],
       "attributes": [],
@@ -30263,11 +30956,11 @@
       "attributes": []
     },
     {
-      "name": "shopify_variant_price_metafield",
-      "plural": "shopify_variant_price_metafields",
+      "name": "shopify_variant_flow_metafield",
+      "plural": "shopify_variant_flow_metafields",
       "fields": [
         {
-          "name": "item",
+          "name": "prices_item",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -30276,7 +30969,7 @@
           "example": "C$150.95"
         },
         {
-          "name": "currency",
+          "name": "prices_currency",
           "type": "string",
           "required": true,
           "attributes": [],
@@ -30285,7 +30978,7 @@
           "example": "CAD"
         },
         {
-          "name": "includes",
+          "name": "prices_includes",
           "type": "string",
           "required": false,
           "attributes": [],
@@ -30294,7 +30987,7 @@
           "example": "Includes VAT"
         },
         {
-          "name": "vat",
+          "name": "prices_vat",
           "type": "string",
           "required": false,
           "attributes": [],
@@ -30303,7 +30996,7 @@
           "example": "C$20.00"
         },
         {
-          "name": "vat_name",
+          "name": "prices_vat_name",
           "type": "string",
           "required": false,
           "attributes": [],
@@ -30312,7 +31005,7 @@
           "example": "VAT or HST"
         },
         {
-          "name": "duty",
+          "name": "prices_duty",
           "type": "string",
           "required": false,
           "attributes": [],
@@ -30321,17 +31014,55 @@
           "example": "C$10.00"
         },
         {
-          "name": "compare_at",
+          "name": "prices_compare_at",
           "type": "string",
           "required": false,
           "attributes": [],
           "annotations": [],
           "description": "The compare at item price in local currency",
           "example": "C$250.00"
+        },
+        {
+          "name": "prices_status",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Indicates whether the variant should be included or excluded from being sold in the experience."
+        },
+        {
+          "name": "inventory_status",
+          "type": "subcatalog_item_status",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Indicates whether the variant should be included or excluded from being sold in this experience."
         }
       ],
       "attributes": [],
       "description": "The shopify variant metafield defines the individual metafield values we write into Shopify for each variant. This model was introduced to enable server side rendering of content (e.g. the price on the product detail page). Each field in this model is available as its own metafield within a namespace named 'price_abc' where abc is a unique, short identifier for an experience."
+    },
+    {
+      "name": "shopify_variant_inventory_metafield",
+      "plural": "shopify_variant_inventory_metafields",
+      "fields": [
+        {
+          "name": "experience",
+          "type": "experience_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "status",
+          "type": "shopify_variant_inventory_metafield_status",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "For enabled organizations, this indicates the total number of available units of inventory for customers in this experience."
     },
     {
       "name": "single_package_shipping_notification_form",
@@ -31658,12 +32389,20 @@
           "annotations": []
         },
         {
+          "name": "result_reason",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Additional details - e.g. why the result was invalid"
+        },
+        {
           "name": "name",
           "type": "string",
           "required": false,
           "attributes": [],
           "annotations": [],
-          "description": "The name associated with the tax regigration number."
+          "description": "The name associated with the tax registration number."
         },
         {
           "name": "address",
@@ -31671,7 +32410,14 @@
           "required": false,
           "attributes": [],
           "annotations": [],
-          "description": "The address associated with the tax regigration number."
+          "description": "The address associated with the tax registration number."
+        },
+        {
+          "name": "company_name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -31791,7 +32537,7 @@
         {
           "name": "currency",
           "type": "string",
-          "required": false,
+          "required": true,
           "attributes": [],
           "annotations": [],
           "description": "Currency to be used for the tier. May be different from the experience currency, but enforce all rules use this currency. ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
@@ -31815,7 +32561,7 @@
         {
           "name": "experience",
           "type": "fulfillment_experience_reference",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": []
         },
@@ -31830,103 +32576,6 @@
       ],
       "attributes": [],
       "description": "Service shipping tier available in this tier group. e.g. Standard tier, Express tier, Economy tier"
-    },
-    {
-      "name": "tier_default",
-      "plural": "tier_defaults",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "default_tier",
-          "type": "tier_reference",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Default tier used to populate default quote selections"
-        },
-        {
-          "name": "experience",
-          "type": "fulfillment_experience_reference",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": [],
-      "description": "Grouping of shipping tiers by experience to provide logical default functionality."
-    },
-    {
-      "name": "tier_default_form",
-      "plural": "tier_default_forms",
-      "fields": [
-        {
-          "name": "default_tier",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Default tier ID used to populate default quote selections"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "experience",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": [],
-      "description": "Form to set the default tier for a given experience"
-    },
-    {
-      "name": "tier_default_version",
-      "plural": "tier_default_versions",
-      "fields": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "type",
-          "type": "change_type",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "tier_default",
-          "type": "tier_default",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "tier_deleted",
@@ -32131,7 +32780,7 @@
         {
           "name": "experience",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": [],
           "description": "Experience-related data from Experience API needed by shipping tiers"
@@ -32286,7 +32935,7 @@
         {
           "name": "experience",
           "type": "fulfillment_experience_reference",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": []
         },
@@ -32332,7 +32981,7 @@
         {
           "name": "currency",
           "type": "string",
-          "required": false,
+          "required": true,
           "attributes": [],
           "annotations": [],
           "description": "Currency to be used for the tier. May be different from the experience currency, but enforce all rules use this currency. ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
@@ -34399,7 +35048,7 @@
     },
     {
       "name": "webhook_settings",
-      "plural": "webhook_settingses",
+      "plural": "webhook_settings",
       "fields": [
         {
           "name": "secret",
@@ -39583,6 +40232,83 @@
           "description": "Delete the item with this number"
         },
         {
+          "method": "PATCH",
+          "path": "/:organization/catalog/items/:number/attributes",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "item",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "item",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Update item with the specified attributes.",
+          "body": {
+            "type": "item_attributes_patch_form",
+            "attributes": []
+          }
+        },
+        {
           "method": "PUT",
           "path": "/:organization/catalog/items/:number/price",
           "parameters": [
@@ -40943,6 +41669,64 @@
           }
         },
         {
+          "method": "DELETE",
+          "path": "/:organization/orders/:number/tax/registration/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
           "method": "GET",
           "path": "/:organization/orders/:number/status/fraud",
           "parameters": [
@@ -41496,6 +42280,81 @@
           ],
           "body": {
             "type": "order_builder_attributes_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/order/builders/:number/country",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "minimum": 0,
+              "maximum": 1,
+              "example": "experience"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order_builder",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              },
+              "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            }
+          ],
+          "body": {
+            "type": "order_builder_destination_country_form",
             "attributes": []
           }
         },
@@ -50566,6 +51425,58 @@
             "type": "tax_registration_form",
             "attributes": []
           }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/tax/registrations/:key",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "location": "Path",
+              "required": true
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
         }
       ],
       "attributes": [
@@ -57494,6 +58405,13 @@
               "required": false
             },
             {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 1
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -57557,7 +58475,8 @@
               "name": "linter",
               "value": {
                 "ignore": [
-                  "versions"
+                  "versions",
+                  "get"
                 ]
               }
             }
@@ -57629,6 +58548,13 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 1
             }
           ],
           "responses": [
@@ -57835,6 +58761,13 @@
               "required": false
             },
             {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 1
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -57898,7 +58831,8 @@
               "name": "linter",
               "value": {
                 "ignore": [
-                  "versions"
+                  "versions",
+                  "get"
                 ]
               }
             }
@@ -57993,6 +58927,13 @@
               "location": "Path",
               "required": true,
               "description": "Filter by one or more IDs of this resource"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 1
             }
           ],
           "responses": [
@@ -59562,310 +60503,6 @@
       "description": "Service shipping tier available in this tier group. e.g. Standard tier, Express tier, Economy tier"
     },
     {
-      "type": "tier_default",
-      "plural": "tier_defaults",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/:organization/tier_defaults",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "experience",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "-created_at"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[tier_default]",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "experience"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/tier_defaults",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "tier_default",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "tier_default_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/tier_defaults/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "tier_default",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[tier_default_version]",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "tier_default"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/tier_defaults/:id",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Filter by one or more IDs of this resource"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "tier_default",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": []
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "logistics"
-          }
-        }
-      ],
-      "path": "/:organization/tier_defaults",
-      "description": "Grouping of shipping tiers by experience to provide logical default functionality."
-    },
-    {
       "type": "tier_rule",
       "plural": "tier_rules",
       "operations": [
@@ -61353,129 +61990,6 @@
         },
         {
           "method": "GET",
-          "path": "/:organization/webhooks/settings",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "webhook_settings",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "non-crud",
-              "value": {}
-            }
-          ],
-          "description": "Returns the webhook settings for an organization"
-        },
-        {
-          "method": "PUT",
-          "path": "/:organization/webhooks/settings",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "webhook_settings",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "webhook_settings",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [],
-          "description": "Updates the webhook settings for an organization",
-          "body": {
-            "type": "webhook_settings",
-            "attributes": []
-          }
-        },
-        {
-          "method": "GET",
           "path": "/:organization/webhooks/:id",
           "parameters": [
             {
@@ -61902,6 +62416,145 @@
       ],
       "path": "/:organization/webhook/deliveries",
       "description": "A webhook delivery represents an event that matched a webhook's event types. Each delivery will be attempted one or more times subject to the settings of your webhook."
+    },
+    {
+      "type": "webhook_settings",
+      "plural": "webhook_settings",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/webhook/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "webhook_settings",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "non-crud",
+              "value": {}
+            }
+          ],
+          "description": "Returns the webhook settings for an organization"
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/webhook/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "webhook_settings",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "webhook_settings",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Updates the webhook settings for an organization",
+          "body": {
+            "type": "webhook_settings",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "webhook"
+          }
+        }
+      ],
+      "path": "/:organization/webhook/settings",
+      "description": "Sets organization level settings to determine things like how many retries on delivery, how long we wait, etc. By default, we will attempt delivery up to 6 times, using exponential backoff with a see of 1 minute (60k ms) - which means that we will retry over the course of approximately an hour before giving up."
     },
     {
       "type": "address",
@@ -62902,6 +63555,174 @@
       "description": "A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions"
     },
     {
+      "type": "checkout_token",
+      "plural": "checkout_tokens",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/checkout/tokens/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "checkout_token",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/checkout/tokens/:id",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/checkout/tokens",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "checkout_token",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "checkout_token_form",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "",
+      "description": "Represents a secure token that can be used to redirect to Checkout UI"
+    },
+    {
       "type": "consumer_invoice",
       "plural": "consumer_invoices",
       "operations": [
@@ -63017,8 +63838,8 @@
           ]
         },
         {
-          "method": "POST",
-          "path": "/:organization/consumer/invoices",
+          "method": "PUT",
+          "path": "/:organization/consumer/invoices/order/:number",
           "parameters": [
             {
               "name": "organization",
@@ -63026,6 +63847,13 @@
               "location": "Path",
               "required": true,
               "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "number",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "The order number for which you are requesting a consumer invoice."
             },
             {
               "name": "language",
@@ -63037,6 +63865,16 @@
             }
           ],
           "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "consumer_invoice",
+              "description": "Successful response",
+              "attributes": []
+            },
             {
               "code": {
                 "integer": {
@@ -63070,7 +63908,7 @@
           ],
           "attributes": [],
           "body": {
-            "type": "consumer_invoice_form",
+            "type": "consumer_invoice_form_by_order",
             "attributes": []
           }
         },
@@ -63393,6 +64231,9 @@
             }
           ],
           "attributes": [],
+          "deprecation": {
+            "description": "Use PUT by order number"
+          },
           "body": {
             "type": "consumer_invoice_form",
             "attributes": []

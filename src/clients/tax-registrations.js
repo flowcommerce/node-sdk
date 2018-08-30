@@ -27,4 +27,11 @@ export default class TaxRegistrations extends Client {
     });
   }
 
+  deleteByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/tax/registrations/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
 }

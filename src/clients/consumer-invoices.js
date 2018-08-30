@@ -17,10 +17,10 @@ export default class ConsumerInvoices extends Client {
     return this.makeRequest(`${this.host}/${organization}/consumer/invoices`, options);
   }
 
-  post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices`, {
+  putOrderByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/order/${number}`, {
       ...options,
-       method: 'POST',
+       method: 'PUT',
     });
   }
 

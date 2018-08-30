@@ -30,13 +30,14 @@ const consumerInvoices = client().consumerInvoices;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options = {})`
+##`putOrderByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| number | string | The order number for which you are requesting a consumer invoice. |
 
 ### Query Parameters
 

@@ -103,6 +103,13 @@ export default class Orders extends Client {
     });
   }
 
+  deleteTaxAndRegistrationByNumberAndKey(organization, number, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/tax/registration/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
   getStatusAndFraudByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/status/fraud`, options);
   }

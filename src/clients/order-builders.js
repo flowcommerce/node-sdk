@@ -41,6 +41,13 @@ export default class OrderBuilders extends Client {
     });
   }
 
+  putCountryByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/country`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   putDestinationByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/destination`, {
       ...options,

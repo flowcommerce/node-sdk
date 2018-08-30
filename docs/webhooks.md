@@ -38,24 +38,6 @@ const webhooks = client().webhooks;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getSettings(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`putSettings(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
 ##`getById(organization, id, options = {})`
 
 ### Function Parameters

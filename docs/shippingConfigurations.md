@@ -28,6 +28,7 @@ const shippingConfigurations = client().shippingConfigurations;
 | key | [string] |  |
 | name | string |  |
 | experience | string |  |
+| expand | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -50,6 +51,11 @@ const shippingConfigurations = client().shippingConfigurations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`putByKey(organization, key, options = {})`
 
@@ -86,6 +92,7 @@ const shippingConfigurations = client().shippingConfigurations;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | region | string |  |
+| expand | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -110,6 +117,11 @@ const shippingConfigurations = client().shippingConfigurations;
 | key | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`putLanesByKeyAndId(organization, key, id, options = {})`
 
