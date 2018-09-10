@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Queries extends Client {
+export default class SubcatalogQueries extends Client {
   constructor(opts) {
     let options = opts;
 

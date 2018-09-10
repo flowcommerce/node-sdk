@@ -21,14 +21,15 @@ These resources mirror the official documentation located at
 | [orderBuilders](orderBuilders.md) | The Order Builder resource provides an incremental approach to building an order - returning the order details as they exist along with validation errors. The main difference is that this API will never return a 422 - rather it provides a container to view the order in its current state as well as all validation errors |
 | [orderEstimates](orderEstimates.md) | Lightweight estimate for a group of items without any customer-related information. This will contain available estimates on shipping, taxes, and duties. |
 | [orderIdentifiers](orderIdentifiers.md) | Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders. |
+| [orderNumberGenerators](orderNumberGenerators.md) |  |
 | [orderPromotions](orderPromotions.md) |  |
 | [organizations](organizations.md) |  |
 | [paymentMethodRules](paymentMethodRules.md) | Returns payment methods that are enabled for an organization and available for the provided country and currency. |
 | [priceBooks](priceBooks.md) |  |
 | [priceBookItems](priceBookItems.md) |  |
-| [queries](queries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
+| [subcatalogQueries](subcatalogQueries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
 | [targetings](targetings.md) |  |
 | [targetingItems](targetingItems.md) | Represents catalog items where a targeting query is applicable |
 | [itemFunctions](itemFunctions.md) | Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created. |

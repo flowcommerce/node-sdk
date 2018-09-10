@@ -36,6 +36,13 @@ export default class Experiences extends Client {
     return this.makeRequest(`${this.host}/${organization}/experiences/items/${number}`, options);
   }
 
+  postQueryAndBuilders(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/query/builders`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/versions`, options);
   }

@@ -315,6 +315,43 @@
       "attributes": []
     },
     {
+      "name": "available_filter_format",
+      "plural": "available_filter_formats",
+      "values": [
+        {
+          "name": "boolean",
+          "attributes": []
+        },
+        {
+          "name": "date",
+          "attributes": [],
+          "description": "Expects date in format YYYY-MM-DD"
+        },
+        {
+          "name": "money",
+          "attributes": []
+        },
+        {
+          "name": "decimal",
+          "attributes": []
+        },
+        {
+          "name": "string",
+          "attributes": []
+        },
+        {
+          "name": "unit_of_length",
+          "attributes": []
+        },
+        {
+          "name": "unit_of_mass",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "The Available Filter Format defines the type of data that is expected in a single filter"
+    },
+    {
       "name": "avs_code",
       "plural": "avs_codes",
       "values": [
@@ -1226,6 +1263,14 @@
           "attributes": []
         },
         {
+          "name": "experience_inventory_item_upserted",
+          "attributes": []
+        },
+        {
+          "name": "experience_inventory_item_deleted",
+          "attributes": []
+        },
+        {
           "name": "rule_upserted",
           "attributes": []
         },
@@ -1478,6 +1523,28 @@
         {
           "name": "closed",
           "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "experience_inventory_item_status",
+      "plural": "experience_inventory_item_statuses",
+      "values": [
+        {
+          "name": "available",
+          "attributes": [],
+          "description": "Inventory is generally available for purchase"
+        },
+        {
+          "name": "low",
+          "attributes": [],
+          "description": "Inventory is low and may soon become unavailable for purchase. Unless there is a specific use case for low inventory, it can be treated the same as 'available'"
+        },
+        {
+          "name": "out_of_stock",
+          "attributes": [],
+          "description": "There is no inventory available and is not available for purchase. Sample actions that can be taken are hiding the item or marking as `sold out` on the frontend"
         }
       ],
       "attributes": []
@@ -2235,7 +2302,7 @@
         {
           "name": "duties_item_price",
           "attributes": [],
-          "description": "The VAT owed on the price of the order's items, including any added margins and rounding."
+          "description": "The duty owed on the price of the order's items, including any added margins and rounding."
         },
         {
           "name": "duties_freight",
@@ -3161,25 +3228,6 @@
       "attributes": []
     },
     {
-      "name": "shopify_variant_inventory_metafield_status",
-      "plural": "shopify_variant_inventory_metafield_statuses",
-      "values": [
-        {
-          "name": "available",
-          "attributes": []
-        },
-        {
-          "name": "low",
-          "attributes": []
-        },
-        {
-          "name": "out_of_stock",
-          "attributes": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "sort_direction",
       "plural": "sort_directions",
       "values": [
@@ -3770,6 +3818,24 @@
       "description": "Flow provides several different options for creating an authorization"
     },
     {
+      "name": "available_filter",
+      "plural": "available_filters",
+      "types": [
+        {
+          "type": "available_filter_structured",
+          "attributes": [],
+          "discriminator_value": "structured"
+        },
+        {
+          "type": "available_filter_unstructured",
+          "attributes": [],
+          "discriminator_value": "unstructured"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "card_authorization_data",
       "plural": "card_authorization_data",
       "types": [
@@ -3787,6 +3853,19 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Represents the data needed to create a card authorization."
+    },
+    {
+      "name": "confirmation_details",
+      "plural": "confirmation_detailses",
+      "types": [
+        {
+          "type": "direct_debit",
+          "attributes": [],
+          "discriminator_value": "direct_debit"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
     },
     {
       "name": "consumer_invoice_line",
@@ -4256,6 +4335,16 @@
           "type": "fully_harmonized_item_upserted",
           "attributes": [],
           "discriminator_value": "fully_harmonized_item_upserted"
+        },
+        {
+          "type": "experience_inventory_item_upserted",
+          "attributes": [],
+          "discriminator_value": "experience_inventory_item_upserted"
+        },
+        {
+          "type": "experience_inventory_item_deleted",
+          "attributes": [],
+          "discriminator_value": "experience_inventory_item_deleted"
         },
         {
           "type": "rule_upserted",
@@ -4941,6 +5030,29 @@
       "discriminator": "discriminator"
     },
     {
+      "name": "order_number_generator",
+      "plural": "order_number_generators",
+      "types": [
+        {
+          "type": "order_number_generator_uuid",
+          "attributes": [],
+          "discriminator_value": "uuid"
+        },
+        {
+          "type": "order_number_generator_hexadecimal",
+          "attributes": [],
+          "discriminator_value": "hexadecimal"
+        },
+        {
+          "type": "order_number_generator_prefix_suffix",
+          "attributes": [],
+          "discriminator_value": "prefix_suffix"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "order_promotion",
       "plural": "order_promotions",
       "types": [
@@ -5051,6 +5163,62 @@
           "type": "discount",
           "attributes": [],
           "discriminator_value": "discount"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "query_builder_form",
+      "plural": "query_builder_forms",
+      "types": [
+        {
+          "type": "query_builder_filter_form",
+          "attributes": [],
+          "discriminator_value": "filter"
+        },
+        {
+          "type": "query_builder_query_form",
+          "attributes": [],
+          "discriminator_value": "query"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "query_filter",
+      "plural": "query_filters",
+      "types": [
+        {
+          "type": "query_filter_structured",
+          "attributes": [],
+          "default": true,
+          "discriminator_value": "structured"
+        },
+        {
+          "type": "query_filter_unstructured",
+          "attributes": [],
+          "discriminator_value": "unstructured"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "name": "query_filter_form",
+      "plural": "query_filter_forms",
+      "types": [
+        {
+          "type": "query_filter_structured_form",
+          "attributes": [],
+          "default": true,
+          "discriminator_value": "structured"
+        },
+        {
+          "type": "query_filter_unstructured_form",
+          "attributes": [],
+          "discriminator_value": "unstructured"
         }
       ],
       "attributes": [],
@@ -6822,6 +6990,66 @@
       "attributes": []
     },
     {
+      "name": "available_filter_structured",
+      "plural": "available_filter_structureds",
+      "fields": [
+        {
+          "name": "field",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "operators",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 1
+        },
+        {
+          "name": "format",
+          "type": "available_filter_format",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "valid_values",
+          "type": "[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "If specified, the list of valid string values that will be accepted"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Example placeholder text"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "available_filter_unstructured",
+      "plural": "available_filter_unstructureds",
+      "fields": [
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Example placeholder text"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "available_promotion",
       "plural": "available_promotions",
       "fields": [
@@ -7086,6 +7314,109 @@
       ],
       "attributes": [],
       "description": "Represents the address verification results"
+    },
+    {
+      "name": "b2b_invoice",
+      "plural": "b2b_invoices",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "buyer",
+          "type": "merchant_of_record_entity",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Will be one of flow's entities when we are purchasing inventory."
+        },
+        {
+          "name": "seller",
+          "type": "merchant_of_record_entity",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "status",
+          "type": "consumer_invoice_status",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "date",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "order",
+          "type": "consumer_invoice_order_summary",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "economic_title_location",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Will be either 'highseas' or the country code in which economic title transfer takes place."
+        },
+        {
+          "name": "center",
+          "type": "consumer_invoice_center_reference",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The originating fulfillment center. Will be empty for digital goods."
+        },
+        {
+          "name": "destination",
+          "type": "order_address",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "lines",
+          "type": "[consumer_invoice_line]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "documents",
+          "type": "[consumer_invoice_document]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "The b2b invoice represents a transaction between Flow and one of our clients (e.g. Flow purchasing inventory to resell to a consumer)."
     },
     {
       "name": "billing_address",
@@ -12226,6 +12557,30 @@
       "description": "Creates an authorization for a transaction in which you remain the merchant of record. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
     },
     {
+      "name": "direct_debit",
+      "plural": "direct_debits",
+      "fields": [
+        {
+          "name": "routing_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Routing information for the customers bank"
+        },
+        {
+          "name": "last4",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The last 4 digits of the customers account number in cleartext"
+        }
+      ],
+      "attributes": [],
+      "description": "Represents an online direct debit payment."
+    },
+    {
       "name": "discount",
       "plural": "discounts",
       "fields": [
@@ -12877,6 +13232,113 @@
       ],
       "attributes": [],
       "description": "Experience Geo summarizes an experience along with geographic info"
+    },
+    {
+      "name": "experience_inventory_item",
+      "plural": "experience_inventory_items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "experience",
+          "type": "inventory_experience_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "item",
+          "type": "item_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "status",
+          "type": "experience_inventory_item_status",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Model for status of an item in an experience"
+    },
+    {
+      "name": "experience_inventory_item_deleted",
+      "plural": "experience_inventory_item_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "experience_inventory_item",
+          "type": "experience_inventory_item",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "experience_inventory_item_upserted",
+      "plural": "experience_inventory_item_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "experience_inventory_item",
+          "type": "experience_inventory_item",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "experience_logistics_settings",
@@ -16410,6 +16872,20 @@
         {
           "name": "inventory_status",
           "type": "inventory_status",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "inventory_experience_reference",
+      "plural": "inventory_experience_references",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -22126,6 +22602,130 @@
       "attributes": []
     },
     {
+      "name": "order_number_generator_defaults",
+      "plural": "order_number_generator_defaults",
+      "fields": [
+        {
+          "name": "starts_with",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "default": "1001"
+        },
+        {
+          "name": "min_hex_length",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "default": "6"
+        },
+        {
+          "name": "min_starts_with",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "default": "1"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_number_generator_fixed_length",
+      "plural": "order_number_generator_fixed_lengths",
+      "fields": [
+        {
+          "name": "length",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "padding",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 1,
+          "maximum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "order_number_generator_hexadecimal",
+      "plural": "order_number_generator_hexadecimals",
+      "fields": [
+        {
+          "name": "length",
+          "type": "integer",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 6
+        }
+      ],
+      "attributes": [],
+      "description": "Hexadecimal generator generates a random string, starting with a letter, of a given length"
+    },
+    {
+      "name": "order_number_generator_prefix_suffix",
+      "plural": "order_number_generator_prefix_suffixes",
+      "fields": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "starts_with",
+          "type": "long",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "fixed_length",
+          "type": "order_number_generator_fixed_length",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Optionally force a fixed length with padding. For example, an order number of F1234 with fixed length '6' and padding '0' would become 'F01234'"
+        }
+      ],
+      "attributes": [],
+      "description": "Generator with an optional prefix, followed by an integer and an optional suffix"
+    },
+    {
+      "name": "order_number_generator_uuid",
+      "plural": "order_number_generator_uuids",
+      "fields": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Optional prefix to prepend to the UUID",
+          "default": "ord-"
+        }
+      ],
+      "attributes": [],
+      "description": "Generates an order number based on a UUID (no dashes or other formatting). This is the default for Flow orders (with order number prefixed by ord-)"
+    },
+    {
       "name": "order_number_reference",
       "plural": "order_number_references",
       "fields": [
@@ -25999,14 +26599,6 @@
       "plural": "queries",
       "fields": [
         {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        },
-        {
           "name": "q",
           "type": "string",
           "required": true,
@@ -26014,19 +26606,80 @@
           "annotations": []
         },
         {
-          "name": "type",
-          "type": "query_type",
+          "name": "filters",
+          "type": "[query_filter]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 0
+        }
+      ],
+      "attributes": [],
+      "description": "The query model is used to present a query to a user, containing both the raw query as well as the filter representation of the query."
+    },
+    {
+      "name": "query_builder",
+      "plural": "query_builders",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "filters",
+          "type": "[query_filter]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 0
+        },
+        {
+          "name": "available",
+          "type": "[available_filter]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 0
+        }
+      ],
+      "attributes": [],
+      "description": "The query builder model is used to build a query using structured filters. The end result is a single 'q' string - e.g. 'category:jewelry and brand:Flow'"
+    },
+    {
+      "name": "query_builder_filter_form",
+      "plural": "query_builder_filter_forms",
+      "fields": [
+        {
+          "name": "filters",
+          "type": "[query_filter_form]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 1
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "query_builder_query_form",
+      "plural": "query_builder_query_forms",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
           "required": true,
           "attributes": [],
           "annotations": []
         }
       ],
-      "attributes": [],
-      "description": "Represents a typed query to indicate which items to include or exclude in a subcatalog"
+      "attributes": []
     },
     {
-      "name": "query_form",
-      "plural": "query_forms",
+      "name": "query_filter_structured",
+      "plural": "query_filter_structureds",
       "fields": [
         {
           "name": "q",
@@ -26034,40 +26687,90 @@
           "required": true,
           "attributes": [],
           "annotations": [],
-          "description": "Query string used to search for items"
+          "description": "A string representation of this query filter",
+          "example": "category in ('rugs', 'furniture')"
         },
         {
-          "name": "type",
-          "type": "query_type",
+          "name": "field",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "operator",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "values",
+          "type": "[string]",
           "required": true,
           "attributes": [],
           "annotations": []
         }
       ],
-      "attributes": [],
-      "description": "Defines a query specifying items to be included or excluded in a subcatalog"
+      "attributes": []
     },
     {
-      "name": "query_validation",
-      "plural": "query_validations",
+      "name": "query_filter_structured_form",
+      "plural": "query_filter_structured_forms",
       "fields": [
         {
-          "name": "valid",
-          "type": "[string]",
+          "name": "field",
+          "type": "string",
           "required": true,
           "attributes": [],
           "annotations": []
         },
         {
-          "name": "invalid",
+          "name": "operator",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "values",
           "type": "[string]",
           "required": true,
           "attributes": [],
           "annotations": []
         }
       ],
-      "attributes": [],
-      "description": "Indicates valid and invalid queries"
+      "attributes": []
+    },
+    {
+      "name": "query_filter_unstructured",
+      "plural": "query_filter_unstructureds",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "A keyword search query",
+          "example": "foo and bar"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "query_filter_unstructured_form",
+      "plural": "query_filter_unstructured_forms",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "quote",
@@ -26495,6 +27198,14 @@
           "attributes": [],
           "annotations": [],
           "description": "The URL to which the customer should be redirected to complete payment."
+        },
+        {
+          "name": "confirmation_details",
+          "type": "confirmation_details",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Confirmation details received from the redirect response"
         }
       ],
       "attributes": [],
@@ -31024,19 +31735,19 @@
         },
         {
           "name": "prices_status",
-          "type": "string",
-          "required": false,
+          "type": "subcatalog_item_status",
+          "required": true,
           "attributes": [],
           "annotations": [],
           "description": "Indicates whether the variant should be included or excluded from being sold in the experience."
         },
         {
           "name": "inventory_status",
-          "type": "subcatalog_item_status",
-          "required": true,
+          "type": "experience_inventory_item_status",
+          "required": false,
           "attributes": [],
           "annotations": [],
-          "description": "Indicates whether the variant should be included or excluded from being sold in this experience."
+          "description": "The inventory availability for the variant. Can be used to make decisions on how to present products to customers based on inventory condition"
         }
       ],
       "attributes": [],
@@ -31055,7 +31766,7 @@
         },
         {
           "name": "status",
-          "type": "shopify_variant_inventory_metafield_status",
+          "type": "experience_inventory_item_status",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -31676,6 +32387,81 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "subcatalog_query",
+      "plural": "subcatalog_queries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "type",
+          "type": "query_type",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Represents a typed query to indicate which items to include or exclude in a subcatalog"
+    },
+    {
+      "name": "subcatalog_query_form",
+      "plural": "subcatalog_query_forms",
+      "fields": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Query string used to search for items"
+        },
+        {
+          "name": "type",
+          "type": "query_type",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Defines a query specifying items to be included or excluded in a subcatalog"
+    },
+    {
+      "name": "subcatalog_query_validation",
+      "plural": "subcatalog_query_validations",
+      "fields": [
+        {
+          "name": "valid",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "invalid",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Indicates valid and invalid queries"
     },
     {
       "name": "subcatalog_reference",
@@ -37667,6 +38453,67 @@
           "description": "Returns information about this item localized based on the query parameters"
         },
         {
+          "method": "POST",
+          "path": "/:organization/experiences/query/builders",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "query_builder",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Builds a query to search experiences",
+          "body": {
+            "type": "query_builder_form",
+            "attributes": []
+          }
+        },
+        {
           "method": "GET",
           "path": "/:organization/experiences/versions",
           "parameters": [
@@ -43324,6 +44171,183 @@
       "description": "Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders."
     },
     {
+      "type": "order_number_generator",
+      "plural": "order_number_generators",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/order/number/generators",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order_number_generator",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/order/number/generators",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "order_number_generator",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "order_number_generator",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "order_number_generator",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/order/number/generators",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/order/number/generators"
+    },
+    {
       "type": "order_promotion",
       "plural": "order_promotions",
       "operations": [
@@ -45308,82 +46332,6 @@
       "path": "/:organization/price/books/:price_book_key/items"
     },
     {
-      "type": "query",
-      "plural": "queries",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/:organization/query/validations",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "query_validation",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "type": "unit",
-              "description": "Resource was not found",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "type": "[string]",
-            "attributes": []
-          }
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "localization"
-          }
-        }
-      ],
-      "path": "/:organization/query",
-      "description": "Represents a typed query to indicate which items to include or exclude in a subcatalog"
-    },
-    {
       "type": "subcatalog",
       "plural": "subcatalogs",
       "operations": [
@@ -47031,7 +47979,7 @@
                   "value": 200
                 }
               },
-              "type": "[query]",
+              "type": "[subcatalog_query]",
               "description": "Successful response",
               "attributes": []
             },
@@ -47102,7 +48050,7 @@
                   "value": 201
                 }
               },
-              "type": "query",
+              "type": "subcatalog_query",
               "description": "Operation succeeded and the resource was created",
               "attributes": []
             },
@@ -47140,7 +48088,7 @@
           "attributes": [],
           "description": "Add query",
           "body": {
-            "type": "query_form",
+            "type": "subcatalog_query_form",
             "attributes": []
           }
         },
@@ -47176,7 +48124,7 @@
                   "value": 200
                 }
               },
-              "type": "query",
+              "type": "subcatalog_query",
               "description": "Successful response",
               "attributes": []
             },
@@ -47654,6 +48602,82 @@
       ],
       "path": "/:organization/catalog/subcatalogs/:subcatalog_id/items",
       "description": "Represents information specific to an item in a given subcatalog"
+    },
+    {
+      "type": "subcatalog_query",
+      "plural": "subcatalog_queries",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/:organization/query/validations",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "subcatalog_query_validation",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "body": {
+            "type": "[string]",
+            "attributes": []
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "path": "/:organization/query",
+      "description": "Represents a typed query to indicate which items to include or exclude in a subcatalog"
     },
     {
       "type": "targeting",
