@@ -10,7 +10,7 @@
     "key": "api"
   },
   "namespace": "io.flow.v0",
-  "version": "0.6.19",
+  "version": "0.6.71",
   "info": {
     "license": {
       "name": "MIT",
@@ -152,6 +152,39 @@
       ],
       "attributes": [],
       "description": "Used to tag attributes as having a specific meaning that can affect processing. For example, if you have an attribute called \"brandname\", and assign it the \"brand\" intent, the value of the \"brandname\" attribute will be used where a brand name is needed. Note that an intent can be assigned to any amount of attributes of an item."
+    },
+    {
+      "name": "authentication_technique",
+      "plural": "authentication_techniques",
+      "values": [
+        {
+          "name": "anonymous",
+          "attributes": [],
+          "description": "No authentication necessary."
+        },
+        {
+          "name": "session",
+          "attributes": [],
+          "description": "A browser has been assigned an identifier by flow to track their use of our service for an organization."
+        },
+        {
+          "name": "token",
+          "attributes": [],
+          "description": "A token. Tokens carry the same permissions as the user who originally created them."
+        },
+        {
+          "name": "partner_token",
+          "attributes": [],
+          "description": "A partner token. Partner Tokens can only access anonymous endpoints and the endpoints of the partner api."
+        },
+        {
+          "name": "user",
+          "attributes": [],
+          "description": "A user logs into Flow."
+        }
+      ],
+      "attributes": [],
+      "description": "Various techniques a client request will use to authenticate with Flow."
     },
     {
       "name": "authorization_decline_code",
@@ -1007,11 +1040,27 @@
           "attributes": []
         },
         {
+          "name": "catalog_item_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "catalog_item_deleted_v2",
+          "attributes": []
+        },
+        {
           "name": "subcatalog_item_upserted",
           "attributes": []
         },
         {
           "name": "subcatalog_item_deleted",
+          "attributes": []
+        },
+        {
+          "name": "b2b_invoice_upserted",
+          "attributes": []
+        },
+        {
+          "name": "b2b_invoice_deleted",
           "attributes": []
         },
         {
@@ -1323,11 +1372,19 @@
           "attributes": []
         },
         {
-          "name": "membership_upserted",
+          "name": "checkout_optin_responses_upserted",
           "attributes": []
         },
         {
-          "name": "membership_deleted",
+          "name": "checkout_optin_responses_deleted",
+          "attributes": []
+        },
+        {
+          "name": "browse_optin_responses_upserted",
+          "attributes": []
+        },
+        {
+          "name": "browse_optin_responses_deleted",
           "attributes": []
         },
         {
@@ -1375,7 +1432,15 @@
           "attributes": []
         },
         {
+          "name": "card_authorization_deleted_v2",
+          "attributes": []
+        },
+        {
           "name": "online_authorization_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "online_authorization_deleted_v2",
           "attributes": []
         },
         {
@@ -1404,6 +1469,10 @@
         },
         {
           "name": "refund_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "refund_deleted_v2",
           "attributes": []
         },
         {
@@ -1484,6 +1553,14 @@
         },
         {
           "name": "return_deleted",
+          "attributes": []
+        },
+        {
+          "name": "shopify_localization_setting_upserted",
+          "attributes": []
+        },
+        {
+          "name": "shopify_localization_setting_deleted",
           "attributes": []
         },
         {
@@ -1610,6 +1687,37 @@
       "description": "Export status is a finite state machine with valid transitions of created to processing, processing to completed or failed"
     },
     {
+      "name": "flow_addon_role",
+      "plural": "flow_addon_roles",
+      "values": [
+        {
+          "name": "consumer_data_viewer",
+          "attributes": [],
+          "description": "Can view consumer's private data"
+        },
+        {
+          "name": "membership_manager",
+          "attributes": [],
+          "description": "Can invite new users to the org."
+        }
+      ],
+      "attributes": [],
+      "description": "Default addon roles supported by Flow. These roles don't provide enough access to be useful on their own but convey additional responsibility to user roles."
+    },
+    {
+      "name": "flow_behavior",
+      "plural": "flow_behaviors",
+      "values": [
+        {
+          "name": "view_consumer_data",
+          "attributes": [],
+          "description": "Allows user to view consumers' personal data."
+        }
+      ],
+      "attributes": [],
+      "description": "Behaviors represent cross-cutting concerns that may be assigned via roles and may apply to many API endpoints."
+    },
+    {
       "name": "flow_field_name",
       "plural": "flow_field_names",
       "values": [
@@ -1631,6 +1739,49 @@
       ],
       "attributes": [],
       "description": "Describes the field in a Flow catalog that will be used to link to an incoming catalog feed. Failure to link an incoming feed item to a Flow catalog item will cause that item to be removed from localized feeds."
+    },
+    {
+      "name": "flow_user_role",
+      "plural": "flow_user_roles",
+      "values": [
+        {
+          "name": "organization_admin",
+          "attributes": [],
+          "description": "Can fully administrate a merchant organization."
+        },
+        {
+          "name": "organization_merchant",
+          "attributes": [],
+          "description": "Can access merchant functions such as analytics, billing, experiences."
+        },
+        {
+          "name": "organization_operations",
+          "attributes": [],
+          "description": "Can access customer service functions and retreive relevant data."
+        },
+        {
+          "name": "organization_fulfillment",
+          "attributes": [],
+          "description": "Can access fulfillment functions and retreive relevant data."
+        },
+        {
+          "name": "organization_marketing",
+          "attributes": [],
+          "description": "Can access marketing functions and retreive relevant data."
+        },
+        {
+          "name": "organization_finance",
+          "attributes": [],
+          "description": "Can access billing and reconcilliation functions and retreive relevant data."
+        },
+        {
+          "name": "flow_operations",
+          "attributes": [],
+          "description": "Can access Flow internal functions."
+        }
+      ],
+      "attributes": [],
+      "description": "Default user roles supported by Flow"
     },
     {
       "name": "fraud_liability",
@@ -2134,6 +2285,25 @@
       "description": "The available methods by which we deliver each webhook event"
     },
     {
+      "name": "optin_response_type",
+      "plural": "optin_response_types",
+      "values": [
+        {
+          "name": "not_shown",
+          "attributes": []
+        },
+        {
+          "name": "opted_in",
+          "attributes": []
+        },
+        {
+          "name": "opted_out",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "order_change_source",
       "plural": "order_change_sources",
       "values": [
@@ -2398,6 +2568,16 @@
           "name": "duty_subsidy",
           "attributes": [],
           "description": "An offset to account for any duty subsidized by the organization. For example, if duty is included in an item price and changes at the order level (due to passing de minimis threshold, or the destination having a more specific duty rate), the difference will be represented here."
+        },
+        {
+          "name": "remote_area_surcharge",
+          "attributes": [],
+          "description": "Surcharge applied to a shipment for delivery to a remote area determined by the carrier."
+        },
+        {
+          "name": "fuel_surcharge",
+          "attributes": [],
+          "description": "Surcharge applied to a shipment for fuel consumption by the carrier."
         }
       ],
       "attributes": []
@@ -2440,6 +2620,11 @@
           "name": "discount",
           "attributes": [],
           "description": "The details of any discount applied to the order."
+        },
+        {
+          "name": "surcharges",
+          "attributes": [],
+          "description": "Additional fees and levies applied to the order"
         }
       ],
       "attributes": []
@@ -2580,6 +2765,53 @@
       ],
       "attributes": [],
       "description": "The payment method type defines at a high level different user experiences that are required to accept payment of this type. By enabling a payment method type, you are specifying that you have completed the integration and all payment methods of this type become available for offer to your users."
+    },
+    {
+      "name": "permitted_http_method",
+      "plural": "permitted_http_methods",
+      "values": [
+        {
+          "name": "GET",
+          "attributes": []
+        },
+        {
+          "name": "POST",
+          "attributes": []
+        },
+        {
+          "name": "PUT",
+          "attributes": []
+        },
+        {
+          "name": "DELETE",
+          "attributes": []
+        },
+        {
+          "name": "PATCH",
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "description": "List of HTTP methods for which user permissions may be applied (OPTION for example is always permitted where CORS is enabled)."
+    },
+    {
+      "name": "physical_delivery_special_serivce",
+      "plural": "physical_delivery_special_serivces",
+      "values": [
+        {
+          "name": "cold_storage",
+          "attributes": []
+        },
+        {
+          "name": "hazardous",
+          "attributes": []
+        },
+        {
+          "name": "perishable",
+          "attributes": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "price_book_status",
@@ -3228,6 +3460,23 @@
       "attributes": []
     },
     {
+      "name": "shopify_localization_method",
+      "plural": "shopify_localization_methods",
+      "values": [
+        {
+          "name": "api",
+          "attributes": [],
+          "description": "Indicates localization should be achieved via the API."
+        },
+        {
+          "name": "ssr",
+          "attributes": [],
+          "description": "Indicates localization should be achieved via server side rendering. For example, using variant metafields."
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "sort_direction",
       "plural": "sort_directions",
       "values": [
@@ -3286,6 +3535,23 @@
       ],
       "attributes": [],
       "description": "Status indicating availability of a subcatalog item in an experience."
+    },
+    {
+      "name": "surcharge_responsible_party",
+      "plural": "surcharge_responsible_parties",
+      "values": [
+        {
+          "name": "organization",
+          "attributes": [],
+          "description": "The merchant pays for this surcharge"
+        },
+        {
+          "name": "customer",
+          "attributes": [],
+          "description": "The customer pays for this surcharge"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "tax_applicability",
@@ -3818,6 +4084,24 @@
       "description": "Flow provides several different options for creating an authorization"
     },
     {
+      "name": "authorization_payload_parameters",
+      "plural": "authorization_payload_parameterses",
+      "types": [
+        {
+          "type": "google_pay_authorization_payload",
+          "attributes": [],
+          "discriminator_value": "google_pay_authorization_payload"
+        },
+        {
+          "type": "apple_pay_merchant_validation_payload",
+          "attributes": [],
+          "discriminator_value": "apple_pay_merchant_validation_payload"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
       "name": "available_filter",
       "plural": "available_filters",
       "types": [
@@ -4017,6 +4301,16 @@
           "discriminator_value": "catalog_item_deleted"
         },
         {
+          "type": "catalog_item_upserted_v2",
+          "attributes": [],
+          "discriminator_value": "catalog_item_upserted_v2"
+        },
+        {
+          "type": "catalog_item_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "catalog_item_deleted_v2"
+        },
+        {
           "type": "subcatalog_item_upserted",
           "attributes": [],
           "discriminator_value": "subcatalog_item_upserted"
@@ -4025,6 +4319,16 @@
           "type": "subcatalog_item_deleted",
           "attributes": [],
           "discriminator_value": "subcatalog_item_deleted"
+        },
+        {
+          "type": "b2b_invoice_upserted",
+          "attributes": [],
+          "discriminator_value": "b2b_invoice_upserted"
+        },
+        {
+          "type": "b2b_invoice_deleted",
+          "attributes": [],
+          "discriminator_value": "b2b_invoice_deleted"
         },
         {
           "type": "consumer_invoice_upserted",
@@ -4412,14 +4716,24 @@
           "discriminator_value": "local_item_deleted"
         },
         {
-          "type": "membership_upserted",
+          "type": "checkout_optin_responses_upserted",
           "attributes": [],
-          "discriminator_value": "membership_upserted"
+          "discriminator_value": "checkout_optin_responses_upserted"
         },
         {
-          "type": "membership_deleted",
+          "type": "checkout_optin_responses_deleted",
           "attributes": [],
-          "discriminator_value": "membership_deleted"
+          "discriminator_value": "checkout_optin_responses_deleted"
+        },
+        {
+          "type": "browse_optin_responses_upserted",
+          "attributes": [],
+          "discriminator_value": "browse_optin_responses_upserted"
+        },
+        {
+          "type": "browse_optin_responses_deleted",
+          "attributes": [],
+          "discriminator_value": "browse_optin_responses_deleted"
         },
         {
           "type": "membership_upserted_v2",
@@ -4478,9 +4792,19 @@
           "discriminator_value": "card_authorization_upserted_v2"
         },
         {
+          "type": "card_authorization_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "card_authorization_deleted_v2"
+        },
+        {
           "type": "online_authorization_upserted_v2",
           "attributes": [],
           "discriminator_value": "online_authorization_upserted_v2"
+        },
+        {
+          "type": "online_authorization_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "online_authorization_deleted_v2"
         },
         {
           "type": "capture_upserted_v2",
@@ -4516,6 +4840,11 @@
           "type": "refund_upserted_v2",
           "attributes": [],
           "discriminator_value": "refund_upserted_v2"
+        },
+        {
+          "type": "refund_deleted_v2",
+          "attributes": [],
+          "discriminator_value": "refund_deleted_v2"
         },
         {
           "type": "refund_capture_upserted_v2",
@@ -4616,6 +4945,16 @@
           "type": "return_deleted",
           "attributes": [],
           "discriminator_value": "return_deleted"
+        },
+        {
+          "type": "shopify_localization_setting_upserted",
+          "attributes": [],
+          "discriminator_value": "shopify_localization_setting_upserted"
+        },
+        {
+          "type": "shopify_localization_setting_deleted",
+          "attributes": [],
+          "discriminator_value": "shopify_localization_setting_deleted"
         },
         {
           "type": "targeting_item_upserted",
@@ -4886,6 +5225,33 @@
       "attributes": [],
       "discriminator": "discriminator",
       "description": "Describes types of feeds that may be produced by Flow."
+    },
+    {
+      "name": "flow_role",
+      "plural": "flow_roles",
+      "types": [
+        {
+          "type": "flow_user_role",
+          "attributes": [],
+          "discriminator_value": "flow_user_role"
+        },
+        {
+          "type": "flow_addon_role",
+          "attributes": [],
+          "discriminator_value": "flow_addon_role"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "linter",
+          "value": {
+            "ignore": [
+              "discriminator"
+            ]
+          }
+        }
+      ],
+      "description": "All roles available to attach to a user."
     },
     {
       "name": "gateway_authentication_data",
@@ -6305,6 +6671,29 @@
       "attributes": []
     },
     {
+      "name": "apple_pay_merchant_validation_payload",
+      "plural": "apple_pay_merchant_validation_payloads",
+      "fields": [
+        {
+          "name": "validation_url",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Apple's server URL to validate the merchant and obtain a merchant session object, which will be sent back to frontend."
+        },
+        {
+          "name": "display_name",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The display name will appear in e.g. Touch Bar. A string of 64 or fewer UTF-8 characters containing the canonical name for your store, suitable for display. Do not localize the name. Default value will be provided from database"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "at_cost",
       "plural": "at_costs",
       "fields": [
@@ -6808,6 +7197,21 @@
       "attributes": []
     },
     {
+      "name": "authorization_payload",
+      "plural": "authorization_payloads",
+      "fields": [
+        {
+          "name": "parameters",
+          "type": "authorization_payload_parameters",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Used to complete an inline authorization like Google Pay or Apple Pay."
+    },
+    {
       "name": "authorization_reference",
       "plural": "authorization_references",
       "fields": [
@@ -6882,6 +7286,13 @@
           "required": false,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "description",
+          "type": "authorization_result_description",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -6908,6 +7319,21 @@
       ],
       "attributes": [],
       "description": "Provides details for how to acquire additional information from the customer when needed (e.g. redirecting to the issuer for online payment method or 3D Secure)."
+    },
+    {
+      "name": "authorization_result_description",
+      "plural": "authorization_result_descriptions",
+      "fields": [
+        {
+          "name": "display",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The default display text, e.g. 'VISA ending in 4700' or 'Payment with PayPal'."
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "authorization_status_changed",
@@ -7394,6 +7820,14 @@
           "annotations": []
         },
         {
+          "name": "tax",
+          "type": "money",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The total amount of tax for this invoice"
+        },
+        {
           "name": "lines",
           "type": "[consumer_invoice_line]",
           "required": true,
@@ -7417,6 +7851,108 @@
       ],
       "attributes": [],
       "description": "The b2b invoice represents a transaction between Flow and one of our clients (e.g. Flow purchasing inventory to resell to a consumer)."
+    },
+    {
+      "name": "b2b_invoice_deleted",
+      "plural": "b2b_invoice_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The date/time of the request"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "b2b_invoice",
+          "type": "b2b_invoice",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "b2b_invoice_upserted",
+      "plural": "b2b_invoice_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The date/time of the request"
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "b2b_invoice",
+          "type": "b2b_invoice",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "behavior_audit",
+      "plural": "behavior_audits",
+      "fields": [
+        {
+          "name": "behavior",
+          "type": "flow_behavior",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "authentication_techniques",
+          "type": "[authentication_technique]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "billing_address",
@@ -7481,6 +8017,108 @@
             "personal_data"
           ],
           "description": "Business entity or organization name of this contact"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "browse_optin_responses",
+      "plural": "browse_optin_responses",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "session_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "optin_responses",
+          "type": "[optin_response]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "browse_optin_responses_deleted",
+      "plural": "browse_optin_responses_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "browse_optin_responses_upserted",
+      "plural": "browse_optin_responses_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "browse_optin_responses",
+          "type": "browse_optin_responses",
+          "required": true,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": []
@@ -7918,7 +8556,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "Unique, cryptographically secure token by which this card can be identified in the future. This value should be kept secure in your system's as payment authorizations are created against this token."
         },
         {
@@ -8151,6 +8791,45 @@
       ],
       "attributes": [],
       "description": "An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization."
+    },
+    {
+      "name": "card_authorization_deleted_v2",
+      "plural": "card_authorization_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "authorization",
+          "type": "card_authorization",
+          "required": true,
+          "attributes": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "card_authorization_form",
@@ -8454,7 +9133,7 @@
             "consumer"
           ],
           "description": "The 4 digit expiration year",
-          "example": "2016"
+          "example": "2021"
         },
         {
           "name": "name",
@@ -8537,7 +9216,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The one time card nonce to exchange for a permanent card token. This value will start with F17",
           "example": "F17JNt5CXc0TsY8txqTRx9F40Cqn5YuQ30PkIMTTnnJSxLsmGmeDOrJ2wr4h"
         }
@@ -8562,7 +9243,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": []
+          "annotations": [
+            "personal_data"
+          ]
         }
       ],
       "attributes": []
@@ -8576,7 +9259,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The token referring to a previously tokenized card."
         }
       ],
@@ -8979,6 +9664,42 @@
       "attributes": []
     },
     {
+      "name": "catalog_item_deleted_v2",
+      "plural": "catalog_item_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "item",
+          "type": "item",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "catalog_item_document",
       "plural": "catalog_item_documents",
       "fields": [
@@ -9232,6 +9953,42 @@
         {
           "name": "images",
           "type": "[object]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "catalog_item_upserted_v2",
+      "plural": "catalog_item_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "item",
+          "type": "item",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -9858,6 +10615,115 @@
       "attributes": []
     },
     {
+      "name": "checkout_optin_responses",
+      "plural": "checkout_optin_responses",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "session_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "optin_responses",
+          "type": "[optin_response]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "checkout_optin_responses_deleted",
+      "plural": "checkout_optin_responses_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "checkout_optin_responses_upserted",
+      "plural": "checkout_optin_responses_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "checkout_optin_responses",
+          "type": "checkout_optin_responses",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "checkout_token",
       "plural": "checkout_tokens",
       "fields": [
@@ -10009,6 +10875,14 @@
           "attributes": [],
           "annotations": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "A sequential number, unique by organization and merchant of record entity name"
         },
         {
           "name": "status",
@@ -10639,6 +11513,15 @@
           "example": "USD"
         },
         {
+          "name": "default_language",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "ISO 639 2-character language code. See https://api.flow.io/reference/languages",
+          "example": "en"
+        },
+        {
           "name": "timezones",
           "type": "[string]",
           "required": true,
@@ -10706,6 +11589,14 @@
           "attributes": [],
           "annotations": [],
           "description": "Globally unique identifier"
+        },
+        {
+          "name": "number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "A sequential number, unique by organization and merchant of record entity name"
         },
         {
           "name": "status",
@@ -11553,18 +12444,11 @@
         },
         {
           "name": "cost",
-          "type": "price_with_base",
+          "type": "price_with_base_and_details",
           "required": true,
           "attributes": [],
           "annotations": [],
           "description": "Sum of all cost details, including actual shipping cost and any fees levied by partner center or shipping carrier."
-        },
-        {
-          "name": "cost_details",
-          "type": "[delivery_option_cost_detail]",
-          "required": false,
-          "attributes": [],
-          "annotations": []
         },
         {
           "name": "delivered_duty",
@@ -11575,7 +12459,7 @@
         },
         {
           "name": "price",
-          "type": "price_with_base",
+          "type": "price_with_base_and_details",
           "required": true,
           "attributes": [],
           "annotations": [],
@@ -11626,6 +12510,14 @@
             "personal_data"
           ],
           "description": "Intermediate destination required before going to final destination"
+        },
+        {
+          "name": "surcharge",
+          "type": "price_with_base_and_details",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Surcharges to be paid for by the end-customer."
         }
       ],
       "attributes": [],
@@ -12440,7 +13332,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The token of the payment method to use when authorizing this transaction"
         },
         {
@@ -12754,7 +13648,7 @@
           "attributes": [],
           "annotations": [],
           "description": "Range for the holiday. For single-day holidays, from and to should just be the same.",
-          "example": "2016/12/24 12:00 am to 2016/12/25 11:59 pm"
+          "example": "2021/12/24 12:00 am to 2021/12/25 11:59 pm"
         }
       ],
       "attributes": [],
@@ -13992,7 +14886,7 @@
             "consumer"
           ],
           "description": "The 4 digit expiration year",
-          "example": "2016"
+          "example": "2021"
         }
       ],
       "attributes": [],
@@ -14841,6 +15735,21 @@
       ],
       "attributes": [],
       "description": "Form used to update geographic preferences"
+    },
+    {
+      "name": "google_pay_authorization_payload",
+      "plural": "google_pay_authorization_payloads",
+      "fields": [
+        {
+          "name": "payload",
+          "type": "object",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "See io.flow.google.pay.v0.models.payment_data"
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "harmonization_document",
@@ -16531,10 +17440,17 @@
         {
           "name": "client_token",
           "type": "string",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": [],
           "description": "The client token provided by underlying payment processor."
+        },
+        {
+          "name": "parameters",
+          "type": "object",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -16626,6 +17542,14 @@
           ],
           "description": "The IP address of the consumer",
           "example": "96.242.151.245"
+        },
+        {
+          "name": "payload",
+          "type": "authorization_payload",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "If required, contains the payload used to complete the authorization (e.g. the token from Google Pay)"
         }
       ],
       "attributes": [],
@@ -17363,11 +18287,24 @@
         {
           "name": "role",
           "type": "role",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": [
             "personal_data"
-          ]
+          ],
+          "deprecation": {
+            "description": "Static roles are being deprecated for role-based permissions."
+          }
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "description": "The desired role(s) this user will play for the organization"
         },
         {
           "name": "expiration",
@@ -17437,12 +18374,25 @@
         {
           "name": "role",
           "type": "role",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": [
             "personal_data"
           ],
+          "deprecation": {
+            "description": "Static roles are being deprecated for role-based permissions."
+          },
           "default": "member"
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "description": "The desired role(s) this user will play for the organization"
         }
       ],
       "attributes": []
@@ -20282,44 +21232,28 @@
         {
           "name": "role",
           "type": "role",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "deprecation": {
+            "description": "Static roles are being deprecated for role-based permissions."
+          }
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
           "required": true,
           "attributes": [],
           "annotations": [
             "personal_data"
-          ]
+          ],
+          "description": "The desired role(s) this user will play for the organization"
         }
       ],
       "attributes": [],
       "description": "Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization's data and to provide a simple user interface to assign roles and permissions to each member of the organization"
-    },
-    {
-      "name": "membership_deleted",
-      "plural": "membership_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "membership_deleted_v2",
@@ -20372,12 +21306,26 @@
         {
           "name": "role",
           "type": "role",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": [
             "personal_data"
           ],
+          "deprecation": {
+            "description": "Static roles are being deprecated for role-based permissions."
+          },
           "default": "member"
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "description": "The desired role(s) this user will play for the organization",
+          "default": "[]"
         }
       ],
       "attributes": [],
@@ -20390,71 +21338,30 @@
         {
           "name": "role",
           "type": "role",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": [
             "personal_data"
           ],
+          "deprecation": {
+            "description": "Static roles are being deprecated for role-based permissions."
+          },
           "default": "member"
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data"
+          ],
+          "description": "The desired role(s) this user will play for the organization",
+          "default": "[]"
         }
       ],
       "attributes": [],
-      "description": "Top level resource to create a membership."
-    },
-    {
-      "name": "membership_upserted",
-      "plural": "membership_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "user_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [
-            "personal_data"
-          ]
-        },
-        {
-          "name": "role",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [
-            "personal_data"
-          ]
-        }
-      ],
-      "attributes": []
+      "description": "Top level resource to update a membership."
     },
     {
       "name": "membership_upserted_v2",
@@ -20529,7 +21436,9 @@
           "type": "string",
           "required": true,
           "attributes": [],
-          "annotations": [],
+          "annotations": [
+            "personal_data"
+          ],
           "description": "The token of the payment method to use when authorizing this transaction"
         },
         {
@@ -20620,6 +21529,15 @@
       "name": "merchant_of_record_entity",
       "plural": "merchant_of_record_entities",
       "fields": [
+        {
+          "name": "organization",
+          "type": "organization_reference",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "example": "flow"
+        },
         {
           "name": "name",
           "type": "string",
@@ -21351,6 +22269,45 @@
       "attributes": []
     },
     {
+      "name": "online_authorization_deleted_v2",
+      "plural": "online_authorization_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "authorization",
+          "type": "online_authorization",
+          "required": true,
+          "attributes": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ]
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "online_authorization_upserted_v2",
       "plural": "online_authorization_upserted_v2s",
       "fields": [
@@ -21397,6 +22354,27 @@
       ],
       "attributes": [],
       "description": "Represents an authorization for a card payment method"
+    },
+    {
+      "name": "optin_response",
+      "plural": "optin_responses",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "value",
+          "type": "optin_response_type",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "option_weight_estimates",
@@ -23411,6 +24389,14 @@
           "attributes": [],
           "annotations": [],
           "description": "When creating an organization in the test environment, it is linked to your production organization. This allows you to have as many test organizations as you like."
+        },
+        {
+          "name": "defaults",
+          "type": "organization_defaults",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Always present. Marked optional for backwards compatibility."
         }
       ],
       "attributes": [],
@@ -23423,11 +24409,14 @@
         {
           "name": "role",
           "type": "role",
-          "required": true,
+          "required": false,
           "attributes": [],
           "annotations": [
             "personal_data"
-          ]
+          ],
+          "deprecation": {
+            "description": "Static roles are being deprecated for role-based permissions."
+          }
         },
         {
           "name": "environment",
@@ -23621,6 +24610,58 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "organization_defaults",
+      "plural": "organization_defaults",
+      "fields": [
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "example": "CAN"
+        },
+        {
+          "name": "base_currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "ISO 639 2 language code as defined in https://api.flow.io/reference/languages",
+          "example": "en"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The locale id as defined in https://api.flow.io/reference/locales",
+          "example": "fr-CA"
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The name of the timezone as defined in https://api.flow.io/reference/timezones",
+          "example": "America/New_York"
         }
       ],
       "attributes": []
@@ -25327,6 +26368,137 @@
       "description": "Rule outcome where shipping surfaced in quote is actual cost plus a predefined margin percentage"
     },
     {
+      "name": "permission_audit",
+      "plural": "permission_audits",
+      "fields": [
+        {
+          "name": "routes",
+          "type": "[route_audit]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "behaviors",
+          "type": "[behavior_audit]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "Returns all known permissions, along with their authorization technique and all of the roles which contain them."
+    },
+    {
+      "name": "permission_check",
+      "plural": "permission_checks",
+      "fields": [
+        {
+          "name": "authentication_technique",
+          "type": "authentication_technique",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The authentication technique currently being used."
+        },
+        {
+          "name": "user",
+          "type": "expandable_user",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "behaviors",
+          "type": "[flow_behavior]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "routes",
+          "type": "[permitted_route]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "All the routes this request would be able to access."
+        }
+      ],
+      "attributes": [],
+      "description": "Used to test an integration's permissions, including identifying the authentication technique that will be used for similar requests."
+    },
+    {
+      "name": "permission_error",
+      "plural": "permission_errors",
+      "fields": [
+        {
+          "name": "code",
+          "type": "generic_error_code",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "messages",
+          "type": "[string]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "A summary of the error.",
+          "minimum": 1
+        },
+        {
+          "name": "granting_roles",
+          "type": "[flow_role]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "A collection of roles the user does not have that would grant the permission. Not returned if user is not a member of this org."
+        },
+        {
+          "name": "admin_users",
+          "type": "[user]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "A brief list of users who could grant one of the missing roles. Not returned if user is not a member of this org",
+          "maximum": 5
+        }
+      ],
+      "attributes": [],
+      "description": "Returned if no permissions are available for a request."
+    },
+    {
+      "name": "permitted_route",
+      "plural": "permitted_routes",
+      "fields": [
+        {
+          "name": "method",
+          "type": "permitted_http_method",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "An API Builder path, starting with / and excluding query strings."
+        }
+      ],
+      "attributes": [],
+      "description": "A Flow API route and method."
+    },
+    {
       "name": "pfs_inventory_check_response",
       "plural": "pfs_inventory_check_responses",
       "fields": [
@@ -25466,6 +26638,15 @@
           "attributes": [],
           "annotations": [],
           "minimum": 1
+        },
+        {
+          "name": "special_services",
+          "type": "[physical_delivery_special_serivce]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "List of special services associated with transport or delivery of this physical shipment.",
+          "example": "hazardous"
         }
       ],
       "attributes": [],
@@ -25714,6 +26895,13 @@
           "attributes": [],
           "annotations": [],
           "description": "The schedule used to indicate when the price applies to the price book item."
+        },
+        {
+          "name": "item_attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": [],
@@ -25790,6 +26978,14 @@
           "attributes": [],
           "annotations": [],
           "description": "The schedule used to indicate when the price applies to the price book item."
+        },
+        {
+          "name": "item_attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Optionally specify values for any of the catalog item attributes that have an intent of price, e.g. add a 'compare_at' or 'msrp' price here."
         }
       ],
       "attributes": [],
@@ -26261,6 +27457,52 @@
         {
           "name": "base",
           "type": "price",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "price_with_base_and_details",
+      "plural": "price_with_base_and_detailses",
+      "fields": [
+        {
+          "name": "currency",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "example": "CAD"
+        },
+        {
+          "name": "amount",
+          "type": "double",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The localized label of the amount and currency",
+          "example": "$125.00 CAD"
+        },
+        {
+          "name": "base",
+          "type": "price",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "details",
+          "type": "[delivery_option_cost_detail]",
           "required": false,
           "attributes": [],
           "annotations": []
@@ -27521,6 +28763,42 @@
         {
           "name": "refund_capture",
           "type": "refund_capture",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "refund_deleted_v2",
+      "plural": "refund_deleted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "refund",
+          "type": "refund",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -28937,6 +30215,42 @@
         {
           "name": "value",
           "type": "decimal",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "route_audit",
+      "plural": "route_audits",
+      "fields": [
+        {
+          "name": "method",
+          "type": "permitted_http_method",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "An API Builder path, starting with / and excluding query strings."
+        },
+        {
+          "name": "authentication_techniques",
+          "type": "[authentication_technique]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "roles",
+          "type": "[flow_role]",
           "required": true,
           "attributes": [],
           "annotations": []
@@ -31227,6 +32541,43 @@
       "description": "Model to represent details available in a customer metafield."
     },
     {
+      "name": "shopify_line",
+      "plural": "shopify_lines",
+      "fields": [
+        {
+          "name": "variant_id",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Shopify variant id"
+        },
+        {
+          "name": "quantity",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 1
+        },
+        {
+          "name": "price",
+          "type": "shopify_price",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "total",
+          "type": "shopify_price",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "shopify_local_cart_item_metadata",
       "plural": "shopify_local_cart_item_metadata",
       "fields": [
@@ -31294,6 +32645,13 @@
           "required": false,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "discount",
+          "type": "price_with_base",
+          "required": false,
+          "attributes": [],
+          "annotations": []
         }
       ],
       "attributes": []
@@ -31311,6 +32669,218 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "shopify_localization_setting",
+      "plural": "shopify_localization_settings",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Globally unique identifier"
+        },
+        {
+          "name": "method",
+          "type": "shopify_localization_method",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "datetime_range",
+          "type": "datetime_range",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_localization_setting_deleted",
+      "plural": "shopify_localization_setting_deleteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "shopify_localization_setting",
+          "type": "shopify_localization_setting",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_localization_setting_form",
+      "plural": "shopify_localization_setting_forms",
+      "fields": [
+        {
+          "name": "method",
+          "type": "shopify_localization_method",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "datetime_range",
+          "type": "datetime_range",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_localization_setting_upserted",
+      "plural": "shopify_localization_setting_upserteds",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "shopify_localization_setting",
+          "type": "shopify_localization_setting",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shopify_localized_order",
+      "plural": "shopify_localized_orders",
+      "fields": [
+        {
+          "name": "id",
+          "type": "long",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Shopify order id"
+        },
+        {
+          "name": "lines",
+          "type": "[shopify_line]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "prices",
+          "type": "[shopify_price]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "total",
+          "type": "shopify_price",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "allocation_details",
+          "type": "[allocation_detail]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "merchant_of_record",
+          "type": "order_merchant_of_record",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "merchant_of_record_entity",
+          "type": "merchant_of_record_entity",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "If Flow is the merchant of record, we provide the specific entity that is serving in the transaction (e.g. Flow Limited in Ireland or Flow Inc in the US)"
+        },
+        {
+          "name": "incoterm",
+          "type": "incoterm",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The specific incoterms to use for this order"
+        },
+        {
+          "name": "flow_order_id",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Flow order id"
+        },
+        {
+          "name": "tax_registration",
+          "type": "tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Represents the tax registration on an order (e.g user entered a valid VAT number in europe), if applicable, and its status."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "linter",
+          "value": {
+            "ignore": [
+              "common_field_types"
+            ]
+          },
+          "description": "id is a long in shopify"
+        }
+      ]
     },
     {
       "name": "shopify_localized_variant",
@@ -31471,72 +33041,27 @@
       "description": "Model to represent a delivery metafield"
     },
     {
-      "name": "shopify_order_metafield_value",
-      "plural": "shopify_order_metafield_values",
+      "name": "shopify_order_price_attributes_metafield",
+      "plural": "shopify_order_price_attributes_metafields",
       "fields": [
         {
-          "name": "merchant_of_record",
-          "type": "order_merchant_of_record",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "default": "flow"
-        },
-        {
-          "name": "merchant_of_record_entity",
-          "type": "merchant_of_record_entity",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "If Flow is the merchant of record, we provide the specific entity that is serving in the transaction (e.g. Flow Limited in Ireland or Flow Inc in the US)"
-        },
-        {
-          "name": "items",
-          "type": "[localized_line_item]",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "prices",
-          "type": "[order_price_detail]",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "total",
-          "type": "localized_total",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "flow_order_id",
+          "name": "item_number",
           "type": "string",
-          "required": false,
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "minimum": 1
+        },
+        {
+          "name": "price_attributes",
+          "type": "map[price_with_base]",
+          "required": true,
           "attributes": [],
           "annotations": []
-        },
-        {
-          "name": "incoterm",
-          "type": "incoterm",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Defines the specific incoterms under which this order should be processed / delivered"
-        },
-        {
-          "name": "tax_registration",
-          "type": "tax_registration",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Represents the tax registration on an order (e.g user entered a valid VAT number in europe), if applicable, and its status."
         }
       ],
       "attributes": [],
-      "description": "Model to represent details available in an order metafield."
+      "description": "Model to represent item's price attributes metafield"
     },
     {
       "name": "shopify_order_romanization_metafield",
@@ -31774,6 +33299,21 @@
       ],
       "attributes": [],
       "description": "For enabled organizations, this indicates the total number of available units of inventory for customers in this experience."
+    },
+    {
+      "name": "simple_permission_check",
+      "plural": "simple_permission_checks",
+      "fields": [
+        {
+          "name": "behaviors",
+          "type": "[flow_behavior]",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": [],
+      "description": "A simple model, used to convey permitted behaviors along with approval of a request for a specific permitted route."
     },
     {
       "name": "single_package_shipping_notification_form",
@@ -32659,6 +34199,97 @@
       "attributes": []
     },
     {
+      "name": "surcharge_responsible_party_display",
+      "plural": "surcharge_responsible_party_displays",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Display name of the responsible party",
+          "example": "Customer pays for this surcharge"
+        },
+        {
+          "name": "responsible_party",
+          "type": "surcharge_responsible_party",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The responsible party model value",
+          "example": "customer"
+        }
+      ],
+      "attributes": [],
+      "description": "Surcharge responsible parties that can be displayed and selected"
+    },
+    {
+      "name": "surcharge_setting",
+      "plural": "surcharge_settings",
+      "fields": [
+        {
+          "name": "key",
+          "type": "delivery_option_cost_detail_component_key",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "responsible_party",
+          "type": "surcharge_responsible_party",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Who is responsible for paying the surcharge"
+        }
+      ],
+      "attributes": []
+    },
+    {
+      "name": "surcharge_setting_display",
+      "plural": "surcharge_setting_displays",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Display name of the surcharge setting",
+          "example": "Remote Area Delivery Fees"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Detailed description that could be displayed as a tooltip",
+          "example": "A surcharge is applied per shipment when the delivery destination location is remote..."
+        },
+        {
+          "name": "key",
+          "type": "delivery_option_cost_detail_component_key",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The delivery option model key",
+          "example": "ratecard_rural_shipment_fee"
+        },
+        {
+          "name": "available",
+          "type": "[surcharge_responsible_party_display]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "The available options to display"
+        }
+      ],
+      "attributes": [],
+      "description": "Surcharge settings that can be displayed and configured"
+    },
+    {
       "name": "targeting",
       "plural": "targetings",
       "fields": [
@@ -33358,6 +34989,14 @@
           "attributes": [],
           "annotations": [],
           "description": "If this tier belongs to the shipping lane this is the corresponding shipping lane id"
+        },
+        {
+          "name": "surcharge_settings",
+          "type": "[surcharge_setting]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "The apportionment of additional shipping surcharges and fees that may be levied by some carriers"
         }
       ],
       "attributes": [],
@@ -33578,6 +35217,14 @@
           "attributes": [],
           "annotations": [],
           "description": "The id of the shipping lane this tier belongs to"
+        },
+        {
+          "name": "surcharge_settings",
+          "type": "[surcharge_setting]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "How to apportion additional shipping surcharges and fees that may be levied by some carriers"
         }
       ],
       "attributes": [],
@@ -35960,6 +37607,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -35976,6 +37632,23 @@
                   "get",
                   "sort_parameter_default",
                   "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
                 ]
               }
             }
@@ -36966,6 +38639,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37001,6 +38683,19 @@
                   "get",
                   "versions",
                   "sort_parameter_default"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
                 ]
               }
             }
@@ -37042,6 +38737,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37060,7 +38764,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "checkout_attribute_form",
             "attributes": []
@@ -37109,6 +38827,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37117,7 +38844,21 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -37162,6 +38903,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37180,7 +38930,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "checkout_attribute_form",
             "attributes": []
@@ -37229,6 +38993,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37237,7 +39010,21 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ]
         }
       ],
       "attributes": [
@@ -37324,6 +39111,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37345,6 +39141,21 @@
             {
               "name": "non-crud",
               "value": {}
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
             }
           ],
           "description": "Returns a localized view of 1 or more items in the context of checkout, returning data specifically related to rendering a view of an item in a cart or checkout page."
@@ -37457,6 +39268,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37482,6 +39302,20 @@
                   {
                     "value": "created_at"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_marketing"
                 ]
               }
             }
@@ -37532,6 +39366,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37550,7 +39393,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "credit_payment_form",
             "attributes": []
@@ -37633,6 +39490,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37655,6 +39521,20 @@
                   {
                     "value": "journal_timestamp"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_marketing"
                 ]
               }
             }
@@ -37711,6 +39591,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37719,7 +39608,22 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -37782,6 +39686,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37800,7 +39713,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "credit_payment_form",
             "attributes": []
@@ -37848,6 +39775,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -37856,7 +39792,21 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ]
         }
       ],
       "attributes": [
@@ -37944,6 +39894,12 @@
               "required": false
             },
             {
+              "name": "shipping_configuration_key",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
               "name": "limit",
               "type": "long",
               "location": "Query",
@@ -37994,6 +39950,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38039,6 +40004,20 @@
                   "sort_parameter_default"
                 ]
               }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
             }
           ],
           "description": "Search experiences. Always paginated."
@@ -38079,6 +40058,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38097,7 +40085,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Add experience",
           "body": {
             "type": "experience_form",
@@ -38180,6 +40182,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38198,7 +40209,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
           "description": "Formats the requested amount using the formatting settings for the experience."
         },
         {
@@ -38317,6 +40343,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38352,6 +40387,20 @@
             {
               "name": "non-crud",
               "value": {}
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
             }
           ],
           "description": "Returns localized information about 1 or more items. The items will be localized based on the experience selected by the query parameters in the order of experience, then country, then ip address."
@@ -38431,6 +40480,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38449,7 +40507,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
           "description": "Returns information about this item localized based on the query parameters"
         },
         {
@@ -38488,6 +40561,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38506,7 +40588,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Builds a query to search experiences",
           "body": {
             "type": "query_builder_form",
@@ -38590,6 +40686,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38615,6 +40720,20 @@
                   {
                     "value": "journal_timestamp"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
                 ]
               }
             }
@@ -38663,6 +40782,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38671,7 +40799,22 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -38715,6 +40858,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38733,7 +40885,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "experience_currency_format_form",
             "attributes": []
@@ -38890,6 +41056,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38912,6 +41087,20 @@
                   {
                     "value": "created_at"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
                 ]
               }
             }
@@ -38959,6 +41148,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -38977,7 +41175,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "item_margin_post_form",
             "attributes": []
@@ -39059,6 +41271,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39078,6 +41299,20 @@
                   {
                     "value": "journal_timestamp"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
                 ]
               }
             }
@@ -39131,6 +41366,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39149,7 +41393,22 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -39199,6 +41458,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39217,7 +41485,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "item_margin_put_form",
             "attributes": []
@@ -39271,6 +41553,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39279,7 +41570,21 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "GET",
@@ -39342,6 +41647,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39357,6 +41671,21 @@
                 "ignore": [
                   "get",
                   "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
                 ]
               }
             }
@@ -39460,6 +41789,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39499,6 +41837,21 @@
                   "get",
                   "versions",
                   "sort_parameter_default"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
                 ]
               }
             }
@@ -39546,6 +41899,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39564,7 +41926,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Change the ordering or payment tags for an experience. Every post must include one entry for each payment method offered by Flow.",
           "body": {
             "type": "[experience_payment_method_rule_form]",
@@ -39654,6 +42030,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39693,6 +42078,20 @@
                   "get",
                   "sort_parameter_default",
                   "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
                 ]
               }
             }
@@ -39750,6 +42149,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39768,7 +42176,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "experience_price_book_mapping_form",
             "attributes": []
@@ -39822,6 +42244,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39840,7 +42271,22 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "DELETE",
@@ -39890,6 +42336,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39898,7 +42353,21 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "GET",
@@ -39942,6 +42411,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -39950,7 +42428,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
           "description": "Returns information about a specific experience."
         },
         {
@@ -40005,6 +42498,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40023,7 +42525,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Update experience with the specified key, creating if it does not exist.",
           "body": {
             "type": "experience_form",
@@ -40072,6 +42588,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40080,7 +42605,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Delete the experience with this key"
         },
         {
@@ -40131,6 +42670,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40139,7 +42687,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
           "description": "Returns detailed information on the pricing of this item within this experience"
         },
         {
@@ -40184,6 +42747,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40192,7 +42764,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
           "description": "Get the pricing settings for this experience"
         },
         {
@@ -40237,6 +42824,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40255,7 +42851,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Update the pricing settings for this experience",
           "body": {
             "type": "pricing",
@@ -40322,6 +42932,20 @@
                   "versions"
                 ]
               }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
             }
           ],
           "description": "Get available promotions for the experience"
@@ -40368,6 +42992,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40386,7 +43019,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Updates the status of a given experience.",
           "body": {
             "type": "experience_status_form",
@@ -40451,6 +43098,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40459,7 +43115,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
           "description": "Returns recommended default settings when creating a new experience"
         }
       ],
@@ -40520,6 +43191,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40528,7 +43208,22 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -40582,6 +43277,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -40600,7 +43304,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "experience_logistics_settings_put_form",
             "attributes": []
@@ -41362,6 +44080,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41384,6 +44111,23 @@
                   {
                     "value": "created_at"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
                 ]
               }
             }
@@ -41481,6 +44225,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41499,7 +44252,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Create an order, using the localized information from the experience selected by the query parameters. Note the order must be submitted before its expiration",
           "body": {
             "type": "order_form",
@@ -41557,6 +44325,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41565,7 +44342,25 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
+                ]
+              }
+            }
+          ],
           "description": "Returns information about a specific order using an identifier number"
         },
         {
@@ -41652,6 +44447,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41677,6 +44481,23 @@
                   {
                     "value": "journal_timestamp"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
                 ]
               }
             }
@@ -41743,6 +44564,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41751,7 +44581,25 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
+                ]
+              }
+            }
+          ],
           "description": "Returns information about a specific order."
         },
         {
@@ -41861,6 +44709,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41879,7 +44736,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Upserts an order. using the localized information from the experience selected by the query parameters. Note the order must be submitted before its expiration",
           "body": {
             "type": "order_put_form",
@@ -41928,6 +44800,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41946,7 +44827,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Delete an order. Note that production orders that have already been submitted cannot be deleted (you will see a 422 response in these cases)."
         },
         {
@@ -41991,6 +44887,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -41999,7 +44904,25 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
+                ]
+              }
+            }
+          ],
           "description": "Order allocations provide a granular view of an order that is targeted for accounting / financial views of an order"
         },
         {
@@ -42053,6 +44976,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 422
                 }
               },
@@ -42061,7 +44993,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Creates an authorization, automatically associating to this order.",
           "body": {
             "type": "authorization_form",
@@ -42120,6 +45067,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -42138,7 +45094,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Updates an order's destination address",
           "body": {
             "type": "order_destination_put_form",
@@ -42187,6 +45157,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 422
                 }
               },
@@ -42195,7 +45174,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Creates an installment plan for this order, automatically associating to this order.",
           "body": {
             "type": "installment_plan_payment_form",
@@ -42254,6 +45248,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -42272,7 +45275,22 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -42341,6 +45359,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -42359,7 +45386,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Creates a free shipping promotion for this order, automatically applying it to the order if the order meets the defined promotion trigger.",
           "body": {
             "type": "free_shipping_order_promotion_form",
@@ -42427,6 +45468,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -42445,7 +45495,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Submits an order. You will get a validation error if the order has already expired (and a new quote could not be automatically recreated for a lower or same price). This method is idempotent - submitting an order a second time has no effect."
         },
         {
@@ -42500,6 +45565,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 422
                 }
               },
@@ -42508,7 +45582,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Validates a tax registration number, proxying to underlying services and recording the result on the order.",
           "body": {
             "type": "tax_registration_form",
@@ -42563,6 +45652,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -42571,7 +45669,22 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "GET",
@@ -42787,6 +45900,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -42804,6 +45926,19 @@
                 ]
               },
               "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
             }
           ],
           "body": {
@@ -42909,6 +46044,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -42926,6 +46070,19 @@
                 ]
               },
               "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
             }
           ],
           "body": {
@@ -43031,6 +46188,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43048,6 +46214,19 @@
                 ]
               },
               "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
             }
           ],
           "body": {
@@ -43106,6 +46285,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43123,6 +46311,19 @@
                 ]
               },
               "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
             }
           ],
           "body": {
@@ -43181,6 +46382,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43198,6 +46408,19 @@
                 ]
               },
               "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
             }
           ],
           "body": {
@@ -43256,6 +46479,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43273,6 +46505,19 @@
                 ]
               },
               "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
             }
           ],
           "body": {
@@ -43331,6 +46576,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43348,6 +46602,19 @@
                 ]
               },
               "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field"
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
             }
           ],
           "body": {
@@ -43462,6 +46729,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43480,7 +46756,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "description": "Create an order estimate, using the localized information from the experience selected by the query parameters. This is similar to the POST orders endpoint, except this just returns an estimate and cannot be submitted.",
           "body": {
             "type": "order_estimate_form",
@@ -43555,7 +46846,23 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -43664,6 +46971,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43682,7 +46998,22 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "order_estimate_form",
             "attributes": []
@@ -43788,6 +47119,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43813,6 +47153,22 @@
                   {
                     "value": "created_at"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
                 ]
               }
             }
@@ -43854,6 +47210,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43872,7 +47237,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "order_identifier_form",
             "attributes": []
@@ -43948,6 +47327,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -43973,6 +47361,22 @@
                   {
                     "value": "journal_timestamp"
                   }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
                 ]
               }
             }
@@ -44020,6 +47424,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44028,7 +47441,24 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -44082,6 +47512,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44100,7 +47539,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "order_identifier_put_form",
             "attributes": []
@@ -44148,6 +47601,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44156,7 +47618,21 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ]
         }
       ],
       "attributes": [
@@ -44210,6 +47686,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44218,7 +47703,24 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
+                ]
+              }
+            }
+          ]
         },
         {
           "method": "PUT",
@@ -44266,6 +47768,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44284,7 +47795,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "body": {
             "type": "order_number_generator",
             "attributes": []
@@ -44326,6 +47851,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44334,7 +47868,21 @@
               "attributes": []
             }
           ],
-          "attributes": []
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ]
         }
       ],
       "attributes": [
@@ -44393,6 +47941,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44411,7 +47968,21 @@
               "attributes": []
             }
           ],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
           "description": "Deletes the order promotion with the specified key"
         }
       ],
@@ -44489,6 +48060,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44505,6 +48085,21 @@
                   "get",
                   "sort_parameter_default",
                   "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations"
                 ]
               }
             }
@@ -44547,6 +48142,15 @@
             {
               "code": {
                 "integer": {
+                  "value": 403
+                }
+              },
+              "type": "permission_error",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 404
                 }
               },
@@ -44563,6 +48167,21 @@
                   "get",
                   "sort_parameter_default",
                   "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations"
                 ]
               }
             }
@@ -59433,7 +63052,8 @@
               "type": "[string]",
               "location": "Query",
               "required": false,
-              "maximum": 1
+              "maximum": 1,
+              "example": "center"
             },
             {
               "name": "limit",
@@ -59574,11 +63194,18 @@
               "required": true
             },
             {
+              "name": "experience",
+              "type": "string",
+              "location": "Query",
+              "required": false
+            },
+            {
               "name": "expand",
               "type": "[string]",
               "location": "Query",
               "required": false,
-              "maximum": 1
+              "maximum": 1,
+              "example": "center"
             }
           ],
           "responses": [
@@ -59631,6 +63258,14 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 1,
+              "example": "center"
             }
           ],
           "responses": [
@@ -59789,7 +63424,8 @@
               "type": "[string]",
               "location": "Query",
               "required": false,
-              "maximum": 1
+              "maximum": 1,
+              "example": "center"
             },
             {
               "name": "limit",
@@ -59878,6 +63514,14 @@
               "type": "string",
               "location": "Path",
               "required": true
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 1,
+              "example": "center"
             }
           ],
           "responses": [
@@ -59957,7 +63601,8 @@
               "type": "[string]",
               "location": "Query",
               "required": false,
-              "maximum": 1
+              "maximum": 1,
+              "example": "center"
             }
           ],
           "responses": [
@@ -60017,6 +63662,14 @@
               "location": "Path",
               "required": true,
               "description": "Filter by one or more IDs of this resource"
+            },
+            {
+              "name": "expand",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "maximum": 1,
+              "example": "center"
             }
           ],
           "responses": [
@@ -61078,6 +64731,87 @@
       ],
       "path": "/:organization/shipping-notifications",
       "description": "Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages."
+    },
+    {
+      "type": "surcharge_setting",
+      "plural": "surcharge_settings",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/surcharge/settings/displays",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[surcharge_setting_display]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "logistics"
+          }
+        }
+      ],
+      "path": "/:organization/surcharge/settings"
     },
     {
       "type": "tier",
@@ -66385,6 +70119,79 @@
       "description": "Describes types of feeds that may be produced by Flow."
     },
     {
+      "type": "flow_role",
+      "plural": "flow_roles",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/permission/organization/:organization/roles",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[flow_role]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "List roles in use by this organization."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/permission",
+      "description": "All roles available to attach to a user."
+    },
+    {
       "type": "fulfillment",
       "plural": "fulfillments",
       "operations": [
@@ -67842,10 +71649,10 @@
             },
             {
               "name": "role",
-              "type": "[role]",
+              "type": "[string]",
               "location": "Query",
               "required": false,
-              "description": "Find memberships with these roles",
+              "description": "Find memberships with ANY of these roles.",
               "maximum": 100
             },
             {
@@ -68312,6 +72119,9 @@
           ],
           "attributes": [],
           "description": "For the authorized user, if the specified organization exists, and the user is an active member of this organization, returns the authorization data used throughout APIs at Flow, including the user's role in that organization and the organization environment. Otherwise, returns 401 - this indicates either the org does not exist or the user does not have access to the org.",
+          "deprecation": {
+            "description": "Use GET /:organization/permission/checks"
+          },
           "body": {
             "type": "organization_authorization_form",
             "attributes": []
@@ -68362,7 +72172,10 @@
             }
           ],
           "attributes": [],
-          "description": "For the authorized user and specific organization, if the user is an active member of this organization, returns the authorization data used throughout APIs at Flow, including the user's role in that organization and the organization environment."
+          "description": "For the authorized user and specific organization, if the user is an active member of this organization, returns the authorization data used throughout APIs at Flow, including the user's role in that organization and the organization environment.",
+          "deprecation": {
+            "description": "Use GET /:organization/permission/checks"
+          }
         }
       ],
       "attributes": [
@@ -68832,6 +72645,92 @@
         }
       ],
       "path": "/users/passwords"
+    },
+    {
+      "type": "permission_check",
+      "plural": "permission_checks",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/permission/checks/all",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "permitted_method",
+              "type": "permitted_http_method",
+              "location": "Query",
+              "required": false,
+              "description": "If provided, only routes matching this method will be returned."
+            },
+            {
+              "name": "path",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "If provided, only routes matching theis regular expression will be retunerd."
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "permission_check",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get"
+                ]
+              }
+            }
+          ],
+          "description": "Returns permissions for the specified organization for the current request. Used by integrators to test headers."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "",
+      "description": "Used to test an integration's permissions, including identifying the authentication technique that will be used for similar requests."
     },
     {
       "type": "scheduled_export",
@@ -70447,6 +74346,355 @@
       ],
       "path": "/shopify/carts",
       "description": "Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api"
+    },
+    {
+      "type": "shopify_localization_setting",
+      "plural": "shopify_localization_settings",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/:organization/shopify/localization/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "[string]",
+              "location": "Query",
+              "required": false,
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100
+            },
+            {
+              "name": "limit",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The maximum number of results to return",
+              "default": "25",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "name": "offset",
+              "type": "long",
+              "location": "Query",
+              "required": true,
+              "description": "The number of results to skip before returning results",
+              "default": "0",
+              "minimum": 0
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "location": "Query",
+              "required": true,
+              "default": "-created_at"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[shopify_localization_setting]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "-created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/:organization/shopify/localization/settings",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_localization_setting",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "type": "shopify_localization_setting",
+              "description": "Operation succeeded and the resource was created",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Add a localization setting.",
+          "body": {
+            "type": "shopify_localization_setting_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/:organization/shopify/localization/settings/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_localization_setting",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "method": "PUT",
+          "path": "/:organization/shopify/localization/settings/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "shopify_localization_setting",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "type": "generic_error",
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": []
+            }
+          ],
+          "attributes": [],
+          "description": "Update a localization setting.",
+          "body": {
+            "type": "shopify_localization_setting_form",
+            "attributes": []
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/:organization/shopify/localization/settings/:id",
+          "parameters": [
+            {
+              "name": "organization",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Refers to your organization's account identifier"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "location": "Path",
+              "required": true,
+              "description": "Filter by one or more IDs of this resource"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "type": "unit",
+              "description": "Operation succeeded. No content is returned",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "path": "/:organization/shopify/localization/settings"
     },
     {
       "type": "shopify_private_app",

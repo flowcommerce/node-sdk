@@ -69,6 +69,7 @@ These resources mirror the official documentation located at
 | [shippingConfigurationCopies](shippingConfigurationCopies.md) |  |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |
+| [surchargeSettings](surchargeSettings.md) |  |
 | [tiers](tiers.md) | Service shipping tier available in this tier group. e.g. Standard tier, Express tier, Economy tier |
 | [tierRules](tierRules.md) | System to filter incoming quote for a shipment request based on a query and output corresponding outcomes. |
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
@@ -94,6 +95,7 @@ These resources mirror the official documentation located at
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
 | [feeds](feeds.md) | Describes types of feeds that may be produced by Flow. |
+| [flowRoles](flowRoles.md) | All roles available to attach to a user. |
 | [fulfillments](fulfillments.md) | Used to track and manage the fulfillment of an order. |
 | [healthchecks](healthchecks.md) |  |
 | [imports](imports.md) |  |
@@ -106,10 +108,12 @@ These resources mirror the official documentation located at
 | [organizationTokens](organizationTokens.md) | All of the metadata associated with a given token. |
 | [partnerTokens](partnerTokens.md) | All of the metadata associated with a given token. |
 | [passwordResetForms](passwordResetForms.md) |  |
+| [permissionChecks](permissionChecks.md) | Used to test an integration&#x27;s permissions, including identifying the authentication technique that will be used for similar requests. |
 | [scheduledExports](scheduledExports.md) |  |
 | [sessions](sessions.md) |  |
 | [sessionAuthorizations](sessionAuthorizations.md) |  |
 | [shopifyCarts](shopifyCarts.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
+| [shopifyLocalizationSettings](shopifyLocalizationSettings.md) |  |
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) |  |

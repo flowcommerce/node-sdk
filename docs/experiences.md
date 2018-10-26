@@ -33,6 +33,7 @@ const experiences = client().experiences;
 | subcatalog | string |  |
 | ip | string | If specified, we will geolocate the user by this IP address, and if successful, select the experience matching the country of the IP address. |
 | status | experience_status |  |
+| shipping_configuration_key | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

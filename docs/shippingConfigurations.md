@@ -55,6 +55,7 @@ const shippingConfigurations = client().shippingConfigurations;
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
+| experience | string |  |
 | expand | [string] |  |
 
 ##`putByKey(organization, key, options = {})`
@@ -66,6 +67,11 @@ const shippingConfigurations = client().shippingConfigurations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`deleteByKey(organization, key, options = {})`
 
@@ -106,6 +112,11 @@ const shippingConfigurations = client().shippingConfigurations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`getLanesByKeyAndId(organization, key, id, options = {})`
 
@@ -133,6 +144,11 @@ const shippingConfigurations = client().shippingConfigurations;
 | key | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`deleteLanesByKeyAndId(organization, key, id, options = {})`
 

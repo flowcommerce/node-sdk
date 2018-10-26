@@ -22,7 +22,7 @@ const memberships = client().memberships;
 | id | [string] | Filter by one or more IDs of this resource |
 | user | string | Find memberships for this user id |
 | organization | string | Find memberships for this organization id |
-| role | [role] | Find memberships with these roles |
+| role | [string] | Find memberships with ANY of these roles. |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
