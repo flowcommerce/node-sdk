@@ -79,32 +79,6 @@ export default class Subcatalogs extends Client {
     });
   }
 
-  getFunctionsBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions`, options);
-  }
-
-  postFunctionsBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions`, {
-      ...options,
-       method: 'POST',
-    });
-  }
-
-  getFunctionsAndVersionsBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/versions`, options);
-  }
-
-  getFunctionsBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/${id}`, options);
-  }
-
-  deleteFunctionsBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/functions/${id}`, {
-      ...options,
-       method: 'DELETE',
-    });
-  }
-
   getInclusionsBySubcatalogId(organization, subcatalogId, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions`, options);
   }

@@ -32,7 +32,6 @@ These resources mirror the official documentation located at
 | [subcatalogQueries](subcatalogQueries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
 | [targetings](targetings.md) |  |
 | [targetingItems](targetingItems.md) | Represents catalog items where a targeting query is applicable |
-| [itemFunctions](itemFunctions.md) | Item Functions are javascript code used to calculate the localized price of an additional item. Each function can be associated with an optional query identifying the products to which the function applies. Flow selects the first function matching an item, then uses that function to calculate local prices whenever any data relevant to the item changes (e.g. on update in master catalog, on change in relevant exchange rate, etc.). Item functions are immutable once created. |
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
 | [harmonizationSettings](harmonizationSettings.md) | Organization level settings. |
@@ -88,14 +87,20 @@ These resources mirror the official documentation located at
 | [paymentMethods](paymentMethods.md) | Represents a single payment method - e.g VISA or Paypal - and any associated metadata required for processing |
 | [provinces](provinces.md) | A subdivision/province/state within a country. These conform to the ISO 3166-2 standard for country subdivisions. See https://api.flow.io/reference/provinces |
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions |
+| [b2bInvoices](b2bInvoices.md) | The b2b invoice represents a transaction between Flow and one of our clients (e.g. Flow purchasing inventory to resell to a consumer). |
 | [checkoutTokens](checkoutTokens.md) | Represents a secure token that can be used to redirect to Checkout UI |
 | [consumerInvoices](consumerInvoices.md) | The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment. |
 | [consumerInvoiceDocuments](consumerInvoiceDocuments.md) |  |
+| [creditMemos](creditMemos.md) | The credit memo represents the details of a refund and the reasons for the issuance of the refund. |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
 | [feeds](feeds.md) | Describes types of feeds that may be produced by Flow. |
 | [flowRoles](flowRoles.md) | All roles available to attach to a user. |
+| [fraudEmailRules](fraudEmailRules.md) | White and black listing |
+| [ftpFiles](ftpFiles.md) | The FTP File represents a file uploaded to the FTP Server |
+| [ftpFolders](ftpFolders.md) | The FTP Folder represents a single folder associated with an organization for which we create an external FTP Directory |
+| [ftpOrganizationSettings](ftpOrganizationSettings.md) | The FTP Organization Settings allows you to enable an FTP Drop Point for an organization, creating the standard set of FTP Folders, credentials, and associated webhooks. |
 | [fulfillments](fulfillments.md) | Used to track and manage the fulfillment of an order. |
 | [healthchecks](healthchecks.md) |  |
 | [imports](imports.md) |  |
@@ -115,6 +120,7 @@ These resources mirror the official documentation located at
 | [shopifyCarts](shopifyCarts.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
 | [shopifyLocalizationSettings](shopifyLocalizationSettings.md) |  |
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
+| [shopifySyncStatuses](shopifySyncStatuses.md) |  |
 | [suggestions](suggestions.md) |  |
 | [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |
