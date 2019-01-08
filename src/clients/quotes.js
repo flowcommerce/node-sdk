@@ -24,10 +24,6 @@ export default class Quotes extends Client {
     });
   }
 
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/quotes/versions`, options);
-  }
-
   getById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/quotes/${id}`, options);
   }

@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class PaymentMethods extends Client {
+export default class CarrierServices extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -14,7 +14,7 @@ export default class PaymentMethods extends Client {
   }
 
   get(options = {}) {
-    return this.makeRequest(`${this.host}/reference/payment/methods`, options);
+    return this.makeRequest(`${this.host}/reference/carrier/services`, options);
   }
 
 }

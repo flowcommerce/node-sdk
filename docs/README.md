@@ -80,6 +80,8 @@ These resources mirror the official documentation located at
 | [addresses](addresses.md) |  |
 | [countryDefaults](countryDefaults.md) | Provides country level defaults, incl language and currency. This resource allows you to provide geo info (e.g. IP, address, country) and will geolocate the request, returning the matching country level defaults. For example, if a user lands on your website and you do not have any stored preferences, you can use this API to retrieve the best default preferences based on the location of the user by providing their IP Address. |
 | [timezones](timezones.md) | Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones |
+| [carriers](carriers.md) | Partner that actually takes a shipment between places (ex: FedEx, DHL, SF Express) |
+| [carrierServices](carrierServices.md) | Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc) |
 | [countries](countries.md) | ISO 3166 country codes. Note Flow APIs will accept either the 2 or 3 character country code, but internally we normalize data and store as the 3 character, upper case ISO code. See https://api.flow.io/reference/countries |
 | [currencies](currencies.md) | ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies |
 | [languages](languages.md) | ISO 639 2-character language code. See https://api.flow.io/reference/languages |

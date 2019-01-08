@@ -46,24 +46,6 @@ const authorizations = client().authorizations;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
-##`postCard(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
-##`postOnline(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-
 ##`getVersions(organization, options = {})`
 
 ### Function Parameters

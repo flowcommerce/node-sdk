@@ -654,6 +654,27 @@
       "attributes": []
     },
     {
+      "name": "consumer_invoice_customer_type",
+      "plural": "consumer_invoice_customer_types",
+      "values": [
+        {
+          "name": "business_eu_verified",
+          "attributes": [],
+          "description": "A business that have been verified in the European Union"
+        },
+        {
+          "name": "business_non_verified",
+          "attributes": [],
+          "description": "A business, but with no additional verification"
+        },
+        {
+          "name": "individual",
+          "attributes": []
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "consumer_invoice_document_type",
       "plural": "consumer_invoice_document_types",
       "values": [
@@ -979,6 +1000,28 @@
       "attributes": []
     },
     {
+      "name": "economic_title_location",
+      "plural": "economic_title_locations",
+      "values": [
+        {
+          "name": "high_seas",
+          "attributes": [],
+          "description": "Indicates title transferred on the high seas"
+        },
+        {
+          "name": "origination",
+          "attributes": [],
+          "description": "Indicates title transferred at the originating fulfillment center"
+        },
+        {
+          "name": "destination",
+          "attributes": [],
+          "description": "Indicates title transferred at the destination"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "environment",
       "plural": "environments",
       "values": [
@@ -1229,14 +1272,6 @@
         },
         {
           "name": "center_deleted",
-          "attributes": []
-        },
-        {
-          "name": "tier_upserted",
-          "attributes": []
-        },
-        {
-          "name": "tier_deleted",
           "attributes": []
         },
         {
@@ -1576,11 +1611,11 @@
           "attributes": []
         },
         {
-          "name": "targeting_item_deleted",
+          "name": "targeting_item_upserted_v2",
           "attributes": []
         },
         {
-          "name": "targeting_item_deleted_v2",
+          "name": "targeting_item_deleted",
           "attributes": []
         },
         {
@@ -2444,6 +2479,21 @@
           "name": "invalid_language",
           "attributes": [],
           "description": "Indicates that the specified language code is not valid"
+        },
+        {
+          "name": "item_out_of_stock",
+          "attributes": [],
+          "description": "Indicates that one or more ordered items is marked as out-of-stock or otherwise cannot be reserved. We will list the specific out-of-stock items in the numbers field"
+        },
+        {
+          "name": "gift_card_not_accepted",
+          "attributes": [],
+          "description": "Indicates a failure to charge a gift card. Error message will indicate when retries are possible."
+        },
+        {
+          "name": "total_changed",
+          "attributes": [],
+          "description": "Indicates that the order total has changed, likely due to pricebook update or rate change. This is not an error but the consumer should be shown the new price before continuing checkout."
         }
       ],
       "attributes": []
@@ -4037,6 +4087,23 @@
         }
       ],
       "attributes": []
+    },
+    {
+      "name": "zero_amount_indicator",
+      "plural": "zero_amount_indicators",
+      "values": [
+        {
+          "name": "zero",
+          "attributes": [],
+          "description": "Show the number 0.00 in the label"
+        },
+        {
+          "name": "free",
+          "attributes": [],
+          "description": "Show the word `FREE` in the label"
+        }
+      ],
+      "attributes": []
     }
   ],
   "unions": [
@@ -4135,12 +4202,6 @@
           "discriminator_value": "inline_authorization_form"
         },
         {
-          "type": "card_authorization_form",
-          "attributes": [],
-          "description": "Enables authorizations for a credit card; will eventually replace direct and merchant of record authorization forms.",
-          "discriminator_value": "card_authorization_form"
-        },
-        {
           "type": "ach_authorization_form",
           "attributes": [],
           "description": "Enables authorizations via ACH (Automated Clearing House) bank transfer.",
@@ -4186,25 +4247,6 @@
       ],
       "attributes": [],
       "discriminator": "discriminator"
-    },
-    {
-      "name": "card_authorization_data",
-      "plural": "card_authorization_data",
-      "types": [
-        {
-          "type": "card_token_form",
-          "attributes": [],
-          "discriminator_value": "card_token_form"
-        },
-        {
-          "type": "card_form",
-          "attributes": [],
-          "discriminator_value": "card_form"
-        }
-      ],
-      "attributes": [],
-      "discriminator": "discriminator",
-      "description": "Represents the data needed to create a card authorization."
     },
     {
       "name": "confirmation_details",
@@ -4617,16 +4659,6 @@
           "type": "center_deleted",
           "attributes": [],
           "discriminator_value": "center_deleted"
-        },
-        {
-          "type": "tier_upserted",
-          "attributes": [],
-          "discriminator_value": "tier_upserted"
-        },
-        {
-          "type": "tier_deleted",
-          "attributes": [],
-          "discriminator_value": "tier_deleted"
         },
         {
           "type": "delivery_option_upserted",
@@ -5050,14 +5082,14 @@
           "discriminator_value": "targeting_item_upserted"
         },
         {
+          "type": "targeting_item_upserted_v2",
+          "attributes": [],
+          "discriminator_value": "targeting_item_upserted_v2"
+        },
+        {
           "type": "targeting_item_deleted",
           "attributes": [],
           "discriminator_value": "targeting_item_deleted"
-        },
-        {
-          "type": "targeting_item_deleted_v2",
-          "attributes": [],
-          "discriminator_value": "targeting_item_deleted_v2"
         },
         {
           "type": "tracking_label_event_upserted",
@@ -5716,6 +5748,26 @@
       ],
       "attributes": [],
       "discriminator": "discriminator"
+    },
+    {
+      "name": "shipping_label_form",
+      "plural": "shipping_label_forms",
+      "types": [
+        {
+          "type": "detailed_shipping_label_form",
+          "attributes": [],
+          "default": true,
+          "discriminator_value": "detailed_shipping_label_form"
+        },
+        {
+          "type": "summary_shipping_label_form",
+          "attributes": [],
+          "discriminator_value": "summary_shipping_label_form"
+        }
+      ],
+      "attributes": [],
+      "discriminator": "discriminator",
+      "description": "Different models for forms to create shipping labels"
     },
     {
       "name": "shipping_notification_form",
@@ -7894,11 +7946,11 @@
         },
         {
           "name": "economic_title_location",
-          "type": "string",
+          "type": "economic_title_location",
           "required": true,
           "attributes": [],
           "annotations": [],
-          "description": "Will be either 'highseas' or the country code in which economic title transfer takes place."
+          "description": "Defines where economic title transfer occurs"
         },
         {
           "name": "center",
@@ -8934,94 +8986,6 @@
         }
       ],
       "attributes": []
-    },
-    {
-      "name": "card_authorization_form",
-      "plural": "card_authorization_forms",
-      "fields": [
-        {
-          "name": "card",
-          "type": "card_authorization_data",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Either a reference to the previously tokenized card, or the card details with which to authorize this payment."
-        },
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Client order number for which to authorize payment. We will automatically verify that this order exists and will authorize the total amount of the order in the currency of the order."
-        },
-        {
-          "name": "amount",
-          "type": "decimal",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "The amount to authorize - if specified, will be used to confirm that the amount exactly matches the order total",
-          "example": "120.38"
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Required if amount is specified. The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
-          "example": "CAD"
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign."
-        },
-        {
-          "name": "cvv",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "The card verification number. Note this number is never stored and thus is presented on each auth. Presenting the CVV may increase acceptance rates"
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "A set of key/value pairs that you can attach to an authorization object"
-        },
-        {
-          "name": "ip",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [
-            "personal_data"
-          ],
-          "description": "The IP address of the consumer",
-          "example": "96.242.151.245"
-        },
-        {
-          "name": "options",
-          "type": "[authorization_option]",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Optional behaviors to enable for this authorization"
-        }
-      ],
-      "attributes": [],
-      "description": "Similar to a merchant of record authorization form, but it allows card information to be included rather than tokenizing first. If the amount is $0, then"
     },
     {
       "name": "card_authorization_upserted_v2",
@@ -11161,6 +11125,13 @@
         {
           "name": "tax_registration",
           "type": "tax_registration",
+          "required": false,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "customer_type",
+          "type": "consumer_invoice_customer_type",
           "required": false,
           "attributes": [],
           "annotations": []
@@ -13457,6 +13428,91 @@
       "description": "De Minimis for most common example which includes a value threshold and rules on what components are used in the duty calculation"
     },
     {
+      "name": "detailed_shipping_label_form",
+      "plural": "detailed_shipping_label_forms",
+      "fields": [
+        {
+          "name": "destination",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Destination contact information and structured address"
+        },
+        {
+          "name": "origin",
+          "type": "shipping_address",
+          "required": true,
+          "attributes": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Origin contact information and structured address"
+        },
+        {
+          "name": "package",
+          "type": "shipping_label_package",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Package to be shipped, including dimensions and items included"
+        },
+        {
+          "name": "attributes",
+          "type": "map[string]",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Reference information included with the label, if carrier provides support for reference information."
+        },
+        {
+          "name": "delivered_duty",
+          "type": "delivered_duty",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
+        },
+        {
+          "name": "direction",
+          "type": "direction",
+          "required": false,
+          "attributes": [],
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Tells us whether the ratecard is for outbound or reverse logistics. This will determine information passed on to carriers to make sure the correct label and accounts are used. If not specified, defaults to outbound."
+        },
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a submitted order, if applicable."
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Desired carrier service level to use for this label. If not provided, this will default to the delivery option that Flow calculated for the order."
+        },
+        {
+          "name": "shipment_recipient",
+          "type": "shipment_recipient",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Tells us who the recipient of the package is. This will determine information passed on to carriers to make sure the correct label and accounts are used"
+        }
+      ],
+      "attributes": []
+    },
+    {
       "name": "detailed_shipping_notification_form",
       "plural": "detailed_shipping_notification_forms",
       "fields": [
@@ -15487,6 +15543,14 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "zero_amount_indicator",
+          "type": "zero_amount_indicator",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "When a price is zero, this indicates whether `label` should be `free` or `0`"
         }
       ],
       "attributes": [],
@@ -15502,6 +15566,14 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "zero_amount_indicator",
+          "type": "zero_amount_indicator",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "When a price is zero, this indicates whether `label` should be `free` or `0`"
         }
       ],
       "attributes": []
@@ -19253,7 +19325,8 @@
           "required": true,
           "attributes": [],
           "annotations": [],
-          "example": "en_US"
+          "description": "Locale id. See https://api.flow.io/reference/locales",
+          "example": "en-US"
         },
         {
           "name": "name",
@@ -19354,7 +19427,7 @@
           "attributes": [],
           "annotations": [],
           "description": "The locale in which the content of this item is written.",
-          "example": "en_US"
+          "example": "en-US"
         },
         {
           "name": "name",
@@ -32588,91 +32661,6 @@
       "description": "Output data or downloadable links for shipping label documents such as labels or commercial invoices"
     },
     {
-      "name": "shipping_label_form",
-      "plural": "shipping_label_forms",
-      "fields": [
-        {
-          "name": "destination",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Destination contact information and structured address"
-        },
-        {
-          "name": "origin",
-          "type": "shipping_address",
-          "required": true,
-          "attributes": [],
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "Origin contact information and structured address"
-        },
-        {
-          "name": "package",
-          "type": "shipping_label_package",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Package to be shipped, including dimensions and items included"
-        },
-        {
-          "name": "attributes",
-          "type": "map[string]",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Reference information included with the label, if carrier provides support for reference information."
-        },
-        {
-          "name": "delivered_duty",
-          "type": "delivered_duty",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Determines if a shipment should be DDP. If DDP, note that in some cases if a customer is shipping to a country where DDP is not available, information may still come back as DDU. If not provided, Flow will set a base default based on the country"
-        },
-        {
-          "name": "direction",
-          "type": "direction",
-          "required": false,
-          "attributes": [],
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "Tells us whether the ratecard is for outbound or reverse logistics. This will determine information passed on to carriers to make sure the correct label and accounts are used. If not specified, defaults to outbound."
-        },
-        {
-          "name": "order_number",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a submitted order, if applicable."
-        },
-        {
-          "name": "service",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Desired carrier service level to use for this label. If not provided, this will default to the delivery option that Flow calculated for the order."
-        },
-        {
-          "name": "shipment_recipient",
-          "type": "shipment_recipient",
-          "required": false,
-          "attributes": [],
-          "annotations": [],
-          "description": "Tells us who the recipient of the package is. This will determine information passed on to carriers to make sure the correct label and accounts are used"
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "shipping_label_package",
       "plural": "shipping_label_packages",
       "fields": [
@@ -34211,14 +34199,6 @@
           "description": "Total number of events with created_at timesteamp both a) 'greater than or equal to' b) 'less than' the datetime range"
         },
         {
-          "name": "needle_marker",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Indicates the current processing withing the sync"
-        },
-        {
           "name": "buckets",
           "type": "[shopify_event_bucket]",
           "required": true,
@@ -35116,6 +35096,31 @@
       "attributes": []
     },
     {
+      "name": "summary_shipping_label_form",
+      "plural": "summary_shipping_label_forms",
+      "fields": [
+        {
+          "name": "order_number",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Order number/key of the client organization. This will allow Flow to tie and track a label to a submitted order, if applicable."
+        },
+        {
+          "name": "items",
+          "type": "[line_item_form]",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "List of items and quantities going into this shipment",
+          "minimum": 1
+        }
+      ],
+      "attributes": [],
+      "description": "Minimal form to create a shipping label. Origin and destination are assumed based on a given order's center and final shipping destination"
+    },
+    {
       "name": "surcharge_responsible_party_display",
       "plural": "surcharge_responsible_party_displays",
       "fields": [
@@ -35349,42 +35354,6 @@
       "attributes": []
     },
     {
-      "name": "targeting_item_deleted_v2",
-      "plural": "targeting_item_deleted_v2s",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "targeting_item",
-          "type": "targeting_item",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        }
-      ],
-      "attributes": []
-    },
-    {
       "name": "targeting_item_upserted",
       "plural": "targeting_item_upserteds",
       "fields": [
@@ -35470,6 +35439,42 @@
       ],
       "attributes": [],
       "description": "Indiciates that a given item has been targeted by the query q producing an outcome. The item number is unique within its targeting_id."
+    },
+    {
+      "name": "targeting_item_upserted_v2",
+      "plural": "targeting_item_upserted_v2s",
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "type": "date-time-iso8601",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "required": true,
+          "attributes": [],
+          "annotations": [],
+          "description": "Refers to your organization's account identifier"
+        },
+        {
+          "name": "targeting_item",
+          "type": "targeting_item",
+          "required": true,
+          "attributes": [],
+          "annotations": []
+        }
+      ],
+      "attributes": []
     },
     {
       "name": "targeting_query",
@@ -35837,6 +35842,14 @@
           "annotations": []
         },
         {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Optional message to show with the shipping tier name."
+        },
+        {
           "name": "rules",
           "type": "[tier_rule]",
           "required": true,
@@ -35918,35 +35931,6 @@
       ],
       "attributes": [],
       "description": "Service shipping tier available in this tier group. e.g. Standard tier, Express tier, Economy tier"
-    },
-    {
-      "name": "tier_deleted",
-      "plural": "tier_deleteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        }
-      ],
-      "attributes": []
     },
     {
       "name": "tier_deleted_v2",
@@ -36064,6 +36048,14 @@
           "required": true,
           "attributes": [],
           "annotations": []
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "attributes": [],
+          "annotations": [],
+          "description": "Optional message to show with the shipping tier name."
         },
         {
           "name": "rules",
@@ -36344,120 +36336,6 @@
           "attributes": [],
           "annotations": [],
           "description": "Contains the display text for this tier."
-        }
-      ],
-      "attributes": []
-    },
-    {
-      "name": "tier_upserted",
-      "plural": "tier_upserteds",
-      "fields": [
-        {
-          "name": "event_id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "timestamp",
-          "type": "date-time-iso8601",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "organization",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Refers to your organization's account identifier"
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": [],
-          "description": "Globally unique identifier"
-        },
-        {
-          "name": "experience_key",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "integration",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "rules",
-          "type": "[object]",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "services",
-          "type": "[object]",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "strategy",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "visibility",
-          "type": "string",
-          "required": true,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "currency",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "direction",
-          "type": "string",
-          "required": false,
-          "attributes": [],
-          "annotations": []
-        },
-        {
-          "name": "display",
-          "type": "tier_display",
-          "required": false,
-          "attributes": [],
-          "annotations": []
         }
       ],
       "attributes": []
@@ -57447,6 +57325,16 @@
             {
               "code": {
                 "integer": {
+                  "value": 404
+                }
+              },
+              "type": "unit",
+              "description": "Resource was not found",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 422
                 }
               },
@@ -58966,156 +58854,6 @@
           }
         },
         {
-          "method": "POST",
-          "path": "/:organization/authorizations/card",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "card_authorization",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "type": "permission_error",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "authorization_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "session",
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "description": "Create a new card authorization using card details, or the token of a previously tokenized card.",
-          "body": {
-            "type": "card_authorization_form",
-            "attributes": []
-          }
-        },
-        {
-          "method": "POST",
-          "path": "/:organization/authorizations/online",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "type": "online_authorization",
-              "description": "Operation succeeded and the resource was created",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "type": "permission_error",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "type": "generic_error",
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "session",
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "description": "Create a new online authorization.",
-          "body": {
-            "type": "authorization_form",
-            "attributes": []
-          }
-        },
-        {
           "method": "GET",
           "path": "/:organization/authorizations/versions",
           "parameters": [
@@ -59423,7 +59161,7 @@
               }
             }
           ],
-          "description": "Copies an existing card authorization and authorizes funds using the saved credit card information from the source authorization. Multiple requests using the same key are idempotent.",
+          "description": "Attempts to create an authorization identified by the provided key. Multiple requests using the same key are idempotent.",
           "body": {
             "type": "authorization_form",
             "attributes": []
@@ -65919,6 +65657,15 @@
               }
             },
             {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions",
+                  "get"
+                ]
+              }
+            },
+            {
               "name": "auth",
               "value": {
                 "techniques": [
@@ -66006,123 +65753,6 @@
             "type": "quote_form",
             "attributes": []
           }
-        },
-        {
-          "method": "GET",
-          "path": "/:organization/quotes/versions",
-          "parameters": [
-            {
-              "name": "organization",
-              "type": "string",
-              "location": "Path",
-              "required": true,
-              "description": "Refers to your organization's account identifier"
-            },
-            {
-              "name": "id",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100
-            },
-            {
-              "name": "quote",
-              "type": "[string]",
-              "location": "Query",
-              "required": false,
-              "maximum": 100
-            },
-            {
-              "name": "limit",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The maximum number of results to return",
-              "default": "25",
-              "minimum": 1,
-              "maximum": 100
-            },
-            {
-              "name": "offset",
-              "type": "long",
-              "location": "Query",
-              "required": true,
-              "description": "The number of results to skip before returning results",
-              "default": "0",
-              "minimum": 0
-            },
-            {
-              "name": "sort",
-              "type": "string",
-              "location": "Query",
-              "required": true,
-              "default": "journal_timestamp"
-            }
-          ],
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "type": "[quote_version]",
-              "description": "Successful response",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "type": "unit",
-              "description": "Authorization failed",
-              "attributes": []
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "type": "permission_error",
-              "attributes": []
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "quote"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_operations",
-                  "organization_fulfillment"
-                ]
-              }
-            }
-          ]
         },
         {
           "method": "GET",
@@ -73448,6 +73078,132 @@
       "description": "Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones"
     },
     {
+      "type": "carrier",
+      "plural": "carriers",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/reference/carriers",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[carrier]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Returns a list of carriers supported by Flow."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "reference"
+          }
+        }
+      ],
+      "path": "/reference/carriers",
+      "description": "Partner that actually takes a shipment between places (ex: FedEx, DHL, SF Express)"
+    },
+    {
+      "type": "carrier_service",
+      "plural": "carrier_services",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/reference/carrier/services",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "location": "Query",
+              "required": false,
+              "description": "Free text search on name. Case insensitive"
+            }
+          ],
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "type": "[carrier_service]",
+              "description": "Successful response",
+              "attributes": []
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "type": "unit",
+              "description": "Authorization failed",
+              "attributes": []
+            }
+          ],
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "description": "Returns a list of carrier services supported by Flow."
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "reference"
+          }
+        }
+      ],
+      "path": "/reference/carrier/services",
+      "description": "Specific service rendered by the carrier (fedex ground saturday, ups overnight weekend, etc)"
+    },
+    {
       "type": "country",
       "plural": "countries",
       "operations": [
@@ -73752,7 +73508,7 @@
       "operations": [
         {
           "method": "GET",
-          "path": "/reference/payment-methods",
+          "path": "/reference/payment/methods",
           "parameters": [
             {
               "name": "q",
@@ -73806,7 +73562,7 @@
           }
         }
       ],
-      "path": "/reference/payment-methods",
+      "path": "/reference/payment/methods",
       "description": "Represents a single payment method - e.g VISA or Paypal - and any associated metadata required for processing"
     },
     {
