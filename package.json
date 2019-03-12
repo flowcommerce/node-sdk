@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/flowcommerce/node-sdk#readme",
   "devDependencies": {
-    "@flowio/babel-preset-flowio": "^1.4.3",
+    "@flowio/babel-preset-flowio": "^1.4.4",
     "@flowio/eslint-config-flowio": "^12.1.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
