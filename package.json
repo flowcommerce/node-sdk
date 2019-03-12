@@ -25,23 +25,23 @@
   },
   "homepage": "https://github.com/flowcommerce/node-sdk#readme",
   "devDependencies": {
-    "@flowio/babel-preset-flowio": "^1.4.3",
+    "@flowio/babel-preset-flowio": "^1.4.4",
     "@flowio/eslint-config-flowio": "^12.1.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^9.0.0",
-    "eslint": "^5.4.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.1",
-    "lodash": "^4.17.10",
-    "mocha": "^5.2.0"
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.15.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "lodash": "^4.17.11",
+    "mocha": "^6.0.2"
   },
   "dependencies": {
     "@flowio/lib-apidoc": "^1.5.37",
     "@flowio/lib-registry": "0.0.5",
     "babel-runtime": "^6.26.0",
-    "handlebars": "^4.0.11",
-    "node-fetch": "^2.2.0"
+    "handlebars": "^4.1.0",
+    "node-fetch": "^2.3.0"
   }
 }
