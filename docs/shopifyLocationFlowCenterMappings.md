@@ -1,4 +1,4 @@
-# [API](README.md).targetings - Flow Commerce API - Node SDK Documentation
+# [API](README.md).shopifyLocationFlowCenterMappings - Flow Commerce API - Node SDK Documentation
 
 
 
@@ -7,7 +7,7 @@
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const targetings = client().targetings;
+const shopifyLocationFlowCenterMappings = client().shopifyLocationFlowCenterMappings;
 ```
 
 ## Operations
@@ -25,7 +25,6 @@ const targetings = client().targetings;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -39,33 +38,33 @@ const targetings = client().targetings;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getByKey(organization, key, options = {})`
+##`getById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 
-##`putByKey(organization, key, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-
-
-##`deleteByKey(organization, key, options = {})`
+##`putById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`deleteById(organization, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
 
 

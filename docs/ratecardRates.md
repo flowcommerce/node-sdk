@@ -12,7 +12,7 @@ const ratecardRates = client().ratecardRates;
 
 ## Operations
 
-##`get(organization, ratecardId, laneId, options)`
+##`get(organization, ratecardId, laneId, options = {})`
 
 ### Function Parameters
 
@@ -32,7 +32,7 @@ const ratecardRates = client().ratecardRates;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, ratecardId, laneId, options)`
+##`post(organization, ratecardId, laneId, options = {})`
 
 ### Function Parameters
 
@@ -43,31 +43,7 @@ const ratecardRates = client().ratecardRates;
 | lane_id | string |  |
 
 
-##`getById(organization, ratecardId, laneId, id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| ratecard_id | string |  |
-| lane_id | string |  |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`putById(organization, ratecardId, laneId, id, options)`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| ratecard_id | string |  |
-| lane_id | string |  |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`getVersions(organization, ratecardId, laneId, options)`
+##`getVersions(organization, ratecardId, laneId, options = {})`
 
 ### Function Parameters
 
@@ -85,4 +61,28 @@ const ratecardRates = client().ratecardRates;
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
+
+##`getById(organization, ratecardId, laneId, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| ratecard_id | string |  |
+| lane_id | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`putById(organization, ratecardId, laneId, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| ratecard_id | string |  |
+| lane_id | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
 

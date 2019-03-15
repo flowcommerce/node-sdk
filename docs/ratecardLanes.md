@@ -12,73 +12,64 @@ const ratecardLanes = client().ratecardLanes;
 
 ## Operations
 
-##`get(organization, ratecardId, options)`
+##`get(organization, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| ratecard_id | string |  |
 
 ### Query Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| origin | string |  |
+| delivered_duty | delivered_duty |  |
 | destination | string |  |
+| origin | string |  |
+| ratecard_id | string |  |
+| service | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, ratecardId, options)`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| ratecard_id | string |  |
 
 
-##`getById(organization, ratecardId, id, options)`
+##`getById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| ratecard_id | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`putById(organization, ratecardId, id, options)`
+##`putById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| ratecard_id | string |  |
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getVersions(organization, ratecardId, options)`
+##`deleteById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| ratecard_id | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 

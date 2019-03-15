@@ -52,16 +52,21 @@ These resources mirror the official documentation located at
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
 | [reversals](reversals.md) | A reversal is used to clear an authorization (full or partial). |
-| [virtualCards](virtualCards.md) | Virtual card details |
-| [virtualCardCaptures](virtualCardCaptures.md) |  |
-| [virtualCardRefunds](virtualCardRefunds.md) |  |
+| [virtualCards](virtualCards.md) | Virtual credit cards are created for a specific limit and currency. Currently only USD denominated cards can be issued. Once created the virtual card can be used in the same way as a physical credit card using the card number, cvv and expiration details. |
+| [virtualCardCaptures](virtualCardCaptures.md) | Payment has been captured for the virtual credit card |
+| [virtualCardRefunds](virtualCardRefunds.md) | A refund has been issued for the virtual credit card |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) | Flow&#x27;s estimate of when a shipment for this delivery will actually arrive at the final destination, taking into account a shipment estimate, center schedules, and carrier transit windows. |
+| [dimensionEstimates](dimensionEstimates.md) |  |
 | [inventoryRules](inventoryRules.md) | Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization |
 | [inventorySnapshots](inventorySnapshots.md) | Inventory snapshot reflects the current quantity and available number of units for a given center / item |
 | [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
 | [manifests](manifests.md) | Represents closeout of a group of labels that have been transferred to the carrier for shipping |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
+| [ratecards](ratecards.md) | Snapshot of all lanes and rows across all service levels of an organization |
+| [ratecardEstimates](ratecardEstimates.md) |  |
+| [ratecardLanes](ratecardLanes.md) | Describe list of rates applicable for a lane on the ratecard - defined by origin and destination zone |
+| [ratecardRates](ratecardRates.md) | Specific line item in a ratecard lane with information on a weight threshold and corresponding amount to charge |
 | [returns](returns.md) |  |
 | [serials](serials.md) | A unique identifier assigned to an individual item. |
 | [shippingConfigurations](shippingConfigurations.md) |  |
@@ -99,7 +104,7 @@ These resources mirror the official documentation located at
 | [exports](exports.md) |  |
 | [feeds](feeds.md) | Describes types of feeds that may be produced by Flow. |
 | [flowRoles](flowRoles.md) | All roles available to attach to a user. |
-| [fraudEmailRules](fraudEmailRules.md) | White and black listing |
+| [fraudEmailRules](fraudEmailRules.md) | Rule to apply to enable white-listing and black-listing for an email address. |
 | [ftpFiles](ftpFiles.md) | The FTP File represents a file uploaded to the FTP Server |
 | [ftpFolders](ftpFolders.md) | The FTP Folder represents a single folder associated with an organization for which we create an external FTP Directory |
 | [ftpOrganizationSettings](ftpOrganizationSettings.md) | The FTP Organization Settings allows you to enable an FTP Drop Point for an organization, creating the standard set of FTP Folders, credentials, and associated webhooks. |
@@ -121,6 +126,7 @@ These resources mirror the official documentation located at
 | [sessionAuthorizations](sessionAuthorizations.md) |  |
 | [shopifyCarts](shopifyCarts.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
 | [shopifyLocalizationSettings](shopifyLocalizationSettings.md) |  |
+| [shopifyLocationFlowCenterMappings](shopifyLocationFlowCenterMappings.md) |  |
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
 | [shopifySyncStatuses](shopifySyncStatuses.md) |  |
 | [suggestions](suggestions.md) |  |

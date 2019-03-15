@@ -150,6 +150,13 @@ export default class Experiences extends Client {
     });
   }
 
+  postCloneByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${key}/clone`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getItemsAndPriceByKeyAndNumber(organization, key, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${key}/items/${number}/price`, options);
   }

@@ -1,6 +1,6 @@
 # [API](README.md).virtualCards - Flow Commerce API - Node SDK Documentation
 
-Virtual card details
+Virtual credit cards are created for a specific limit and currency. Currently only USD denominated cards can be issued. Once created the virtual card can be used in the same way as a physical credit card using the card number, cvv and expiration details.
 
 ## Usage
 

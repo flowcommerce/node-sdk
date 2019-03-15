@@ -1,6 +1,6 @@
 # [API](README.md).virtualCardRefunds - Flow Commerce API - Node SDK Documentation
 
-
+A refund has been issued for the virtual credit card
 
 ## Usage
 

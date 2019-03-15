@@ -62,4 +62,11 @@ export default class OrderBuilders extends Client {
     });
   }
 
+  putInvoiceAndAddressByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/invoice/address`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
 }

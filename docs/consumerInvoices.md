@@ -49,11 +49,6 @@ const consumerInvoices = client().consumerInvoices;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | number | string | The order number for which you are requesting a consumer invoice. |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| language | string | Optional language in which to generate the invoice |
 
 ##`postCreditAndMemosByInvoiceKey(organization, invoiceKey, options = {})`
 
@@ -106,11 +101,6 @@ const consumerInvoices = client().consumerInvoices;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | key | string |  |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| language | string | Optional language in which to generate the invoice |
 
 ##`deleteByKey(organization, key, options = {})`
 

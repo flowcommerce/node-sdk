@@ -1,6 +1,6 @@
 # [API](README.md).virtualCardCaptures - Flow Commerce API - Node SDK Documentation
 
-
+Payment has been captured for the virtual credit card
 
 ## Usage
 
