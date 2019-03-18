@@ -121,6 +121,13 @@ export default class Experiences extends Client {
     });
   }
 
+  putPriceAndBooksByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/price/books`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getPriceAndBooksByExperienceKeyAndKey(organization, experienceKey, key, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/price/books/${key}`, options);
   }

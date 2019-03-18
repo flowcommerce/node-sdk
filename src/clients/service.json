@@ -8453,6 +8453,44 @@
       ]
     },
     {
+      "plural": "experience_clones",
+      "name": "experience_clone",
+      "description": "Represents a request to clone an experience.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "source_experience",
+          "annotations": [],
+          "attributes": [],
+          "type": "experience_reference",
+          "required": true
+        },
+        {
+          "name": "cloned_experience",
+          "annotations": [],
+          "description": "This is the newly created (cloned) experience",
+          "attributes": [],
+          "type": "experience_reference",
+          "required": false
+        },
+        {
+          "name": "status",
+          "annotations": [],
+          "attributes": [],
+          "type": "experience_clone_status",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "experience_clone_forms",
       "name": "experience_clone_form",
       "description": "Form for cloning an experience",
@@ -8461,10 +8499,10 @@
         {
           "name": "name",
           "annotations": [],
-          "description": "Name for the new cloned experience",
+          "description": "Name for the new cloned experience. Will be auto generated if not provided",
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": false
         }
       ]
     },
@@ -9167,6 +9205,20 @@
           "type": "long",
           "minimum": 0,
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "experience_price_book_mapping_put_forms",
+      "name": "experience_price_book_mapping_put_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price_books",
+          "annotations": [],
+          "attributes": [],
+          "type": "[experience_price_book_mapping_form]",
+          "required": true
         }
       ]
     },
@@ -16791,6 +16843,14 @@
           "description": "When using 3D Secure, this field specifies the success and optional failure URLs to which the user will be redirected after completing (or failing to complete) payment.",
           "attributes": [],
           "type": "post_payment_redirect_urls",
+          "required": false
+        },
+        {
+          "name": "installment_program_id",
+          "annotations": [],
+          "description": "If this authorization is made in context of an installment program, this field can be provided and this authorization will reflect only the first installment amount.",
+          "attributes": [],
+          "type": "string",
           "required": false
         }
       ]
@@ -41199,6 +41259,105 @@
           ]
         },
         {
+          "path": "/:organization/experiences/:experience_key/price/books",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[experience_price_book_mapping]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "[experience_price_book_mapping]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "experience_price_book_mapping_put_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "experience_key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
           "path": "/:organization/experiences/:experience_key/price/books/:key",
           "method": "GET",
           "responses": [
@@ -41636,7 +41795,7 @@
               },
               "description": "Operation succeeded and the resource was created",
               "attributes": [],
-              "type": "experience"
+              "type": "experience_clone"
             },
             {
               "code": {
@@ -87446,6 +87605,25 @@
         }
       ],
       "name": "exception_type",
+      "attributes": []
+    },
+    {
+      "plural": "experience_clone_statuses",
+      "values": [
+        {
+          "name": "pending",
+          "attributes": []
+        },
+        {
+          "name": "updating",
+          "attributes": []
+        },
+        {
+          "name": "completed",
+          "attributes": []
+        }
+      ],
+      "name": "experience_clone_status",
       "attributes": []
     },
     {
