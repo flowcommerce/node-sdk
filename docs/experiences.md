@@ -399,6 +399,17 @@ const experiences = client().experiences;
 | key | string |  |
 
 
+##`getCloneByKeyAndId(organization, key, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
 ##`getItemsAndPriceByKeyAndNumber(organization, key, number, options = {})`
 
 ### Function Parameters

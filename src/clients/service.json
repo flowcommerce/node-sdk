@@ -1953,6 +1953,37 @@
       ]
     },
     {
+      "plural": "avalara_tax_settings",
+      "name": "avalara_tax_setting",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "company_code",
+          "annotations": [],
+          "description": "The Avalara company code to be used for the organizations account.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "base_currency",
+          "annotations": [],
+          "description": "The organizations currency used for tax calculations.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "api_key",
+          "annotations": [],
+          "description": "Avalara API key for access to the organizations account. If not set the Flow account will be used.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "avses",
       "name": "avs",
       "description": "Represents the address verification results",
@@ -4989,6 +5020,20 @@
           "annotations": [],
           "attributes": [],
           "type": "checkout_optin_responses",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "checkout_settingses",
+      "name": "checkout_settings",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "configuration",
+          "annotations": [],
+          "attributes": [],
+          "type": "experience_configuration_reference",
           "required": true
         }
       ]
@@ -8453,6 +8498,49 @@
       ]
     },
     {
+      "plural": "experience_checkout_settings",
+      "name": "experience_checkout_settings",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "experience",
+          "annotations": [],
+          "attributes": [],
+          "type": "experience_overview",
+          "required": true
+        },
+        {
+          "name": "checkout_configuration",
+          "annotations": [],
+          "attributes": [],
+          "type": "experience_configuration_reference",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "experience_checkout_settings_forms",
+      "name": "experience_checkout_settings_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "checkout_configuration_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "experience_clones",
       "name": "experience_clone",
       "description": "Represents a request to clone an experience.",
@@ -8503,6 +8591,21 @@
           "attributes": [],
           "type": "string",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "experience_configuration_references",
+      "name": "experience_configuration_reference",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
         }
       ]
     },
@@ -9280,7 +9383,7 @@
         {
           "name": "delivered_duty",
           "annotations": [],
-          "description": "Wrapper for settings around delivered duties. This includes the default for the experience and the choices available for a customer to pick.",
+          "description": "Wrapper for settings for delivered duties. This includes the default for the experience and the choices available for a customer to pick.",
           "attributes": [],
           "type": "delivered_duty_setting",
           "required": true
@@ -9288,7 +9391,7 @@
         {
           "name": "pricing_settings",
           "annotations": [],
-          "description": "Wrapper for settings around pricing. This includes the defaults for the experience and whether they are editable.",
+          "description": "Wrapper for settings for pricing. This includes the defaults for the experience and whether they are editable.",
           "attributes": [],
           "type": "pricing_settings",
           "required": false
@@ -9296,9 +9399,17 @@
         {
           "name": "logistics_settings",
           "annotations": [],
-          "description": "Wrapper for settings about logistics. This includes the shipping configuration key used by the experience.",
+          "description": "Wrapper for settings for logistics. This includes the shipping configuration key used by the experience.",
           "attributes": [],
           "type": "logistics_settings",
+          "required": false
+        },
+        {
+          "name": "checkout_settings",
+          "annotations": [],
+          "description": "Wrapper for settings for Checkout UI.",
+          "attributes": [],
+          "type": "checkout_settings",
           "required": false
         }
       ]
@@ -19865,6 +19976,21 @@
       ]
     },
     {
+      "plural": "organization_configuration_references",
+      "name": "organization_configuration_reference",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "organization_countries_data",
       "name": "organization_countries_data",
       "attributes": [],
@@ -20023,6 +20149,107 @@
           "annotations": [],
           "attributes": [],
           "type": "organization_currency_setting",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "organization_default_configurations",
+      "name": "organization_default_configurations",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "checkout_configuration",
+          "annotations": [],
+          "attributes": [],
+          "type": "organization_configuration_reference",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "organization_default_configurations_deleteds",
+      "name": "organization_default_configurations_deleted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "default_configurations",
+          "annotations": [],
+          "attributes": [],
+          "type": "organization_default_configurations",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "organization_default_configurations_forms",
+      "name": "organization_default_configurations_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "organization_default_configurations_upserteds",
+      "name": "organization_default_configurations_upserted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "default_configurations",
+          "annotations": [],
+          "attributes": [],
+          "type": "organization_default_configurations",
           "required": true
         }
       ]
@@ -28709,6 +28936,15 @@
           "attributes": [],
           "type": "query",
           "required": true
+        },
+        {
+          "default": "oldest",
+          "name": "strategy",
+          "annotations": [],
+          "description": "Specifies strategy for picking center that will fulfill deliveries for the shipping lane when multiple centers are available as origins and are capable of shipping to the destination",
+          "attributes": [],
+          "type": "lane_strategy",
+          "required": true
         }
       ]
     },
@@ -28760,6 +28996,14 @@
           "attributes": [],
           "type": "string",
           "required": true
+        },
+        {
+          "name": "strategy",
+          "annotations": [],
+          "description": "Specifies strategy for picking center that will fulfill deliveries for the shipping lane when multiple centers are available as origins and are capable of shipping to the destination",
+          "attributes": [],
+          "type": "lane_strategy",
+          "required": false
         }
       ]
     },
@@ -35188,6 +35432,16 @@
           "type": "organization_short_id_deleted"
         },
         {
+          "discriminator_value": "organization_default_configurations_upserted",
+          "attributes": [],
+          "type": "organization_default_configurations_upserted"
+        },
+        {
+          "discriminator_value": "organization_default_configurations_deleted",
+          "attributes": [],
+          "type": "organization_default_configurations_deleted"
+        },
+        {
           "discriminator_value": "authorization_deleted_v2",
           "attributes": [],
           "type": "authorization_deleted_v2"
@@ -36227,6 +36481,19 @@
       ],
       "plural": "shopify_event_buckets",
       "name": "shopify_event_bucket",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
+          "discriminator_value": "avalara_tax_setting",
+          "attributes": [],
+          "type": "avalara_tax_setting"
+        }
+      ],
+      "plural": "tax_settings",
+      "name": "tax_setting",
       "attributes": [],
       "discriminator": "discriminator"
     },
@@ -41874,6 +42141,89 @@
           ]
         },
         {
+          "path": "/:organization/experiences/:key/clone/:id",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "experience_clone"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns the experience_clone associated with the id.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
           "path": "/:organization/experiences/:key/items/:number/price",
           "method": "GET",
           "responses": [
@@ -42302,6 +42652,186 @@
         }
       ],
       "type": "experience"
+    },
+    {
+      "path": "/:organization/experiences/:experience_key/settings/checkout",
+      "plural": "experience_checkout_settings",
+      "operations": [
+        {
+          "path": "/:organization/experiences/:experience_key/settings/checkout",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "experience_checkout_settings"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "experience_key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/experiences/:experience_key/settings/checkout",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "experience_checkout_settings"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "experience_checkout_settings_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "experience_key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "type": "experience_checkout_settings"
     },
     {
       "path": "/:organization/experience/defaults",
@@ -56770,6 +57300,261 @@
         }
       ],
       "type": "tax_registration"
+    },
+    {
+      "path": "/:organization/tax/settings",
+      "plural": "tax_settings",
+      "operations": [
+        {
+          "path": "/:organization/tax/settings",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "tax_setting"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 400
+                }
+              },
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns the tax settings for the organization.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/tax/settings",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "tax_setting"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "tax_setting"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "tax_setting"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/tax/settings",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "landed cost"
+          }
+        }
+      ],
+      "type": "tax_setting"
     },
     {
       "path": "/:organization/authorizations",
@@ -80780,6 +81565,170 @@
       "type": "organization_authorization"
     },
     {
+      "path": "/:organization_id/default/configurations",
+      "plural": "organization_default_configurations",
+      "operations": [
+        {
+          "path": "/:organization_id/default/configurations",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "organization_default_configurations"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization_id",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization_id/default/configurations/checkout",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "organization_default_configurations"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Update the default checkout configuration id for this organization",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "organization_default_configurations_form"
+          },
+          "parameters": [
+            {
+              "name": "organization_id",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "organization_default_configurations"
+    },
+    {
       "path": "/:organization/tokens",
       "plural": "organization_tokens",
       "operations": [
@@ -86598,6 +87547,21 @@
       "attributes": []
     },
     {
+      "plural": "configuration_types",
+      "values": [
+        {
+          "name": "default",
+          "attributes": []
+        },
+        {
+          "name": "variant",
+          "attributes": []
+        }
+      ],
+      "name": "configuration_type",
+      "attributes": []
+    },
+    {
       "plural": "consumer_invoice_customer_types",
       "values": [
         {
@@ -87414,6 +88378,14 @@
           "attributes": []
         },
         {
+          "name": "organization_default_configurations_upserted",
+          "attributes": []
+        },
+        {
+          "name": "organization_default_configurations_deleted",
+          "attributes": []
+        },
+        {
           "name": "authorization_deleted_v2",
           "attributes": []
         },
@@ -87620,6 +88592,10 @@
         },
         {
           "name": "completed",
+          "attributes": []
+        },
+        {
+          "name": "failed",
           "attributes": []
         }
       ],
@@ -88249,6 +89225,29 @@
         }
       ],
       "name": "item_availability_status",
+      "attributes": []
+    },
+    {
+      "plural": "lane_strategies",
+      "values": [
+        {
+          "name": "oldest",
+          "description": "Use the oldest center by creation date.",
+          "attributes": []
+        },
+        {
+          "name": "fastest",
+          "description": "Optimize for fastest average time in transit across all tiers from the center on the lane",
+          "attributes": []
+        },
+        {
+          "name": "lowest_cost",
+          "description": "Optimize for lowest average cost across all tiers from the center on the lane",
+          "attributes": []
+        }
+      ],
+      "name": "lane_strategy",
+      "description": "Strategy to select origin center on a shipping lane with multiple capable shipping origin centers",
       "attributes": []
     },
     {

@@ -14,6 +14,7 @@ These resources mirror the official documentation located at
 | [checkoutItemContents](checkoutItemContents.md) | A Checkout Item Content provides information about an item to support rendering of that item in the context of checkout |
 | [creditPayments](creditPayments.md) | A Credit Payment records a &#x27;non cash&#x27; payment against an order (e.g. a store credit, gift card, etc.), recording the amount of that credit and additional details to reconcile payments. The primary purpose of the credit payment is to record that a payment has been made against an order so the remaining balance can be correctly computed. |
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
+| [experienceCheckoutSettings](experienceCheckoutSettings.md) |  |
 | [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
 | [experienceLogisticsSettings](experienceLogisticsSettings.md) | Controls logistics related settings per experience |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
@@ -44,6 +45,7 @@ These resources mirror the official documentation located at
 | [hsCodes](hsCodes.md) | API to fetch current HS-6 codes. |
 | [tariffCodes](tariffCodes.md) | API to fetch current tariff codes. |
 | [taxRegistrations](taxRegistrations.md) | Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company. |
+| [taxSettings](taxSettings.md) |  |
 | [authorizations](authorizations.md) |  |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
@@ -117,6 +119,7 @@ These resources mirror the official documentation located at
 | [links](links.md) |  |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |
 | [organizationAuthorizations](organizationAuthorizations.md) | Defines the data used for broad authorization of user access to org level data |
+| [organizationDefaultConfigurations](organizationDefaultConfigurations.md) |  |
 | [organizationTokens](organizationTokens.md) | All of the metadata associated with a given token. |
 | [partnerTokens](partnerTokens.md) | All of the metadata associated with a given token. |
 | [passwordResetForms](passwordResetForms.md) |  |
