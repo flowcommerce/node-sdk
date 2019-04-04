@@ -1556,9 +1556,9 @@
       ]
     },
     {
-      "plural": "authorization_result_actions",
-      "name": "authorization_result_action",
-      "description": "Provides details for how to acquire additional information from the customer when needed (e.g. redirecting to the issuer for online payment method or 3D Secure).",
+      "plural": "authorization_result_action_gets",
+      "name": "authorization_result_action_get",
+      "description": "Provides details for how to acquire additional information from the customer using GET (e.g. redirecting to the issuer for online payment method or 3D Secure).",
       "attributes": [],
       "fields": [
         {
@@ -1574,6 +1574,52 @@
           "attributes": [],
           "type": "string",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "authorization_result_action_posts",
+      "name": "authorization_result_action_post",
+      "description": "Provides details for how to acquire additional information from the customer using POST (e.g. redirecting to the issuer for online payment method or 3D Secure).",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "type",
+          "annotations": [],
+          "attributes": [],
+          "type": "authorization_result_action_type",
+          "required": true
+        },
+        {
+          "name": "url",
+          "annotations": [],
+          "description": "The URL to use for the POST request.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "parameters",
+          "annotations": [],
+          "description": "Contains parameters that are required to be included as part of the request.",
+          "attributes": [],
+          "type": "object",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "authorization_result_action_waits",
+      "name": "authorization_result_action_wait",
+      "description": "Indicates that a response is not ready and that the consumer should poll (or wait) for a response.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "type",
+          "annotations": [],
+          "attributes": [],
+          "type": "authorization_result_action_type",
+          "required": true
         }
       ]
     },
@@ -1948,6 +1994,28 @@
           "description": "Additional lead time required for processing or freight-based domestic transit for this service from this center. This will go in to padding the final delivery windows.",
           "attributes": [],
           "type": "number_range",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "avalara_tax_csv_settings",
+      "name": "avalara_tax_csv_setting",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "schedule",
+          "annotations": [],
+          "description": "A cron expression of when to generate the tax transaction report.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "email_recipients",
+          "annotations": [],
+          "attributes": [],
+          "type": "[string]",
           "required": false
         }
       ]
@@ -6765,6 +6833,72 @@
       ]
     },
     {
+      "plural": "customer_forms",
+      "name": "customer_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "name",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "name",
+          "required": false
+        },
+        {
+          "name": "number",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer phone number. Useful for both fraud and order delivery.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "email",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer email address. Useful for fraud.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "address",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "billing_address",
+          "required": false
+        },
+        {
+          "name": "invoice",
+          "annotations": [],
+          "description": "Customer invoice details.",
+          "attributes": [],
+          "type": "customer_invoice",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "customer_invoices",
       "name": "customer_invoice",
       "attributes": [],
@@ -8211,6 +8345,81 @@
           "attributes": [],
           "type": "map[string]",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "discount_forms",
+      "name": "discount_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "offer",
+          "annotations": [],
+          "attributes": [],
+          "type": "discount_offer",
+          "required": true
+        },
+        {
+          "default": "item",
+          "name": "target",
+          "annotations": [],
+          "description": "Indicates the target of the discount.",
+          "attributes": [],
+          "type": "discount_target",
+          "required": false
+        },
+        {
+          "name": "label",
+          "annotations": [],
+          "description": "Label to display (e.g. the discount code). Discounts with the same label represent aggregated offers.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "discount_offer_fixeds",
+      "name": "discount_offer_fixed",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "money",
+          "annotations": [],
+          "attributes": [],
+          "type": "money",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "discount_offer_percents",
+      "name": "discount_offer_percent",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "percent",
+          "annotations": [],
+          "maximum": 100,
+          "attributes": [],
+          "type": "decimal",
+          "minimum": 0,
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "discounts_forms",
+      "name": "discounts_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "discounts",
+          "annotations": [],
+          "attributes": [],
+          "type": "[discount_form]",
+          "required": true
         }
       ]
     },
@@ -11080,6 +11289,22 @@
           "attributes": [],
           "type": "string",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "harmonization_landed_cost_export_types",
+      "name": "harmonization_landed_cost_export_type",
+      "description": "Export for landed cost items.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "items",
+          "annotations": [],
+          "description": "The list of items to include in the export",
+          "attributes": [],
+          "type": "[landed_cost_item]",
+          "required": true
         }
       ]
     },
@@ -15390,6 +15615,38 @@
       ]
     },
     {
+      "plural": "landed_cost_items",
+      "name": "landed_cost_item",
+      "description": "Tuple of item number, origin (from) country and destination (to) country",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "The item number to export",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "origin",
+          "annotations": [],
+          "description": "The origin country code to use for tax and duty computation",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "destination",
+          "annotations": [],
+          "description": "The destination country code to use for tax and duty computation",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "lane_landed_costs",
       "name": "lane_landed_cost",
       "description": "The tariff codes, duty rates and tax rates associated with an origin/destination pair. Does not take into account sales province",
@@ -15620,6 +15877,14 @@
           "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here",
           "attributes": [],
           "type": "money",
+          "required": false
+        },
+        {
+          "name": "discounts",
+          "annotations": [],
+          "description": "The discounts, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here",
+          "attributes": [],
+          "type": "discounts_form",
           "required": false
         }
       ]
@@ -16259,6 +16524,14 @@
           "required": false
         },
         {
+          "name": "discounts",
+          "annotations": [],
+          "description": "Discounts, if any, to apply to this line item. Note that the discounts apply to the total, regardless of the quantity.",
+          "attributes": [],
+          "type": "[localized_line_item_discount]",
+          "required": false
+        },
+        {
           "name": "attributes",
           "annotations": [],
           "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format.",
@@ -16279,6 +16552,14 @@
           "description": "For items that may not immediately ship out from the origin because of different models of inventory (e.g. drop-ship, sell-first), this is a way for a client to communicate when the items can ship out. This will be used to calculate delivery option windows.",
           "attributes": [],
           "type": "datetime_range",
+          "required": false
+        },
+        {
+          "name": "price_source",
+          "annotations": [],
+          "description": "Indicates the source of the item price.",
+          "attributes": [],
+          "type": "price_source",
           "required": false
         }
       ]
@@ -16328,6 +16609,14 @@
           "description": "The requested discount amount.",
           "attributes": [],
           "type": "money",
+          "required": false
+        },
+        {
+          "name": "discount_label",
+          "annotations": [],
+          "description": "The discount pretty label (e.g. SPRING10) that is displayed to the customer.",
+          "attributes": [],
+          "type": "string",
           "required": false
         }
       ]
@@ -18586,7 +18875,7 @@
           ],
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console.",
           "attributes": [],
-          "type": "customer",
+          "type": "customer_form",
           "required": false
         },
         {
@@ -18629,6 +18918,14 @@
           "description": "An optional discount to apply to the entire order",
           "attributes": [],
           "type": "money",
+          "required": false
+        },
+        {
+          "name": "discounts",
+          "annotations": [],
+          "description": "Optional discount(s) to apply to the entire order.",
+          "attributes": [],
+          "type": "discounts_form",
           "required": false
         },
         {
@@ -19485,7 +19782,7 @@
           ],
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console.",
           "attributes": [],
-          "type": "customer",
+          "type": "customer_form",
           "required": false
         },
         {
@@ -19521,6 +19818,14 @@
           "description": "An optional discount to apply to the entire order",
           "attributes": [],
           "type": "money",
+          "required": false
+        },
+        {
+          "name": "discounts",
+          "annotations": [],
+          "description": "Optional discount(s) to apply to the entire order.",
+          "attributes": [],
+          "type": "discounts_form",
           "required": false
         },
         {
@@ -20159,6 +20464,14 @@
       "attributes": [],
       "fields": [
         {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
           "name": "checkout_configuration",
           "annotations": [],
           "attributes": [],
@@ -20392,7 +20705,14 @@
           "default": "production",
           "name": "environment",
           "annotations": [],
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "value-substitute",
+              "value": {
+                "substitute": "sandbox"
+              }
+            }
+          ],
           "type": "environment",
           "required": true
         },
@@ -20400,7 +20720,21 @@
           "name": "parent_id",
           "annotations": [],
           "description": "When creating an organization in the test environment, you must specify your production organization id.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.organization.v0",
+                "resource_type": "io.flow.common.v0.models.organization",
+                "operation_method": "GET",
+                "operation_path": "/organizations",
+                "identifier_field": "id",
+                "query_params": {
+                  "environment": "production"
+                }
+              }
+            }
+          ],
           "type": "string",
           "required": false
         },
@@ -23106,6 +23440,88 @@
           "type": "string",
           "required": true,
           "example": "CAD"
+        }
+      ]
+    },
+    {
+      "plural": "price_source_catalogs",
+      "name": "price_source_catalog",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "Catalog item price.",
+          "attributes": [],
+          "type": "money",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "price_source_price_books",
+      "name": "price_source_price_book",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "Price book item price.",
+          "attributes": [],
+          "type": "money",
+          "required": true
+        },
+        {
+          "name": "includes",
+          "annotations": [],
+          "description": "Describes which levies are included in the price book price.",
+          "attributes": [],
+          "type": "included_levies",
+          "required": true
+        },
+        {
+          "name": "price_book_reference",
+          "annotations": [],
+          "attributes": [],
+          "type": "price_source_price_book_reference",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "price_source_price_book_references",
+      "name": "price_source_price_book_reference",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "key",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "price_source_provideds",
+      "name": "price_source_provided",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "Provided item price.",
+          "attributes": [],
+          "type": "money",
+          "required": true
         }
       ]
     },
@@ -29691,6 +30107,14 @@
           "attributes": [],
           "type": "shopify_price",
           "required": true
+        },
+        {
+          "name": "price_source",
+          "annotations": [],
+          "description": "Indicates the source of the item price.",
+          "attributes": [],
+          "type": "price_source",
+          "required": false
         }
       ]
     },
@@ -30203,6 +30627,14 @@
           "attributes": [],
           "type": "delivery_window",
           "required": true
+        },
+        {
+          "name": "cost",
+          "annotations": [],
+          "description": "The shipping cost associated to the selected delivery",
+          "attributes": [],
+          "type": "money_with_optional_base",
+          "required": false
         }
       ]
     },
@@ -34761,6 +35193,29 @@
     {
       "types": [
         {
+          "discriminator_value": "authorization_result_action_get",
+          "attributes": [],
+          "type": "authorization_result_action_get"
+        },
+        {
+          "discriminator_value": "authorization_result_action_post",
+          "attributes": [],
+          "type": "authorization_result_action_post"
+        },
+        {
+          "discriminator_value": "authorization_result_action_wait",
+          "attributes": [],
+          "type": "authorization_result_action_wait"
+        }
+      ],
+      "plural": "authorization_result_actions",
+      "name": "authorization_result_action",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
           "discriminator_value": "structured",
           "attributes": [],
           "type": "available_filter_structured"
@@ -34873,6 +35328,24 @@
       "plural": "deminimises",
       "name": "deminimis",
       "description": "De Minimis describes the country specific rules for exactly how tax and duties are calculated, as well as any exemptions that apply. See https://en.wikipedia.org/wiki/De_minimis for more information.",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
+          "discriminator_value": "discount_offer_fixed",
+          "attributes": [],
+          "type": "discount_offer_fixed"
+        },
+        {
+          "discriminator_value": "discount_offer_percent",
+          "attributes": [],
+          "type": "discount_offer_percent"
+        }
+      ],
+      "plural": "discount_offers",
+      "name": "discount_offer",
       "attributes": [],
       "discriminator": "discriminator"
     },
@@ -35859,6 +36332,11 @@
           "type": "unharmonized_item_export_type"
         },
         {
+          "discriminator_value": "harmonization_landed_cost_export_type",
+          "attributes": [],
+          "type": "harmonization_landed_cost_export_type"
+        },
+        {
           "discriminator_value": "order_export_type",
           "attributes": [],
           "type": "order_export_type"
@@ -36193,6 +36671,29 @@
     {
       "types": [
         {
+          "discriminator_value": "price_book",
+          "attributes": [],
+          "type": "price_source_price_book"
+        },
+        {
+          "discriminator_value": "catalog",
+          "attributes": [],
+          "type": "price_source_catalog"
+        },
+        {
+          "discriminator_value": "provided",
+          "attributes": [],
+          "type": "price_source_provided"
+        }
+      ],
+      "plural": "price_sources",
+      "name": "price_source",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
           "discriminator_value": "free_shipping",
           "attributes": [],
           "type": "free_shipping"
@@ -36490,6 +36991,11 @@
           "discriminator_value": "avalara_tax_setting",
           "attributes": [],
           "type": "avalara_tax_setting"
+        },
+        {
+          "discriminator_value": "avalara_tax_csv_setting",
+          "attributes": [],
+          "type": "avalara_tax_csv_setting"
         }
       ],
       "plural": "tax_settings",
@@ -37321,6 +37827,17 @@
       ],
       "description": "An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console.",
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -42303,6 +42820,55 @@
               "location": "Path",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "price_amount",
+              "description": "If specified, forces the price of the item to be the given amount. Must be specified with price_currency.",
+              "location": "Query",
+              "type": "double",
+              "required": false
+            },
+            {
+              "name": "price_currency",
+              "description": "If specified, forces the price of the item to be in the given currency. Must be specified with price_amount.",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "ship_from_country",
+              "description": "If specified, indicates the country where the item is shipping from.",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "ship_from_province",
+              "description": "If specified, indicates the province where the item is shipping from.",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "ship_to_country",
+              "description": "If specified, indicates the country where the item is shipping to.",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "ship_to_province",
+              "description": "If specified, indicates the province where the item is shipping to.",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "currency",
+              "description": "If specified, indicates the currency of the returned prices.",
+              "location": "Query",
+              "type": "string",
+              "required": false
             }
           ]
         },
@@ -46689,6 +47255,105 @@
           "body": {
             "attributes": [],
             "type": "order_builder_customer_invoice_address_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "maximum": 1,
+              "location": "Query",
+              "type": "[string]",
+              "minimum": 0,
+              "required": false,
+              "example": "experience"
+            }
+          ]
+        },
+        {
+          "path": "/:organization/order/builders/:number/tax/registration",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "order_builder"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Validates a tax registration number, proxying to underlying services and recording the result on the order.",
+          "attributes": [
+            {
+              "name": "linter",
+              "description": "422 intentionally not exposed as part of order builder builder - instead available as order_builder.errors field",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "tax_registration_form"
           },
           "parameters": [
             {
@@ -57300,261 +57965,6 @@
         }
       ],
       "type": "tax_registration"
-    },
-    {
-      "path": "/:organization/tax/settings",
-      "plural": "tax_settings",
-      "operations": [
-        {
-          "path": "/:organization/tax/settings",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "tax_setting"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 400
-                }
-              },
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "description": "Returns the tax settings for the organization.",
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/tax/settings",
-          "method": "PUT",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "tax_setting"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "tax_setting"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "tax_setting"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/tax/settings",
-          "method": "DELETE",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "description": "Operation succeeded. No content is returned",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "type": "tax_setting"
     },
     {
       "path": "/:organization/authorizations",
@@ -85742,6 +86152,261 @@
       }
     },
     {
+      "path": "/:organization/tax/settings",
+      "plural": "tax_settings",
+      "operations": [
+        {
+          "path": "/:organization/tax/settings",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "tax_setting"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 400
+                }
+              },
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns the tax settings for the organization.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/tax/settings",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "tax_setting"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "tax_setting"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "tax_setting"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/tax/settings",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "tax_setting"
+    },
+    {
       "path": "/tokens",
       "plural": "tokens",
       "operations": [
@@ -86909,7 +87574,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.7.30",
+  "version": "0.7.50",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -87905,6 +88570,23 @@
         }
       ],
       "name": "direction",
+      "attributes": []
+    },
+    {
+      "plural": "discount_targets",
+      "values": [
+        {
+          "name": "item",
+          "description": "Discount is targeted to an item.",
+          "attributes": []
+        },
+        {
+          "name": "shipping",
+          "description": "Discount is targeting to shipping. Only applicable if the discount is provided at the order level.",
+          "attributes": []
+        }
+      ],
+      "name": "discount_target",
       "attributes": []
     },
     {
@@ -89215,7 +89897,7 @@
         },
         {
           "name": "low",
-          "description": "Inventory is low and may soon become unavailable for purchase. Unless there is a specific use case for low inventory, it can be treated the same as 'available'",
+          "description": "Inventory is low and may soon become unavailable for purchase (# inventory items <= 5). Unless there is a specific use case for low inventory, it can be treated the same as 'available'",
           "attributes": []
         },
         {

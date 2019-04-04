@@ -420,6 +420,17 @@ const experiences = client().experiences;
 | key | string |  |
 | number | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| price_amount | double | If specified, forces the price of the item to be the given amount. Must be specified with price_currency. |
+| price_currency | string | If specified, forces the price of the item to be in the given currency. Must be specified with price_amount. |
+| ship_from_country | string | If specified, indicates the country where the item is shipping from. |
+| ship_from_province | string | If specified, indicates the province where the item is shipping from. |
+| ship_to_country | string | If specified, indicates the country where the item is shipping to. |
+| ship_to_province | string | If specified, indicates the province where the item is shipping to. |
+| currency | string | If specified, indicates the currency of the returned prices. |
 
 ##`getPricingByKey(organization, key, options = {})`
 

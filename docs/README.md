@@ -45,7 +45,6 @@ These resources mirror the official documentation located at
 | [hsCodes](hsCodes.md) | API to fetch current HS-6 codes. |
 | [tariffCodes](tariffCodes.md) | API to fetch current tariff codes. |
 | [taxRegistrations](taxRegistrations.md) | Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company. |
-| [taxSettings](taxSettings.md) |  |
 | [authorizations](authorizations.md) |  |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
@@ -133,6 +132,7 @@ These resources mirror the official documentation located at
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
 | [shopifySyncStatuses](shopifySyncStatuses.md) |  |
 | [suggestions](suggestions.md) |  |
+| [taxSettings](taxSettings.md) |  |
 | [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |
 | [uploads](uploads.md) | Provides the ability to upload a file to a URL (an expiring s3 url, usually valid for 1 week) |

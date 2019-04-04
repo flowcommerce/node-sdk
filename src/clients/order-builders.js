@@ -69,4 +69,11 @@ export default class OrderBuilders extends Client {
     });
   }
 
+  putTaxAndRegistrationByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/tax/registration`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
 }

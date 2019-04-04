@@ -146,3 +146,18 @@ const orderBuilders = client().orderBuilders;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
+##`putTaxAndRegistrationByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
