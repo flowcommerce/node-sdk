@@ -51,6 +51,22 @@ const orderBuilders = client().orderBuilders;
 | language | string | ISO 639 2 language code as defined in https://api.flow.io/reference/languages If specified, translate content to this language (where available) |
 | expand | [string] |  |
 
+##`getByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
+
 ##`putByNumber(organization, number, options = {})`
 
 ### Function Parameters

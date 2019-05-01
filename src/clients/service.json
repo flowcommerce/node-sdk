@@ -1010,7 +1010,7 @@
           "attributes": [],
           "type": "attribute_intent",
           "required": false,
-          "example": "price"
+          "example": "brand"
         },
         {
           "name": "type",
@@ -1142,7 +1142,7 @@
           "attributes": [],
           "type": "attribute_intent",
           "required": false,
-          "example": "price"
+          "example": "brand"
         },
         {
           "name": "type",
@@ -3079,7 +3079,7 @@
           ],
           "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate and are recommended.",
           "attributes": [],
-          "type": "customer",
+          "type": "order_customer",
           "required": true
         },
         {
@@ -6768,16 +6768,15 @@
     {
       "plural": "customers",
       "name": "customer",
-      "description": "A customer represents the actual person purchasing from you. This information is needed primarily to support logistics (delivery to this person), fraud management (verification of who the person is), and reporting. We also recommend including your customer number whenever possible as doing so will allow Flow to link up transactions for this customer making customer service easier.",
+      "description": "A customer represents the actual person placing an order.",
       "attributes": [],
       "fields": [
         {
-          "name": "name",
-          "annotations": [
-            "personal_data"
-          ],
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
           "attributes": [],
-          "type": "name",
+          "type": "string",
           "required": true
         },
         {
@@ -6786,9 +6785,29 @@
             "personal_data",
             "consumer"
           ],
-          "description": "Client's unique identifier for this object",
+          "description": "Customer identification number as represented in the client's system",
           "attributes": [],
           "type": "string",
+          "required": true
+        },
+        {
+          "name": "email",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer email address",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "name",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "name",
           "required": false
         },
         {
@@ -6797,38 +6816,157 @@
             "personal_data",
             "consumer"
           ],
-          "description": "Customer phone number. Useful for both fraud and order delivery.",
+          "description": "Customer phone number",
           "attributes": [],
           "type": "string",
           "required": false
-        },
+        }
+      ]
+    },
+    {
+      "plural": "customer_address_book",
+      "name": "customer_address_book",
+      "description": "A composed model representing a customer's address book contacts.",
+      "attributes": [],
+      "fields": [
         {
-          "name": "email",
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "Customer email address. Useful for fraud.",
+          "name": "contacts",
+          "annotations": [],
+          "attributes": [],
+          "type": "[customer_address_book_contact]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "customer_address_book_contacts",
+      "name": "customer_address_book_contact",
+      "description": "Preferences may indicate a contact is preferred for billing, invoicing, and/or shipping.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
           "attributes": [],
           "type": "string",
-          "required": false
+          "required": true
         },
         {
           "name": "address",
-          "annotations": [
-            "personal_data"
-          ],
+          "annotations": [],
           "attributes": [],
-          "type": "billing_address",
+          "type": "address",
+          "required": true
+        },
+        {
+          "name": "contact",
+          "annotations": [],
+          "attributes": [],
+          "type": "contact",
+          "required": true
+        },
+        {
+          "name": "address_preferences",
+          "annotations": [],
+          "attributes": [],
+          "type": "[customer_address_preference]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "customer_address_book_contact_forms",
+      "name": "customer_address_book_contact_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "address",
+          "annotations": [],
+          "attributes": [],
+          "type": "address",
+          "required": true
+        },
+        {
+          "name": "contact",
+          "annotations": [],
+          "attributes": [],
+          "type": "contact",
           "required": false
         },
         {
-          "name": "invoice",
+          "name": "address_preferences",
           "annotations": [],
-          "description": "Customer invoice details.",
           "attributes": [],
-          "type": "customer_invoice",
-          "required": false
+          "type": "[customer_address_preference]",
+          "required": false,
+          "example": "[\"billing\", \"shipping\"]"
+        }
+      ]
+    },
+    {
+      "plural": "customer_address_book_forms",
+      "name": "customer_address_book_form",
+      "description": "Represents address book contacts to append in bulk.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "contacts",
+          "annotations": [],
+          "attributes": [],
+          "type": "[customer_address_book_contact_form]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "customer_address_preferences",
+      "name": "customer_address_preference",
+      "description": "Represents a customer address preference. Only a single address book contact can be associated per type. If contact is created or updated with a preference, existing preferences of the same type will be removed.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "type",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_address_type",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "customer_deleteds",
+      "name": "customer_deleted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "customer",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer",
+          "required": true
         }
       ]
     },
@@ -6838,6 +6976,28 @@
       "attributes": [],
       "fields": [
         {
+          "name": "number",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer identification number as represented in the client's system",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "email",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer email address",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "name",
           "annotations": [
             "personal_data"
@@ -6847,53 +7007,14 @@
           "required": false
         },
         {
-          "name": "number",
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "Client's unique identifier for this object",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
           "name": "phone",
           "annotations": [
             "personal_data",
             "consumer"
           ],
-          "description": "Customer phone number. Useful for both fraud and order delivery.",
+          "description": "Customer phone number",
           "attributes": [],
           "type": "string",
-          "required": false
-        },
-        {
-          "name": "email",
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "Customer email address. Useful for fraud.",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "address",
-          "annotations": [
-            "personal_data"
-          ],
-          "attributes": [],
-          "type": "billing_address",
-          "required": false
-        },
-        {
-          "name": "invoice",
-          "annotations": [],
-          "description": "Customer invoice details.",
-          "attributes": [],
-          "type": "customer_invoice",
           "required": false
         }
       ]
@@ -6910,6 +7031,80 @@
           "attributes": [],
           "type": "billing_address",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "customer_put_forms",
+      "name": "customer_put_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "email",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer email address",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "name",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "name",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer phone number",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "customer_upserteds",
+      "name": "customer_upserted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "customer",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer",
+          "required": true
         }
       ]
     },
@@ -7312,7 +7507,7 @@
           "name": "items",
           "annotations": [],
           "attributes": [],
-          "type": "[line_item_form]",
+          "type": "[quote_line_item_form]",
           "required": true
         },
         {
@@ -7727,7 +7922,8 @@
           "description": "The ISO-4217 3 character currency code in which the value is calculated",
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "minimum",
@@ -7769,7 +7965,8 @@
           "description": "The ISO-4217 3 character currency code in which the value is calculated.",
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "components",
@@ -8195,7 +8392,7 @@
           ],
           "description": "The customer who is actually making the purchase. While optional, providing name and email at a minimum will significantly increase the acceptance rate.",
           "attributes": [],
-          "type": "customer",
+          "type": "order_customer",
           "required": false
         },
         {
@@ -14203,7 +14400,19 @@
           "name": "attributes",
           "annotations": [],
           "description": "Attributes of the item.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
+              }
+            }
+          ],
           "type": "map[string]",
           "required": true
         }
@@ -14248,7 +14457,7 @@
           "attributes": [],
           "type": "string",
           "required": true,
-          "example": "usd"
+          "example": "USD"
         },
         {
           "name": "price",
@@ -14278,7 +14487,19 @@
           "name": "attributes",
           "annotations": [],
           "description": "Attributes represent all other product data that you have regarding this item. Common attributes include 'country_of_origin', 'color', 'size', 'material', etc. We recommend including as many attributes as possible, even if you are not currently planning to use them.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
+              }
+            }
+          ],
           "type": "map[string]",
           "required": false
         },
@@ -14405,7 +14626,8 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": false
+          "required": false,
+          "example": "USD"
         },
         {
           "name": "position",
@@ -14436,7 +14658,19 @@
           "name": "attributes",
           "annotations": [],
           "description": "Attributes represent all other product data that you have regarding this item. Common attributes include 'country_of_origin', 'color', 'size', 'material', etc. We recommend including as many attributes as possible, even if you are not currently planning to use them.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
+              }
+            }
+          ],
           "type": "map[string]",
           "required": false
         },
@@ -14913,7 +15147,7 @@
           "attributes": [],
           "type": "string",
           "required": true,
-          "example": "usd"
+          "example": "USD"
         },
         {
           "name": "price",
@@ -14928,7 +15162,19 @@
           "name": "attributes",
           "annotations": [],
           "description": "Attributes of the items. An attribute of type intent must be given as a string representation of a decimal to be correctly localized.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
+              }
+            }
+          ],
           "type": "map[string]",
           "required": true
         }
@@ -15827,7 +16073,19 @@
           "name": "number",
           "annotations": [],
           "description": "Client's unique identifier for this object",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
+            }
+          ],
           "type": "string",
           "required": true
         },
@@ -16283,7 +16541,8 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "amount",
@@ -16325,7 +16584,8 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "amount",
@@ -16368,7 +16628,8 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "amount",
@@ -16427,7 +16688,8 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "amount",
@@ -16631,7 +16893,8 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "amount",
@@ -17914,7 +18177,7 @@
           ],
           "description": "The customer who is actually receiving the goods. Providing name and email at a minimum will significantly increase the acceptance rate and are recommended.",
           "attributes": [],
-          "type": "customer",
+          "type": "order_customer",
           "required": true
         },
         {
@@ -18209,7 +18472,7 @@
           ],
           "description": "The customer who is actually making the purchase",
           "attributes": [],
-          "type": "customer",
+          "type": "order_customer",
           "required": true
         },
         {
@@ -18346,6 +18609,14 @@
           "description": "Represents the tax registration on an order, if applicable.",
           "attributes": [],
           "type": "tax_registration",
+          "required": false
+        },
+        {
+          "name": "geo",
+          "annotations": [],
+          "description": "If present, provides the geo ip related information for this order",
+          "attributes": [],
+          "type": "order_geo",
           "required": false
         }
       ]
@@ -18540,6 +18811,140 @@
           "attributes": [],
           "type": "order_address",
           "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_customers",
+      "name": "order_customer",
+      "description": "A customer represents the actual person purchasing from you. This information is needed primarily to support logistics (delivery to this person), fraud management (verification of who the person is), and reporting. We also recommend including your customer number whenever possible as doing so will allow Flow to link up transactions for this customer making customer service easier.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "name",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "name",
+          "required": true
+        },
+        {
+          "name": "number",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer phone number. Useful for both fraud and order delivery.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "email",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer email address. Useful for fraud.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "address",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "billing_address",
+          "required": false
+        },
+        {
+          "name": "invoice",
+          "annotations": [],
+          "description": "Customer invoice details.",
+          "attributes": [],
+          "type": "customer_invoice",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "order_customer_forms",
+      "name": "order_customer_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "name",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "name",
+          "required": false
+        },
+        {
+          "name": "number",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer phone number. Useful for both fraud and order delivery.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "email",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Customer email address. Useful for fraud.",
+          "attributes": [],
+          "type": "string",
+          "required": false,
+          "example": "user@flow.io"
+        },
+        {
+          "name": "address",
+          "annotations": [
+            "personal_data"
+          ],
+          "attributes": [],
+          "type": "billing_address",
+          "required": false
+        },
+        {
+          "name": "invoice",
+          "annotations": [],
+          "description": "Customer invoice details.",
+          "attributes": [],
+          "type": "customer_invoice",
+          "required": false
         }
       ]
     },
@@ -18875,7 +19280,7 @@
           ],
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console.",
           "attributes": [],
-          "type": "customer_form",
+          "type": "order_customer_form",
           "required": false
         },
         {
@@ -19612,6 +20017,78 @@
       ]
     },
     {
+      "plural": "order_placed_detailses",
+      "name": "order_placed_details",
+      "description": "Order is submitted, allocations are generated and the total value of the order is accounted for by discounts, subsidies, credits and authorized payments -- but may not ready to fulfill (e.g. pending assignment of a DC or fraud review).",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "order",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The order as submitted",
+          "attributes": [],
+          "type": "order",
+          "required": true
+        },
+        {
+          "name": "allocation",
+          "annotations": [],
+          "description": "Order prices allocated among the items of this order.",
+          "attributes": [],
+          "type": "allocation_v2",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_placed_v2s",
+      "name": "order_placed_v2",
+      "description": "Sent when an order is submitted, allocations are generated and the total value of the order is accounted for by discounts, subsidies, credits and authorized payments -- but may not ready to fulfill (e.g. pending assignment of a DC or fraud review). Intended to fuel customer feedback and alert merchants that an order is coming.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "order_placed",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_placed_details",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "order_price_details",
       "name": "order_price_detail",
       "description": "Represents a top-level order price detail, e.g. 'Subtotal' or 'VAT'.",
@@ -19782,7 +20259,7 @@
           ],
           "description": "The customer who actually is making the purchase. We recommend providing as much information as you have, notably email address which can be used to increase acceptance rates if Flow is processing payment for this order. If you can also provide your customer number - we can link multiple orders for each customer in the Flow console.",
           "attributes": [],
-          "type": "customer_form",
+          "type": "order_customer_form",
           "required": false
         },
         {
@@ -19968,7 +20445,7 @@
             "consumer"
           ],
           "attributes": [],
-          "type": "customer",
+          "type": "order_customer",
           "required": true
         },
         {
@@ -22709,7 +23186,8 @@
           "description": "The currency for which the price book is valid.",
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "name",
@@ -22786,7 +23264,8 @@
           "description": "The currency for which the price book is valid.",
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "name",
@@ -22922,7 +23401,19 @@
           "name": "price_book_key",
           "annotations": [],
           "description": "Corresponds with the price book key to which this price book item belongs.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "io.flow.price.v0.models.price_book",
+                "operation_method": "POST",
+                "operation_path": "/:organization/price/books",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/price/books/:key"
+              }
+            }
+          ],
           "type": "string",
           "required": true
         },
@@ -22930,7 +23421,19 @@
           "name": "item_number",
           "annotations": [],
           "description": "Corresponds with the unique product id from the ingested price book.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
+            }
+          ],
           "type": "string",
           "required": true
         },
@@ -22954,7 +23457,19 @@
           "name": "item_attributes",
           "annotations": [],
           "description": "Optionally specify values for any of the catalog item attributes that have an intent of price, e.g. add a 'compare_at' or 'msrp' price here.",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
+              }
+            }
+          ],
           "type": "map[string]",
           "required": false
         }
@@ -23245,7 +23760,8 @@
           "description": "The currency in which these price details were calculated.",
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "USD"
         },
         {
           "name": "item_price",
@@ -24256,7 +24772,7 @@
           "name": "items",
           "annotations": [],
           "attributes": [],
-          "type": "[line_item_form]",
+          "type": "[quote_line_item_form]",
           "minimum": 1,
           "required": true
         },
@@ -24282,6 +24798,78 @@
           "description": "Quote is for outbound shipment or return shipment. If not provided, will assume status quo of outbound shipment.",
           "attributes": [],
           "type": "tier_direction",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "quote_line_item_forms",
+      "name": "quote_line_item_form",
+      "description": "Line items and relevant attributes. Similar to common.line_item_form, but price is a money_with_optional_base",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "quantity",
+          "annotations": [],
+          "attributes": [],
+          "type": "long",
+          "minimum": 1,
+          "required": true
+        },
+        {
+          "name": "shipment_estimate",
+          "annotations": [],
+          "description": "For items that may not immediately ship out from the origin because of different models of inventory (e.g. drop-ship, sell-first), this is a way for a client to communicate when the items can ship out. This will be used to calculate delivery option windows.",
+          "attributes": [],
+          "type": "datetime_range",
+          "required": false
+        },
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "The price of this item for this order. If not specified, we will use the item price from the experience",
+          "attributes": [],
+          "type": "money_with_base",
+          "required": false
+        },
+        {
+          "name": "attributes",
+          "annotations": [],
+          "description": "A set of key/value pairs that you can attach to the order. It can be useful for storing additional information about the charge in a structured format.",
+          "attributes": [],
+          "type": "map[string]",
+          "required": false
+        },
+        {
+          "name": "center",
+          "annotations": [],
+          "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "discount",
+          "annotations": [],
+          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here",
+          "attributes": [],
+          "type": "money",
+          "required": false
+        },
+        {
+          "name": "discounts",
+          "annotations": [],
+          "description": "The discounts, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here",
+          "attributes": [],
+          "type": "discounts_form",
           "required": false
         }
       ]
@@ -28145,6 +28733,27 @@
       ]
     },
     {
+      "plural": "session_experiment_forms",
+      "name": "session_experiment_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "key",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "annotations": [],
+          "attributes": [],
+          "type": "session_experiment_variant_form",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "session_experiment_variants",
       "name": "session_experiment_variant",
       "description": "Experiment variant. Control or variant",
@@ -28159,6 +28768,20 @@
         },
         {
           "name": "name",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "session_experiment_variant_forms",
+      "name": "session_experiment_variant_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "key",
           "annotations": [],
           "attributes": [],
           "type": "string",
@@ -28260,7 +28883,7 @@
           "name": "experiment",
           "annotations": [],
           "attributes": [],
-          "type": "session_experiment",
+          "type": "session_experiment_form",
           "required": false
         }
       ]
@@ -28384,7 +29007,7 @@
           "name": "experiment",
           "annotations": [],
           "attributes": [],
-          "type": "session_experiment",
+          "type": "session_experiment_form",
           "required": false
         }
       ]
@@ -31206,6 +31829,14 @@
           "attributes": [],
           "type": "string",
           "required": true
+        },
+        {
+          "name": "key",
+          "annotations": [],
+          "description": "Used to identify an account within an organization, specifically when specifying account selection rules. Defaults to account id if not specified.",
+          "attributes": [],
+          "type": "string",
+          "required": false
         }
       ]
     },
@@ -32594,13 +33225,6 @@
           "required": false
         },
         {
-          "name": "experience",
-          "annotations": [],
-          "attributes": [],
-          "type": "fulfillment_experience_reference",
-          "required": false
-        },
-        {
           "name": "shipping_lane",
           "annotations": [],
           "description": "If this tier belongs to the shipping lane this is the corresponding shipping lane id",
@@ -32800,20 +33424,12 @@
           "required": false
         },
         {
-          "name": "experience",
-          "annotations": [],
-          "description": "Experience-related data from Experience API needed by shipping tiers",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
           "name": "shipping_lane",
           "annotations": [],
           "description": "The id of the shipping lane this tier belongs to",
           "attributes": [],
           "type": "string",
-          "required": false
+          "required": true
         },
         {
           "name": "surcharge_settings",
@@ -35485,6 +36101,16 @@
           "type": "rate_upserted"
         },
         {
+          "discriminator_value": "customer_upserted",
+          "attributes": [],
+          "type": "customer_upserted"
+        },
+        {
+          "discriminator_value": "customer_deleted",
+          "attributes": [],
+          "type": "customer_deleted"
+        },
+        {
           "discriminator_value": "available_promotions_upserted",
           "attributes": [],
           "type": "available_promotions_upserted"
@@ -35858,6 +36484,11 @@
           "discriminator_value": "order_placed",
           "attributes": [],
           "type": "order_placed"
+        },
+        {
+          "discriminator_value": "order_placed_v2",
+          "attributes": [],
+          "type": "order_placed_v2"
         },
         {
           "discriminator_value": "ready_to_fulfill",
@@ -37630,6 +38261,17 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
+              }
             }
           ],
           "parameters": [
@@ -37726,6 +38368,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
+              }
             }
           ],
           "body": {
@@ -37805,6 +38458,17 @@
                   "organization_admin",
                   "organization_merchant"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "attribute",
+                "operation_method": "POST",
+                "operation_path": "/:organization/attributes",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/attributes/:key"
               }
             }
           ],
@@ -38389,6 +39053,17 @@
         }
       ],
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -44094,6 +44769,17 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
             }
           ],
           "parameters": [
@@ -44190,6 +44876,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
             }
           ],
           "body": {
@@ -44269,6 +44966,17 @@
                   "organization_admin",
                   "organization_merchant"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
               }
             }
           ],
@@ -44365,6 +45073,17 @@
                   "organization_admin",
                   "organization_merchant"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
               }
             }
           ],
@@ -44466,6 +45185,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
             }
           ],
           "body": {
@@ -44491,6 +45221,17 @@
       ],
       "description": "The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku.",
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -46648,6 +47389,101 @@
               "minimum": 0,
               "required": false,
               "example": "experience"
+            }
+          ]
+        },
+        {
+          "path": "/:organization/order/builders/:number",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "order_builder"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns information about a specific order and any errors associated with the order.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "maximum": 1,
+              "location": "Query",
+              "type": "[string]",
+              "minimum": 0,
+              "required": false,
+              "example": "experience"
+            },
+            {
+              "name": "romanize",
+              "description": "Fields on the order to romanize. For example, if 'destination' is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false,
+              "example": "destination"
             }
           ]
         },
@@ -50470,6 +51306,17 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "io.flow.price.v0.models.price_book",
+                "operation_method": "POST",
+                "operation_path": "/:organization/price/books",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/price/books/:key"
+              }
             }
           ],
           "parameters": [
@@ -50566,6 +51413,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "io.flow.price.v0.models.price_book",
+                "operation_method": "POST",
+                "operation_path": "/:organization/price/books",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/price/books/:key"
+              }
             }
           ],
           "body": {
@@ -50656,6 +51514,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "io.flow.price.v0.models.price_book",
+                "operation_method": "POST",
+                "operation_path": "/:organization/price/books",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/price/books/:key"
+              }
             }
           ],
           "parameters": [
@@ -50676,6 +51545,17 @@
         }
       ],
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -50984,6 +51864,17 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "io.flow.price.v0.models.price_book_item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/price/books/:price_book_key/items",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/price/books/:price_book_key/items/:key"
+              }
             }
           ],
           "parameters": [
@@ -51086,6 +51977,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "io.flow.price.v0.models.price_book_item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/price/books/:price_book_key/items",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/price/books/:price_book_key/items/:key"
+              }
             }
           ],
           "body": {
@@ -51182,6 +52084,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "io.flow.price.v0.models.price_book_item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/price/books/:price_book_key/items",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/price/books/:price_book_key/items/:key"
+              }
             }
           ],
           "parameters": [
@@ -51208,6 +52121,28 @@
         }
       ],
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.catalog.v0",
+            "resource_type": "io.flow.price.v0.models.price_book",
+            "operation_method": "POST",
+            "operation_path": "/:organization/price/books",
+            "identifier_field": "key",
+            "delete_operation_path": "/:organization/price/books/:key"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -51609,6 +52544,17 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
             }
           ],
           "parameters": [
@@ -51706,6 +52652,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
             }
           ],
           "body": {
@@ -51787,6 +52744,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
             }
           ],
           "parameters": [
@@ -51866,6 +52834,17 @@
                   "organization_fulfillment",
                   "organization_marketing"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
               }
             }
           ],
@@ -51952,6 +52931,17 @@
                 "roles": [
                   "organization_admin"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
               }
             }
           ],
@@ -52053,6 +53043,17 @@
                   "organization_fulfillment",
                   "organization_marketing"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
               }
             }
           ],
@@ -52174,6 +53175,28 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
             }
           ],
           "parameters": [
@@ -52266,6 +53289,28 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
             }
           ],
           "parameters": [
@@ -52357,6 +53402,28 @@
                   "organization_admin",
                   "organization_merchant"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
               }
             }
           ],
@@ -52459,6 +53526,17 @@
                   "organization_fulfillment",
                   "organization_marketing"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
               }
             }
           ],
@@ -52580,6 +53658,28 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
             }
           ],
           "parameters": [
@@ -52672,6 +53772,28 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
+              }
             }
           ],
           "parameters": [
@@ -52753,6 +53875,28 @@
                   "organization_admin",
                   "organization_merchant"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "item",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/items",
+                "identifier_field": "number",
+                "delete_operation_path": "/:organization/catalog/items/:number"
               }
             }
           ],
@@ -52855,6 +53999,17 @@
                   "organization_fulfillment",
                   "organization_marketing"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
               }
             }
           ],
@@ -52983,6 +54138,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
             }
           ],
           "body": {
@@ -53066,6 +54232,28 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs/:subcatalog_id/queries",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:subcatalog_id/queries/:id"
+              }
             }
           ],
           "parameters": [
@@ -53148,6 +54336,28 @@
                   "organization_admin",
                   "organization_merchant"
                 ]
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs/:subcatalog_id/queries",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:subcatalog_id/queries/:id"
               }
             }
           ],
@@ -53235,6 +54445,17 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "subcatalog",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/subcatalogs",
+                "identifier_field": "id",
+                "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+              }
             }
           ],
           "parameters": [
@@ -53256,6 +54477,17 @@
       ],
       "description": "A configuration with custom query to select a subset of master catalog items for a localized experience",
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -53650,6 +54882,28 @@
       "description": "Represents information specific to an item in a given subcatalog",
       "attributes": [
         {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.catalog.v0",
+            "resource_type": "subcatalog",
+            "operation_method": "POST",
+            "operation_path": "/:organization/catalog/subcatalogs",
+            "identifier_field": "id",
+            "delete_operation_path": "/:organization/catalog/subcatalogs/:id"
+          }
+        },
+        {
           "name": "docs",
           "value": {
             "module": "localization"
@@ -53748,6 +55002,17 @@
       ],
       "description": "Represents a typed query to indicate which items to include or exclude in a subcatalog",
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -54038,6 +55303,17 @@
                   "organization_marketing"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "targeting",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/targetings",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/catalog/targetings/:key"
+              }
             }
           ],
           "parameters": [
@@ -54133,6 +55409,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "targeting",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/targetings",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/catalog/targetings/:key"
+              }
             }
           ],
           "body": {
@@ -54212,6 +55499,17 @@
                   "organization_merchant"
                 ]
               }
+            },
+            {
+              "name": "object-reference",
+              "value": {
+                "related_service_namespace": "io.flow.catalog.v0",
+                "resource_type": "targeting",
+                "operation_method": "POST",
+                "operation_path": "/:organization/catalog/targetings",
+                "identifier_field": "key",
+                "delete_operation_path": "/:organization/catalog/targetings/:key"
+              }
             }
           ],
           "parameters": [
@@ -54232,6 +55530,17 @@
         }
       ],
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -54389,6 +55698,17 @@
       ],
       "description": "Represents catalog items where a targeting query is applicable",
       "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
         {
           "name": "docs",
           "value": {
@@ -76975,6 +78295,1214 @@
       "type": "credit_memo"
     },
     {
+      "path": "/:organization/customers",
+      "plural": "customers",
+      "operations": [
+        {
+          "path": "/:organization/customers",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[customer]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            }
+          ],
+          "description": "Search customers. Always paginated.",
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "number"
+                  },
+                  {
+                    "value": "email"
+                  },
+                  {
+                    "value": "phone"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "number",
+              "description": "Find customers by number",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "email",
+              "description": "Find customers by email",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "description": "Find customers by phone",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "-created_at",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "customer"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Create a customer.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "customer_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns information about a specific customer.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "customer"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Update or create a customer with the specified number.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "customer_put_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Delete the customer with this number.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "A customer represents the actual person placing an order.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "customer"
+    },
+    {
+      "path": "/:organization/customers/:number/addresses/book",
+      "plural": "customer_address_book",
+      "operations": [
+        {
+          "path": "/:organization/customers/:number/addresses/book",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer_address_book"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Retrieve customer addrress book.",
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "sort",
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number/addresses/book",
+          "method": "PATCH",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer_address_book"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Append customer address book contacts",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "customer_address_book_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "A composed model representing a customer's address book contacts.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "customer_address_book"
+    },
+    {
+      "path": "/:organization/customers/:number/addresses/book/contacts",
+      "plural": "customer_address_book_contacts",
+      "operations": [
+        {
+          "path": "/:organization/customers/:number/addresses/book/contacts",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[customer_address_book_contact]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            }
+          ],
+          "description": "Search contacts. Always paginated.",
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "email"
+                  },
+                  {
+                    "value": "phone"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "email",
+              "description": "Find contacts by email",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "description": "Find contacts by phone",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "-created_at",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number/addresses/book/contacts",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer_address_book_contact"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "customer_address_book_contact"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Create a contact.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "customer_address_book_contact_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number/addresses/book/contacts/:id",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer_address_book_contact"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns information about a specific contact.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number/addresses/book/contacts/:id",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer_address_book_contact"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "customer_address_book_contact"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Update or create a contact with the specified id.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "customer_address_book_contact_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customers/:number/addresses/book/contacts/:id",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Delete the contact with this id.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "Preferences may indicate a contact is preferred for billing, invoicing, and/or shipping.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "customer_address_book_contact"
+    },
+    {
       "path": "/:organization/search",
       "plural": "documents",
       "operations": [
@@ -87574,7 +90102,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.7.50",
+  "version": "0.7.60",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -87626,6 +90154,11 @@
         {
           "name": "string",
           "description": "Unvalidated string of characters.",
+          "attributes": []
+        },
+        {
+          "name": "json_array",
+          "description": "An example [\"Cotton\", \"Wool\"]",
           "attributes": []
         }
       ],
@@ -87704,6 +90237,11 @@
         {
           "name": "excluded_regions",
           "description": "A space separated list of the regions (as defined in https://api.flow.io/reference/regions) where the item must be excluded.",
+          "attributes": []
+        },
+        {
+          "name": "facet",
+          "description": "Identifies a facet.",
           "attributes": []
         }
       ],
@@ -88359,6 +90897,25 @@
       "attributes": []
     },
     {
+      "plural": "customer_address_types",
+      "values": [
+        {
+          "name": "billing",
+          "attributes": []
+        },
+        {
+          "name": "invoice",
+          "attributes": []
+        },
+        {
+          "name": "shipping",
+          "attributes": []
+        }
+      ],
+      "name": "customer_address_type",
+      "attributes": []
+    },
+    {
       "plural": "cvv_codes",
       "values": [
         {
@@ -88724,6 +91281,14 @@
           "attributes": []
         },
         {
+          "name": "customer_upserted",
+          "attributes": []
+        },
+        {
+          "name": "customer_deleted",
+          "attributes": []
+        },
+        {
           "name": "available_promotions_upserted",
           "attributes": []
         },
@@ -89021,6 +91586,10 @@
         },
         {
           "name": "order_placed",
+          "attributes": []
+        },
+        {
+          "name": "order_placed_v2",
           "attributes": []
         },
         {
@@ -91787,7 +94356,7 @@
   "namespace": "io.flow.v0",
   "attributes": [],
   "apidoc": {
-    "version": "0.14.67"
+    "version": "0.14.84"
   },
   "info": {
     "license": {

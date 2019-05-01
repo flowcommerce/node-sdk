@@ -100,6 +100,9 @@ These resources mirror the official documentation located at
 | [consumerInvoices](consumerInvoices.md) | The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment. |
 | [consumerInvoiceDocuments](consumerInvoiceDocuments.md) |  |
 | [creditMemos](creditMemos.md) | The credit memo represents the details of a refund and the reasons for the issuance of the refund. |
+| [customers](customers.md) | A customer represents the actual person placing an order. |
+| [customerAddressBook](customerAddressBook.md) | A composed model representing a customer&#x27;s address book contacts. |
+| [customerAddressBookContacts](customerAddressBookContacts.md) | Preferences may indicate a contact is preferred for billing, invoicing, and/or shipping. |
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
