@@ -28,6 +28,7 @@ const orders = client().orders;
 | number | [string] |  |
 | identifier | string |  |
 | status | order_status |  |
+| customer_number | string | If specified, returns order for the specified customer.number |
 | submitted_at_on_or_after | date-time-iso8601 | If specified, we filter to all records that have a &#x27;submitted_at&#x27; &gt;&#x3D; &#x27;submitted_at_on_or_after&#x27; |
 | romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 | limit | long | The maximum number of results to return |

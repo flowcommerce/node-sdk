@@ -7,6 +7,7 @@ These resources mirror the official documentation located at
 
 | Resource | Description |
 | :------- | :---------- |
+| [addressConfigurations](addressConfigurations.md) |  |
 | [allocations](allocations.md) |  |
 | [attributes](attributes.md) | An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console. |
 | [catalogs](catalogs.md) |  |
@@ -35,19 +36,14 @@ These resources mirror the official documentation located at
 | [targetingItems](targetingItems.md) | Represents catalog items where a targeting query is applicable |
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
-| [harmonizationSettings](harmonizationSettings.md) | Organization level settings. |
 | [harmonizedCategories](harmonizedCategories.md) | Categories optimized for harmonization |
-| [harmonizedItems](harmonizedItems.md) | A harmonized item stores explicit information about this item for the purposes of harmonization / classification. The harmonization process begins by creating a harmonized item; this kicks off the internal processes. Once assigned, codes will be available via the hs6 and hs10 resources |
-| [harmonizedItemDuties](harmonizedItemDuties.md) | Used to specifically set an item&#x27;s duty rate for a given trade lane. |
 | [harmonizedLandedCosts](harmonizedLandedCosts.md) | Summary of landed cost data (taxes and duties) for 1 or more items going to a single destination country. Records are unique based on (item.number, country of origin). |
 | [hs10](hs10.md) | API to fetch HS-10 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. That is, each code is unique across your item number, country of origin and destination. |
-| [hs6](hs6.md) | API to fetch HS-6 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. |
-| [hsCodes](hsCodes.md) | API to fetch current HS-6 codes. |
-| [tariffCodes](tariffCodes.md) | API to fetch current tariff codes. |
 | [taxRegistrations](taxRegistrations.md) | Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company. |
 | [authorizations](authorizations.md) |  |
 | [captures](captures.md) | Capture actually transfers funds. You can capture as many times as you&#x27;d like up until the total amount of the authorization has been captured or the authorization otherwise becomes unavailable (e.g. expires). |
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
+| [cardPaymentSources](cardPaymentSources.md) | Represents a saved credit card payment method. |
 | [gatewayAuthenticationData](gatewayAuthenticationData.md) |  |
 | [payments](payments.md) | Represents data for a specific online payment method |
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
@@ -130,6 +126,7 @@ These resources mirror the official documentation located at
 | [sessions](sessions.md) |  |
 | [sessionAuthorizations](sessionAuthorizations.md) |  |
 | [shopifyCarts](shopifyCarts.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
+| [shopifyCartRepresentations](shopifyCartRepresentations.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
 | [shopifyLocalizationSettings](shopifyLocalizationSettings.md) |  |
 | [shopifyLocationFlowCenterMappings](shopifyLocationFlowCenterMappings.md) |  |
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
