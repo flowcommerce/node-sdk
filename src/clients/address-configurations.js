@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class Hs6 extends Client {
+export default class AddressConfigurations extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -14,11 +14,7 @@ export default class Hs6 extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/harmonization/hs6`, options);
-  }
-
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/harmonization/hs6/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/address/configurations`, options);
   }
 
 }

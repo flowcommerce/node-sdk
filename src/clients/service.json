@@ -405,6 +405,108 @@
       ]
     },
     {
+      "plural": "address_configurations",
+      "name": "address_configuration",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "country",
+          "annotations": [],
+          "description": "The ISO 3166-3 country code. Case insensitive. See https://api.flow.io/reference/countries",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "IRL"
+        },
+        {
+          "name": "field_validation",
+          "annotations": [],
+          "attributes": [],
+          "type": "address_field_validation",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "provinces",
+          "annotations": [],
+          "attributes": [],
+          "type": "[province]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "address_field_validations",
+      "name": "address_field_validation",
+      "attributes": [],
+      "fields": [
+        {
+          "default": "[]",
+          "name": "first_name",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "last_name",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "street_1",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "street_2",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "city",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "province",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "postal",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "phone",
+          "annotations": [],
+          "attributes": [],
+          "type": "[field_validation_rule]",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "address_suggestions",
       "name": "address_suggestion",
       "description": "A suggested address (usually providing more accurate information). This object contains both the suggested address as well as metadata on which fields are actually different",
@@ -3507,6 +3609,186 @@
           "type": "string",
           "required": true,
           "example": "F17JNt5CXc0TsY8txqTRx9F40Cqn5YuQ30PkIMTTnnJSxLsmGmeDOrJ2wr4h"
+        }
+      ]
+    },
+    {
+      "plural": "card_payment_sources",
+      "name": "card_payment_source",
+      "description": "Represents a saved credit card payment method.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "actions",
+          "annotations": [],
+          "description": "Indicates whether any additional actions are required to execute the payment.",
+          "attributes": [],
+          "type": "[payment_source_confirmation_action]",
+          "required": false
+        },
+        {
+          "name": "summary",
+          "annotations": [],
+          "description": "Contains the card summary for display purposes, e.g. to show the last 4 digits and card brand when confirming a credit card.",
+          "attributes": [],
+          "type": "card_payment_source_summary",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "card_payment_source_forms",
+      "name": "card_payment_source_form",
+      "description": "Contains a summary of a card, which is useful for displaying to a customer.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "customer_number",
+          "annotations": [],
+          "description": "The number that uniquely identifies a customer.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "token",
+          "annotations": [],
+          "description": "The token of the credit card with which to create the source.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "last4",
+          "annotations": [],
+          "description": "Last four digits of the customer's credit card.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "expiration_month",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
+          "maximum": 12,
+          "attributes": [],
+          "type": "integer",
+          "minimum": 1,
+          "required": false,
+          "example": "4"
+        },
+        {
+          "name": "expiration_year",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The 4 digit expiration year",
+          "attributes": [],
+          "type": "integer",
+          "required": false,
+          "example": "2021"
+        },
+        {
+          "name": "type",
+          "annotations": [],
+          "description": "The brand of credit card, such as VISA or MasterCard.",
+          "attributes": [],
+          "type": "card_type",
+          "required": false
+        },
+        {
+          "name": "billing_address",
+          "annotations": [],
+          "description": "The billing address for this card.",
+          "attributes": [],
+          "type": "billing_address",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "card_payment_source_summaries",
+      "name": "card_payment_source_summary",
+      "description": "Contains a summary of a card, which is useful for displaying to a customer.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "customer_number",
+          "annotations": [],
+          "description": "The number that uniquely identifies a customer.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "token",
+          "annotations": [],
+          "description": "The token of the credit card with which to create the source.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "last4",
+          "annotations": [],
+          "description": "Last four digits of the customer's credit card.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "expiration_month",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
+          "maximum": 12,
+          "attributes": [],
+          "type": "integer",
+          "minimum": 1,
+          "required": false,
+          "example": "4"
+        },
+        {
+          "name": "expiration_year",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The 4 digit expiration year",
+          "attributes": [],
+          "type": "integer",
+          "required": false,
+          "example": "2021"
+        },
+        {
+          "name": "type",
+          "annotations": [],
+          "description": "The brand of credit card, such as VISA or MasterCard.",
+          "attributes": [],
+          "type": "card_type",
+          "required": false
+        },
+        {
+          "name": "billing_address",
+          "annotations": [],
+          "description": "The billing address for this card.",
+          "attributes": [],
+          "type": "billing_address",
+          "required": false
         }
       ]
     },
@@ -6876,6 +7158,42 @@
       ]
     },
     {
+      "plural": "customer_address_book_contact_deleteds",
+      "name": "customer_address_book_contact_deleted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "customer_address_book_contact",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_address_book_contact",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "customer_address_book_contact_forms",
       "name": "customer_address_book_contact_form",
       "attributes": [],
@@ -6901,6 +7219,42 @@
           "type": "[customer_address_preference]",
           "required": false,
           "example": "[\"billing\", \"shipping\"]"
+        }
+      ]
+    },
+    {
+      "plural": "customer_address_book_contact_upserteds",
+      "name": "customer_address_book_contact_upserted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "customer_address_book_contact",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_address_book_contact",
+          "required": true
         }
       ]
     },
@@ -10376,6 +10730,68 @@
       ]
     },
     {
+      "plural": "field_validation_maxes",
+      "name": "field_validation_max",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "length",
+          "annotations": [],
+          "description": "Maximum specified length of characters in the form field for text or the maximum number of elements for a list.",
+          "attributes": [],
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "field_validation_mins",
+      "name": "field_validation_min",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "length",
+          "annotations": [],
+          "description": "Minimum specified length of characters in the form field for text or the maximum number of elements for a list.",
+          "attributes": [],
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "field_validation_patterns",
+      "name": "field_validation_pattern",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "pattern",
+          "annotations": [],
+          "description": "Regular expression used to pattern match a valid string",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "^\\d{5}(-\\d{4})?$"
+        }
+      ]
+    },
+    {
+      "plural": "field_validation_requireds",
+      "name": "field_validation_required",
+      "description": "Indicates a field is required",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "unused",
+          "annotations": [],
+          "description": "Field is a placeholder as required by API Builder",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "flat_rates",
       "name": "flat_rate",
       "description": "Rule outcome where shipping surfaced in quote is pre-defined flat rate",
@@ -11537,53 +11953,6 @@
       ]
     },
     {
-      "plural": "harmonization_settings",
-      "name": "harmonization_settings",
-      "description": "Organization level settings.",
-      "attributes": [],
-      "fields": [
-        {
-          "default": "maximum",
-          "name": "duty_strategy",
-          "annotations": [],
-          "description": "Documents what will happen if we are unable to get an actual duty rate for this item, i.e. there will be estimation of some sort",
-          "attributes": [],
-          "type": "levy_strategy",
-          "required": true
-        },
-        {
-          "default": "maximum",
-          "name": "tax_strategy",
-          "annotations": [],
-          "description": "Documents what will happen if we are unable to get an actual duty rate for this item, i.e. there will be estimation of some sort",
-          "attributes": [],
-          "type": "levy_strategy",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "harmonization_settings_forms",
-      "name": "harmonization_settings_form",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "duty_strategy",
-          "annotations": [],
-          "attributes": [],
-          "type": "levy_strategy",
-          "required": false
-        },
-        {
-          "name": "tax_strategy",
-          "annotations": [],
-          "attributes": [],
-          "type": "levy_strategy",
-          "required": false
-        }
-      ]
-    },
-    {
       "plural": "harmonized_categories",
       "name": "harmonized_category",
       "description": "Categories optimized for harmonization",
@@ -11721,214 +12090,6 @@
       ]
     },
     {
-      "plural": "harmonized_item_duties",
-      "name": "harmonized_item_duty",
-      "description": "Used to specifically set an item's duty rate for a given trade lane.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "item",
-          "annotations": [],
-          "attributes": [],
-          "type": "harmonized_item_reference",
-          "required": true
-        },
-        {
-          "name": "origin",
-          "annotations": [],
-          "description": "The ISO 3166 3 character code for the country of origin. Case insensitive. See https://api.flow.io/reference/countries",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "CHN"
-        },
-        {
-          "name": "destination",
-          "annotations": [],
-          "description": "The ISO 3166 3 character code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "CAN"
-        },
-        {
-          "name": "rate",
-          "annotations": [],
-          "description": "The actual duty rate as a percentage. A value of 15, for example, indicates a duty rate of 15%",
-          "attributes": [],
-          "type": "decimal",
-          "minimum": 0,
-          "required": true,
-          "example": "15.00"
-        }
-      ]
-    },
-    {
-      "plural": "harmonized_item_duty_forms",
-      "name": "harmonized_item_duty_form",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "number",
-          "annotations": [],
-          "description": "Client's unique identifier for this object",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "origin",
-          "annotations": [],
-          "description": "The ISO 3166 3 character code for the country of origin. Case insensitive. See https://api.flow.io/reference/countries",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "CHN"
-        },
-        {
-          "name": "destination",
-          "annotations": [],
-          "description": "The ISO 3166 3 character code for the destination country. Case insensitive. See https://api.flow.io/reference/countries",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "CAN"
-        },
-        {
-          "name": "rate",
-          "annotations": [],
-          "description": "The actual duty rate as a percentage. A value of 15, for example, indicates a duty rate of 15%",
-          "attributes": [],
-          "type": "decimal",
-          "minimum": 0,
-          "required": true,
-          "example": "15.00"
-        }
-      ]
-    },
-    {
-      "plural": "harmonized_item_duty_versions",
-      "name": "harmonized_item_duty_version",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "timestamp",
-          "annotations": [],
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": true
-        },
-        {
-          "name": "type",
-          "annotations": [],
-          "attributes": [],
-          "type": "change_type",
-          "required": true
-        },
-        {
-          "name": "harmonized_item_duty",
-          "annotations": [],
-          "attributes": [],
-          "type": "harmonized_item_duty",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "harmonized_item_forms",
-      "name": "harmonized_item_form",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "name",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "number",
-          "annotations": [],
-          "description": "Client's unique identifier for this object",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "categories",
-          "annotations": [],
-          "attributes": [],
-          "type": "[string]",
-          "required": false
-        },
-        {
-          "name": "description",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "attributes",
-          "annotations": [],
-          "attributes": [],
-          "type": "map[string]",
-          "required": false
-        }
-      ]
-    },
-    {
-      "plural": "harmonized_item_put_forms",
-      "name": "harmonized_item_put_form",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "name",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "categories",
-          "annotations": [],
-          "attributes": [],
-          "type": "[string]",
-          "required": false
-        },
-        {
-          "name": "description",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "attributes",
-          "annotations": [],
-          "attributes": [],
-          "type": "map[string]",
-          "required": false
-        }
-      ]
-    },
-    {
       "plural": "harmonized_item_references",
       "name": "harmonized_item_reference",
       "attributes": [],
@@ -12020,42 +12181,6 @@
           "attributes": [],
           "type": "string",
           "required": false
-        }
-      ]
-    },
-    {
-      "plural": "harmonized_item_versions",
-      "name": "harmonized_item_version",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "timestamp",
-          "annotations": [],
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": true
-        },
-        {
-          "name": "type",
-          "annotations": [],
-          "attributes": [],
-          "type": "change_type",
-          "required": true
-        },
-        {
-          "name": "harmonized_item",
-          "annotations": [],
-          "attributes": [],
-          "type": "harmonized_item",
-          "required": true
         }
       ]
     },
@@ -12264,31 +12389,6 @@
           "type": "string",
           "required": true,
           "example": "healthy"
-        }
-      ]
-    },
-    {
-      "plural": "hint_results",
-      "name": "hint_result",
-      "description": "Result of looking up a code using a hint.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "tariff_code",
-          "annotations": [],
-          "description": "The actual HS-10 code for a destination country.",
-          "attributes": [],
-          "type": "tariff_code",
-          "required": true,
-          "example": "392620123"
-        },
-        {
-          "name": "likelihood",
-          "annotations": [],
-          "description": "The likelihood of this code being the correct one for the provided hint. Higher numbers are more likely to be correct. Some types of hint will only return results with a likelihood of 100.",
-          "attributes": [],
-          "type": "decimal",
-          "required": true
         }
       ]
     },
@@ -12702,76 +12802,6 @@
           "type": "string",
           "required": true,
           "example": "620941"
-        }
-      ]
-    },
-    {
-      "plural": "hs6_versions",
-      "name": "hs6_version",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "timestamp",
-          "annotations": [],
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": true
-        },
-        {
-          "name": "type",
-          "annotations": [],
-          "attributes": [],
-          "type": "change_type",
-          "required": true
-        },
-        {
-          "name": "hs6",
-          "annotations": [],
-          "attributes": [],
-          "type": "hs6",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "hs_codes",
-      "name": "hs_code",
-      "description": "Harmonized System codes, up to 6 digits (HS-6). These codes should be the same for all countries.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "code",
-          "annotations": [],
-          "description": "The actual HS code",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "392620"
-        },
-        {
-          "name": "parent",
-          "annotations": [],
-          "description": "The parent harmonization code, if there is one.",
-          "attributes": [],
-          "type": "string",
-          "required": false,
-          "example": "3926"
-        },
-        {
-          "name": "description",
-          "annotations": [],
-          "description": "Description of this code",
-          "attributes": [],
-          "type": "string",
-          "required": false
         }
       ]
     },
@@ -19707,6 +19737,42 @@
       ]
     },
     {
+      "plural": "order_identifier_upserted_v3s",
+      "name": "order_identifier_upserted_v3",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "identifier",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_identifier",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "order_identifier_versions",
       "name": "order_identifier_version",
       "attributes": [],
@@ -20014,7 +20080,10 @@
           "type": "allocation_v2",
           "required": true
         }
-      ]
+      ],
+      "deprecation": {
+        "description": "Use 'order_placed_v2'"
+      }
     },
     {
       "plural": "order_placed_detailses",
@@ -22654,6 +22723,22 @@
       ]
     },
     {
+      "plural": "payment_source_confirmation_actions",
+      "name": "payment_source_confirmation_action",
+      "description": "Represents confirmation details & any additional confirmation actions required to execute the payment.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "type",
+          "annotations": [],
+          "description": "Indicates the type of action to take before the source can be used.",
+          "attributes": [],
+          "type": "payment_source_confirmation_action_type",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "payment_upserteds",
       "name": "payment_upserted",
       "attributes": [],
@@ -23002,55 +23087,6 @@
         {
           "name": "status",
           "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "phrase_hints",
-      "name": "phrase_hint",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "phrase",
-          "annotations": [],
-          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system.",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "Mens 100% Cotton Shorts"
-        },
-        {
-          "name": "tariff_code",
-          "annotations": [],
-          "description": "The actual HS-10 code for a destination country.",
-          "attributes": [],
-          "type": "tariff_code",
-          "required": true,
-          "example": "392620123"
-        }
-      ]
-    },
-    {
-      "plural": "phrase_hint_forms",
-      "name": "phrase_hint_form",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "phrase",
-          "annotations": [],
-          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system.",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "Mens 100% Cotton Shorts"
-        },
-        {
-          "name": "destination",
-          "annotations": [],
-          "description": "The ISO 3166 3 character code for the destination country",
           "attributes": [],
           "type": "string",
           "required": true
@@ -30465,6 +30501,20 @@
       ]
     },
     {
+      "plural": "shopify_cart_flow_representations",
+      "name": "shopify_cart_flow_representation",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "order",
+          "annotations": [],
+          "attributes": [],
+          "type": "order",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "shopify_cart_items",
       "name": "shopify_cart_item",
       "attributes": [],
@@ -30618,6 +30668,41 @@
           "attributes": [],
           "type": "string",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "shopify_cart_representations",
+      "name": "shopify_cart_representation",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "flow",
+          "annotations": [],
+          "attributes": [],
+          "type": "shopify_cart_flow_representation",
+          "required": true
+        },
+        {
+          "name": "shopify",
+          "annotations": [],
+          "attributes": [],
+          "type": "shopify_cart_shopify_representation",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "shopify_cart_shopify_representations",
+      "name": "shopify_cart_shopify_representation",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "cart",
+          "annotations": [],
+          "attributes": [],
+          "type": "io.flow.shopify.external.v0.models.shopify_cart",
+          "required": true
         }
       ]
     },
@@ -32923,39 +33008,6 @@
           "attributes": [],
           "type": "targeting",
           "required": true
-        }
-      ]
-    },
-    {
-      "plural": "tariff_codes",
-      "name": "tariff_code",
-      "description": "Harmonized System codes for specific products imported into specific countries. These are between 4 and 12 digits and are used to select the correct duty rate.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "code",
-          "annotations": [],
-          "description": "The digits of the tariff code, without any formatting spaces or dashes.",
-          "attributes": [],
-          "type": "string",
-          "required": true,
-          "example": "392620123"
-        },
-        {
-          "name": "destination",
-          "annotations": [],
-          "description": "The ISO 3166 3 character code for the destination country",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "description",
-          "annotations": [],
-          "description": "Description of this code",
-          "attributes": [],
-          "type": "string",
-          "required": false
         }
       ]
     },
@@ -36111,6 +36163,16 @@
           "type": "customer_deleted"
         },
         {
+          "discriminator_value": "customer_address_book_contact_upserted",
+          "attributes": [],
+          "type": "customer_address_book_contact_upserted"
+        },
+        {
+          "discriminator_value": "customer_address_book_contact_deleted",
+          "attributes": [],
+          "type": "customer_address_book_contact_deleted"
+        },
+        {
           "discriminator_value": "available_promotions_upserted",
           "attributes": [],
           "type": "available_promotions_upserted"
@@ -36259,6 +36321,11 @@
           "discriminator_value": "order_identifier_upserted_v2",
           "attributes": [],
           "type": "order_identifier_upserted_v2"
+        },
+        {
+          "discriminator_value": "order_identifier_upserted_v3",
+          "attributes": [],
+          "type": "order_identifier_upserted_v3"
         },
         {
           "discriminator_value": "pricing_deleted",
@@ -37012,6 +37079,34 @@
     {
       "types": [
         {
+          "discriminator_value": "required",
+          "attributes": [],
+          "type": "field_validation_required"
+        },
+        {
+          "discriminator_value": "min",
+          "attributes": [],
+          "type": "field_validation_min"
+        },
+        {
+          "discriminator_value": "max",
+          "attributes": [],
+          "type": "field_validation_max"
+        },
+        {
+          "discriminator_value": "pattern",
+          "attributes": [],
+          "type": "field_validation_pattern"
+        }
+      ],
+      "plural": "field_validation_rules",
+      "name": "field_validation_rule",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
           "discriminator_value": "flow_user_role",
           "attributes": [],
           "type": "flow_user_role"
@@ -37059,21 +37154,6 @@
       ],
       "plural": "gateway_authentication_data_forms",
       "name": "gateway_authentication_data_form",
-      "attributes": [],
-      "discriminator": "discriminator"
-    },
-    {
-      "types": [
-        {
-          "discriminator_value": "phrase_hint_form",
-          "description": "A short phrase describing a product in generic terms, intended to uniquely identify a code from a harmonization system. Hints of this type must provide an exact match and will never return more than one result.",
-          "attributes": [],
-          "type": "phrase_hint_form"
-        }
-      ],
-      "plural": "hint_forms",
-      "name": "hint_form",
-      "description": "Describes types of forms that can be used to assign an HS code based on product data.",
       "attributes": [],
       "discriminator": "discriminator"
     },
@@ -37296,6 +37376,20 @@
       ],
       "plural": "payment_method_tags",
       "name": "payment_method_tag",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
+          "discriminator_value": "card_payment_source",
+          "attributes": [],
+          "type": "card_payment_source"
+        }
+      ],
+      "plural": "payment_sources",
+      "name": "payment_source",
+      "description": "Represents a source of payment that can be saved and used in the future.",
       "attributes": [],
       "discriminator": "discriminator"
     },
@@ -37730,9 +37824,246 @@
       "discriminator": "discriminator"
     }
   ],
-  "imports": [],
+  "imports": [
+    {
+      "uri": "https://app.apibuilder.io/flow/shopify-external/latest/service.json",
+      "namespace": "io.flow.shopify.external.v0",
+      "organization": {
+        "key": "flow"
+      },
+      "application": {
+        "key": "shopify-external"
+      },
+      "version": "0.2.10",
+      "enums": [
+        "cancel_reason",
+        "discount_status",
+        "discount_type",
+        "discrepancy_reason",
+        "event",
+        "financial_status_type",
+        "format",
+        "fulfillment_service",
+        "fulfillment_status_type",
+        "inventory_behaviour",
+        "inventory_management",
+        "inventory_policy",
+        "kind_type",
+        "localized_price",
+        "order_status_type",
+        "price_rule_allocation_method",
+        "price_rule_customer_selection",
+        "price_rule_target_selection",
+        "price_rule_target_type",
+        "price_rule_value_type",
+        "published_scope",
+        "restock_type",
+        "shopify_customer_state",
+        "shopify_discount_pagination_direction",
+        "shopify_gift_card_status",
+        "shopify_processing_method_type",
+        "shopify_transaction_error_code",
+        "shopify_transaction_status",
+        "topic",
+        "value_type",
+        "weight_unit"
+      ],
+      "unions": [],
+      "models": [
+        "collect",
+        "collection",
+        "count",
+        "discount",
+        "metafield",
+        "metafield_form",
+        "option",
+        "price_rule",
+        "price_rule_discount_code",
+        "price_rule_form",
+        "price_rule_greater_than_range",
+        "price_rule_less_than_range",
+        "price_rule_prerequisite_to_entitlement_quantity_ratio",
+        "product",
+        "product_delete",
+        "product_image",
+        "product_variant",
+        "request_metafield_form",
+        "request_shopify_gift_card",
+        "request_shopify_refund_form",
+        "request_shopify_transaction_form",
+        "response_collect",
+        "response_collects",
+        "response_discount",
+        "response_discounts",
+        "response_metafield",
+        "response_metafields",
+        "response_orders_wrapper",
+        "response_price_rule",
+        "response_price_rule_discount_code",
+        "response_price_rule_discount_codes",
+        "response_price_rules",
+        "response_product",
+        "response_products",
+        "response_shopify_gift_card",
+        "response_shopify_gift_cards",
+        "response_shopify_refund_single",
+        "response_shopify_transaction",
+        "response_shopify_transaction_single",
+        "response_variant",
+        "shop",
+        "shop_response",
+        "shopify_address",
+        "shopify_attribute",
+        "shopify_cart",
+        "shopify_cart_item",
+        "shopify_cart_item_discount",
+        "shopify_client_detail",
+        "shopify_customer",
+        "shopify_customer_delete",
+        "shopify_customers_response_wrapper",
+        "shopify_discount_application",
+        "shopify_discount_code",
+        "shopify_error",
+        "shopify_fulfillment",
+        "shopify_fulfillment_wrapper",
+        "shopify_gift_card",
+        "shopify_gift_card_adjustment",
+        "shopify_gift_card_adjustment_form",
+        "shopify_gift_card_adjustment_form_wrapper",
+        "shopify_gift_card_adjustment_response_wrapper",
+        "shopify_gift_card_form",
+        "shopify_inventory_item",
+        "shopify_inventory_item_delete",
+        "shopify_inventory_level",
+        "shopify_inventory_level_disconnect",
+        "shopify_inventory_level_response_wrapper",
+        "shopify_line_item",
+        "shopify_line_item_form",
+        "shopify_line_level_discount_allocation",
+        "shopify_location",
+        "shopify_location_delete",
+        "shopify_locations_response_wrapper",
+        "shopify_order",
+        "shopify_order_count",
+        "shopify_order_customer",
+        "shopify_order_wrapper",
+        "shopify_payment_detail",
+        "shopify_refund",
+        "shopify_refund_form",
+        "shopify_refund_line_item",
+        "shopify_refund_line_item_form",
+        "shopify_shipping_line",
+        "shopify_tax_line",
+        "shopify_transaction",
+        "shopify_transaction_form",
+        "shopify_webhook_customers_redact",
+        "shopify_webhook_customers_redact_customer",
+        "shopify_webhook_order",
+        "shopify_webhook_order_cancelled",
+        "shopify_webhook_order_line_item",
+        "shopify_webhook_shop_redact",
+        "webhook",
+        "webhook_form",
+        "webhook_form_wrapper",
+        "webhook_response_list",
+        "webhook_response_single"
+      ],
+      "annotations": []
+    }
+  ],
   "base_url": "https://api.flow.io",
   "resources": [
+    {
+      "path": "/:organization/address/configurations",
+      "plural": "address_configurations",
+      "operations": [
+        {
+          "path": "/:organization/address/configurations",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[address_configuration]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            }
+          ],
+          "description": "Search checkout address configurations.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "sort",
+                  "versions"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "country",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "type": "address_configuration"
+    },
     {
       "path": "/:organization/orders/allocations/:number",
       "plural": "allocations",
@@ -45358,6 +45689,13 @@
               "name": "status",
               "location": "Query",
               "type": "order_status",
+              "required": false
+            },
+            {
+              "name": "customer_number",
+              "description": "If specified, returns order for the specified customer.number",
+              "location": "Query",
+              "type": "string",
               "required": false
             },
             {
@@ -56584,154 +56922,6 @@
       "type": "rate"
     },
     {
-      "path": "/:organization/harmonization/settings",
-      "plural": "harmonization_settings",
-      "operations": [
-        {
-          "path": "/:organization/harmonization/settings",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "harmonization_settings"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/settings",
-          "method": "PUT",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "harmonization_settings"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "harmonization_settings_form"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "Organization level settings.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "type": "harmonization_settings"
-    },
-    {
       "path": "/:organization/harmonization/categories",
       "plural": "harmonized_categories",
       "operations": [
@@ -56859,1075 +57049,6 @@
         }
       ],
       "type": "harmonized_category"
-    },
-    {
-      "path": "/:organization/harmonization/items",
-      "plural": "harmonized_items",
-      "operations": [
-        {
-          "path": "/:organization/harmonization/items",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[harmonized_item]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "number"
-                  },
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "number",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "name",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/items",
-          "method": "POST",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "harmonized_item"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "harmonized_item_form"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/items/versions",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[harmonized_item_version]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "description": "Provides visibility into recent changes of each object, including deletion",
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "item_id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "item_id",
-              "description": "Filter to items with any one of these ids.",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "journal_timestamp",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/items/:number",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "harmonized_item"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "number",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/items/:number",
-          "method": "PUT",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "harmonized_item"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "harmonized_item"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "description": "Create or update an item to harmonize",
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "harmonized_item_put_form"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "number",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/items/:number",
-          "method": "DELETE",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "description": "Operation succeeded. No content is returned",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "number",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "A harmonized item stores explicit information about this item for the purposes of harmonization / classification. The harmonization process begins by creating a harmonized item; this kicks off the internal processes. Once assigned, codes will be available via the hs6 and hs10 resources",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "type": "harmonized_item"
-    },
-    {
-      "path": "/:organization/harmonization/item-duties",
-      "plural": "harmonized_item_duties",
-      "operations": [
-        {
-          "path": "/:organization/harmonization/item-duties",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[harmonized_item_duty]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "number"
-                  },
-                  {
-                    "value": "origin"
-                  },
-                  {
-                    "value": "destination"
-                  },
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "number",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "origin",
-              "description": "The ISO 3166 3 character country code of the country of origin",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "destination",
-              "description": "The ISO 3166 3 character country code of the destination country",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "-created_at",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/item-duties",
-          "method": "POST",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "harmonized_item_duty"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "harmonized_item_duty_form"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/item-duties/versions",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[harmonized_item_duty_version]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "description": "Provides visibility into recent changes of each object, including deletion",
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "harmonized_item_duty_id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "harmonized_item_duty_id",
-              "description": "Filter to item duties with any one of these ids.",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "journal_timestamp",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/item-duties/:id",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "harmonized_item_duty"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/item-duties/:id",
-          "method": "DELETE",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "description": "Operation succeeded. No content is returned",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "Used to specifically set an item's duty rate for a given trade lane.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "type": "harmonized_item_duty"
     },
     {
       "path": "/:organization/harmonization/landed-costs",
@@ -58309,712 +57430,6 @@
         }
       ],
       "type": "hs10"
-    },
-    {
-      "path": "/:organization/harmonization/hs6",
-      "plural": "hs6",
-      "operations": [
-        {
-          "path": "/:organization/harmonization/hs6",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[hs6]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "item_number"
-                  },
-                  {
-                    "value": "code"
-                  },
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "item_number",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "code",
-              "description": "Filter to records matching this HS-6 code",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "-created_at",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/harmonization/hs6/versions",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[hs6_version]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "description": "Provides visibility into recent changes of each object, including deletion",
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "hs6_id"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "hs6_id",
-              "description": "Filter to HS-6s with any one of these ids.",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "journal_timestamp",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "API to fetch HS-6 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "type": "hs6"
-    },
-    {
-      "path": "/harmonization/codes",
-      "plural": "hs_codes",
-      "operations": [
-        {
-          "path": "/harmonization/codes",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[hs_code]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 400
-                }
-              },
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "description": "Search harmonization codes. Always paginated.",
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "code"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "get",
-                  "versions",
-                  "sort_parameter_default"
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "code",
-              "description": "Find these specific harmonization codes. Case insensitive.",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "parent",
-              "description": "Find records with this parent harmonization code. Case insensitive.",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "has_parent",
-              "description": "Find records with or without a parent code.",
-              "location": "Query",
-              "type": "boolean",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "code",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/harmonization/codes/:code",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "hs_code"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 400
-                }
-              },
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "description": "Returns information about a specific harmonization code.",
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "code",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "API to fetch current HS-6 codes.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "type": "hs_code"
-    },
-    {
-      "path": "/harmonization/tariff-codes/:destination",
-      "plural": "tariff_codes",
-      "operations": [
-        {
-          "path": "/harmonization/tariff-codes/:destination",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[tariff_code]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "description": "Search harmonization codes. Always paginated.",
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "tariff_code"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "get",
-                  "versions",
-                  "sort_parameter_default"
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "destination",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "tariff_code",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/harmonization/tariff-codes/:destination/:code",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "tariff_code"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "description": "Returns information about a specific tariff code.",
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "get",
-                  "versions",
-                  "sort_parameter_default"
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "destination",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "code",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "API to fetch current tariff codes.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "landed cost"
-          }
-        }
-      ],
-      "type": "tariff_code"
     },
     {
       "path": "/:organization/tax/registrations",
@@ -61211,6 +59626,474 @@
         }
       ],
       "type": "card"
+    },
+    {
+      "path": "/:organization/sources/payments/cards",
+      "plural": "card_payment_sources",
+      "operations": [
+        {
+          "path": "/:organization/sources/payments/cards",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[card_payment_source]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "customer_number",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "-created_at",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/sources/payments/cards",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "card_payment_source"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "payment_error"
+            }
+          ],
+          "description": "Create a new card payment source.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "card_payment_source_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/sources/payments/cards/:id",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "card_payment_source"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns information about a specific card payment source.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/sources/payments/cards/:id",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "card_payment_source"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "payment_error"
+            }
+          ],
+          "description": "Update a card payment source.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "card_payment_source_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/sources/payments/cards/:id",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Deletes the specified card payment source",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "Represents a saved credit card payment method.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "payment"
+          }
+        }
+      ],
+      "type": "card_payment_source"
     },
     {
       "path": "/:organization/gateways/authentication",
@@ -87082,7 +85965,7 @@
               "type": "generic_error"
             }
           ],
-          "description": "Create an order from a cart.",
+          "description": "Create an order from a Flow cart.",
           "attributes": [
             {
               "name": "auth",
@@ -87123,6 +86006,93 @@
         }
       ],
       "type": "shopify_cart"
+    },
+    {
+      "path": "/shopify/cart/representations",
+      "plural": "shopify_cart_representations",
+      "operations": [
+        {
+          "path": "/shopify/cart/representations",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "shopify_cart_representation"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "io.flow.shopify.external.v0.models.shopify_cart"
+          },
+          "parameters": [
+            {
+              "name": "expand",
+              "maximum": 1,
+              "location": "Query",
+              "type": "[string]",
+              "minimum": 0,
+              "required": false,
+              "example": "experience"
+            }
+          ]
+        }
+      ],
+      "description": "Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "shopify_cart_representation"
     },
     {
       "path": "/:organization/shopify/localization/settings",
@@ -90102,7 +89072,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.7.60",
+  "version": "0.7.71",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -91289,6 +90259,14 @@
           "attributes": []
         },
         {
+          "name": "customer_address_book_contact_upserted",
+          "attributes": []
+        },
+        {
+          "name": "customer_address_book_contact_deleted",
+          "attributes": []
+        },
+        {
           "name": "available_promotions_upserted",
           "attributes": []
         },
@@ -91406,6 +90384,10 @@
         },
         {
           "name": "order_identifier_upserted_v2",
+          "attributes": []
+        },
+        {
+          "name": "order_identifier_upserted_v3",
           "attributes": []
         },
         {
@@ -93105,6 +92087,25 @@
       ],
       "name": "payment_method_type",
       "description": "The payment method type defines at a high level different user experiences that are required to accept payment of this type. By enabling a payment method type, you are specifying that you have completed the integration and all payment methods of this type become available for offer to your users.",
+      "attributes": []
+    },
+    {
+      "plural": "payment_source_confirmation_action_types",
+      "values": [
+        {
+          "name": "cvv",
+          "attributes": []
+        },
+        {
+          "name": "billing_address",
+          "attributes": []
+        },
+        {
+          "name": "number",
+          "attributes": []
+        }
+      ],
+      "name": "payment_source_confirmation_action_type",
       "attributes": []
     },
     {
