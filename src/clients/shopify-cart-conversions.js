@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class ShopifyCartRepresentations extends Client {
+export default class ShopifyCartConversions extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -13,8 +13,8 @@ export default class ShopifyCartRepresentations extends Client {
     super(options);
   }
 
-  post(options = {}) {
-    return this.makeRequest(`${this.host}/shopify/cart/representations`, {
+  post(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/shopify/cart/conversions`, {
       ...options,
        method: 'POST',
     });

@@ -72,7 +72,6 @@ These resources mirror the official documentation located at
 | [shippingNotifications](shippingNotifications.md) | Represents information about a client-facilitated shipment where the shipping label and fulfillment was not handled by Flow. For merchant-of-record and tracking purposes, clients doing their own shipping will need to notify Flow of shipped packages. |
 | [surchargeSettings](surchargeSettings.md) |  |
 | [tiers](tiers.md) | Service shipping tier available in this tier group. e.g. Standard tier, Express tier, Economy tier |
-| [tierRules](tierRules.md) | System to filter incoming quote for a shipment request based on a query and output corresponding outcomes. |
 | [trackings](trackings.md) | Top level tracking information which contains labels. In cases where shipments are re-labeled, you will see multiple labels for each tracking allowing simple access to see where a shipment is - with which carrier and with the local tracking number |
 | [trackingEvents](trackingEvents.md) |  |
 | [trackingLabels](trackingLabels.md) | Represents a specific label being tracked as part of the tracking bucket |
@@ -102,7 +101,6 @@ These resources mirror the official documentation located at
 | [documents](documents.md) |  |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exports](exports.md) |  |
-| [feeds](feeds.md) | Describes types of feeds that may be produced by Flow. |
 | [flowRoles](flowRoles.md) | All roles available to attach to a user. |
 | [fraudEmailRules](fraudEmailRules.md) | Rule to apply to enable white-listing and black-listing for an email address. |
 | [ftpFiles](ftpFiles.md) | The FTP File represents a file uploaded to the FTP Server |
@@ -126,7 +124,7 @@ These resources mirror the official documentation located at
 | [sessions](sessions.md) |  |
 | [sessionAuthorizations](sessionAuthorizations.md) |  |
 | [shopifyCarts](shopifyCarts.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
-| [shopifyCartRepresentations](shopifyCartRepresentations.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
+| [shopifyCartConversions](shopifyCartConversions.md) | Shopify cart conversions create representations of cart data for Shopify based on a given experience. Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
 | [shopifyLocalizationSettings](shopifyLocalizationSettings.md) |  |
 | [shopifyLocationFlowCenterMappings](shopifyLocationFlowCenterMappings.md) |  |
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
