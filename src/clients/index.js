@@ -63,7 +63,6 @@ import ShippingLabels from './shipping-labels';
 import ShippingNotifications from './shipping-notifications';
 import SurchargeSettings from './surcharge-settings';
 import Tiers from './tiers';
-import TierRules from './tier-rules';
 import Trackings from './trackings';
 import TrackingEvents from './tracking-events';
 import TrackingLabels from './tracking-labels';
@@ -93,7 +92,6 @@ import CustomerAddressBookContacts from './customer-address-book-contacts';
 import Documents from './documents';
 import EmailVerifications from './email-verifications';
 import Exports from './exports';
-import Feeds from './feeds';
 import FlowRoles from './flow-roles';
 import FraudEmailRules from './fraud-email-rules';
 import FtpFiles from './ftp-files';
@@ -117,7 +115,7 @@ import ScheduledExports from './scheduled-exports';
 import Sessions from './sessions';
 import SessionAuthorizations from './session-authorizations';
 import ShopifyCarts from './shopify-carts';
-import ShopifyCartRepresentations from './shopify-cart-representations';
+import ShopifyCartConversions from './shopify-cart-conversions';
 import ShopifyLocalizationSettings from './shopify-localization-settings';
 import ShopifyLocationFlowCenterMappings from './shopify-location-flow-center-mappings';
 import ShopifyPrivateApps from './shopify-private-apps';
@@ -152,7 +150,6 @@ const enums = {
   cardType: ['american_express', 'cartes_bancaires', 'china_union_pay', 'dankort', 'diners_club', 'discover', 'jcb', 'maestro', 'mastercard', 'visa'],
   centerCapability: ['international', 'domestic', 'crossdock', 'commercial_invoice'],
   changeType: ['insert', 'update', 'delete'],
-  configurationType: ['default', 'variant'],
   consumerInvoiceCustomerType: ['business_eu_verified', 'business_non_verified', 'individual'],
   consumerInvoiceDocumentType: ['pdf'],
   consumerInvoiceStatus: ['pending', 'available', 'invalid'],
@@ -180,7 +177,6 @@ const enums = {
   exportStatus: ['created', 'processing', 'completed', 'failed'],
   flowAddonRole: ['consumer_data_viewer', 'membership_manager'],
   flowBehavior: ['view_consumer_data'],
-  flowFieldName: ['item-number', 'sku-attribute', 'product_id-attribute'],
   flowUserRole: ['organization_admin', 'organization_merchant', 'organization_operations', 'organization_fulfillment', 'organization_marketing', 'organization_finance', 'flow_operations'],
   fraudEmailRuleDecision: ['approved', 'declined'],
   fraudLiability: ['flow', 'organization'],
@@ -192,10 +188,8 @@ const enums = {
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   imageTag: ['thumbnail', 'checkout'],
-  importType: ['harmonization_codes', 'catalog_items', 'price_book_items', 'price_book_items_query', 'customs_descriptions', 'customs_description_tariffs', 'item_form_overlays', 'experiences_with_settings'],
+  importType: ['catalog_items', 'customs_descriptions', 'customs_description_tariffs', 'experiences_with_settings', 'harmonization_codes', 'item_form_overlays', 'price_book_items', 'price_book_items_query', 'ratecard_lanes'],
   includedLevyKey: ['duty', 'vat', 'vat_and_duty', 'none'],
-  incomingFeedFormat: ['google-xml', 'google-sheet'],
-  incomingFieldName: ['id', 'mpn'],
   incoterm: ['EXW', 'FCA', 'CPT', 'CIP', 'DAT', 'DAP', 'DDP', 'FAS', 'FOB', 'CFR', 'CIF', 'DAF', 'DES', 'DEQ', 'DDU'],
   inputSpecificationType: ['text', 'number'],
   installmentPlanPaymentErrorCode: ['invalid_authorization', 'invalid_authorization_amount', 'invalid_installment_plan'],
@@ -218,13 +212,13 @@ const enums = {
   orderPriceDetailKey: ['adjustment', 'subtotal', 'vat', 'duty', 'shipping', 'insurance', 'discount', 'surcharges'],
   orderStatus: ['open', 'submitted'],
   organizationPaymentMethodTag: ['deny'],
-  outgoingFeedFormat: ['facebook-xml', 'google-tsv', 'google-xml', 'criteo-xml'],
   paymentErrorCode: ['duplicate', 'invalid_amount', 'invalid_currency', 'invalid_method', 'invalid_order', 'invalid_customer', 'invalid_destination', 'unknown'],
   paymentMethodRuleContentKey: ['description'],
   paymentMethodType: ['card', 'online', 'offline'],
   paymentSourceConfirmationActionType: ['cvv', 'billing_address', 'number'],
   permittedHttpMethod: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   physicalDeliverySpecialSerivce: ['cold_storage', 'hazardous', 'perishable'],
+  priceAccuracy: ['calculated', 'estimated_from_partial_destination'],
   priceBookStatus: ['draft', 'published', 'archived'],
   priceDetailComponentKey: ['base_price', 'discount', 'currency_margin', 'percent_item_margin', 'fixed_item_margin', 'duties_item_price', 'duties_added_margin', 'duties_rounding', 'duties_deminimis', 'vat_item_price', 'vat_added_margin', 'vat_rounding', 'vat_duties_item_price', 'vat_duties_added_margin', 'vat_duties_rounding', 'vat_deminimis', 'item_price_percent_sales_margin', 'margins_percent_sales_margin', 'rounding_percent_sales_margin', 'vat_percent_sales_margin', 'vat_duty_percent_sales_margin', 'duty_percent_sales_margin'],
   priceDetailKey: ['item_price', 'margins', 'vat', 'duty', 'rounding', 'adjustment'],
@@ -351,7 +345,6 @@ export default class ApiClient {
     this.shippingNotifications = new ShippingNotifications(options);
     this.surchargeSettings = new SurchargeSettings(options);
     this.tiers = new Tiers(options);
-    this.tierRules = new TierRules(options);
     this.trackings = new Trackings(options);
     this.trackingEvents = new TrackingEvents(options);
     this.trackingLabels = new TrackingLabels(options);
@@ -381,7 +374,6 @@ export default class ApiClient {
     this.documents = new Documents(options);
     this.emailVerifications = new EmailVerifications(options);
     this.exports = new Exports(options);
-    this.feeds = new Feeds(options);
     this.flowRoles = new FlowRoles(options);
     this.fraudEmailRules = new FraudEmailRules(options);
     this.ftpFiles = new FtpFiles(options);
@@ -405,7 +397,7 @@ export default class ApiClient {
     this.sessions = new Sessions(options);
     this.sessionAuthorizations = new SessionAuthorizations(options);
     this.shopifyCarts = new ShopifyCarts(options);
-    this.shopifyCartRepresentations = new ShopifyCartRepresentations(options);
+    this.shopifyCartConversions = new ShopifyCartConversions(options);
     this.shopifyLocalizationSettings = new ShopifyLocalizationSettings(options);
     this.shopifyLocationFlowCenterMappings = new ShopifyLocationFlowCenterMappings(options);
     this.shopifyPrivateApps = new ShopifyPrivateApps(options);

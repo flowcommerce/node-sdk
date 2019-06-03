@@ -759,6 +759,23 @@
           "attributes": [],
           "type": "price_with_base",
           "required": false
+        },
+        {
+          "default": "calculated",
+          "name": "accuracy",
+          "annotations": [],
+          "description": "Used to flag prices that are estimated and why. Missing values will be considered calculated. An order may only be submitted if all price components are calculated.",
+          "attributes": [],
+          "type": "price_accuracy",
+          "required": false
+        },
+        {
+          "name": "basis",
+          "annotations": [],
+          "description": "The taxable/dutiable basis from which this levy component was produced. Should be equal to total / rate.",
+          "attributes": [],
+          "type": "money_with_base",
+          "required": false
         }
       ]
     },
@@ -2108,7 +2125,15 @@
         {
           "name": "schedule",
           "annotations": [],
-          "description": "A cron expression of when to generate the tax transaction report.",
+          "description": "A schedule of when to generate the tax transaction report.",
+          "attributes": [],
+          "type": "repeat_schedule",
+          "required": true
+        },
+        {
+          "name": "timezone",
+          "annotations": [],
+          "description": "The timezone of the report generation schedule as defined in https://api.flow.io/reference/timezones",
           "attributes": [],
           "type": "string",
           "required": true
@@ -4149,127 +4174,6 @@
       ]
     },
     {
-      "plural": "catalog_feeds",
-      "name": "catalog_feed",
-      "description": "Describes a catalog feed.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "experience_feed_summaries",
-          "annotations": [],
-          "attributes": [],
-          "type": "[experience_feed_summary]",
-          "required": true
-        },
-        {
-          "name": "incoming_feed",
-          "annotations": [],
-          "description": "When augmenting a feed, indicates the details of the the augmented feed.",
-          "attributes": [],
-          "type": "incoming_feed",
-          "required": true
-        },
-        {
-          "name": "outgoing_feed",
-          "annotations": [],
-          "description": "Indicates the details of the outgoing feed.",
-          "attributes": [],
-          "type": "outgoing_feed",
-          "required": true
-        },
-        {
-          "name": "feed_statistics_summary",
-          "annotations": [],
-          "description": "Statistics about the feed.",
-          "attributes": [],
-          "type": "feed_statistics_summary",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "catalog_feed_form_posts",
-      "name": "catalog_feed_form_post",
-      "description": "Specify a catalog feed for one or more experiences.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "experience_keys",
-          "annotations": [],
-          "description": "Experiences to produce feeds for. You can specify either '*' to select all experiences, or specify experience keys.",
-          "attributes": [],
-          "type": "[string]",
-          "required": true,
-          "example": "'*', 'france'"
-        },
-        {
-          "name": "incoming_feed",
-          "annotations": [],
-          "description": "When augmenting a feed, indicates the details of the the augmented feed.",
-          "attributes": [],
-          "type": "incoming_feed",
-          "required": true
-        },
-        {
-          "name": "outgoing_feed_form",
-          "annotations": [],
-          "description": "Indicates the details of the outgoing feed.",
-          "attributes": [],
-          "type": "outgoing_feed",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "catalog_feed_form_puts",
-      "name": "catalog_feed_form_put",
-      "description": "Specify a catalog feed for one or more experiences.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "experience_keys",
-          "annotations": [],
-          "description": "Experiences to produce feeds for. You can specify either '*' to select all experiences, or specify experience keys.",
-          "attributes": [],
-          "type": "[string]",
-          "required": true,
-          "example": "'*', 'france'"
-        },
-        {
-          "name": "incoming_feed",
-          "annotations": [],
-          "description": "When augmenting a feed, indicates the details of the the augmented feed.",
-          "attributes": [],
-          "type": "incoming_feed",
-          "required": true
-        },
-        {
-          "name": "outgoing_feed_form",
-          "annotations": [],
-          "description": "Indicates the details of the outgoing feed.",
-          "attributes": [],
-          "type": "outgoing_feed",
-          "required": true
-        }
-      ]
-    },
-    {
       "plural": "catalog_item_deleteds",
       "name": "catalog_item_deleted",
       "attributes": [],
@@ -5418,13 +5322,6 @@
           "required": true
         },
         {
-          "name": "session",
-          "annotations": [],
-          "attributes": [],
-          "type": "session_reference",
-          "required": true
-        },
-        {
           "name": "urls",
           "annotations": [],
           "attributes": [],
@@ -5438,12 +5335,70 @@
           "attributes": [],
           "type": "date-time-iso8601",
           "required": true
+        },
+        {
+          "name": "session",
+          "annotations": [],
+          "attributes": [],
+          "type": "session_reference",
+          "required": false
+        },
+        {
+          "name": "customer",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_reference",
+          "required": false
         }
       ]
     },
     {
-      "plural": "checkout_token_forms",
-      "name": "checkout_token_form",
+      "plural": "checkout_token_order_forms",
+      "name": "checkout_token_order_form",
+      "description": "Use this form to securly pass order and optional customer information to be created or updated.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "order_form",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_form",
+          "required": true
+        },
+        {
+          "name": "customer",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_form",
+          "required": false
+        },
+        {
+          "name": "address_book",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_address_book_form",
+          "required": false
+        },
+        {
+          "name": "payment_sources",
+          "annotations": [],
+          "attributes": [],
+          "type": "[payment_source_form]",
+          "required": false
+        },
+        {
+          "name": "urls",
+          "annotations": [],
+          "attributes": [],
+          "type": "checkout_urls_form",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "checkout_token_reference_forms",
+      "name": "checkout_token_reference_form",
+      "description": "Use this form when order number and session id are known. Optional customer information will be created or updated.",
       "attributes": [],
       "fields": [
         {
@@ -7423,6 +7378,21 @@
           "attributes": [],
           "type": "string",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "customer_references",
+      "name": "customer_reference",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Customer identification number as represented in the client's system",
+          "attributes": [],
+          "type": "string",
+          "required": true
         }
       ]
     },
@@ -9582,36 +9552,6 @@
       ]
     },
     {
-      "plural": "experience_feed_summaries",
-      "name": "experience_feed_summary",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "experience",
-          "annotations": [],
-          "attributes": [],
-          "type": "experience_reference",
-          "required": true
-        },
-        {
-          "name": "url",
-          "annotations": [],
-          "description": "The URL where this feed can be accessed after it is constructed.",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "last_construct_date",
-          "annotations": [],
-          "description": "The date of the last successful construction of a feed for this experience.",
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": false
-        }
-      ]
-    },
-    {
       "plural": "experience_forms",
       "name": "experience_form",
       "description": "Experiences define a local experience for a given geographic region",
@@ -10710,22 +10650,6 @@
           "type": "[string]",
           "minimum": 1,
           "required": true
-        }
-      ]
-    },
-    {
-      "plural": "feed_statistics_summaries",
-      "name": "feed_statistics_summary",
-      "description": "A brief packet of statistics about a live feed. Will be blank for most new feeds.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "last_incoming_date",
-          "annotations": [],
-          "description": "The date of the last successful access of the incoming feed",
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": false
         }
       ]
     },
@@ -12090,6 +12014,84 @@
       ]
     },
     {
+      "plural": "harmonized_item_forms",
+      "name": "harmonized_item_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "name",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "categories",
+          "annotations": [],
+          "attributes": [],
+          "type": "[string]",
+          "required": false
+        },
+        {
+          "name": "description",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "attributes",
+          "annotations": [],
+          "attributes": [],
+          "type": "map[string]",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "harmonized_item_put_forms",
+      "name": "harmonized_item_put_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "name",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "categories",
+          "annotations": [],
+          "attributes": [],
+          "type": "[string]",
+          "required": false
+        },
+        {
+          "name": "description",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "attributes",
+          "annotations": [],
+          "attributes": [],
+          "type": "map[string]",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "harmonized_item_references",
       "name": "harmonized_item_reference",
       "attributes": [],
@@ -13141,47 +13143,6 @@
           "description": "The label for the included levies that can be displayed as a tooltip on the product detail page.",
           "attributes": [],
           "type": "string",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "incoming_feeds",
-      "name": "incoming_feed",
-      "description": "Describe a feed incoming to Flow",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "url",
-          "annotations": [],
-          "description": "When augmenting a feed, indicates the url we pull from to collect the augmented feed.",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "format",
-          "annotations": [],
-          "description": "The format of the feed.",
-          "attributes": [],
-          "type": "incoming_feed_format",
-          "required": true
-        },
-        {
-          "default": "55",
-          "name": "minute",
-          "annotations": [],
-          "description": "How many minutes past the hour should we attempt to pick up the incoming feed.",
-          "attributes": [],
-          "type": "integer",
-          "required": true
-        },
-        {
-          "name": "item_link",
-          "annotations": [],
-          "description": "Describes the field in an incoming catalog feed that will be used to link to a Flow catalog.",
-          "attributes": [],
-          "type": "item_link",
           "required": true
         }
       ]
@@ -14719,30 +14680,6 @@
           "attributes": [],
           "type": "[image_form]",
           "required": false
-        }
-      ]
-    },
-    {
-      "plural": "item_links",
-      "name": "item_link",
-      "description": "Describes how items from an incoming feed will link with localized items in a Flow catalog to create an outgoing feed.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "incoming_field_name",
-          "annotations": [],
-          "description": "Describes the field in an incoming catalog feed that will be used to link to a Flow catalog.",
-          "attributes": [],
-          "type": "incoming_field_name",
-          "required": true
-        },
-        {
-          "name": "flow_field_name",
-          "annotations": [],
-          "description": "Describes the field in a Flow catalog that will be used to link to an incoming catalog feed.",
-          "attributes": [],
-          "type": "flow_field_name",
-          "required": true
         }
       ]
     },
@@ -16645,6 +16582,14 @@
           "attributes": [],
           "type": "localized_adjustment",
           "required": false
+        },
+        {
+          "name": "basis",
+          "annotations": [],
+          "description": "The taxable/dutiable basis from which this levy component was produced. Should be equal to total / rate.",
+          "attributes": [],
+          "type": "money_with_base",
+          "required": false
         }
       ]
     },
@@ -16757,6 +16702,23 @@
           "description": "An adjustment may need to be applied to VAT at the order level if the de minimis value is met; if so, its value is stored here.",
           "attributes": [],
           "type": "localized_adjustment",
+          "required": false
+        },
+        {
+          "default": "calculated",
+          "name": "accuracy",
+          "annotations": [],
+          "description": "Used to flag prices that are estimated and why. Missing values will be considered calculated. An order may only be submitted if all price components are calculated.",
+          "attributes": [],
+          "type": "price_accuracy",
+          "required": false
+        },
+        {
+          "name": "basis",
+          "annotations": [],
+          "description": "The taxable/dutiable basis from which this levy component was produced. Should be equal to total / rate.",
+          "attributes": [],
+          "type": "money_with_base",
           "required": false
         }
       ]
@@ -20227,6 +20189,15 @@
           "type": "decimal",
           "required": false,
           "example": "0.2"
+        },
+        {
+          "default": "calculated",
+          "name": "accuracy",
+          "annotations": [],
+          "description": "Used to flag prices that are estimated and why. Missing values will be considered calculated. An order may only be submitted if all price components are calculated.",
+          "attributes": [],
+          "type": "price_accuracy",
+          "required": false
         }
       ]
     },
@@ -21972,56 +21943,6 @@
       ]
     },
     {
-      "plural": "outgoing_feeds",
-      "name": "outgoing_feed",
-      "description": "Describes the outgoing feed constructed by Flow",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "format",
-          "annotations": [],
-          "description": "The format of the feed.",
-          "attributes": [],
-          "type": "outgoing_feed_format",
-          "required": true
-        },
-        {
-          "default": "0",
-          "name": "minute",
-          "annotations": [],
-          "description": "How many minutes past the hour should we attempt to construct the feed.",
-          "attributes": [],
-          "type": "integer",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "outgoing_feed_forms",
-      "name": "outgoing_feed_form",
-      "description": "Describes the outgoing feed constructed by Flow",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "format",
-          "annotations": [],
-          "description": "The format of the feed.",
-          "attributes": [],
-          "type": "outgoing_feed_format",
-          "required": true
-        },
-        {
-          "default": "0",
-          "name": "minute",
-          "annotations": [],
-          "description": "How many minutes past the hour should we attempt to construct the feed.",
-          "attributes": [],
-          "type": "integer",
-          "required": true
-        }
-      ]
-    },
-    {
       "plural": "oversized_shipment_ratecard_fees",
       "name": "oversized_shipment_ratecard_fee",
       "attributes": [],
@@ -23743,6 +23664,14 @@
           "description": "The display name for this price detail.",
           "attributes": [],
           "type": "string",
+          "required": false
+        },
+        {
+          "name": "basis",
+          "annotations": [],
+          "description": "The taxable/dutiable basis from which this levy component was produced. Should be equal to total / rate.",
+          "attributes": [],
+          "type": "decimal",
           "required": false
         }
       ]
@@ -25951,6 +25880,94 @@
       ]
     },
     {
+      "plural": "ratecard_lane_import_forms",
+      "name": "ratecard_lane_import_form",
+      "description": "Represents a line in a ratecard lane import file to be used with bulk CSV imports of multiple ratecard lanes across different services in a single import file. This would represent a row in each file.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "service",
+          "annotations": [],
+          "description": "Carrier service level associated with this lane. This should be a valid service defined in https://api.flow.io/reference/carrier/services",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "dhl-express-worldwide"
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "The base iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "USD"
+        },
+        {
+          "name": "delivered_duty",
+          "annotations": [],
+          "attributes": [],
+          "type": "delivered_duty",
+          "required": true
+        },
+        {
+          "name": "origin",
+          "annotations": [],
+          "attributes": [],
+          "type": "zone",
+          "required": true
+        },
+        {
+          "name": "destination",
+          "annotations": [],
+          "attributes": [],
+          "type": "zone",
+          "required": true
+        },
+        {
+          "name": "shipment_window",
+          "annotations": [],
+          "attributes": [],
+          "type": "shipment_window",
+          "required": true
+        },
+        {
+          "name": "dim_factor",
+          "annotations": [],
+          "description": "Factor used to compute dimensional weight. Contact your Flow or specific carrier's account representative.",
+          "attributes": [],
+          "type": "decimal",
+          "required": true
+        },
+        {
+          "name": "weight_unit",
+          "annotations": [],
+          "description": "Type of unit measurement used to calculate gravitational weight",
+          "attributes": [],
+          "type": "unit_of_measurement",
+          "required": true,
+          "example": "gram, pound"
+        },
+        {
+          "name": "distance_unit",
+          "annotations": [],
+          "description": "Type of unit measurement used to calculate dimensional weight",
+          "attributes": [],
+          "type": "unit_of_measurement",
+          "required": true,
+          "example": "inch, feet"
+        },
+        {
+          "name": "rates",
+          "annotations": [],
+          "description": "Line item rows on the rate card. Shows a list of weight thresholds and corresponding costs.",
+          "attributes": [],
+          "type": "[ratecard_rate_form]",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "ratecard_lane_upserteds",
       "name": "ratecard_lane_upserted",
       "attributes": [],
@@ -26019,6 +26036,35 @@
           "attributes": [],
           "type": "ratecard_lane",
           "required": true
+        }
+      ]
+    },
+    {
+      "plural": "ratecard_lanes_import_request_data",
+      "name": "ratecard_lanes_import_request_data",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "source_url",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "filename",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
         }
       ]
     },
@@ -27196,6 +27242,69 @@
           "annotations": [],
           "attributes": [],
           "type": "money",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "repeat_dailies",
+      "name": "repeat_daily",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "interval",
+          "annotations": [],
+          "attributes": [],
+          "type": "integer",
+          "minimum": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "repeat_monthlies",
+      "name": "repeat_monthly",
+      "description": "Monthly on the {day} of each {interval} month. Note if you specify a day > 28 and the month does not have that day, the repeat schedule is assumed to be the last day of the month. Common examples are: Monthly on the 1st, monthly on the 15th and 31st, every 3 months on the 1st, etc.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "interval",
+          "annotations": [],
+          "attributes": [],
+          "type": "integer",
+          "minimum": 1,
+          "required": true
+        },
+        {
+          "name": "days",
+          "annotations": [],
+          "description": "A list of the days of the month on which to generate the monthly statement",
+          "attributes": [],
+          "type": "[integer]",
+          "minimum": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "repeat_weeklies",
+      "name": "repeat_weekly",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "interval",
+          "annotations": [],
+          "attributes": [],
+          "type": "integer",
+          "minimum": 1,
+          "required": true
+        },
+        {
+          "name": "days_of_week",
+          "annotations": [],
+          "attributes": [],
+          "type": "[day_of_week]",
+          "minimum": 1,
           "required": true
         }
       ]
@@ -30501,8 +30610,29 @@
       ]
     },
     {
-      "plural": "shopify_cart_flow_representations",
-      "name": "shopify_cart_flow_representation",
+      "plural": "shopify_cart_conversions",
+      "name": "shopify_cart_conversion",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "flow",
+          "annotations": [],
+          "attributes": [],
+          "type": "shopify_cart_conversion_flow_order",
+          "required": true
+        },
+        {
+          "name": "shopify",
+          "annotations": [],
+          "attributes": [],
+          "type": "shopify_cart_conversion_shopify_cart",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "shopify_cart_conversion_flow_orders",
+      "name": "shopify_cart_conversion_flow_order",
       "attributes": [],
       "fields": [
         {
@@ -30510,6 +30640,20 @@
           "annotations": [],
           "attributes": [],
           "type": "order",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "shopify_cart_conversion_shopify_carts",
+      "name": "shopify_cart_conversion_shopify_cart",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "cart",
+          "annotations": [],
+          "attributes": [],
+          "type": "io.flow.shopify.external.v0.models.shopify_cart",
           "required": true
         }
       ]
@@ -30668,41 +30812,6 @@
           "attributes": [],
           "type": "string",
           "required": false
-        }
-      ]
-    },
-    {
-      "plural": "shopify_cart_representations",
-      "name": "shopify_cart_representation",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "flow",
-          "annotations": [],
-          "attributes": [],
-          "type": "shopify_cart_flow_representation",
-          "required": true
-        },
-        {
-          "name": "shopify",
-          "annotations": [],
-          "attributes": [],
-          "type": "shopify_cart_shopify_representation",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "shopify_cart_shopify_representations",
-      "name": "shopify_cart_shopify_representation",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "cart",
-          "annotations": [],
-          "attributes": [],
-          "type": "io.flow.shopify.external.v0.models.shopify_cart",
-          "required": true
         }
       ]
     },
@@ -35902,6 +36011,25 @@
     {
       "types": [
         {
+          "discriminator_value": "checkout_token_order_form",
+          "attributes": [],
+          "type": "checkout_token_order_form"
+        },
+        {
+          "default": true,
+          "discriminator_value": "checkout_token_reference_form",
+          "attributes": [],
+          "type": "checkout_token_reference_form"
+        }
+      ],
+      "plural": "checkout_token_forms",
+      "name": "checkout_token_form",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
           "discriminator_value": "direct_debit",
           "attributes": [],
           "type": "direct_debit"
@@ -37064,21 +37192,6 @@
     {
       "types": [
         {
-          "discriminator_value": "catalog_feed",
-          "description": "A localized product catalog.",
-          "attributes": [],
-          "type": "catalog_feed"
-        }
-      ],
-      "plural": "feeds",
-      "name": "feed",
-      "description": "Describes types of feeds that may be produced by Flow.",
-      "attributes": [],
-      "discriminator": "discriminator"
-    },
-    {
-      "types": [
-        {
           "discriminator_value": "required",
           "attributes": [],
           "type": "field_validation_required"
@@ -37396,6 +37509,19 @@
     {
       "types": [
         {
+          "discriminator_value": "card_payment_source_form",
+          "attributes": [],
+          "type": "card_payment_source_form"
+        }
+      ],
+      "plural": "payment_source_forms",
+      "name": "payment_source_form",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
           "discriminator_value": "price_book",
           "attributes": [],
           "type": "price_source_price_book"
@@ -37563,6 +37689,29 @@
       ],
       "plural": "ratecard_fees",
       "name": "ratecard_fee",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
+          "discriminator_value": "repeat_daily",
+          "attributes": [],
+          "type": "repeat_daily"
+        },
+        {
+          "discriminator_value": "repeat_weekly",
+          "attributes": [],
+          "type": "repeat_weekly"
+        },
+        {
+          "discriminator_value": "repeat_monthly",
+          "attributes": [],
+          "type": "repeat_monthly"
+        }
+      ],
+      "plural": "repeat_schedules",
+      "name": "repeat_schedule",
       "attributes": [],
       "discriminator": "discriminator"
     },
@@ -71828,572 +71977,6 @@
       "type": "tier"
     },
     {
-      "path": "/:organization/tiers/:tier_id/rules",
-      "plural": "tier_rules",
-      "operations": [
-        {
-          "path": "/:organization/tiers/:tier_id/rules",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[tier_rule]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations",
-                  "organization_fulfillment"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "tier_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "-created_at",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/tiers/:tier_id/rules",
-          "method": "POST",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "tier_rule"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "tier_rule_form"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "tier_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/tiers/:tier_id/rules/versions",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[tier_rule_version]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "id"
-                  },
-                  {
-                    "value": "tier_rule"
-                  },
-                  {
-                    "value": "journal_timestamp"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations",
-                  "organization_fulfillment"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "tier_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "name": "tier_rule",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "journal_timestamp",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/tiers/:tier_id/rules/:id",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "tier_rule"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations",
-                  "organization_fulfillment"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "tier_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/tiers/:tier_id/rules/:id",
-          "method": "PUT",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "tier_rule"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "tier_rule"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [],
-          "body": {
-            "attributes": [],
-            "type": "tier_rule_form"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "tier_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/tiers/:tier_id/rules/:id",
-          "method": "DELETE",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "description": "Operation succeeded. No content is returned",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "tier_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "System to filter incoming quote for a shipment request based on a query and output corresponding outcomes.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "logistics"
-          }
-        }
-      ],
-      "type": "tier_rule"
-    },
-    {
       "path": "",
       "plural": "trackings",
       "operations": [
@@ -79216,391 +78799,6 @@
       "type": "export"
     },
     {
-      "path": "/:organization/feeds",
-      "plural": "feeds",
-      "operations": [
-        {
-          "path": "/:organization/feeds",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "[feed]"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "sort",
-              "value": {
-                "values": [
-                  {
-                    "value": "created_at"
-                  }
-                ]
-              }
-            },
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "get",
-                  "versions"
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_marketing"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "required": false
-            },
-            {
-              "default": "25",
-              "name": "limit",
-              "description": "The maximum number of results to return",
-              "maximum": 100,
-              "location": "Query",
-              "type": "long",
-              "minimum": 1,
-              "required": true
-            },
-            {
-              "default": "0",
-              "name": "offset",
-              "description": "The number of results to skip before returning results",
-              "location": "Query",
-              "type": "long",
-              "minimum": 0,
-              "required": true
-            },
-            {
-              "default": "-created_at",
-              "name": "sort",
-              "location": "Query",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/feeds/catalog",
-          "method": "POST",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "catalog_feed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "catalog_feed_form_post"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/feeds/catalog/:id",
-          "method": "PUT",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "catalog_feed"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "catalog_feed_form_put"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/feeds/:id",
-          "method": "DELETE",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "description": "Operation succeeded. No content is returned",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "Describes types of feeds that may be produced by Flow.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "type": "feed"
-    },
-    {
       "path": "/permission",
       "plural": "flow_roles",
       "operations": [
@@ -86008,11 +85206,11 @@
       "type": "shopify_cart"
     },
     {
-      "path": "/shopify/cart/representations",
-      "plural": "shopify_cart_representations",
+      "path": "/:organization/experiences/:experience_key/shopify/cart/conversions",
+      "plural": "shopify_cart_conversions",
       "operations": [
         {
-          "path": "/shopify/cart/representations",
+          "path": "/:organization/experiences/:experience_key/shopify/cart/conversions",
           "method": "POST",
           "responses": [
             {
@@ -86023,7 +85221,7 @@
               },
               "description": "Operation succeeded and the resource was created",
               "attributes": [],
-              "type": "shopify_cart_representation"
+              "type": "shopify_cart_conversion"
             },
             {
               "code": {
@@ -86056,21 +85254,26 @@
               "type": "generic_error"
             }
           ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "session"
-                ]
-              }
-            }
-          ],
+          "description": "Creates a shopify cart conversion from a shopify cart",
+          "attributes": [],
           "body": {
             "attributes": [],
             "type": "io.flow.shopify.external.v0.models.shopify_cart"
           },
           "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "experience_key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
             {
               "name": "expand",
               "maximum": 1,
@@ -86083,7 +85286,7 @@
           ]
         }
       ],
-      "description": "Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api",
+      "description": "Shopify cart conversions create representations of cart data for Shopify based on a given experience. Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api",
       "attributes": [
         {
           "name": "docs",
@@ -86092,7 +85295,7 @@
           }
         }
       ],
-      "type": "shopify_cart_representation"
+      "type": "shopify_cart_conversion"
     },
     {
       "path": "/:organization/shopify/localization/settings",
@@ -89072,7 +88275,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.7.71",
+  "version": "0.7.78",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -89717,21 +88920,6 @@
         }
       ],
       "name": "change_type",
-      "attributes": []
-    },
-    {
-      "plural": "configuration_types",
-      "values": [
-        {
-          "name": "default",
-          "attributes": []
-        },
-        {
-          "name": "variant",
-          "attributes": []
-        }
-      ],
-      "name": "configuration_type",
       "attributes": []
     },
     {
@@ -90927,29 +90115,6 @@
       "attributes": []
     },
     {
-      "plural": "flow_field_names",
-      "values": [
-        {
-          "name": "item-number",
-          "description": "The Flow catalog item number",
-          "attributes": []
-        },
-        {
-          "name": "sku-attribute",
-          "description": "A Flow catalog attribute named 'sku'",
-          "attributes": []
-        },
-        {
-          "name": "product_id-attribute",
-          "description": "A Flow catalog attribute named 'product_id'",
-          "attributes": []
-        }
-      ],
-      "name": "flow_field_name",
-      "description": "Describes the field in a Flow catalog that will be used to link to an incoming catalog feed. Failure to link an incoming feed item to a Flow catalog item will cause that item to be removed from localized feeds.",
-      "attributes": []
-    },
-    {
       "plural": "flow_user_roles",
       "values": [
         {
@@ -91185,23 +90350,8 @@
       "plural": "import_types",
       "values": [
         {
-          "name": "harmonization_codes",
-          "description": "Provides upload of HS-6 and HS-10 codes for the items in a catalog",
-          "attributes": []
-        },
-        {
           "name": "catalog_items",
           "description": "Provides bulk upsert of items into an organization's catalog.",
-          "attributes": []
-        },
-        {
-          "name": "price_book_items",
-          "description": "Provides bulk upsert of price book items based on item number.",
-          "attributes": []
-        },
-        {
-          "name": "price_book_items_query",
-          "description": "Provides bulk upsert of price book items based on a query (e.g. update all items by sku or product id).",
           "attributes": []
         },
         {
@@ -91215,13 +90365,33 @@
           "attributes": []
         },
         {
+          "name": "experiences_with_settings",
+          "description": "Provides bulk upsert of experiences with associated settings.",
+          "attributes": []
+        },
+        {
+          "name": "harmonization_codes",
+          "description": "Provides upload of HS-6 and HS-10 codes for the items in a catalog",
+          "attributes": []
+        },
+        {
           "name": "item_form_overlays",
           "description": "Item form overlays allow you to upload additional catalog item information that will be applied to each catalog item, even if you later modify the item. You can think of this import as providing catalog item data that will be overlaid on top of the content in your core catalog.",
           "attributes": []
         },
         {
-          "name": "experiences_with_settings",
-          "description": "Provides bulk upsert of experiences with associated settings.",
+          "name": "price_book_items",
+          "description": "Provides bulk upsert of price book items based on item number.",
+          "attributes": []
+        },
+        {
+          "name": "price_book_items_query",
+          "description": "Provides bulk upsert of price book items based on a query (e.g. update all items by sku or product id).",
+          "attributes": []
+        },
+        {
+          "name": "ratecard_lanes",
+          "description": "Provides way to upload a new ratecard with lanes and rates for a service level.",
           "attributes": []
         }
       ],
@@ -91250,42 +90420,6 @@
       ],
       "name": "included_levy_key",
       "description": "The key of each possible localized price note is defined here.",
-      "attributes": []
-    },
-    {
-      "plural": "incoming_feed_formats",
-      "values": [
-        {
-          "name": "google-xml",
-          "description": "Google RSS-like product catalog feed",
-          "attributes": []
-        },
-        {
-          "name": "google-sheet",
-          "description": "Google Sheet-based product catalog feed",
-          "attributes": []
-        }
-      ],
-      "name": "incoming_feed_format",
-      "description": "Describes types of feeds that may be ingested by Flow for augmentation.",
-      "attributes": []
-    },
-    {
-      "plural": "incoming_field_names",
-      "values": [
-        {
-          "name": "id",
-          "description": "The id field of the incoming feed",
-          "attributes": []
-        },
-        {
-          "name": "mpn",
-          "description": "The Manufacturer's Product Number (MPN) field of the incoming feed",
-          "attributes": []
-        }
-      ],
-      "name": "incoming_field_name",
-      "description": "Describes the field in an incoming catalog feed that will be used to link to a Flow catalog. Failure to link an incoming feed item to a Flow catalog item will cause that item to be removed from localized feeds.",
       "attributes": []
     },
     {
@@ -91981,34 +91115,6 @@
       "attributes": []
     },
     {
-      "plural": "outgoing_feed_formats",
-      "values": [
-        {
-          "name": "facebook-xml",
-          "description": "Facebook RSS XML product catalog feed",
-          "attributes": []
-        },
-        {
-          "name": "google-tsv",
-          "description": "Google Tab Seperated Values product catalog feed",
-          "attributes": []
-        },
-        {
-          "name": "google-xml",
-          "description": "Google RSS XML product catalog feed",
-          "attributes": []
-        },
-        {
-          "name": "criteo-xml",
-          "description": "Criteo RSS XML product catalog feed",
-          "attributes": []
-        }
-      ],
-      "name": "outgoing_feed_format",
-      "description": "Describes types of feeds that may be output by Flow along with a target service for the feed to help ensure correct product requirements.",
-      "attributes": []
-    },
-    {
       "plural": "payment_error_codes",
       "values": [
         {
@@ -92153,6 +91259,24 @@
         }
       ],
       "name": "physical_delivery_special_serivce",
+      "attributes": []
+    },
+    {
+      "plural": "price_accuracies",
+      "values": [
+        {
+          "name": "calculated",
+          "description": "The price shown is accurate and will not change unless information already provided also changes.",
+          "attributes": []
+        },
+        {
+          "name": "estimated_from_partial_destination",
+          "description": "The price shown is based on the best information provided; given a more precise address, the price may change.",
+          "attributes": []
+        }
+      ],
+      "name": "price_accuracy",
+      "description": "Used to identify the accuracy of a price.",
       "attributes": []
     },
     {
