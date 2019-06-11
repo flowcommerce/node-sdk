@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class CustomerAddressBook extends Client {
+export default class EcommercePlatforms extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -13,8 +13,8 @@ export default class CustomerAddressBook extends Client {
     super(options);
   }
 
-  get(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customers/${number}/addresses/book`, options);
+  get(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/ecommerce/platform`, options);
   }
 
 }

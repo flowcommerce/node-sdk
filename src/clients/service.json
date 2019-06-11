@@ -5046,6 +5046,13 @@
           "required": true
         },
         {
+          "name": "name",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
           "name": "attribute_keys",
           "annotations": [],
           "description": "The attribute keys containing the desired value. The first key that is defined will be selected. For example, specify ['size', 'sizeName'] to select the 'size' attribute if present, and if not the 'sizeName' attribute.",
@@ -5075,6 +5082,14 @@
           "attributes": [],
           "type": "string",
           "required": true
+        },
+        {
+          "name": "name",
+          "annotations": [],
+          "description": "Defaults to the key",
+          "attributes": [],
+          "type": "string",
+          "required": false
         },
         {
           "name": "experience_key",
@@ -5155,6 +5170,13 @@
       "fields": [
         {
           "name": "key",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
           "annotations": [],
           "attributes": [],
           "type": "string",
@@ -5279,6 +5301,21 @@
       ]
     },
     {
+      "plural": "checkout_references",
+      "name": "checkout_reference",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "checkout_settingses",
       "name": "checkout_settings",
       "attributes": [],
@@ -5315,10 +5352,20 @@
           "required": true
         },
         {
+          "name": "checkout",
+          "annotations": [],
+          "attributes": [],
+          "type": "checkout_reference",
+          "required": true
+        },
+        {
           "name": "order",
           "annotations": [],
           "attributes": [],
           "type": "order_number_reference",
+          "deprecation": {
+            "description": "Replaced by checkout"
+          },
           "required": true
         },
         {
@@ -5341,7 +5388,7 @@
           "annotations": [],
           "attributes": [],
           "type": "session_reference",
-          "required": false
+          "required": true
         },
         {
           "name": "customer",
@@ -5385,6 +5432,14 @@
           "attributes": [],
           "type": "[payment_source_form]",
           "required": false
+        },
+        {
+          "name": "session_id",
+          "annotations": [],
+          "description": "We will update the order, if needed, to this session ID",
+          "attributes": [],
+          "type": "string",
+          "required": true
         },
         {
           "name": "urls",
@@ -9007,6 +9062,110 @@
           "attributes": [],
           "type": "string",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "ecommerce_platforms",
+      "name": "ecommerce_platform",
+      "description": "The Ecommerce Platform defines what the organization is using for their ecommerce systems.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "type",
+          "annotations": [],
+          "attributes": [],
+          "type": "ecommerce_platform_type",
+          "required": true
+        },
+        {
+          "name": "version",
+          "annotations": [],
+          "description": "The version of the platform where appropriate. For platform types like shopify that are fully hosted, version does not apply and thus is optional",
+          "attributes": [],
+          "type": "string",
+          "required": false,
+          "example": "2.2"
+        }
+      ]
+    },
+    {
+      "plural": "ecommerce_platform_deleteds",
+      "name": "ecommerce_platform_deleted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ecommerce_platform",
+          "annotations": [],
+          "attributes": [],
+          "type": "ecommerce_platform",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "ecommerce_platform_upserteds",
+      "name": "ecommerce_platform_upserted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ecommerce_platform",
+          "annotations": [],
+          "attributes": [],
+          "type": "ecommerce_platform",
+          "required": true
         }
       ]
     },
@@ -24974,6 +25133,42 @@
       ]
     },
     {
+      "plural": "rate_deleted_v3s",
+      "name": "rate_deleted_v3",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "rate",
+          "annotations": [],
+          "attributes": [],
+          "type": "rate",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "rate_forms",
       "name": "rate_form",
       "description": "Represents the parts of an organization rate that can be updated.",
@@ -25065,6 +25260,42 @@
           "description": "The actual conversion rate after all margins have been applied.",
           "attributes": [],
           "type": "decimal",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "rate_upserted_v3s",
+      "name": "rate_upserted_v3",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "rate",
+          "annotations": [],
+          "attributes": [],
+          "type": "rate",
           "required": true
         }
       ]
@@ -36281,6 +36512,16 @@
           "type": "rate_upserted"
         },
         {
+          "discriminator_value": "rate_deleted_v3",
+          "attributes": [],
+          "type": "rate_deleted_v3"
+        },
+        {
+          "discriminator_value": "rate_upserted_v3",
+          "attributes": [],
+          "type": "rate_upserted_v3"
+        },
+        {
           "discriminator_value": "customer_upserted",
           "attributes": [],
           "type": "customer_upserted"
@@ -36739,6 +36980,16 @@
           "discriminator_value": "organization_default_configurations_deleted",
           "attributes": [],
           "type": "organization_default_configurations_deleted"
+        },
+        {
+          "discriminator_value": "ecommerce_platform_upserted",
+          "attributes": [],
+          "type": "ecommerce_platform_upserted"
+        },
+        {
+          "discriminator_value": "ecommerce_platform_deleted",
+          "attributes": [],
+          "type": "ecommerce_platform_deleted"
         },
         {
           "discriminator_value": "authorization_deleted_v2",
@@ -57116,6 +57367,15 @@
               "description": "Resource was not found",
               "attributes": [],
               "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 429
+                }
+              },
+              "attributes": [],
+              "type": "unit"
             }
           ],
           "attributes": [
@@ -57255,6 +57515,15 @@
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": [],
               "type": "generic_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 429
+                }
+              },
+              "attributes": [],
+              "type": "unit"
             }
           ],
           "description": "Single operation that provides harmonization landed costs (i.e. duties and taxes) for 1 or more items. This method is designed to enable a single call from applications that need it (like checkout) to get all data for a collection of items",
@@ -57334,6 +57603,15 @@
               },
               "attributes": [],
               "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 429
+                }
+              },
+              "attributes": [],
+              "type": "unit"
             }
           ],
           "attributes": [
@@ -57481,6 +57759,15 @@
               },
               "attributes": [],
               "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 429
+                }
+              },
+              "attributes": [],
+              "type": "unit"
             }
           ],
           "description": "Provides visibility into recent changes of each object, including deletion",
@@ -57636,6 +57923,15 @@
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": [],
               "type": "generic_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 429
+                }
+              },
+              "attributes": [],
+              "type": "unit"
             }
           ],
           "attributes": [
@@ -57728,6 +58024,15 @@
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": [],
               "type": "generic_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 429
+                }
+              },
+              "attributes": [],
+              "type": "unit"
             }
           ],
           "attributes": [
@@ -57804,6 +58109,15 @@
                 }
               },
               "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 429
+                }
+              },
               "attributes": [],
               "type": "unit"
             }
@@ -76961,6 +77275,16 @@
             {
               "code": {
                 "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
                   "value": 422
                 }
               },
@@ -77120,6 +77444,16 @@
               },
               "attributes": [],
               "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
             },
             {
               "code": {
@@ -77332,96 +77666,6 @@
               }
             }
           ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "number",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/customers/:number/addresses/book",
-          "method": "PATCH",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "customer_address_book"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "description": "Append customer address book contacts",
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "membership_manager"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "customer_address_book_form"
-          },
           "parameters": [
             {
               "name": "organization",
@@ -78220,6 +78464,92 @@
         }
       ],
       "type": "document"
+    },
+    {
+      "path": "/organizations/:organization_id/ecommerce/platform",
+      "plural": "ecommerce_platforms",
+      "operations": [
+        {
+          "path": "/organizations/:organization_id/ecommerce/platform",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "ecommerce_platform"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization_id",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "The Ecommerce Platform defines what the organization is using for their ecommerce systems.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "ecommerce_platform"
     },
     {
       "path": "/users/emails/verifications",
@@ -88275,7 +88605,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.7.78",
+  "version": "0.7.88",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -89305,6 +89635,41 @@
       "attributes": []
     },
     {
+      "plural": "ecommerce_platform_types",
+      "values": [
+        {
+          "name": "commercetools",
+          "attributes": []
+        },
+        {
+          "name": "custom",
+          "attributes": []
+        },
+        {
+          "name": "magento",
+          "attributes": []
+        },
+        {
+          "name": "shopify",
+          "attributes": []
+        },
+        {
+          "name": "sfcc",
+          "attributes": []
+        },
+        {
+          "name": "solidus",
+          "attributes": []
+        },
+        {
+          "name": "workarea",
+          "attributes": []
+        }
+      ],
+      "name": "ecommerce_platform_type",
+      "attributes": []
+    },
+    {
       "plural": "economic_title_locations",
       "values": [
         {
@@ -89436,6 +89801,14 @@
         },
         {
           "name": "rate_upserted",
+          "attributes": []
+        },
+        {
+          "name": "rate_deleted_v3",
+          "attributes": []
+        },
+        {
+          "name": "rate_upserted_v3",
           "attributes": []
         },
         {
@@ -89804,6 +90177,14 @@
         },
         {
           "name": "organization_default_configurations_deleted",
+          "attributes": []
+        },
+        {
+          "name": "ecommerce_platform_upserted",
+          "attributes": []
+        },
+        {
+          "name": "ecommerce_platform_deleted",
           "attributes": []
         },
         {

@@ -22,13 +22,3 @@ const customerAddressBook = client().customerAddressBook;
 | number | string |  |
 
 
-##`patch(organization, number, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
-
-
