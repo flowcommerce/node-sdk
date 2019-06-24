@@ -7452,6 +7452,38 @@
       ]
     },
     {
+      "plural": "customer_tokens",
+      "name": "customer_token",
+      "description": "Represents a mapping between a customer number and a token",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "customer",
+          "annotations": [],
+          "description": "Customer number as represented in the client's system",
+          "attributes": [],
+          "type": "customer_reference",
+          "required": true
+        },
+        {
+          "name": "token",
+          "annotations": [],
+          "description": "A crytographically secure string to identify a Flow customer",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "customer_upserteds",
       "name": "customer_upserted",
       "attributes": [],
@@ -14692,6 +14724,13 @@
           "attributes": [],
           "type": "string",
           "required": true
+        },
+        {
+          "name": "key",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
         },
         {
           "name": "position",
@@ -24959,10 +24998,10 @@
         {
           "name": "price",
           "annotations": [],
-          "description": "The price of this item for this order. If not specified, we will use the item price from the experience",
+          "description": "The price of this item for this order.",
           "attributes": [],
           "type": "money_with_base",
-          "required": false
+          "required": true
         },
         {
           "name": "attributes",
@@ -30872,6 +30911,13 @@
           "attributes": [],
           "type": "order",
           "required": true
+        },
+        {
+          "name": "errors",
+          "annotations": [],
+          "attributes": [],
+          "type": "[order_error]",
+          "required": false
         }
       ]
     },
@@ -38319,6 +38365,7 @@
         "shopify_cart_item_discount",
         "shopify_client_detail",
         "shopify_customer",
+        "shopify_customer_address",
         "shopify_customer_delete",
         "shopify_customers_response_wrapper",
         "shopify_discount_application",
@@ -78213,6 +78260,403 @@
       "type": "customer_address_book_contact"
     },
     {
+      "path": "/:organization/customer/tokens",
+      "plural": "customer_tokens",
+      "operations": [
+        {
+          "path": "/:organization/customer/tokens",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[customer_token]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            }
+          ],
+          "description": "Search tokens.",
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "token",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "customer_number",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "-created_at",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customer/tokens/latest/:customer_number",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Indicates an existing token was found",
+              "attributes": [],
+              "type": "customer_token"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Indicates a new token was created",
+              "attributes": [],
+              "type": "customer_token"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "If there exists at least one token for this customer number, returns the latest. Otherwise creates a new token and returns that",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "response_codes"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "customer_number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customer/tokens/:id",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer_token"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns a token if it exists.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customer/tokens/:id",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Delete the token for this id.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "Represents a mapping between a customer number and a token",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "customer_token"
+    },
+    {
       "path": "/:organization/search",
       "plural": "documents",
       "operations": [
@@ -88605,7 +89049,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.7.88",
+  "version": "0.7.95",
   "enums": [
     {
       "plural": "adjustment_reason_keys",

@@ -98,6 +98,7 @@ These resources mirror the official documentation located at
 | [customers](customers.md) | A customer represents the actual person placing an order. |
 | [customerAddressBook](customerAddressBook.md) | A composed model representing a customer&#x27;s address book contacts. |
 | [customerAddressBookContacts](customerAddressBookContacts.md) | Preferences may indicate a contact is preferred for billing, invoicing, and/or shipping. |
+| [customerTokens](customerTokens.md) | Represents a mapping between a customer number and a token |
 | [documents](documents.md) |  |
 | [ecommercePlatforms](ecommercePlatforms.md) | The Ecommerce Platform defines what the organization is using for their ecommerce systems. |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |

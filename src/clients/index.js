@@ -89,6 +89,7 @@ import CreditMemos from './credit-memos';
 import Customers from './customers';
 import CustomerAddressBook from './customer-address-book';
 import CustomerAddressBookContacts from './customer-address-book-contacts';
+import CustomerTokens from './customer-tokens';
 import Documents from './documents';
 import EcommercePlatforms from './ecommerce-platforms';
 import EmailVerifications from './email-verifications';
@@ -373,6 +374,7 @@ export default class ApiClient {
     this.customers = new Customers(options);
     this.customerAddressBook = new CustomerAddressBook(options);
     this.customerAddressBookContacts = new CustomerAddressBookContacts(options);
+    this.customerTokens = new CustomerTokens(options);
     this.documents = new Documents(options);
     this.ecommercePlatforms = new EcommercePlatforms(options);
     this.emailVerifications = new EmailVerifications(options);
