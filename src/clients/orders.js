@@ -89,6 +89,13 @@ export default class Orders extends Client {
     });
   }
 
+  postServiceAndChangesByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/service/changes`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   putSubmissionsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/submissions`, {
       ...options,

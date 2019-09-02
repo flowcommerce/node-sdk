@@ -1,13 +1,13 @@
-# [API](README.md).customerTokens - Flow Commerce API - Node SDK Documentation
+# [API](README.md).exclusionRules - Flow Commerce API - Node SDK Documentation
 
-Represents a mapping between a customer number and a token
+A global exclusion rule allows the user to select 1 or more items by query and to globally exclude those items from sale in one or more regions.
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const customerTokens = client().customerTokens;
+const exclusionRules = client().exclusionRules;
 ```
 
 ## Operations
@@ -25,23 +25,38 @@ const customerTokens = client().customerTokens;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| token | string |  |
-| customer_number | string |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`postLatestByCustomerNumber(organization, customerNumber, options = {})`
+##`post(organization, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| customer_number | string |  |
 
 
-##`deleteById(organization, id, options = {})`
+##`getVersions(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| exclusion_rule_id | [string] | Filter to exclusion rules with any one of these ids. |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
+##`putById(organization, id, options = {})`
 
 ### Function Parameters
 
@@ -51,13 +66,13 @@ const customerTokens = client().customerTokens;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`getByToken(organization, token, options = {})`
+##`putDeletionById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| token | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 

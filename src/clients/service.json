@@ -624,6 +624,52 @@
       ]
     },
     {
+      "plural": "adyen_challenge_shopper_data",
+      "name": "adyen_challenge_shopper_data",
+      "description": "Data required to assist in challenging a customer natively.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "challenge_token",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "adyen_identify_shopper_data",
+      "name": "adyen_identify_shopper_data",
+      "description": "Data required to assist in identifying a customer natively.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "fingerprint_token",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "adyen_native_action_detailses",
+      "name": "adyen_native_action_details",
+      "description": "Provides details for how to acquire additional information from the customer natively in the browser for Adyen (e.g. 3DS2)",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "data",
+          "annotations": [],
+          "description": "The associated authorization result action native data, if any.",
+          "attributes": [],
+          "type": "adyen_native_data",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "allocations",
       "name": "allocation",
       "attributes": [],
@@ -1693,6 +1739,37 @@
           "attributes": [],
           "type": "string",
           "required": false
+        },
+        {
+          "name": "details",
+          "annotations": [],
+          "description": "The associated authorization result action details, if any.",
+          "attributes": [],
+          "type": "authorization_result_action_details",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "authorization_result_action_natives",
+      "name": "authorization_result_action_native",
+      "description": "Provides details for how to acquire additional information from the customer natively in the browser (e.g. for 3D Secure 2).",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "type",
+          "annotations": [],
+          "attributes": [],
+          "type": "authorization_result_action_type",
+          "required": true
+        },
+        {
+          "name": "details",
+          "annotations": [],
+          "description": "The associated authorization result action details, if any.",
+          "attributes": [],
+          "type": "authorization_result_action_details",
+          "required": false
         }
       ]
     },
@@ -2225,6 +2302,169 @@
       ]
     },
     {
+      "plural": "b2b_credit_memos",
+      "name": "b2b_credit_memo",
+      "description": "The b2b credit memo represents a refund transaction between Flow and one of our clients",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "buyer",
+          "annotations": [],
+          "description": "Will be one of flow's entities when we are purchasing inventory.",
+          "attributes": [],
+          "type": "merchant_of_record_entity",
+          "required": true
+        },
+        {
+          "name": "seller",
+          "annotations": [],
+          "attributes": [],
+          "type": "merchant_of_record_entity",
+          "required": true
+        },
+        {
+          "name": "status",
+          "annotations": [],
+          "attributes": [],
+          "type": "consumer_invoice_status",
+          "required": true
+        },
+        {
+          "name": "date",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "key",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "invoice",
+          "annotations": [],
+          "description": "The invoice against which the refund was issued",
+          "attributes": [],
+          "type": "b2b_invoice_reference",
+          "required": true
+        },
+        {
+          "name": "lines",
+          "annotations": [],
+          "attributes": [],
+          "type": "[consumer_invoice_line]",
+          "required": true
+        },
+        {
+          "name": "documents",
+          "annotations": [],
+          "attributes": [],
+          "type": "[consumer_invoice_document]",
+          "required": true
+        },
+        {
+          "name": "attributes",
+          "annotations": [],
+          "attributes": [],
+          "type": "map[string]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "b2b_credit_memo_deleteds",
+      "name": "b2b_credit_memo_deleted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "description": "The date/time of the request",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "b2b_credit_memo",
+          "annotations": [],
+          "attributes": [],
+          "type": "b2b_credit_memo",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "b2b_credit_memo_upserteds",
+      "name": "b2b_credit_memo_upserted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "description": "The date/time of the request",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "b2b_credit_memo",
+          "annotations": [],
+          "attributes": [],
+          "type": "b2b_credit_memo",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "b2b_invoices",
       "name": "b2b_invoice",
       "description": "The b2b invoice represents a transaction between Flow and one of our clients (e.g. Flow purchasing inventory to resell to a consumer).",
@@ -2376,6 +2616,36 @@
           "annotations": [],
           "attributes": [],
           "type": "b2b_invoice",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "b2b_invoice_references",
+      "name": "b2b_invoice_reference",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "key",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
           "required": true
         }
       ]
@@ -2611,6 +2881,62 @@
           "attributes": [],
           "type": "browse_optin_responses",
           "required": true
+        }
+      ]
+    },
+    {
+      "plural": "browser_infoes",
+      "name": "browser_info",
+      "description": "Shopper browser info. All of these fields are required if you are using 3DS2.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "language",
+          "annotations": [],
+          "description": "The navigator.language value of the shopper's browser (as defined in IETF BCP 47).",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "java_enabled",
+          "annotations": [],
+          "description": "Boolean value indicating if the shopper's browser is able to execute Java.",
+          "attributes": [],
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "color_depth",
+          "annotations": [],
+          "description": "The color depth of the shopper's browser in bits per pixel. This should be obtained by using the browser's screen.colorDepth property. Accepted values: 1, 4, 8, 15, 16, 24, 32 or 48 bit color depth.",
+          "attributes": [],
+          "type": "integer",
+          "required": false
+        },
+        {
+          "name": "screen_height",
+          "annotations": [],
+          "description": "The total height of the shopper's device screen in pixels.",
+          "attributes": [],
+          "type": "integer",
+          "required": false
+        },
+        {
+          "name": "screen_width",
+          "annotations": [],
+          "description": "The total width of the shopper's device screen in pixels.",
+          "attributes": [],
+          "type": "integer",
+          "required": false
+        },
+        {
+          "name": "time_zone_offset",
+          "annotations": [],
+          "description": "Time difference between UTC time and the shopper's browser local time, in minutes.",
+          "attributes": [],
+          "type": "integer",
+          "required": false
         }
       ]
     },
@@ -3670,6 +3996,62 @@
       ]
     },
     {
+      "plural": "card_payment_source_authorization_forms",
+      "name": "card_payment_source_authorization_form",
+      "description": "Creates an authorization for a transaction from a card payment source.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "key",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "Your unique identifier for this transaction, which if provided is used to implement idempotency. If not provided, we will assign.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "card_payment_source_id",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The card payment source id.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "order_number",
+          "annotations": [],
+          "description": "Client order number for which to authorize payment. We will automatically verify that this order exists and will authorize the total amount of the order in the currency of the order.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "amount",
+          "annotations": [],
+          "description": "The amount to authorize",
+          "attributes": [],
+          "type": "decimal",
+          "required": true,
+          "example": "120.38"
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "The ISO 4217-3 code for the currency. Case insensitive. See https://api.flow.io/reference/currencies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "CAD"
+        }
+      ]
+    },
+    {
       "plural": "card_payment_source_forms",
       "name": "card_payment_source_form",
       "description": "Contains a summary of a card, which is useful for displaying to a customer.",
@@ -3684,62 +4066,12 @@
           "required": true
         },
         {
-          "name": "token",
+          "name": "card_id",
           "annotations": [],
-          "description": "The token of the credit card with which to create the source.",
+          "description": "The card id associated with the source.",
           "attributes": [],
           "type": "string",
-          "required": false
-        },
-        {
-          "name": "last4",
-          "annotations": [],
-          "description": "Last four digits of the customer's credit card.",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "expiration_month",
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
-          "maximum": 12,
-          "attributes": [],
-          "type": "integer",
-          "minimum": 1,
-          "required": false,
-          "example": "4"
-        },
-        {
-          "name": "expiration_year",
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "The 4 digit expiration year",
-          "attributes": [],
-          "type": "integer",
-          "required": false,
-          "example": "2021"
-        },
-        {
-          "name": "type",
-          "annotations": [],
-          "description": "The brand of credit card, such as VISA or MasterCard.",
-          "attributes": [],
-          "type": "card_type",
-          "required": false
-        },
-        {
-          "name": "billing_address",
-          "annotations": [],
-          "description": "The billing address for this card.",
-          "attributes": [],
-          "type": "billing_address",
-          "required": false
+          "required": true
         }
       ]
     },
@@ -3758,62 +4090,12 @@
           "required": true
         },
         {
-          "name": "token",
+          "name": "card",
           "annotations": [],
-          "description": "The token of the credit card with which to create the source.",
+          "description": "Card details associated with the payment source.",
           "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "last4",
-          "annotations": [],
-          "description": "Last four digits of the customer's credit card.",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "expiration_month",
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "The month of expiration expressed as a number. 1 = January, 12 = December",
-          "maximum": 12,
-          "attributes": [],
-          "type": "integer",
-          "minimum": 1,
-          "required": false,
-          "example": "4"
-        },
-        {
-          "name": "expiration_year",
-          "annotations": [
-            "personal_data",
-            "consumer"
-          ],
-          "description": "The 4 digit expiration year",
-          "attributes": [],
-          "type": "integer",
-          "required": false,
-          "example": "2021"
-        },
-        {
-          "name": "type",
-          "annotations": [],
-          "description": "The brand of credit card, such as VISA or MasterCard.",
-          "attributes": [],
-          "type": "card_type",
-          "required": false
-        },
-        {
-          "name": "billing_address",
-          "annotations": [],
-          "description": "The billing address for this card.",
-          "attributes": [],
-          "type": "billing_address",
-          "required": false
+          "type": "card_summary",
+          "required": true
         }
       ]
     },
@@ -4548,6 +4830,61 @@
           "attributes": [],
           "type": "item",
           "required": true
+        }
+      ]
+    },
+    {
+      "plural": "catalog_price_book_item_documents",
+      "name": "catalog_price_book_item_document",
+      "description": "Represents the returned information for searching particular price book items",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price_book_key",
+          "annotations": [],
+          "description": "Corresponds with the price book key to which this price book item belongs.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "price_book_item_key",
+          "annotations": [],
+          "description": "The unique id for the price book key item.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "catalog",
+          "annotations": [],
+          "attributes": [],
+          "type": "catalog_item_summary",
+          "required": true
+        },
+        {
+          "name": "amount",
+          "annotations": [],
+          "description": "The item price amount, in the currency of the price book.",
+          "attributes": [],
+          "type": "decimal",
+          "required": true
+        },
+        {
+          "name": "starts_at",
+          "annotations": [],
+          "description": "The date and time for the price to take effect.",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "ends_at",
+          "annotations": [],
+          "description": "The date and time for the price to stop taking effect. If not provided, no default end time will be set.",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": false
         }
       ]
     },
@@ -5447,6 +5784,14 @@
           "attributes": [],
           "type": "checkout_urls_form",
           "required": false
+        },
+        {
+          "name": "identifiers",
+          "annotations": [],
+          "description": "Optionally provide one or more order identifiers to attach to the order automatically.",
+          "attributes": [],
+          "type": "[order_submission_identifier_form]",
+          "required": false
         }
       ]
     },
@@ -5488,7 +5833,15 @@
         {
           "name": "continue_shopping",
           "annotations": [],
-          "description": "URL to continue shopping post purchase",
+          "description": "If specified, will be stored on the order in the attribute named 'flow_continue_shopping_url' and will be used as the target URL for when a user chooses to Continue Shopping from Flow Checkout UI",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "confirmation",
+          "annotations": [],
+          "description": "If specified, will be stored on the order in the attribute named 'flow_confirmation_url' and indicates that instead of showing the Flow Checkout UI Confirmation page, we redirect to this URL instead.",
           "attributes": [],
           "type": "string",
           "required": false
@@ -5503,6 +5856,15 @@
         {
           "name": "continue_shopping",
           "annotations": [],
+          "description": "If specified, will be stored on the order in the attribute named 'flow_continue_shopping_url' and will be used as the target URL for when a user chooses to Continue Shopping from Flow Checkout UI",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "confirmation",
+          "annotations": [],
+          "description": "If specified, will be stored on the order in the attribute named 'flow_confirmation_url' and indicates that instead of showing the Flow Checkout UI Confirmation page, we redirect to this URL instead.",
           "attributes": [],
           "type": "string",
           "required": false
@@ -6870,6 +7232,78 @@
       ]
     },
     {
+      "plural": "csv_price_book_item_export_rows",
+      "name": "csv_price_book_item_export_row",
+      "description": "Represents the format used to export price book item documents",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price_book_key",
+          "annotations": [],
+          "description": "Corresponds with the price book key to which this price book item belongs.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "price_book_item_key",
+          "annotations": [],
+          "description": "The unique id for the price book key item.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "item_number",
+          "annotations": [],
+          "description": "Corresponds with the unique product id from the ingested price book.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "item_name",
+          "annotations": [],
+          "description": "The product name of the price book item.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "amount",
+          "annotations": [],
+          "description": "The item price amount, in the currency of the price book.",
+          "attributes": [],
+          "type": "decimal",
+          "required": true
+        },
+        {
+          "name": "item_attributes",
+          "annotations": [],
+          "description": "Optionally specify values for any of the catalog item attributes that have an intent of price, e.g. add a 'compare_at' or 'msrp' price here.",
+          "attributes": [],
+          "type": "map[string]",
+          "required": false
+        },
+        {
+          "name": "starts_at",
+          "annotations": [],
+          "description": "The date and time for the price to take effect.",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "ends_at",
+          "annotations": [],
+          "description": "The date and time for the price to stop taking effect. If not provided, no default end time will be set.",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "currencies",
       "name": "currency",
       "description": "ISO 4217 3-character currency code. See https://api.flow.io/reference/currencies",
@@ -7299,6 +7733,28 @@
       ]
     },
     {
+      "plural": "customer_bundles",
+      "name": "customer_bundle",
+      "description": "A bundle of all the content needed to render customer data.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "customer",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer",
+          "required": true
+        },
+        {
+          "name": "last_used",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_last_used",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "customer_deleteds",
       "name": "customer_deleted",
       "attributes": [],
@@ -7395,6 +7851,84 @@
           "attributes": [],
           "type": "billing_address",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "customer_last_useds",
+      "name": "customer_last_used",
+      "description": "Last used details pertaining to a customer.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "order",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_order",
+          "required": true
+        },
+        {
+          "name": "payment",
+          "annotations": [],
+          "attributes": [],
+          "type": "customer_payment",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "customer_orders",
+      "name": "customer_order",
+      "description": "Order details pertaining to a customer.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "destination",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "attributes": [],
+          "type": "order_address",
+          "required": true
+        },
+        {
+          "name": "payments",
+          "annotations": [],
+          "attributes": [],
+          "type": "[order_payment]",
+          "required": false
+        },
+        {
+          "name": "submitted_at",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "customer_payments",
+      "name": "customer_payment",
+      "description": "Customer payment details.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "payment_methods",
+          "annotations": [],
+          "description": "Last used payment methods pertaining to a customer.",
+          "attributes": [],
+          "type": "[payment_method]",
+          "required": true
         }
       ]
     },
@@ -7666,6 +8200,14 @@
           "attributes": [],
           "type": "money_with_optional_base",
           "required": false
+        },
+        {
+          "name": "line_number",
+          "annotations": [],
+          "description": "The position of this item in the lines/items collections on an order. Used to keep track of multiple deliveries.",
+          "attributes": [],
+          "type": "long",
+          "required": false
         }
       ]
     },
@@ -7758,6 +8300,13 @@
           "description": "Surcharges to be paid for by the end-customer.",
           "attributes": [],
           "type": "price_with_base_and_details",
+          "required": false
+        },
+        {
+          "name": "ratecard_owner",
+          "annotations": [],
+          "attributes": [],
+          "type": "ratecard_owner",
           "required": false
         }
       ]
@@ -7865,43 +8414,6 @@
       ]
     },
     {
-      "plural": "delivery_option_deleteds",
-      "name": "delivery_option_deleted",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "event_id",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "timestamp",
-          "annotations": [],
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": true
-        },
-        {
-          "name": "organization",
-          "annotations": [],
-          "description": "Refers to your organization's account identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        }
-      ]
-    },
-    {
       "plural": "delivery_option_forms",
       "name": "delivery_option_form",
       "description": "Represents a way to fulfill a delivery, including an estimates for the date range and cost",
@@ -8001,113 +8513,6 @@
           "attributes": [],
           "type": "datetime_range",
           "required": true
-        }
-      ]
-    },
-    {
-      "plural": "delivery_option_upserteds",
-      "name": "delivery_option_upserted",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "event_id",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "timestamp",
-          "annotations": [],
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": true
-        },
-        {
-          "name": "organization",
-          "annotations": [],
-          "description": "Refers to your organization's account identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "cost",
-          "annotations": [],
-          "attributes": [],
-          "type": "object",
-          "required": true
-        },
-        {
-          "name": "price",
-          "annotations": [],
-          "attributes": [],
-          "type": "object",
-          "required": true
-        },
-        {
-          "name": "delivered_duty",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "service_id",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "tier",
-          "annotations": [],
-          "attributes": [],
-          "type": "object",
-          "required": true
-        },
-        {
-          "name": "window",
-          "annotations": [],
-          "attributes": [],
-          "type": "object",
-          "required": true
-        },
-        {
-          "name": "rule_outcome",
-          "annotations": [],
-          "attributes": [],
-          "type": "object",
-          "required": true
-        },
-        {
-          "name": "weight",
-          "annotations": [],
-          "attributes": [],
-          "type": "object",
-          "required": false
-        },
-        {
-          "name": "delivery_window_components",
-          "annotations": [],
-          "attributes": [],
-          "type": "object",
-          "required": true
-        },
-        {
-          "name": "surcharge",
-          "annotations": [],
-          "attributes": [],
-          "type": "price_with_base_and_details",
-          "required": false
         }
       ]
     },
@@ -8585,11 +8990,35 @@
           "required": true
         },
         {
+          "name": "key",
+          "annotations": [],
+          "description": "A key for a delivery. These will be unique identifiers for a delivery within an order, but may be re-used across quotes.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "items",
           "annotations": [],
           "attributes": [],
           "type": "[delivery_item]",
           "required": true
+        },
+        {
+          "name": "prices",
+          "annotations": [],
+          "description": "Prices of the goods within this delivery.",
+          "attributes": [],
+          "type": "[order_price_detail]",
+          "required": false
+        },
+        {
+          "name": "total",
+          "annotations": [],
+          "description": "Total of the goods within this delivery",
+          "attributes": [],
+          "type": "localized_total",
+          "required": false
         }
       ]
     },
@@ -8884,6 +9313,14 @@
           "description": "When using 3D Secure, this field specifies the success and optional failure URLs to which the user will be redirected after completing (or failing to complete) payment.",
           "attributes": [],
           "type": "post_payment_redirect_urls",
+          "required": false
+        },
+        {
+          "name": "browser_info",
+          "annotations": [],
+          "description": "Shopper browser info. If you are using 3DS2, this field is required.",
+          "attributes": [],
+          "type": "browser_info",
           "required": false
         }
       ]
@@ -9303,6 +9740,157 @@
           "type": "datetime_range",
           "required": true,
           "example": "2021/12/24 12:00 am to 2021/12/25 11:59 pm"
+        }
+      ]
+    },
+    {
+      "plural": "exclusion_rules",
+      "name": "exclusion_rule",
+      "description": "A global exclusion rule allows the user to select 1 or more items by query and to globally exclude those items from sale in one or more regions.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "q",
+          "annotations": [],
+          "description": "The query to identify the items to which this exclusion rule applies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "number:123"
+        },
+        {
+          "name": "query",
+          "annotations": [],
+          "attributes": [],
+          "type": "query",
+          "required": true
+        },
+        {
+          "name": "regions",
+          "annotations": [],
+          "description": "The regions in which the item is restricted.",
+          "attributes": [],
+          "type": "[region]",
+          "required": true
+        },
+        {
+          "name": "status",
+          "annotations": [],
+          "description": "Defines the status that is attached to each excluded item when localized to a matching region",
+          "attributes": [],
+          "type": "subcatalog_item_status",
+          "required": true
+        },
+        {
+          "name": "description",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "statistics",
+          "annotations": [],
+          "attributes": [],
+          "type": "exclusion_rule_statistic",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "exclusion_rule_forms",
+      "name": "exclusion_rule_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "q",
+          "annotations": [],
+          "description": "The query to identify the items to which this exclusion rule applies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "number:123"
+        },
+        {
+          "name": "regions",
+          "annotations": [],
+          "description": "The ids of the regions in which to restrict the items.",
+          "attributes": [],
+          "type": "[string]",
+          "minimum": 1,
+          "required": true
+        },
+        {
+          "name": "description",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "exclusion_rule_statistics",
+      "name": "exclusion_rule_statistic",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "state",
+          "annotations": [],
+          "attributes": [],
+          "type": "exclusion_rule_state",
+          "required": true
+        },
+        {
+          "name": "number_items",
+          "annotations": [],
+          "attributes": [],
+          "type": "long",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "exclusion_rule_versions",
+      "name": "exclusion_rule_version",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "type",
+          "annotations": [],
+          "attributes": [],
+          "type": "change_type",
+          "required": true
+        },
+        {
+          "name": "exclusion_rule",
+          "annotations": [],
+          "attributes": [],
+          "type": "exclusion_rule",
+          "required": true
         }
       ]
     },
@@ -14730,7 +15318,7 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": false
+          "required": true
         },
         {
           "name": "position",
@@ -16410,6 +16998,13 @@
           "required": true
         },
         {
+          "name": "center",
+          "annotations": [],
+          "attributes": [],
+          "type": "center_summary",
+          "required": false
+        },
+        {
           "name": "item",
           "annotations": [],
           "attributes": [],
@@ -16481,6 +17076,22 @@
           "attributes": [],
           "type": "localized_item_price",
           "required": true
+        },
+        {
+          "name": "vat",
+          "annotations": [],
+          "description": "The localized VAT price for this experience.",
+          "attributes": [],
+          "type": "localized_item_vat",
+          "required": false
+        },
+        {
+          "name": "duty",
+          "annotations": [],
+          "description": "The localized duty price for this experience.",
+          "attributes": [],
+          "type": "localized_item_duty",
+          "required": false
         },
         {
           "name": "attributes",
@@ -17603,6 +18214,163 @@
       ]
     },
     {
+      "plural": "merchant_gift_card_balances",
+      "name": "merchant_gift_card_balance",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "amount",
+          "annotations": [],
+          "attributes": [],
+          "type": "decimal",
+          "required": true
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "The base iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "USD"
+        }
+      ]
+    },
+    {
+      "plural": "merchant_gift_card_balance_forms",
+      "name": "merchant_gift_card_balance_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "The number of the gift card.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "merchant_gift_card_errors",
+      "name": "merchant_gift_card_error",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "code",
+          "annotations": [],
+          "attributes": [],
+          "type": "merchant_gift_card_error_code",
+          "required": true
+        },
+        {
+          "name": "messages",
+          "annotations": [],
+          "description": "If provided, the messages will be returned to the customer. Otherwise, Flow will return a message based on the type.",
+          "attributes": [],
+          "type": "[string]",
+          "minimum": 1,
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "merchant_gift_card_redemptions",
+      "name": "merchant_gift_card_redemption",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "merchant_gift_card_redemption_forms",
+      "name": "merchant_gift_card_redemption_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "The number of the gift card to redeem.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "amount",
+          "annotations": [],
+          "description": "Gift card amount to redeem. Always positive.",
+          "attributes": [],
+          "type": "decimal",
+          "minimum": 0,
+          "required": true
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "The base iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "USD"
+        }
+      ]
+    },
+    {
+      "plural": "merchant_gift_card_reversals",
+      "name": "merchant_gift_card_reversal",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "merchant_gift_card_reversal_forms",
+      "name": "merchant_gift_card_reversal_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "The number of the gift card to reverse.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "amount",
+          "annotations": [],
+          "description": "Gift card amount to reimburse. Always positive.",
+          "attributes": [],
+          "type": "decimal",
+          "minimum": 0,
+          "required": true
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "The base iso_4217_3 currency code as defined in http://reference.api.flow.io/currencies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "USD"
+        }
+      ]
+    },
+    {
       "plural": "merchant_of_record_authorization_forms",
       "name": "merchant_of_record_authorization_form",
       "description": "Creates an authorization for a transaction for which Flow is the merchant of record. In this case, you must provide your order number for a valid Flow order. An authorization is used to check and reserve funds w/ a given payment method. No funds are actually transferred; once you have you an authorization, you can capture up to the amount of the authorization",
@@ -17704,6 +18472,14 @@
           "description": "If this authorization is made in context of an installment program, this field can be provided and this authorization will reflect only the first installment amount.",
           "attributes": [],
           "type": "string",
+          "required": false
+        },
+        {
+          "name": "browser_info",
+          "annotations": [],
+          "description": "Shopper browser info. If you are using 3DS2, this field is required.",
+          "attributes": [],
+          "type": "browser_info",
           "required": false
         }
       ]
@@ -20621,6 +21397,167 @@
       ]
     },
     {
+      "plural": "order_service_changes",
+      "name": "order_service_change",
+      "description": "Manual change for a shipping method used for an order. Currently only available to orders with a single calculated delivery.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "from",
+          "annotations": [],
+          "attributes": [],
+          "type": "carrier_service",
+          "required": true
+        },
+        {
+          "name": "to",
+          "annotations": [],
+          "attributes": [],
+          "type": "carrier_service",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_service_change_forms",
+      "name": "order_service_change_form",
+      "description": "Manual change for a shipping method used for an order. Currently only available to orders with a single calculated delivery. To help with orders with multiple deliveries, we will require verification of both the current service level (from) and the new service level (to).",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "from_service_id",
+          "annotations": [],
+          "description": "Valid carrier service level ID of the order delivery to be changed.",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "landmark-global"
+        },
+        {
+          "name": "to_service_id",
+          "annotations": [],
+          "description": "Valid carrier service level ID to use for the delivery.",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "dhl-express-worldwide"
+        }
+      ]
+    },
+    {
+      "plural": "order_service_change_requests",
+      "name": "order_service_change_request",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "request",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_service_change_request_data",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_service_change_request_data",
+      "name": "order_service_change_request_data",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "source_url",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "filename",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "order_submission_forms",
+      "name": "order_submission_form",
+      "description": "Optional data to be processed during order submission",
+      "attributes": [],
+      "fields": [
+        {
+          "default": "[]",
+          "name": "identifiers",
+          "annotations": [],
+          "description": "An optional list of order identifiers to associate with the order.",
+          "attributes": [],
+          "type": "[order_submission_identifier_form]",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "order_submission_identifier_forms",
+      "name": "order_submission_identifier_form",
+      "description": "Defines the data needed to attach an identifer to each order created by a checkout.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "identifier",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "primary",
+          "annotations": [],
+          "description": "If you set this to true, creates the order identifier and marks it as primary. If there already exists a prior primary identifier, that identifier will be updated to no longer by the primary",
+          "attributes": [],
+          "type": "boolean",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "order_upserteds",
       "name": "order_upserted",
       "attributes": [],
@@ -23227,6 +24164,14 @@
           "required": true
         },
         {
+          "name": "key",
+          "annotations": [],
+          "description": "A key for a delivery. These will be unique identifiers for a delivery within an order, but may be re-used across quotes.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "center",
           "annotations": [],
           "description": "Origin center for this delivery.",
@@ -23257,6 +24202,22 @@
           "type": "[physical_delivery_special_serivce]",
           "required": false,
           "example": "hazardous"
+        },
+        {
+          "name": "prices",
+          "annotations": [],
+          "description": "Prices of the goods within this delivery.",
+          "attributes": [],
+          "type": "[order_price_detail]",
+          "required": false
+        },
+        {
+          "name": "total",
+          "annotations": [],
+          "description": "Total of the goods within this delivery",
+          "attributes": [],
+          "type": "localized_total",
+          "required": false
         }
       ]
     },
@@ -23543,6 +24504,46 @@
           "attributes": [],
           "type": "string",
           "required": true
+        }
+      ]
+    },
+    {
+      "plural": "price_book_item_export_types",
+      "name": "price_book_item_export_type",
+      "description": "Defines the filters that can be applied when requesting a price book item data export",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price_book_key",
+          "annotations": [],
+          "description": "The price book that you want to export items from",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "item_numbers",
+          "annotations": [],
+          "description": "The specific list of item numbers to export",
+          "attributes": [],
+          "type": "[string]",
+          "required": false
+        },
+        {
+          "name": "start_date",
+          "annotations": [],
+          "description": "If specified, we select items that start on or after this date",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": false
+        },
+        {
+          "name": "end_date",
+          "annotations": [],
+          "description": "If specified, we select items that end on or before this date",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": false
         }
       ]
     },
@@ -25438,6 +26439,14 @@
           "attributes": [],
           "type": "date-time-iso8601",
           "required": false
+        },
+        {
+          "name": "ratecard_owner",
+          "annotations": [],
+          "description": "Describes who owns this ratecard and is responsible for paying the carrier.",
+          "attributes": [],
+          "type": "ratecard_owner",
+          "required": false
         }
       ]
     },
@@ -25459,6 +26468,42 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "ratecard_deleteds",
+      "name": "ratecard_deleted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ratecard",
+          "annotations": [],
+          "attributes": [],
+          "type": "ratecard",
           "required": true
         }
       ]
@@ -25845,6 +26890,14 @@
           "attributes": [],
           "type": "[line_item_form]",
           "required": false
+        },
+        {
+          "name": "ratecard_owner",
+          "annotations": [],
+          "description": "Describes which party would be responsible for paying the carrier.",
+          "attributes": [],
+          "type": "ratecard_owner",
+          "required": false
         }
       ]
     },
@@ -25892,6 +26945,15 @@
           "description": "Client's unique identifier for this object",
           "attributes": [],
           "type": "string",
+          "required": false
+        },
+        {
+          "default": "flow",
+          "name": "ratecard_owner",
+          "annotations": [],
+          "description": "Describes who owns this ratecard and is responsible for paying the carrier.",
+          "attributes": [],
+          "type": "ratecard_owner",
           "required": false
         }
       ]
@@ -26155,6 +27217,15 @@
       "description": "Represents a line in a ratecard lane import file to be used with bulk CSV imports of multiple ratecard lanes across different services in a single import file. This would represent a row in each file.",
       "attributes": [],
       "fields": [
+        {
+          "name": "ratecard_owner",
+          "annotations": [],
+          "description": "Describes which party would be responsible for paying the carrier.",
+          "attributes": [],
+          "type": "ratecard_owner",
+          "required": true,
+          "example": "flow"
+        },
         {
           "name": "service",
           "annotations": [],
@@ -26469,6 +27540,42 @@
           "annotations": [],
           "attributes": [],
           "type": "ratecard_carrier_summary",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "ratecard_upserteds",
+      "name": "ratecard_upserted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ratecard",
+          "annotations": [],
+          "attributes": [],
+          "type": "ratecard",
           "required": true
         }
       ]
@@ -27850,6 +28957,14 @@
           "description": "Origin address of the return. If not provided, will default to destination address of the original order.",
           "attributes": [],
           "type": "shipping_address",
+          "required": false
+        },
+        {
+          "name": "center_key",
+          "annotations": [],
+          "description": "Return center to use for the return shipment. If not provided, will pick the default center.",
+          "attributes": [],
+          "type": "string",
           "required": false
         }
       ]
@@ -30462,6 +31577,37 @@
       ]
     },
     {
+      "plural": "shipping_lane_summaries",
+      "name": "shipping_lane_summary",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "shipping_lane_id",
+          "annotations": [],
+          "description": "This field corresponding the shipping lane id",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "region",
+          "annotations": [],
+          "description": "The destination region for this shipping lane",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "centers",
+          "annotations": [],
+          "description": "Centers associated with this shopping lane",
+          "attributes": [],
+          "type": "[expandable_center]",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "shipping_lane_upserteds",
       "name": "shipping_lane_upserted",
       "attributes": [],
@@ -31486,7 +32632,7 @@
         {
           "name": "merchant_of_record_entity",
           "annotations": [],
-          "description": "If Flow is the merchant of record, we provide the specific entity that is serving in the transaction (e.g. Flow Limited in Ireland or Flow Inc in the US)",
+          "description": "If Flow is the merchant of record, we provide the specific entity that is serving in the transaction (e.g. Flow Limited in Ireland or Flow Inc in the US). If there are multiple deliveries for an order, there may also be multiple MoR entities. In that case, the order MoR entity field will be omitted and you should rely on the MoR entity field on the delivery.",
           "attributes": [],
           "type": "merchant_of_record_entity",
           "required": false
@@ -31513,6 +32659,14 @@
           "description": "Represents the tax registration on an order (e.g user entered a valid VAT number in europe), if applicable, and its status.",
           "attributes": [],
           "type": "tax_registration",
+          "required": false
+        },
+        {
+          "name": "geo",
+          "annotations": [],
+          "description": "If present, provides the geo ip related information for this order",
+          "attributes": [],
+          "type": "order_geo",
           "required": false
         }
       ]
@@ -31701,6 +32855,14 @@
       "attributes": [],
       "fields": [
         {
+          "name": "key",
+          "annotations": [],
+          "description": "A key for a delivery. These will be unique identifiers for a delivery within an order.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "items",
           "annotations": [],
           "attributes": [],
@@ -31728,6 +32890,30 @@
           "description": "The shipping cost associated to the selected delivery",
           "attributes": [],
           "type": "money_with_optional_base",
+          "required": false
+        },
+        {
+          "name": "prices",
+          "annotations": [],
+          "description": "Prices of the goods within this delivery.",
+          "attributes": [],
+          "type": "[shopify_price]",
+          "required": false
+        },
+        {
+          "name": "total",
+          "annotations": [],
+          "description": "Total of the goods within this delivery",
+          "attributes": [],
+          "type": "shopify_price",
+          "required": false
+        },
+        {
+          "name": "merchant_of_record_entity",
+          "annotations": [],
+          "description": "If Flow is the merchant of record, we provide the specific entity that is serving this delivery (e.g. Flow Limited in Ireland or Flow Inc in the US).",
+          "attributes": [],
+          "type": "merchant_of_record_entity",
           "required": false
         }
       ]
@@ -32305,6 +33491,30 @@
           "name": "key",
           "annotations": [],
           "description": "Used to identify an account within an organization, specifically when specifying account selection rules. Defaults to account id if not specified.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "stripe_authorization_result_action_detailses",
+      "name": "stripe_authorization_result_action_details",
+      "description": "Provides details for Stripe authorizations (e.g. client secret to be used for 3D Secure).",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "client_secret",
+          "annotations": [],
+          "description": "The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "payment_method_id",
+          "annotations": [],
+          "description": "ID of the payment method used in this PaymentIntent.",
           "attributes": [],
           "type": "string",
           "required": false
@@ -33668,6 +34878,9 @@
           "description": "If this tier belongs to the shipping lane this is the corresponding shipping lane id",
           "attributes": [],
           "type": "string",
+          "deprecation": {
+            "description": "This field will be deprecated. Please use the 'lane' field"
+          },
           "required": false
         },
         {
@@ -33676,6 +34889,14 @@
           "description": "The apportionment of additional shipping surcharges and fees that may be levied by some carriers",
           "attributes": [],
           "type": "[surcharge_setting]",
+          "required": false
+        },
+        {
+          "name": "lane",
+          "annotations": [],
+          "description": "Contains information about shipping lane and centers it can ship from/to",
+          "attributes": [],
+          "type": "shipping_lane_summary",
           "required": false
         }
       ]
@@ -36124,6 +37345,24 @@
     {
       "types": [
         {
+          "discriminator_value": "adyen_identify_shopper_data",
+          "attributes": [],
+          "type": "adyen_identify_shopper_data"
+        },
+        {
+          "discriminator_value": "adyen_challenge_shopper_data",
+          "attributes": [],
+          "type": "adyen_challenge_shopper_data"
+        }
+      ],
+      "plural": "adyen_native_data",
+      "name": "adyen_native_data",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
           "discriminator_value": "allocation_detail_component",
           "attributes": [],
           "type": "allocation_detail_component"
@@ -36218,6 +37457,12 @@
           "description": "Enables authorizations via ACH (Automated Clearing House) bank transfer.",
           "attributes": [],
           "type": "ach_authorization_form"
+        },
+        {
+          "discriminator_value": "card_payment_source_authorization_form",
+          "description": "Enables authorizations via card payment source.",
+          "attributes": [],
+          "type": "card_payment_source_authorization_form"
         }
       ],
       "plural": "authorization_forms",
@@ -36260,10 +37505,33 @@
           "discriminator_value": "authorization_result_action_wait",
           "attributes": [],
           "type": "authorization_result_action_wait"
+        },
+        {
+          "discriminator_value": "authorization_result_action_native",
+          "attributes": [],
+          "type": "authorization_result_action_native"
         }
       ],
       "plural": "authorization_result_actions",
       "name": "authorization_result_action",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
+          "discriminator_value": "adyen_native_action_details",
+          "attributes": [],
+          "type": "adyen_native_action_details"
+        },
+        {
+          "discriminator_value": "stripe_authorization_result_action_details",
+          "attributes": [],
+          "type": "stripe_authorization_result_action_details"
+        }
+      ],
+      "plural": "authorization_result_action_detailses",
+      "name": "authorization_result_action_details",
       "attributes": [],
       "discriminator": "discriminator"
     },
@@ -36523,6 +37791,16 @@
           "type": "b2b_invoice_deleted"
         },
         {
+          "discriminator_value": "b2b_credit_memo_upserted",
+          "attributes": [],
+          "type": "b2b_credit_memo_upserted"
+        },
+        {
+          "discriminator_value": "b2b_credit_memo_deleted",
+          "attributes": [],
+          "type": "b2b_credit_memo_deleted"
+        },
+        {
           "discriminator_value": "consumer_invoice_upserted",
           "attributes": [],
           "type": "consumer_invoice_upserted"
@@ -36753,6 +38031,11 @@
           "type": "pricing_upserted"
         },
         {
+          "discriminator_value": "order_service_change_request",
+          "attributes": [],
+          "type": "order_service_change_request"
+        },
+        {
           "discriminator_value": "fraud_status_changed",
           "attributes": [],
           "type": "fraud_status_changed"
@@ -36766,16 +38049,6 @@
           "discriminator_value": "center_deleted",
           "attributes": [],
           "type": "center_deleted"
-        },
-        {
-          "discriminator_value": "delivery_option_upserted",
-          "attributes": [],
-          "type": "delivery_option_upserted"
-        },
-        {
-          "discriminator_value": "delivery_option_deleted",
-          "attributes": [],
-          "type": "delivery_option_deleted"
         },
         {
           "discriminator_value": "shipping_configuration_upserted",
@@ -37204,6 +38477,16 @@
           "type": "ratecard_lane_deleted"
         },
         {
+          "discriminator_value": "ratecard_upserted",
+          "attributes": [],
+          "type": "ratecard_upserted"
+        },
+        {
+          "discriminator_value": "ratecard_deleted",
+          "attributes": [],
+          "type": "ratecard_deleted"
+        },
+        {
           "discriminator_value": "return_upserted",
           "attributes": [],
           "type": "return_upserted"
@@ -37463,6 +38746,11 @@
           "discriminator_value": "order_export_type",
           "attributes": [],
           "type": "order_export_type"
+        },
+        {
+          "discriminator_value": "price_book_item_export_type",
+          "attributes": [],
+          "type": "price_book_item_export_type"
         },
         {
           "discriminator_value": "solidus_product_export_type",
@@ -46020,6 +47308,505 @@
       "type": "item"
     },
     {
+      "path": "/:organization/catalog/item/overlays",
+      "plural": "item_form_overlays",
+      "operations": [
+        {
+          "path": "/:organization/catalog/item/overlays",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[item_form_overlay]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "key"
+                  },
+                  {
+                    "value": "position"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "sort_parameter_default",
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "key",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "position",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/catalog/item/overlays",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "item_form_overlay"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Adds an overlay data to merge into a catalog item",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "item_form_overlay_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/catalog/item/overlays/:key",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "item_form_overlay"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/catalog/item/overlays/:key",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "item_form_overlay"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "item_form_overlay"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Update item overlay with the specified key, creating if it does not exist.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "item_form_overlay_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/catalog/item/overlays/:key",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "The item form overlay defines data to merge into an item form.",
+      "attributes": [
+        {
+          "name": "object-reference",
+          "value": {
+            "related_service_namespace": "io.flow.organization.v0",
+            "resource_type": "io.flow.common.v0.models.organization",
+            "operation_method": "POST",
+            "operation_path": "/organizations",
+            "identifier_field": "id",
+            "delete_operation_path": "/organizations/:organization_id"
+          }
+        },
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "type": "item_form_overlay"
+    },
+    {
       "path": "/:organization/orders",
       "plural": "orders",
       "operations": [
@@ -47472,6 +49259,96 @@
           ]
         },
         {
+          "path": "/:organization/orders/:number/service/changes",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "order_service_change"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "reservation_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "session",
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "order_service_change_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
           "path": "/:organization/orders/:number/submissions",
           "method": "PUT",
           "responses": [
@@ -47552,6 +49429,11 @@
               }
             }
           ],
+          "body": {
+            "description": "Optional metadata to associate with the order once submitted",
+            "attributes": [],
+            "type": "order_submission_form"
+          },
           "parameters": [
             {
               "name": "organization",
@@ -47569,7 +49451,7 @@
             {
               "name": "expand",
               "maximum": 1,
-              "location": "Form",
+              "location": "Query",
               "type": "[string]",
               "minimum": 0,
               "required": false,
@@ -64001,6 +65883,91 @@
               "required": true
             }
           ]
+        },
+        {
+          "path": "/:organization/centers/:key",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
         }
       ],
       "description": "Represents a facility capable of fulfilling a shipment",
@@ -71818,6 +73785,14 @@
                   "organization_fulfillment"
                 ]
               }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get"
+                ]
+              }
             }
           ],
           "parameters": [
@@ -71848,6 +73823,14 @@
               "location": "Query",
               "type": "string",
               "required": false
+            },
+            {
+              "name": "expand",
+              "maximum": 1,
+              "location": "Query",
+              "type": "[string]",
+              "required": false,
+              "example": "center"
             },
             {
               "default": "25",
@@ -75496,6 +77479,162 @@
       "type": "region"
     },
     {
+      "path": "/:organization/b2b/credit/memos",
+      "plural": "b2b_credit_memos",
+      "operations": [
+        {
+          "path": "/:organization/b2b/credit/memos",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[b2b_credit_memo]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "created_at"
+                  },
+                  {
+                    "value": "key"
+                  },
+                  {
+                    "value": "id"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "key",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "order_number",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "-created_at",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "The b2b credit memo represents a refund transaction between Flow and one of our clients",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "b2b_credit_memo"
+    },
+    {
       "path": "/:organization/b2b/invoices",
       "plural": "b2b_invoices",
       "operations": [
@@ -75811,6 +77950,132 @@
         }
       ],
       "type": "b2b_invoice"
+    },
+    {
+      "path": "/:organization/search/price/books/items",
+      "plural": "catalog_price_book_item_documents",
+      "operations": [
+        {
+          "path": "/:organization/search/price/books/items",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[catalog_price_book_item_document]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns price book item documents based on the search criteria",
+          "attributes": [
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "get",
+                  "versions"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "price_book_key",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "q",
+              "location": "Query",
+              "type": "string",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "Represents the returned information for searching particular price book items",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "catalog_price_book_item_document"
     },
     {
       "path": "",
@@ -76244,7 +78509,7 @@
               },
               "description": "Successful response",
               "attributes": [],
-              "type": "consumer_invoice"
+              "type": "[consumer_invoice]"
             },
             {
               "code": {
@@ -76254,7 +78519,7 @@
               },
               "description": "Operation succeeded and the resource was created",
               "attributes": [],
-              "type": "consumer_invoice"
+              "type": "[consumer_invoice]"
             },
             {
               "code": {
@@ -76316,7 +78581,7 @@
             },
             {
               "name": "number",
-              "description": "The order number for which you are requesting a consumer invoice.",
+              "description": "The order number for which you are requesting consumer invoices.",
               "location": "Path",
               "type": "string",
               "required": true
@@ -76335,7 +78600,7 @@
               },
               "description": "Operation succeeded and the resource was created",
               "attributes": [],
-              "type": "consumer_invoice"
+              "type": "credit_memo"
             },
             {
               "code": {
@@ -76416,7 +78681,7 @@
               },
               "description": "Successful response",
               "attributes": [],
-              "type": "consumer_invoice"
+              "type": "credit_memo"
             },
             {
               "code": {
@@ -76426,7 +78691,7 @@
               },
               "description": "Operation succeeded and the resource was created",
               "attributes": [],
-              "type": "consumer_invoice"
+              "type": "credit_memo"
             },
             {
               "code": {
@@ -78260,6 +80525,101 @@
       "type": "customer_address_book_contact"
     },
     {
+      "path": "/:organization/customers",
+      "plural": "customer_bundles",
+      "operations": [
+        {
+          "path": "/:organization/customers/:number/bundle",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "customer_bundle"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Returns information about a specific customer.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "A bundle of all the content needed to render customer data.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "customer_bundle"
+    },
+    {
       "path": "/:organization/customer/tokens",
       "plural": "customer_tokens",
       "operations": [
@@ -78489,6 +80849,83 @@
         },
         {
           "path": "/:organization/customer/tokens/:id",
+          "method": "DELETE",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 204
+                }
+              },
+              "description": "Operation succeeded. No content is returned",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "description": "Delete the token for this id.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "membership_manager"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/customer/tokens/:token",
           "method": "GET",
           "responses": [
             {
@@ -78559,85 +80996,7 @@
               "required": true
             },
             {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/customer/tokens/:id",
-          "method": "DELETE",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 204
-                }
-              },
-              "description": "Operation succeeded. No content is returned",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "description": "Delete the token for this id.",
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "membership_manager"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "description": "Filter by one or more IDs of this resource",
+              "name": "token",
               "location": "Path",
               "type": "string",
               "required": true
@@ -79056,6 +81415,539 @@
         }
       ],
       "type": "email_verification"
+    },
+    {
+      "path": "/:organization/exclusion/rules",
+      "plural": "exclusion_rules",
+      "operations": [
+        {
+          "path": "/:organization/exclusion/rules",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[exclusion_rule]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Returns a list of exclusions rules.",
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "created_at"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "linter",
+              "value": {
+                "ignore": [
+                  "sort",
+                  "get"
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "-created_at",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/exclusion/rules",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "exclusion_rule"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "exclusion_rule_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/exclusion/rules/versions",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[exclusion_rule_version]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "sort",
+              "value": {
+                "values": [
+                  {
+                    "value": "id"
+                  },
+                  {
+                    "value": "journal_timestamp"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "exclusion_rule_id",
+              "description": "Filter to exclusion rules with any one of these ids.",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false
+            },
+            {
+              "default": "25",
+              "name": "limit",
+              "description": "The maximum number of results to return",
+              "maximum": 100,
+              "location": "Query",
+              "type": "long",
+              "minimum": 1,
+              "required": true
+            },
+            {
+              "default": "0",
+              "name": "offset",
+              "description": "The number of results to skip before returning results",
+              "location": "Query",
+              "type": "long",
+              "minimum": 0,
+              "required": true
+            },
+            {
+              "default": "journal_timestamp",
+              "name": "sort",
+              "location": "Query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/exclusion/rules/:id",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "exclusion_rule"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Updates the specified exclusion rule.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "exclusion_rule_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/exclusion/rules/:id/deletion",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "exclusion_rule"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Marks the exclusion rule deleted. Once updated, the rule itself will be deleted.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "A global exclusion rule allows the user to select 1 or more items by query and to globally exclude those items from sale in one or more regions.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "exclusion_rule"
     },
     {
       "path": "/:organization/exports",
@@ -83198,6 +86090,276 @@
       "type": "membership"
     },
     {
+      "path": "/balance",
+      "plural": "merchant_gift_card_balances",
+      "operations": [
+        {
+          "path": "/balance",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "merchant_gift_card_balance"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "merchant_gift_card_error"
+            }
+          ],
+          "description": "Check the remaining balance on a gift card",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "merchant_gift_card_balance_form"
+          },
+          "parameters": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "merchant_gift_card_balance"
+    },
+    {
+      "path": "/redeem",
+      "plural": "merchant_gift_card_redemptions",
+      "operations": [
+        {
+          "path": "/redeem",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "merchant_gift_card_balance"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "merchant_gift_card_error"
+            }
+          ],
+          "description": "Redeems a gift card",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "merchant_gift_card_redemption_form"
+          },
+          "parameters": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "merchant_gift_card_redemption"
+    },
+    {
+      "path": "/reverse",
+      "plural": "merchant_gift_card_reversals",
+      "operations": [
+        {
+          "path": "/reverse",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "merchant_gift_card_balance"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "merchant_gift_card_error"
+            }
+          ],
+          "description": "Check the remaining balance on a gift card",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "merchant_gift_card_reversal_form"
+          },
+          "parameters": []
+        }
+      ],
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "general"
+          }
+        }
+      ],
+      "type": "merchant_gift_card_reversal"
+    },
+    {
       "path": "/organization-authorizations",
       "plural": "organization_authorizations",
       "operations": [
@@ -85980,7 +89142,7 @@
       "type": "shopify_cart"
     },
     {
-      "path": "/:organization/experiences/:experience_key/shopify/cart/conversions",
+      "path": "/:organization/experiences/:experience_key/shopify/cart",
       "plural": "shopify_cart_conversions",
       "operations": [
         {
@@ -89049,7 +92211,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.7.95",
+  "version": "0.8.16",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -89323,6 +92485,11 @@
     {
       "plural": "authorization_result_action_types",
       "values": [
+        {
+          "name": "native",
+          "description": "Indicates an authorization action should be presented to the user natively in the browser.",
+          "attributes": []
+        },
         {
           "name": "redirect",
           "description": "Indicates that the user should be redirected to the provided URL.",
@@ -90220,6 +93387,14 @@
           "attributes": []
         },
         {
+          "name": "b2b_credit_memo_upserted",
+          "attributes": []
+        },
+        {
+          "name": "b2b_credit_memo_deleted",
+          "attributes": []
+        },
+        {
           "name": "consumer_invoice_upserted",
           "attributes": []
         },
@@ -90404,6 +93579,10 @@
           "attributes": []
         },
         {
+          "name": "order_service_change_request",
+          "attributes": []
+        },
+        {
           "name": "fraud_status_changed",
           "attributes": []
         },
@@ -90413,14 +93592,6 @@
         },
         {
           "name": "center_deleted",
-          "attributes": []
-        },
-        {
-          "name": "delivery_option_upserted",
-          "attributes": []
-        },
-        {
-          "name": "delivery_option_deleted",
           "attributes": []
         },
         {
@@ -90764,6 +93935,14 @@
           "attributes": []
         },
         {
+          "name": "ratecard_upserted",
+          "attributes": []
+        },
+        {
+          "name": "ratecard_deleted",
+          "attributes": []
+        },
+        {
           "name": "return_upserted",
           "attributes": []
         },
@@ -90823,6 +94002,26 @@
         }
       ],
       "name": "exception_type",
+      "attributes": []
+    },
+    {
+      "plural": "exclusion_rule_states",
+      "values": [
+        {
+          "name": "current",
+          "attributes": []
+        },
+        {
+          "name": "deleting",
+          "attributes": []
+        },
+        {
+          "name": "updating",
+          "attributes": []
+        }
+      ],
+      "name": "exclusion_rule_state",
+      "description": "The exclusion rule state highlights if an exclusion rule is currently processing as some updates take some time to apply to large catalogs.",
       "attributes": []
     },
     {
@@ -91218,6 +94417,11 @@
           "name": "ratecard_lanes",
           "description": "Provides way to upload a new ratecard with lanes and rates for a service level.",
           "attributes": []
+        },
+        {
+          "name": "order_service_changes",
+          "description": "Provides way to upload service level changes for orders that require updated shipping methods.",
+          "attributes": []
         }
       ],
       "name": "import_type",
@@ -91436,6 +94640,11 @@
           "name": "lowest_cost",
           "description": "Optimize for lowest average cost across all tiers from the center on the lane",
           "attributes": []
+        },
+        {
+          "name": "highest_priority",
+          "description": "Get the highest priority center for the shipping lane",
+          "attributes": []
         }
       ],
       "name": "lane_strategy",
@@ -91521,6 +94730,37 @@
         }
       ],
       "name": "measurement_system",
+      "attributes": []
+    },
+    {
+      "plural": "merchant_gift_card_error_codes",
+      "values": [
+        {
+          "name": "invalid",
+          "description": "Generic error type",
+          "attributes": []
+        },
+        {
+          "name": "expired",
+          "attributes": []
+        },
+        {
+          "name": "empty",
+          "description": "Balance is 0",
+          "attributes": []
+        },
+        {
+          "name": "insufficient_funds",
+          "description": "Redemption amount greater than balance",
+          "attributes": []
+        },
+        {
+          "name": "unsupported_currency",
+          "description": "Redemption or reversal currency is not supported",
+          "attributes": []
+        }
+      ],
+      "name": "merchant_gift_card_error_code",
       "attributes": []
     },
     {
@@ -92399,6 +95639,11 @@
           "name": "items_not_available",
           "description": "Item numbers are not available in inventory",
           "attributes": []
+        },
+        {
+          "name": "shipping_unavailable",
+          "description": "Indicates that an order was created for a destination country to which you have no shipping lanes.",
+          "attributes": []
         }
       ],
       "name": "quote_error_code",
@@ -92420,6 +95665,22 @@
       ],
       "name": "rate_type",
       "description": "Indicates the type of the rate",
+      "attributes": []
+    },
+    {
+      "plural": "ratecard_owners",
+      "values": [
+        {
+          "name": "flow",
+          "attributes": []
+        },
+        {
+          "name": "organization",
+          "attributes": []
+        }
+      ],
+      "name": "ratecard_owner",
+      "description": "Identifies which party in a transaction is responsible for an activity, such as remittance of tax.",
       "attributes": []
     },
     {

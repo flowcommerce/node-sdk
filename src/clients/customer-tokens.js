@@ -24,15 +24,15 @@ export default class CustomerTokens extends Client {
     });
   }
 
-  getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customer/tokens/${id}`, options);
-  }
-
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/customer/tokens/${id}`, {
       ...options,
        method: 'DELETE',
     });
+  }
+
+  getByToken(organization, token, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/customer/tokens/${token}`, options);
   }
 
 }

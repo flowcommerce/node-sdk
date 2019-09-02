@@ -12,7 +12,7 @@ const shopifyCartConversions = client().shopifyCartConversions;
 
 ## Operations
 
-##`post(organization, experienceKey, options = {})`
+##`postConversions(organization, experienceKey, options = {})`
 
 ### Function Parameters
 

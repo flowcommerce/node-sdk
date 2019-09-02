@@ -46,4 +46,11 @@ export default class Centers extends Client {
     });
   }
 
+  deleteByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/centers/${key}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
 }

@@ -208,6 +208,16 @@ const orders = client().orders;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
+##`postServiceAndChangesByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
 ##`putSubmissionsByNumber(organization, number, options = {})`
 
 ### Function Parameters
@@ -217,6 +227,11 @@ const orders = client().orders;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | number | string |  |
 
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`putTaxAndRegistrationByNumber(organization, number, options = {})`
 

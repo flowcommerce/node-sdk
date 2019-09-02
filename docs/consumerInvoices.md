@@ -47,7 +47,7 @@ const consumerInvoices = client().consumerInvoices;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| number | string | The order number for which you are requesting a consumer invoice. |
+| number | string | The order number for which you are requesting consumer invoices. |
 
 
 ##`postCreditAndMemosByInvoiceKey(organization, invoiceKey, options = {})`

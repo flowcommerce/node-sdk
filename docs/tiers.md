@@ -27,6 +27,7 @@ const tiers = client().tiers;
 | id | [string] | Filter by one or more IDs of this resource |
 | tier_direction | tier_direction |  |
 | experience | string |  |
+| expand | [string] |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

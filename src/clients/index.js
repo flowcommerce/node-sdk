@@ -10,6 +10,7 @@ import ExperienceCheckoutSettings from './experience-checkout-settings';
 import ExperienceDefaults from './experience-defaults';
 import ExperienceLogisticsSettings from './experience-logistics-settings';
 import Items from './items';
+import ItemFormOverlays from './item-form-overlays';
 import Orders from './orders';
 import OrderBuilders from './order-builders';
 import OrderEstimates from './order-estimates';
@@ -81,7 +82,9 @@ import Locales from './locales';
 import PaymentMethods from './payment-methods';
 import Provinces from './provinces';
 import Regions from './regions';
+import B2bCreditMemos from './b2b-credit-memos';
 import B2bInvoices from './b2b-invoices';
+import CatalogPriceBookItemDocuments from './catalog-price-book-item-documents';
 import CheckoutTokens from './checkout-tokens';
 import ConsumerInvoices from './consumer-invoices';
 import ConsumerInvoiceDocuments from './consumer-invoice-documents';
@@ -89,10 +92,12 @@ import CreditMemos from './credit-memos';
 import Customers from './customers';
 import CustomerAddressBook from './customer-address-book';
 import CustomerAddressBookContacts from './customer-address-book-contacts';
+import CustomerBundles from './customer-bundles';
 import CustomerTokens from './customer-tokens';
 import Documents from './documents';
 import EcommercePlatforms from './ecommerce-platforms';
 import EmailVerifications from './email-verifications';
+import ExclusionRules from './exclusion-rules';
 import Exports from './exports';
 import FlowRoles from './flow-roles';
 import FraudEmailRules from './fraud-email-rules';
@@ -107,6 +112,9 @@ import Invitations from './invitations';
 import ItemQuerySuggestions from './item-query-suggestions';
 import Links from './links';
 import Memberships from './memberships';
+import MerchantGiftCardBalances from './merchant-gift-card-balances';
+import MerchantGiftCardRedemptions from './merchant-gift-card-redemptions';
+import MerchantGiftCardReversals from './merchant-gift-card-reversals';
 import OrganizationAuthorizations from './organization-authorizations';
 import OrganizationDefaultConfigurations from './organization-default-configurations';
 import OrganizationTokens from './organization-tokens';
@@ -138,7 +146,7 @@ const enums = {
   authenticationTechnique: ['anonymous', 'session', 'token', 'partner_token', 'user'],
   authorizationDeclineCode: ['expired', 'invalid_name', 'invalid_number', 'invalid_expiration', 'invalid_address', 'invalid_token_type', 'invalid_token', 'no_account', 'avs', 'cvv', 'fraud', 'duplicate', 'not_supported', 'unknown'],
   authorizationOption: ['store_card'],
-  authorizationResultActionType: ['redirect', 'wait'],
+  authorizationResultActionType: ['native', 'redirect', 'wait'],
   authorizationStatus: ['pending', 'expired', 'authorized', 'review', 'declined', 'reversed'],
   availabilityStatus: ['enabled', 'disabled'],
   availableFilterFormat: ['boolean', 'date', 'money', 'decimal', 'string', 'unit_of_length', 'unit_of_mass'],
@@ -172,8 +180,9 @@ const enums = {
   ecommercePlatformType: ['commercetools', 'custom', 'magento', 'shopify', 'sfcc', 'solidus', 'workarea'],
   economicTitleLocation: ['high_seas', 'origination', 'destination'],
   environment: ['sandbox', 'production'],
-  eventType: ['attribute_upserted', 'attribute_deleted', 'attribute_upserted_v2', 'attribute_deleted_v2', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'catalog_item_upserted_v2', 'catalog_item_deleted_v2', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'b2b_invoice_upserted', 'b2b_invoice_deleted', 'consumer_invoice_upserted', 'consumer_invoice_deleted', 'credit_memo_upserted', 'credit_memo_deleted', 'crossdock_shipment_upserted', 'rate_deleted', 'rate_upserted', 'rate_deleted_v3', 'rate_upserted_v3', 'customer_upserted', 'customer_deleted', 'customer_address_book_contact_upserted', 'customer_address_book_contact_deleted', 'available_promotions_upserted', 'available_promotions_deleted', 'available_promotions_upserted_v2', 'available_promotions_deleted_v2', 'allocation_deleted_v2', 'allocation_upserted_v2', 'currency_format_deleted', 'currency_format_upserted', 'experience_deleted', 'experience_upserted', 'experience_deleted_v2', 'experience_upserted_v2', 'experience_price_book_mapping_deleted', 'experience_price_book_mapping_upserted', 'experience_logistics_settings_upserted', 'experience_logistics_settings_deleted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_deleted_v2', 'order_upserted_v2', 'order_identifier_deleted', 'order_identifier_upserted', 'order_identifier_deleted_v2', 'order_identifier_upserted_v2', 'order_identifier_upserted_v3', 'pricing_deleted', 'pricing_upserted', 'fraud_status_changed', 'center_upserted', 'center_deleted', 'delivery_option_upserted', 'delivery_option_deleted', 'shipping_configuration_upserted', 'shipping_configuration_deleted', 'tier_upserted_v2', 'tier_deleted_v2', 'shipping_lane_upserted', 'shipping_lane_deleted', 'shipping_configuration_item_availability_upserted', 'shipping_configuration_item_availability_deleted', 'shipping_configuration_item_shipping_pricing_upserted', 'shipping_configuration_item_shipping_pricing_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'fully_harmonized_item_upserted', 'rule_upserted', 'rule_deleted', 'serial_upserted', 'serial_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'checkout_optin_responses_upserted', 'checkout_optin_responses_deleted', 'browse_optin_responses_upserted', 'browse_optin_responses_deleted', 'order_placed', 'order_placed_v2', 'ready_to_fulfill', 'membership_upserted_v2', 'membership_deleted_v2', 'organization_upserted', 'organization_deleted', 'organization_upserted_v2', 'organization_deleted_v2', 'organization_short_id_upserted', 'organization_short_id_deleted', 'organization_default_configurations_upserted', 'organization_default_configurations_deleted', 'ecommerce_platform_upserted', 'ecommerce_platform_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted_v2', 'card_authorization_deleted_v2', 'online_authorization_upserted_v2', 'online_authorization_deleted_v2', 'capture_upserted_v2', 'capture_deleted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted_v2', 'refund_deleted_v2', 'refund_capture_upserted_v2', 'reversal_upserted', 'reversal_deleted', 'capture_identifier_upserted', 'capture_identifier_deleted', 'refund_identifier_upserted', 'refund_identifier_deleted', 'virtual_card_capture_upserted', 'virtual_card_capture_deleted', 'virtual_card_refund_upserted', 'virtual_card_refund_deleted', 'price_book_upserted', 'price_book_deleted', 'price_book_item_upserted', 'price_book_item_deleted', 'organization_rates_published', 'organization_countries_published', 'ratecard_lane_upserted', 'ratecard_lane_deleted', 'return_upserted', 'return_deleted', 'shopify_localization_setting_upserted', 'shopify_localization_setting_deleted', 'targeting_item_upserted', 'targeting_item_upserted_v2', 'targeting_item_deleted', 'targeting_item_deleted_v3', 'tracking_label_event_upserted'],
+  eventType: ['attribute_upserted', 'attribute_deleted', 'attribute_upserted_v2', 'attribute_deleted_v2', 'catalog_upserted', 'catalog_deleted', 'subcatalog_upserted', 'subcatalog_deleted', 'catalog_item_upserted', 'catalog_item_deleted', 'catalog_item_upserted_v2', 'catalog_item_deleted_v2', 'subcatalog_item_upserted', 'subcatalog_item_deleted', 'b2b_invoice_upserted', 'b2b_invoice_deleted', 'b2b_credit_memo_upserted', 'b2b_credit_memo_deleted', 'consumer_invoice_upserted', 'consumer_invoice_deleted', 'credit_memo_upserted', 'credit_memo_deleted', 'crossdock_shipment_upserted', 'rate_deleted', 'rate_upserted', 'rate_deleted_v3', 'rate_upserted_v3', 'customer_upserted', 'customer_deleted', 'customer_address_book_contact_upserted', 'customer_address_book_contact_deleted', 'available_promotions_upserted', 'available_promotions_deleted', 'available_promotions_upserted_v2', 'available_promotions_deleted_v2', 'allocation_deleted_v2', 'allocation_upserted_v2', 'currency_format_deleted', 'currency_format_upserted', 'experience_deleted', 'experience_upserted', 'experience_deleted_v2', 'experience_upserted_v2', 'experience_price_book_mapping_deleted', 'experience_price_book_mapping_upserted', 'experience_logistics_settings_upserted', 'experience_logistics_settings_deleted', 'item_margin_deleted', 'item_margin_upserted', 'item_sales_margin_deleted', 'item_sales_margin_upserted', 'label_format_deleted', 'label_format_upserted', 'order_deleted', 'order_upserted', 'order_deleted_v2', 'order_upserted_v2', 'order_identifier_deleted', 'order_identifier_upserted', 'order_identifier_deleted_v2', 'order_identifier_upserted_v2', 'order_identifier_upserted_v3', 'pricing_deleted', 'pricing_upserted', 'order_service_change_request', 'fraud_status_changed', 'center_upserted', 'center_deleted', 'shipping_configuration_upserted', 'shipping_configuration_deleted', 'tier_upserted_v2', 'tier_deleted_v2', 'shipping_lane_upserted', 'shipping_lane_deleted', 'shipping_configuration_item_availability_upserted', 'shipping_configuration_item_availability_deleted', 'shipping_configuration_item_shipping_pricing_upserted', 'shipping_configuration_item_shipping_pricing_deleted', 'hs6_code_upserted', 'hs6_code_deleted', 'hs10_code_upserted', 'hs10_code_deleted', 'item_origin_upserted', 'item_origin_deleted', 'harmonized_item_upserted', 'harmonized_item_deleted', 'harmonized_landed_cost_upserted', 'fully_harmonized_item_upserted', 'rule_upserted', 'rule_deleted', 'serial_upserted', 'serial_deleted', 'snapshot_upserted', 'snapshot_deleted', 'label_upserted', 'notification_upserted', 'notification_deleted', 'manifested_label_upserted', 'manifested_label_deleted', 'local_item_upserted', 'local_item_deleted', 'checkout_optin_responses_upserted', 'checkout_optin_responses_deleted', 'browse_optin_responses_upserted', 'browse_optin_responses_deleted', 'order_placed', 'order_placed_v2', 'ready_to_fulfill', 'membership_upserted_v2', 'membership_deleted_v2', 'organization_upserted', 'organization_deleted', 'organization_upserted_v2', 'organization_deleted_v2', 'organization_short_id_upserted', 'organization_short_id_deleted', 'organization_default_configurations_upserted', 'organization_default_configurations_deleted', 'ecommerce_platform_upserted', 'ecommerce_platform_deleted', 'authorization_deleted_v2', 'authorization_status_changed', 'card_authorization_upserted_v2', 'card_authorization_deleted_v2', 'online_authorization_upserted_v2', 'online_authorization_deleted_v2', 'capture_upserted_v2', 'capture_deleted', 'card_upserted_v2', 'card_deleted', 'payment_upserted', 'payment_deleted', 'refund_upserted_v2', 'refund_deleted_v2', 'refund_capture_upserted_v2', 'reversal_upserted', 'reversal_deleted', 'capture_identifier_upserted', 'capture_identifier_deleted', 'refund_identifier_upserted', 'refund_identifier_deleted', 'virtual_card_capture_upserted', 'virtual_card_capture_deleted', 'virtual_card_refund_upserted', 'virtual_card_refund_deleted', 'price_book_upserted', 'price_book_deleted', 'price_book_item_upserted', 'price_book_item_deleted', 'organization_rates_published', 'organization_countries_published', 'ratecard_lane_upserted', 'ratecard_lane_deleted', 'ratecard_upserted', 'ratecard_deleted', 'return_upserted', 'return_deleted', 'shopify_localization_setting_upserted', 'shopify_localization_setting_deleted', 'targeting_item_upserted', 'targeting_item_upserted_v2', 'targeting_item_deleted', 'targeting_item_deleted_v3', 'tracking_label_event_upserted'],
   exceptionType: ['open', 'closed'],
+  exclusionRuleState: ['current', 'deleting', 'updating'],
   experienceCloneStatus: ['pending', 'updating', 'completed', 'failed'],
   experiencePaymentMethodTag: ['display'],
   experienceStatus: ['draft', 'active', 'archiving', 'archived'],
@@ -191,7 +200,7 @@ const enums = {
   genericErrorCode: ['generic_error', 'client_error', 'server_error'],
   holidayCalendar: ['us_bank_holidays', 'jewish_holidays'],
   imageTag: ['thumbnail', 'checkout'],
-  importType: ['catalog_items', 'customs_descriptions', 'customs_description_tariffs', 'experiences_with_settings', 'harmonization_codes', 'item_form_overlays', 'price_book_items', 'price_book_items_query', 'ratecard_lanes'],
+  importType: ['catalog_items', 'customs_descriptions', 'customs_description_tariffs', 'experiences_with_settings', 'harmonization_codes', 'item_form_overlays', 'price_book_items', 'price_book_items_query', 'ratecard_lanes', 'order_service_changes'],
   includedLevyKey: ['duty', 'vat', 'vat_and_duty', 'none'],
   incoterm: ['EXW', 'FCA', 'CPT', 'CIP', 'DAT', 'DAP', 'DDP', 'FAS', 'FOB', 'CFR', 'CIF', 'DAF', 'DES', 'DEQ', 'DDU'],
   inputSpecificationType: ['text', 'number'],
@@ -199,11 +208,12 @@ const enums = {
   inventoryStatus: ['has_inventory', 'no_inventory'],
   invitationErrorCode: ['expired', 'invalid_email'],
   itemAvailabilityStatus: ['available', 'low', 'out_of_stock'],
-  laneStrategy: ['oldest', 'fastest', 'lowest_cost'],
+  laneStrategy: ['oldest', 'fastest', 'lowest_cost', 'highest_priority'],
   levyComponent: ['goods', 'duty', 'insurance', 'freight', 'vat'],
   levyStrategy: ['minimum', 'average', 'maximum'],
   marginType: ['fixed', 'percent'],
   measurementSystem: ['imperial', 'metric'],
+  merchantGiftCardErrorCode: ['invalid', 'expired', 'empty', 'insufficient_funds', 'unsupported_currency'],
   merchantOfRecord: ['flow', 'organization'],
   method: ['post'],
   optinResponseType: ['not_shown', 'opted_in', 'opted_out'],
@@ -229,8 +239,9 @@ const enums = {
   promotionTriggerType: ['automatic', 'order_subtotal'],
   provinceType: ['city', 'dependency', 'district', 'emirate', 'entity', 'municipality', 'outlying_area', 'parish', 'province', 'state', 'territory', 'other'],
   queryType: ['exclusion', 'inclusion'],
-  quoteErrorCode: ['generic_error', 'items_not_available'],
+  quoteErrorCode: ['generic_error', 'items_not_available', 'shipping_unavailable'],
   rateType: ['flow', 'organization'],
+  ratecardOwner: ['flow', 'organization'],
   refundDeclineCode: ['expired', 'insufficient_funds', 'unknown'],
   refundStatus: ['pending', 'succeeded', 'failed', 'canceled'],
   returnStatus: ['open', 'refunded'],
@@ -295,6 +306,7 @@ export default class ApiClient {
     this.experienceDefaults = new ExperienceDefaults(options);
     this.experienceLogisticsSettings = new ExperienceLogisticsSettings(options);
     this.items = new Items(options);
+    this.itemFormOverlays = new ItemFormOverlays(options);
     this.orders = new Orders(options);
     this.orderBuilders = new OrderBuilders(options);
     this.orderEstimates = new OrderEstimates(options);
@@ -366,7 +378,9 @@ export default class ApiClient {
     this.paymentMethods = new PaymentMethods(options);
     this.provinces = new Provinces(options);
     this.regions = new Regions(options);
+    this.b2bCreditMemos = new B2bCreditMemos(options);
     this.b2bInvoices = new B2bInvoices(options);
+    this.catalogPriceBookItemDocuments = new CatalogPriceBookItemDocuments(options);
     this.checkoutTokens = new CheckoutTokens(options);
     this.consumerInvoices = new ConsumerInvoices(options);
     this.consumerInvoiceDocuments = new ConsumerInvoiceDocuments(options);
@@ -374,10 +388,12 @@ export default class ApiClient {
     this.customers = new Customers(options);
     this.customerAddressBook = new CustomerAddressBook(options);
     this.customerAddressBookContacts = new CustomerAddressBookContacts(options);
+    this.customerBundles = new CustomerBundles(options);
     this.customerTokens = new CustomerTokens(options);
     this.documents = new Documents(options);
     this.ecommercePlatforms = new EcommercePlatforms(options);
     this.emailVerifications = new EmailVerifications(options);
+    this.exclusionRules = new ExclusionRules(options);
     this.exports = new Exports(options);
     this.flowRoles = new FlowRoles(options);
     this.fraudEmailRules = new FraudEmailRules(options);
@@ -392,6 +408,9 @@ export default class ApiClient {
     this.itemQuerySuggestions = new ItemQuerySuggestions(options);
     this.links = new Links(options);
     this.memberships = new Memberships(options);
+    this.merchantGiftCardBalances = new MerchantGiftCardBalances(options);
+    this.merchantGiftCardRedemptions = new MerchantGiftCardRedemptions(options);
+    this.merchantGiftCardReversals = new MerchantGiftCardReversals(options);
     this.organizationAuthorizations = new OrganizationAuthorizations(options);
     this.organizationDefaultConfigurations = new OrganizationDefaultConfigurations(options);
     this.organizationTokens = new OrganizationTokens(options);

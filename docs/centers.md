@@ -86,3 +86,13 @@ const centers = client().centers;
 | key | string |  |
 
 
+##`deleteByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+
