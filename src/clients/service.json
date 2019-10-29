@@ -430,8 +430,95 @@
           "name": "provinces",
           "annotations": [],
           "attributes": [],
-          "type": "[province]",
+          "type": "[address_configuration_province]",
           "required": true
+        }
+      ]
+    },
+    {
+      "plural": "address_configuration_provinces",
+      "name": "address_configuration_province",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "value",
+          "annotations": [],
+          "description": "This will either be the name of the province (e.g. Ontario) or the code (e.g. ON) based on the organization configuration",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "ON"
+        },
+        {
+          "name": "name",
+          "annotations": [],
+          "description": "The name of the province",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "Ontario"
+        },
+        {
+          "name": "translations",
+          "annotations": [],
+          "description": "This will contain translation details for the province",
+          "attributes": [],
+          "type": "[address_configuration_province_translation]",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "address_configuration_province_translations",
+      "name": "address_configuration_province_translation",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "locale",
+          "annotations": [],
+          "attributes": [],
+          "type": "address_configuration_province_translation_locale",
+          "required": true
+        },
+        {
+          "name": "name",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "Ontario"
+        }
+      ]
+    },
+    {
+      "plural": "address_configuration_province_translation_locales",
+      "name": "address_configuration_province_translation_locale",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "en-US"
+        },
+        {
+          "name": "name",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "English - United States"
+        },
+        {
+          "name": "language",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "en"
         }
       ]
     },
@@ -659,6 +746,14 @@
       "description": "Provides details for how to acquire additional information from the customer natively in the browser for Adyen (e.g. 3DS2)",
       "attributes": [],
       "fields": [
+        {
+          "name": "origin_key",
+          "annotations": [],
+          "description": "An origin key is required for each domain where you are using our JavaScript libraries and from where you are initiating payments.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
         {
           "name": "data",
           "annotations": [],
@@ -1286,7 +1381,7 @@
         {
           "name": "options",
           "annotations": [],
-          "description": "Defines the configuration for how the options are used through flow",
+          "description": "Defines the configuration for how the options are used through Flow",
           "attributes": [],
           "type": "options",
           "required": true
@@ -1761,6 +1856,13 @@
           "annotations": [],
           "attributes": [],
           "type": "authorization_result_action_type",
+          "required": true
+        },
+        {
+          "name": "authorization",
+          "annotations": [],
+          "attributes": [],
+          "type": "authorization_reference",
           "required": true
         },
         {
@@ -2891,6 +2993,14 @@
       "attributes": [],
       "fields": [
         {
+          "name": "origin",
+          "annotations": [],
+          "description": "The URL of the page where you are loading the 3d Secure 2 Component from. The origin should not include subdirectories and a trailing slash. You can also get this by calling window.location.origin.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "language",
           "annotations": [],
           "description": "The navigator.language value of the shopper's browser (as defined in IETF BCP 47).",
@@ -2936,6 +3046,22 @@
           "description": "Time difference between UTC time and the shopper's browser local time, in minutes.",
           "attributes": [],
           "type": "integer",
+          "required": false
+        },
+        {
+          "name": "user_agent",
+          "annotations": [],
+          "description": "'user-agent' header value. Will be taken from request headers if not provided.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "accept",
+          "annotations": [],
+          "description": "'accept' header value. Will be taken from request headers if not provided.",
+          "attributes": [],
+          "type": "string",
           "required": false
         }
       ]
@@ -4048,6 +4174,14 @@
           "type": "string",
           "required": true,
           "example": "CAD"
+        },
+        {
+          "name": "browser_info",
+          "annotations": [],
+          "description": "Shopper browser info. If you are using 3DS2, this field is required.",
+          "attributes": [],
+          "type": "browser_info",
+          "required": false
         }
       ]
     },
@@ -5279,6 +5413,14 @@
           "attributes": [],
           "type": "string",
           "required": true
+        },
+        {
+          "name": "address",
+          "annotations": [],
+          "description": "Physical location of this center.",
+          "attributes": [],
+          "type": "shipping_address",
+          "required": false
         }
       ]
     },
@@ -5845,6 +5987,14 @@
           "attributes": [],
           "type": "string",
           "required": false
+        },
+        {
+          "name": "invalid_checkout",
+          "annotations": [],
+          "description": "If specified, the user will be redirected to the Invalid Checkout URL when Checkout determines that it cannot proceed with accepting order (e.g. perhaps authorization expired, inventory out of stock, etc). This URL should expect an HTTP Post with an order_put_form as the body.",
+          "attributes": [],
+          "type": "string",
+          "required": false
         }
       ]
     },
@@ -5865,6 +6015,14 @@
           "name": "confirmation",
           "annotations": [],
           "description": "If specified, will be stored on the order in the attribute named 'flow_confirmation_url' and indicates that instead of showing the Flow Checkout UI Confirmation page, we redirect to this URL instead.",
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "invalid_checkout",
+          "annotations": [],
+          "description": "If specified, the user will be redirected to the Invalid Checkout URL when Checkout determines that it cannot proceed with accepting order (e.g. perhaps authorization expired, inventory out of stock, etc). This URL should expect an HTTP Post with an order_put_form as the body.",
           "attributes": [],
           "type": "string",
           "required": false
@@ -8194,14 +8352,6 @@
           "required": false
         },
         {
-          "name": "discount",
-          "annotations": [],
-          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here",
-          "attributes": [],
-          "type": "money_with_optional_base",
-          "required": false
-        },
-        {
           "name": "line_number",
           "annotations": [],
           "description": "The position of this item in the lines/items collections on an order. Used to keep track of multiple deliveries.",
@@ -9639,6 +9789,223 @@
       ]
     },
     {
+      "plural": "email_notifications",
+      "name": "email_notification",
+      "description": "An Email Notification indicates that an email message should be delivered. The type of email depends on the data and can be found in the field data.discriminator.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "to",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "attributes": [],
+          "type": "email_recipient",
+          "required": true
+        },
+        {
+          "name": "created_at",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "data",
+          "annotations": [],
+          "attributes": [],
+          "type": "email_notification_data",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "email_notification_data_refunds",
+      "name": "email_notification_data_refund",
+      "description": "Sends an refund confirmation email to the customer (using the order.customer.email as the recipient).",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "order",
+          "annotations": [],
+          "description": "The original order",
+          "attributes": [],
+          "type": "order_summary",
+          "required": true
+        },
+        {
+          "name": "refund",
+          "annotations": [],
+          "description": "The summary of the refund (and what parts of the order were refunded)",
+          "attributes": [],
+          "type": "order_summary",
+          "required": true
+        },
+        {
+          "name": "payment",
+          "annotations": [],
+          "attributes": [],
+          "type": "email_payment_summary",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "email_notification_deleteds",
+      "name": "email_notification_deleted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "notification",
+          "annotations": [],
+          "attributes": [],
+          "type": "email_notification",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "email_notification_forms",
+      "name": "email_notification_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "to",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "attributes": [],
+          "type": "email_recipient",
+          "required": true
+        },
+        {
+          "name": "created_at",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "data",
+          "annotations": [],
+          "attributes": [],
+          "type": "email_notification_data",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "email_notification_upserteds",
+      "name": "email_notification_upserted",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "notification",
+          "annotations": [],
+          "attributes": [],
+          "type": "email_notification",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "email_payment_summaries",
+      "name": "email_payment_summary",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "refund",
+          "annotations": [],
+          "attributes": [],
+          "type": "refund",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "email_recipients",
+      "name": "email_recipient",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "email",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The email addresses to which to send.",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "annotations": [
+            "personal_data",
+            "consumer"
+          ],
+          "description": "The name of the recipient, if any.",
+          "attributes": [],
+          "type": "name",
+          "required": false
+        }
+      ]
+    },
+    {
       "plural": "email_verifications",
       "name": "email_verification",
       "description": "Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified.",
@@ -10689,6 +11056,15 @@
           "attributes": [],
           "type": "[experience_payment_method_tag]",
           "required": true
+        },
+        {
+          "name": "q",
+          "annotations": [],
+          "description": "Query used to filter payment methods shown on the experience checkout. For example, only show PayPal for the canada experience when the order's destination is Canda and is below 1000 CAD",
+          "attributes": [],
+          "type": "string",
+          "required": false,
+          "example": "country:CAN and price < 1000 CAD"
         }
       ]
     },
@@ -12756,43 +13132,6 @@
       ]
     },
     {
-      "plural": "harmonized_item_deleteds",
-      "name": "harmonized_item_deleted",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "event_id",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "timestamp",
-          "annotations": [],
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": true
-        },
-        {
-          "name": "organization",
-          "annotations": [],
-          "description": "Refers to your organization's account identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "number",
-          "annotations": [],
-          "description": "Client's unique identifier for this object",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        }
-      ]
-    },
-    {
       "plural": "harmonized_item_forms",
       "name": "harmonized_item_form",
       "attributes": [],
@@ -12810,6 +13149,23 @@
           "description": "Client's unique identifier for this object",
           "attributes": [],
           "type": "string",
+          "required": true
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "USD"
+        },
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "The actual price of the item as offered to a customer. This price must be in the currency specified for this item.",
+          "attributes": [],
+          "type": "double",
           "required": true
         },
         {
@@ -12845,6 +13201,23 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
+          "required": true
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "USD"
+        },
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "The actual price of the item as offered to a customer. This price must be in the currency specified for this item.",
+          "attributes": [],
+          "type": "double",
           "required": true
         },
         {
@@ -12889,71 +13262,6 @@
           "description": "Client's unique identifier for this object",
           "attributes": [],
           "type": "string",
-          "required": true
-        },
-        {
-          "name": "description",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": false
-        }
-      ]
-    },
-    {
-      "plural": "harmonized_item_upserteds",
-      "name": "harmonized_item_upserted",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "event_id",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "timestamp",
-          "annotations": [],
-          "attributes": [],
-          "type": "date-time-iso8601",
-          "required": true
-        },
-        {
-          "name": "organization",
-          "annotations": [],
-          "description": "Refers to your organization's account identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "number",
-          "annotations": [],
-          "description": "Client's unique identifier for this object",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "name",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "categories",
-          "annotations": [],
-          "attributes": [],
-          "type": "[string]",
-          "required": true
-        },
-        {
-          "name": "attributes",
-          "annotations": [],
-          "attributes": [],
-          "type": "map[string]",
           "required": true
         },
         {
@@ -17745,6 +18053,28 @@
       ]
     },
     {
+      "plural": "location_errors",
+      "name": "location_error",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "code",
+          "annotations": [],
+          "attributes": [],
+          "type": "location_error_code",
+          "required": true
+        },
+        {
+          "name": "messages",
+          "annotations": [],
+          "attributes": [],
+          "type": "[string]",
+          "minimum": 1,
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "logistics_settingses",
       "name": "logistics_settings",
       "attributes": [],
@@ -18647,7 +18977,8 @@
           "annotations": [],
           "attributes": [],
           "type": "double",
-          "required": true
+          "required": true,
+          "example": "100"
         },
         {
           "name": "currency",
@@ -18679,7 +19010,8 @@
           "annotations": [],
           "attributes": [],
           "type": "double",
-          "required": true
+          "required": true,
+          "example": "100"
         },
         {
           "name": "base",
@@ -18710,7 +19042,8 @@
           "annotations": [],
           "attributes": [],
           "type": "double",
-          "required": true
+          "required": true,
+          "example": "100"
         },
         {
           "name": "base",
@@ -21558,6 +21891,305 @@
       ]
     },
     {
+      "plural": "order_summaries",
+      "name": "order_summary",
+      "description": "The order summary is a view of the order summary object with the order prices flattened to keys.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "The order number",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "subtotal",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": true
+        },
+        {
+          "name": "shipping",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": false
+        },
+        {
+          "name": "tax",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": false
+        },
+        {
+          "name": "duty",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": false
+        },
+        {
+          "name": "insurance",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": false
+        },
+        {
+          "name": "discount",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": false
+        },
+        {
+          "name": "surcharges",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": false
+        },
+        {
+          "name": "adjustment",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": false
+        },
+        {
+          "name": "total",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_price_detail",
+          "required": true
+        },
+        {
+          "name": "lines",
+          "annotations": [],
+          "attributes": [],
+          "type": "[order_summary_line_item]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_summary_images",
+      "name": "order_summary_image",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "url",
+          "annotations": [],
+          "description": "The full URL to the image",
+          "attributes": [],
+          "type": "string",
+          "required": true,
+          "example": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+        }
+      ]
+    },
+    {
+      "plural": "order_summary_items",
+      "name": "order_summary_item",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "attributes",
+          "annotations": [],
+          "description": "Returns a list of item attributes w/ intent 'checkout_content'",
+          "attributes": [],
+          "type": "[checkout_item_content_attribute]",
+          "minimum": 0,
+          "required": true
+        },
+        {
+          "name": "image",
+          "annotations": [],
+          "description": "Provides the primary image to use in checkout. This image will be selected by finding the item image with tag 'checkout', defaulting to another available image if there is one.",
+          "attributes": [],
+          "type": "order_summary_image",
+          "required": false
+        },
+        {
+          "name": "price",
+          "annotations": [],
+          "attributes": [],
+          "type": "price",
+          "required": true
+        },
+        {
+          "name": "discount",
+          "annotations": [],
+          "attributes": [],
+          "type": "price",
+          "required": false
+        },
+        {
+          "name": "tax",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_levy",
+          "required": false
+        },
+        {
+          "name": "duty",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_levy",
+          "required": false
+        },
+        {
+          "name": "price_attributes",
+          "annotations": [],
+          "description": "All attributes with intent price as keys of this map - with each of those attributes mapped to its value in the local currency. For example, given an attribute named 'msrp' with intent 'price', this map will contain a key named 'msrp'",
+          "attributes": [],
+          "type": "map[price]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_summary_levies",
+      "name": "order_summary_levy",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "rate",
+          "annotations": [],
+          "attributes": [],
+          "type": "decimal",
+          "required": true,
+          "example": "0.2"
+        },
+        {
+          "name": "value",
+          "annotations": [],
+          "attributes": [],
+          "type": "price",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_summary_line_items",
+      "name": "order_summary_line_item",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "item",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_item",
+          "required": true
+        },
+        {
+          "name": "quantity",
+          "annotations": [],
+          "attributes": [],
+          "type": "long",
+          "minimum": 1,
+          "required": true
+        },
+        {
+          "name": "discount",
+          "annotations": [],
+          "attributes": [],
+          "type": "price",
+          "required": false
+        },
+        {
+          "name": "tax",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_levy",
+          "required": false
+        },
+        {
+          "name": "duty",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_summary_levy",
+          "required": false
+        },
+        {
+          "name": "total",
+          "annotations": [],
+          "description": "The total price of quantity 1 of the item in this line. Computed as price - discount + tax + duty",
+          "attributes": [],
+          "type": "price",
+          "required": true
+        },
+        {
+          "name": "price_attributes",
+          "annotations": [],
+          "description": "All attributes with intent price as keys of this map - with each of those attributes mapped to its value in the local currency. For example, given an attribute named 'msrp' with intent 'price', this map will contain a key named 'msrp' which represents the line total of the msrp (e.g. item msrp * quantity)",
+          "attributes": [],
+          "type": "map[price]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_summary_price_details",
+      "name": "order_summary_price_detail",
+      "description": "Summaries the io.flow.order.price.v0.models.order_price_detail, removing components and accuracy which are not needed for summary views",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "The key indicating what this price detail represents.",
+          "attributes": [],
+          "type": "price",
+          "required": true
+        },
+        {
+          "name": "name",
+          "annotations": [],
+          "description": "The display name for this order price detail if appropriate.",
+          "attributes": [],
+          "type": "string",
+          "required": false,
+          "example": "GST"
+        },
+        {
+          "name": "rate",
+          "annotations": [],
+          "description": "Optional rate for this order price detail if the key relates to a tax or Duty.",
+          "attributes": [],
+          "type": "decimal",
+          "required": false,
+          "example": "0.2"
+        }
+      ]
+    },
+    {
       "plural": "order_upserteds",
       "name": "order_upserted",
       "attributes": [],
@@ -23664,6 +24296,15 @@
           "attributes": [],
           "type": "[installment_program_summary]",
           "required": true
+        },
+        {
+          "name": "q",
+          "annotations": [],
+          "description": "Query used to filter payment methods shown on the experience checkout. For example, only show PayPal for the canada experience when the order's destination is Canda and is below 1000 CAD",
+          "attributes": [],
+          "type": "query",
+          "required": false,
+          "example": "country:CAN and price < 1000 CAD"
         }
       ]
     },
@@ -24218,6 +24859,15 @@
           "attributes": [],
           "type": "localized_total",
           "required": false
+        },
+        {
+          "name": "goods_supply",
+          "annotations": [],
+          "description": "How goods in this delivery will be supplied with respect to borders.",
+          "attributes": [],
+          "type": "goods_supply",
+          "required": false,
+          "example": "export"
         }
       ]
     },
@@ -24254,7 +24904,8 @@
           "annotations": [],
           "attributes": [],
           "type": "double",
-          "required": true
+          "required": true,
+          "example": "100"
         },
         {
           "name": "currency",
@@ -24270,7 +24921,8 @@
           "annotations": [],
           "attributes": [],
           "type": "string",
-          "required": true
+          "required": true,
+          "example": "CA$100.00"
         }
       ]
     },
@@ -25110,7 +25762,8 @@
           "annotations": [],
           "attributes": [],
           "type": "double",
-          "required": true
+          "required": true,
+          "example": "100"
         },
         {
           "name": "currency",
@@ -25224,7 +25877,8 @@
           "annotations": [],
           "attributes": [],
           "type": "double",
-          "required": true
+          "required": true,
+          "example": "100"
         },
         {
           "name": "label",
@@ -25961,7 +26615,7 @@
           "annotations": [],
           "description": "Quote is for outbound shipment or return shipment. If not provided, will assume status quo of outbound shipment.",
           "attributes": [],
-          "type": "tier_direction",
+          "type": "lane_direction",
           "required": false
         }
       ]
@@ -26018,22 +26672,6 @@
           "description": "Optional center key associated with this item. Used for orders and quotes to specify where to ship an item from. If not specified, Flow will infer based on inventory setup.",
           "attributes": [],
           "type": "string",
-          "required": false
-        },
-        {
-          "name": "discount",
-          "annotations": [],
-          "description": "The total discount, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here",
-          "attributes": [],
-          "type": "money",
-          "required": false
-        },
-        {
-          "name": "discounts",
-          "annotations": [],
-          "description": "The discounts, if any, to apply to this line item. Note that the discount is the total discount to apply regardless of the quantity here",
-          "attributes": [],
-          "type": "discounts_form",
           "required": false
         }
       ]
@@ -28639,6 +29277,21 @@
       ]
     },
     {
+      "plural": "repeat_hourlies",
+      "name": "repeat_hourly",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "interval",
+          "annotations": [],
+          "attributes": [],
+          "type": "integer",
+          "minimum": 1,
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "repeat_monthlies",
       "name": "repeat_monthly",
       "description": "Monthly on the {day} of each {interval} month. Note if you specify a day > 28 and the month does not have that day, the repeat schedule is assumed to be the last day of the month. Common examples are: Monthly on the 1st, monthly on the 15th and 31st, every 3 months on the 1st, etc.",
@@ -28655,7 +29308,7 @@
         {
           "name": "days",
           "annotations": [],
-          "description": "A list of the days of the month on which to generate the monthly statement",
+          "description": "A list of the days of the month on which to trigger the schedule",
           "attributes": [],
           "type": "[integer]",
           "minimum": 1,
@@ -28720,6 +29373,14 @@
           "attributes": [],
           "type": "[reservation_item]",
           "required": true
+        },
+        {
+          "name": "reserved_until",
+          "annotations": [],
+          "description": "Records the length of this reservation. When omitted, inventory is to be treated as first-come, first-served.",
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": false
         }
       ]
     },
@@ -31514,6 +32175,58 @@
           "attributes": [],
           "type": "lane_strategy",
           "required": true
+        },
+        {
+          "name": "direction",
+          "annotations": [],
+          "attributes": [],
+          "type": "lane_direction",
+          "required": false
+        },
+        {
+          "name": "preference",
+          "annotations": [],
+          "description": "Strategy to use for preselecting a delivery option corresponding to a shipping tier in the lane",
+          "attributes": [],
+          "type": "lane_preselect_preference",
+          "required": false
+        }
+      ]
+    },
+    {
+      "plural": "shipping_lane_default_tiers",
+      "name": "shipping_lane_default_tier",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "id",
+          "annotations": [],
+          "description": "Globally unique identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "tier",
+          "annotations": [],
+          "attributes": [],
+          "type": "tier_reference",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "shipping_lane_default_tier_forms",
+      "name": "shipping_lane_default_tier_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "tier_id",
+          "annotations": [],
+          "description": "Tier to make the default for the shipping lane",
+          "attributes": [],
+          "type": "string",
+          "required": true
         }
       ]
     },
@@ -31572,6 +32285,22 @@
           "description": "Specifies strategy for picking center that will fulfill deliveries for the shipping lane when multiple centers are available as origins and are capable of shipping to the destination",
           "attributes": [],
           "type": "lane_strategy",
+          "required": false
+        },
+        {
+          "name": "direction",
+          "annotations": [],
+          "description": "Specifies the direction for this shipping lane",
+          "attributes": [],
+          "type": "lane_direction",
+          "required": false
+        },
+        {
+          "name": "preference",
+          "annotations": [],
+          "description": "Strategy to use for preselecting a delivery option corresponding to a shipping tier in the lane",
+          "attributes": [],
+          "type": "lane_preselect_preference",
           "required": false
         }
       ]
@@ -33518,6 +34247,14 @@
           "attributes": [],
           "type": "string",
           "required": false
+        },
+        {
+          "name": "publishable_key",
+          "annotations": [],
+          "description": "The publishable key used to initialize Stripe-related objects on the client.",
+          "attributes": [],
+          "type": "string",
+          "required": false
         }
       ]
     },
@@ -34790,7 +35527,10 @@
           "name": "direction",
           "annotations": [],
           "attributes": [],
-          "type": "tier_direction",
+          "type": "lane_direction",
+          "deprecation": {
+            "description": "This field will be deprecated. Please use the 'direction' field in 'shipping_lane'"
+          },
           "required": true
         },
         {
@@ -35072,7 +35812,10 @@
           "name": "direction",
           "annotations": [],
           "attributes": [],
-          "type": "tier_direction",
+          "type": "lane_direction",
+          "deprecation": {
+            "description": "This field will be deprecated. Please use the 'direction' field in 'shipping_lane_form'"
+          },
           "required": false
         },
         {
@@ -37711,6 +38454,19 @@
     {
       "types": [
         {
+          "discriminator_value": "refund",
+          "attributes": [],
+          "type": "email_notification_data_refund"
+        }
+      ],
+      "plural": "email_notification_data",
+      "name": "email_notification_data",
+      "attributes": [],
+      "discriminator": "discriminator"
+    },
+    {
+      "types": [
+        {
           "discriminator_value": "attribute_upserted",
           "attributes": [],
           "type": "attribute_upserted"
@@ -37864,6 +38620,16 @@
           "discriminator_value": "customer_address_book_contact_deleted",
           "attributes": [],
           "type": "customer_address_book_contact_deleted"
+        },
+        {
+          "discriminator_value": "email_notification_upserted",
+          "attributes": [],
+          "type": "email_notification_upserted"
+        },
+        {
+          "discriminator_value": "email_notification_deleted",
+          "attributes": [],
+          "type": "email_notification_deleted"
         },
         {
           "discriminator_value": "available_promotions_upserted",
@@ -38129,16 +38895,6 @@
           "discriminator_value": "item_origin_deleted",
           "attributes": [],
           "type": "item_origin_deleted"
-        },
-        {
-          "discriminator_value": "harmonized_item_upserted",
-          "attributes": [],
-          "type": "harmonized_item_upserted"
-        },
-        {
-          "discriminator_value": "harmonized_item_deleted",
-          "attributes": [],
-          "type": "harmonized_item_deleted"
         },
         {
           "discriminator_value": "harmonized_landed_cost_upserted",
@@ -39279,6 +40035,11 @@
     },
     {
       "types": [
+        {
+          "discriminator_value": "repeat_hourly",
+          "attributes": [],
+          "type": "repeat_hourly"
+        },
         {
           "discriminator_value": "repeat_daily",
           "attributes": [],
@@ -43489,6 +44250,84 @@
               "location": "Path",
               "type": "string",
               "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/experiences/:experience_key/local/items",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "[local_item]"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Returns localized information about 0 or more items given a query for the specified experience.",
+          "attributes": [],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "experience_key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "q",
+              "description": "Filter to items matching this query. Defaults to all items.",
+              "location": "Query",
+              "type": "string",
+              "required": false,
+              "example": "number in (1,2,3)"
+            },
+            {
+              "name": "currency",
+              "description": "Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. If not specified, the item is returned in the currency of the experience.",
+              "location": "Query",
+              "type": "string",
+              "required": false
             }
           ]
         },
@@ -48211,6 +49050,15 @@
               "minimum": 0,
               "required": false,
               "example": "experience"
+            },
+            {
+              "name": "romanize",
+              "description": "Fields on the order to romanize. For example, if 'destination' is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin",
+              "maximum": 100,
+              "location": "Query",
+              "type": "[string]",
+              "required": false,
+              "example": "destination"
             }
           ]
         },
@@ -49709,7 +50557,7 @@
           ]
         },
         {
-          "path": "/:organization/orders/:number/labels",
+          "path": "/:organization/orders/:number/labels/documents/invoice",
           "method": "POST",
           "responses": [
             {
@@ -49720,7 +50568,7 @@
               },
               "description": "Operation succeeded and the resource was created",
               "attributes": [],
-              "type": "shipping_label"
+              "type": "shipping_label_document"
             },
             {
               "code": {
@@ -49743,7 +50591,7 @@
               "type": "generic_error"
             }
           ],
-          "description": "Generate a shipping label given only an order number for the organization. This will assume all items in the order will be shipped and that there are no updates to the contact or destination address information.",
+          "description": "Generate a commercial invoice for the order without providing a label.",
           "attributes": [],
           "parameters": [
             {
@@ -52258,6 +53106,100 @@
       "type": "order_promotion"
     },
     {
+      "path": "/:organization/order/summaries",
+      "plural": "order_summaries",
+      "operations": [
+        {
+          "path": "/:organization/order/summaries/:number",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "order_summary"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_operations",
+                  "organization_fulfillment",
+                  "organization_marketing",
+                  "organization_finance"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "number",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "description": "The order summary is a view of the order summary object with the order prices flattened to keys.",
+      "attributes": [
+        {
+          "name": "docs",
+          "value": {
+            "module": "localization"
+          }
+        }
+      ],
+      "type": "order_summary"
+    },
+    {
       "path": "/organizations",
       "plural": "organizations",
       "operations": [
@@ -52303,6 +53245,16 @@
               "description": "Resource was not found",
               "attributes": [],
               "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
             }
           ],
           "description": "The countries resources provides a unique list of all of the countries for which an experience exists. We generate this list of countries by iterating through all of the experience regions, and collecting all of the countries.",
@@ -53486,11 +54438,10 @@
             },
             {
               "name": "amount",
-              "description": "If specified, we will ensure that any available installment programs are adjusted to be <= this amount. If specified, must also specify currency",
+              "description": "Filters available payment methods to those that support the price in the currency of the `currency` parameter.",
               "location": "Query",
               "type": "string",
-              "required": false,
-              "example": "100.50"
+              "required": false
             },
             {
               "name": "currency",
@@ -53629,11 +54580,10 @@
             },
             {
               "name": "amount",
-              "description": "If specified, we will ensure that any available installment programs are adjusted to be <= this amount. If specified, must also specify currency",
+              "description": "Filters available payment methods to those that support the price in the currency of the `currency` parameter.",
               "location": "Query",
               "type": "string",
-              "required": false,
-              "example": "100.50"
+              "required": false
             },
             {
               "name": "currency",
@@ -72442,6 +73392,206 @@
               "required": true
             }
           ]
+        },
+        {
+          "path": "/:organization/shipping/configuration/:key/lanes/:id/defaults/tiers",
+          "method": "GET",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "shipping_lane_default_tier"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Endpoint to retrieve the default tier of a shipping lane",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/shipping/configuration/:key/lanes/:id/defaults/tiers",
+          "method": "PUT",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "shipping_lane_default_tier"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "shipping_lane_default_tier"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 403
+                }
+              },
+              "attributes": [],
+              "type": "permission_error"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 404
+                }
+              },
+              "description": "Resource was not found",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Endpoint to set or udpate the default tier of a shipping lane",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [
+                  "user",
+                  "token"
+                ],
+                "roles": [
+                  "organization_admin",
+                  "organization_merchant"
+                ]
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "shipping_lane_default_tier_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "description": "Filter by one or more IDs of this resource",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
         }
       ],
       "attributes": [
@@ -72696,6 +73846,12 @@
               "maximum": 100,
               "location": "Query",
               "type": "[string]",
+              "required": false
+            },
+            {
+              "name": "show_commercial_invoice",
+              "location": "Query",
+              "type": "boolean",
               "required": false
             },
             {
@@ -73812,9 +74968,9 @@
               "required": false
             },
             {
-              "name": "tier_direction",
+              "name": "direction",
               "location": "Query",
-              "type": "tier_direction",
+              "type": "lane_direction",
               "required": false,
               "example": "outbound"
             },
@@ -76400,7 +77556,7 @@
               },
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": [],
-              "type": "generic_error"
+              "type": "location_error"
             }
           ],
           "description": "Geolocates the request based on the provided parameters, returning a list of potential matching addresses.",
@@ -76464,7 +77620,7 @@
               },
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": [],
-              "type": "generic_error"
+              "type": "location_error"
             }
           ],
           "attributes": [],
@@ -76531,7 +77687,7 @@
               },
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": [],
-              "type": "generic_error"
+              "type": "location_error"
             }
           ],
           "attributes": [
@@ -76678,7 +77834,7 @@
               },
               "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
               "attributes": [],
-              "type": "generic_error"
+              "type": "location_error"
             }
           ],
           "description": "Provides timezone based on address or geolocated IP.",
@@ -92211,7 +93367,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.8.16",
+  "version": "0.8.46",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -92368,7 +93524,7 @@
         },
         {
           "name": "session",
-          "description": "A browser has been assigned an identifier by flow to track their use of our service for an organization.",
+          "description": "A browser has been assigned an identifier by Flow to track their use of our service for an organization.",
           "attributes": []
         },
         {
@@ -93447,6 +94603,14 @@
           "attributes": []
         },
         {
+          "name": "email_notification_upserted",
+          "attributes": []
+        },
+        {
+          "name": "email_notification_deleted",
+          "attributes": []
+        },
+        {
           "name": "available_promotions_upserted",
           "attributes": []
         },
@@ -93656,14 +94820,6 @@
         },
         {
           "name": "item_origin_deleted",
-          "attributes": []
-        },
-        {
-          "name": "harmonized_item_upserted",
-          "attributes": []
-        },
-        {
-          "name": "harmonized_item_deleted",
           "attributes": []
         },
         {
@@ -94339,6 +95495,29 @@
       "attributes": []
     },
     {
+      "plural": "goods_supplies",
+      "values": [
+        {
+          "name": "export",
+          "description": "Goods will be supplied from a DC from outside the national and customs boundaries of the destination.",
+          "attributes": []
+        },
+        {
+          "name": "intra_community",
+          "description": "Goods will be supplied from a DC outside the national boundries of the destination, but within the same customs union.",
+          "attributes": []
+        },
+        {
+          "name": "local",
+          "description": "Goods will be supplied from a DC within the same country as the destination.",
+          "attributes": []
+        }
+      ],
+      "name": "goods_supply",
+      "description": "Defines how goods will be supplied to a customer from a distribution center (DC) from the perspective of the type of border being crossed.",
+      "attributes": []
+    },
+    {
       "plural": "holiday_calendars",
       "values": [
         {
@@ -94624,6 +95803,39 @@
       "attributes": []
     },
     {
+      "plural": "lane_directions",
+      "values": [
+        {
+          "name": "outbound",
+          "attributes": []
+        },
+        {
+          "name": "return",
+          "attributes": []
+        }
+      ],
+      "name": "lane_direction",
+      "description": "Describes fulfillment and shipping direction",
+      "attributes": []
+    },
+    {
+      "plural": "lane_preselect_preferences",
+      "values": [
+        {
+          "name": "lowest_cost",
+          "description": "Preselect the lowest cost tier in the shipping lane",
+          "attributes": []
+        },
+        {
+          "name": "default_tier",
+          "description": "Manually designate a tier in the shipping lane as the default",
+          "attributes": []
+        }
+      ],
+      "name": "lane_preselect_preference",
+      "attributes": []
+    },
+    {
       "plural": "lane_strategies",
       "values": [
         {
@@ -94697,6 +95909,33 @@
         }
       ],
       "name": "levy_strategy",
+      "attributes": []
+    },
+    {
+      "plural": "location_error_codes",
+      "values": [
+        {
+          "name": "address_required",
+          "description": "Indicates that a non empty address was not specified when required",
+          "attributes": []
+        },
+        {
+          "name": "ip_invalid",
+          "description": "Indicates the specified IP Address is invalid",
+          "attributes": []
+        },
+        {
+          "name": "ip_required",
+          "description": "Indicates that a non empty IP Address was not specified when required",
+          "attributes": []
+        },
+        {
+          "name": "timezone_unavailable",
+          "description": "Indicates that there is no timezone information available for the specified IP Address",
+          "attributes": []
+        }
+      ],
+      "name": "location_error_code",
       "attributes": []
     },
     {
@@ -96200,22 +97439,6 @@
         }
       ],
       "name": "three_d_secure_code",
-      "attributes": []
-    },
-    {
-      "plural": "tier_directions",
-      "values": [
-        {
-          "name": "outbound",
-          "attributes": []
-        },
-        {
-          "name": "return",
-          "attributes": []
-        }
-      ],
-      "name": "tier_direction",
-      "description": "Describes fulfillment direction of this logistics tier",
       "attributes": []
     },
     {

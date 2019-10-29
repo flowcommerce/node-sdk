@@ -58,6 +58,10 @@ export default class Experiences extends Client {
     });
   }
 
+  getLocalAndItemsByExperienceKey(organization, experienceKey, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/local/items`, options);
+  }
+
   getLogisticsAndSummaryByExperienceKey(organization, experienceKey, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/logistics/summary`, options);
   }

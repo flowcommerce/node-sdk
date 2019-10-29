@@ -155,6 +155,22 @@ const experiences = client().experiences;
 | experience_key | string |  |
 
 
+##`getLocalAndItemsByExperienceKey(organization, experienceKey, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| experience_key | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| q | string | Filter to items matching this query. Defaults to all items. |
+| currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. If not specified, the item is returned in the currency of the experience. |
+
 ##`getLogisticsAndSummaryByExperienceKey(organization, experienceKey, options = {})`
 
 ### Function Parameters

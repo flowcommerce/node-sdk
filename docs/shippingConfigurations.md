@@ -161,3 +161,25 @@ const shippingConfigurations = client().shippingConfigurations;
 | id | string | Filter by one or more IDs of this resource |
 
 
+##`getLanesAndDefaultsAndTiersByKeyAndId(organization, key, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`putLanesAndDefaultsAndTiersByKeyAndId(organization, key, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+

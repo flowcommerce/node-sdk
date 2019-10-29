@@ -70,6 +70,7 @@ const orders = client().orders;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
 
 ##`getVersions(organization, options = {})`
 
@@ -264,7 +265,7 @@ const orders = client().orders;
 | number | string |  |
 
 
-##`postLabelsByNumber(organization, number, options = {})`
+##`postLabelsAndDocumentsAndInvoiceByNumber(organization, number, options = {})`
 
 ### Function Parameters
 

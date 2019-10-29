@@ -71,4 +71,15 @@ export default class ShippingConfigurations extends Client {
     });
   }
 
+  getLanesAndDefaultsAndTiersByKeyAndId(organization, key, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/${id}/defaults/tiers`, options);
+  }
+
+  putLanesAndDefaultsAndTiersByKeyAndId(organization, key, id, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/${id}/defaults/tiers`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
 }

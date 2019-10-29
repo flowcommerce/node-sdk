@@ -139,12 +139,7 @@ export default class Client extends EventEmitter {
         response.text().then((text) => {
           let result = text;
 
-          this.logResponse({
-            status: response.status,
-            body: result,
-            time: roundTripMs,
-            type: response.headers.get('content-type'),
-          });
+          this.logResponse({ status: response.status, body: result, time: roundTripMs });
 
           // Return JSON if text can parse as such
           try {

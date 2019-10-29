@@ -26,6 +26,7 @@ These resources mirror the official documentation located at
 | [orderIdentifiers](orderIdentifiers.md) | Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders. |
 | [orderNumberGenerators](orderNumberGenerators.md) |  |
 | [orderPromotions](orderPromotions.md) |  |
+| [orderSummaries](orderSummaries.md) | The order summary is a view of the order summary object with the order prices flattened to keys. |
 | [organizations](organizations.md) |  |
 | [paymentMethodRules](paymentMethodRules.md) | Returns payment methods that are enabled for an organization and available for the provided country and currency. |
 | [priceBooks](priceBooks.md) |  |

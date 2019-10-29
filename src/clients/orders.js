@@ -121,8 +121,8 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/status/fraud`, options);
   }
 
-  postLabelsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/labels`, {
+  postLabelsAndDocumentsAndInvoiceByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/labels/documents/invoice`, {
       ...options,
        method: 'POST',
     });
