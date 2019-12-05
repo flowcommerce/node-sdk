@@ -14,117 +14,117 @@ export default class Subcatalogs extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(id)}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getSettingsById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}/settings`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(id)}/settings`, options);
   }
 
   putSettingsById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${id}/settings`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(id)}/settings`, {
       ...options,
        method: 'PUT',
     });
   }
 
   getExclusionsBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/exclusions`, options);
   }
 
   getExclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/exclusions/${encodeURIComponent(number)}`, options);
   }
 
   putExclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/exclusions/${encodeURIComponent(number)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteExclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/exclusions/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/exclusions/${encodeURIComponent(number)}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getInclusionsBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/inclusions`, options);
   }
 
   getInclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/inclusions/${encodeURIComponent(number)}`, options);
   }
 
   putInclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/inclusions/${encodeURIComponent(number)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteInclusionsBySubcatalogIdAndNumber(organization, subcatalogId, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/inclusions/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/inclusions/${encodeURIComponent(number)}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getQueriesBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/queries`, options);
   }
 
   postQueriesBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/queries`, {
       ...options,
        method: 'POST',
     });
   }
 
   getQueriesBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/queries/${encodeURIComponent(id)}`, options);
   }
 
   deleteQueriesBySubcatalogIdAndId(organization, subcatalogId, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/queries/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/queries/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getStatisticsBySubcatalogId(organization, subcatalogId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/subcatalogs/${subcatalogId}/statistics`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/subcatalogs/${encodeURIComponent(subcatalogId)}/statistics`, options);
   }
 
 }

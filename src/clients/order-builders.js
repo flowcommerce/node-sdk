@@ -14,67 +14,67 @@ export default class OrderBuilders extends Client {
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders`, {
       ...options,
        method: 'POST',
     });
   }
 
   putCartsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/carts/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/carts/${encodeURIComponent(number)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   getByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}`, options);
   }
 
   putByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putAttributesByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/attributes`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/attributes`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putCountryByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/country`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/country`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putDestinationByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/destination`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/destination`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putDutyByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/duty`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/duty`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putInvoiceAndAddressByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/invoice/address`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/invoice/address`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putTaxAndRegistrationByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/builders/${number}/tax/registration`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/tax/registration`, {
       ...options,
        method: 'PUT',
     });

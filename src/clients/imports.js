@@ -14,26 +14,26 @@ export default class Imports extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/imports`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/imports`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/imports`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/imports`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/imports/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/imports/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/imports/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/imports/${encodeURIComponent(id)}`, options);
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/imports/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/imports/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });

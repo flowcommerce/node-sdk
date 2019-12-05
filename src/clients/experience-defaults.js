@@ -14,7 +14,7 @@ export default class ExperienceDefaults extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experience/defaults`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experience/defaults`, options);
   }
 
 }

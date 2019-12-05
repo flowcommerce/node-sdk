@@ -38,7 +38,7 @@
     "mocha": "^6.0.2"
   },
   "dependencies": {
-    "@flowio/lib-apidoc": "^1.5.37",
+    "@flowio/lib-apidoc": "^1.6.0",
     "@flowio/lib-registry": "0.0.5",
     "babel-runtime": "^6.26.0",
     "handlebars": "^4.1.0",

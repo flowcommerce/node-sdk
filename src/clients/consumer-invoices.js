@@ -14,57 +14,57 @@ export default class ConsumerInvoices extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices`, options);
   }
 
   postExports(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/exports`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/exports`, {
       ...options,
        method: 'POST',
     });
   }
 
   putOrderByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/order/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/order/${encodeURIComponent(number)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   postCreditAndMemosByInvoiceKey(organization, invoiceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${invoiceKey}/credit/memos`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/${encodeURIComponent(invoiceKey)}/credit/memos`, {
       ...options,
        method: 'POST',
     });
   }
 
   putCreditAndMemosByInvoiceKeyAndKey(organization, invoiceKey, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${invoiceKey}/credit/memos/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/${encodeURIComponent(invoiceKey)}/credit/memos/${encodeURIComponent(key)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteCreditAndMemosByInvoiceKeyAndKey(organization, invoiceKey, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${invoiceKey}/credit/memos/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/${encodeURIComponent(invoiceKey)}/credit/memos/${encodeURIComponent(key)}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${key}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/${encodeURIComponent(key)}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/${encodeURIComponent(key)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/consumer/invoices/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/consumer/invoices/${encodeURIComponent(key)}`, {
       ...options,
        method: 'DELETE',
     });

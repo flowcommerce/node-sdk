@@ -14,7 +14,7 @@ export default class CatalogPriceBookItemDocuments extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/search/price/books/items`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/search/price/books/items`, options);
   }
 
 }

@@ -14,7 +14,7 @@ export default class OrderSummaries extends Client {
   }
 
   getByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/summaries/${number}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/summaries/${encodeURIComponent(number)}`, options);
   }
 
 }

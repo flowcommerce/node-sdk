@@ -14,22 +14,22 @@ export default class Trackings extends Client {
   }
 
   getTrackingsById(id, options = {}) {
-    return this.makeRequest(`${this.host}/trackings/${id}`, options);
+    return this.makeRequest(`${this.host}/trackings/${encodeURIComponent(id)}`, options);
   }
 
   getTrackingsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/trackings`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/trackings`, options);
   }
 
   postTrackingsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/trackings`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/trackings`, {
       ...options,
        method: 'POST',
     });
   }
 
   getTrackingsAndVersionsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/trackings/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/trackings/versions`, options);
   }
 
 }

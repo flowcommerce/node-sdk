@@ -14,26 +14,26 @@ export default class DimensionEstimates extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/dimension-estimates`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/dimension-estimates`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/dimension-estimates/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/dimension-estimates/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates/${encodeURIComponent(id)}`, options);
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/dimension-estimates/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });

@@ -32,25 +32,25 @@ export default class Users extends Client {
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/users/${id}`, options);
+    return this.makeRequest(`${this.host}/users/${encodeURIComponent(id)}`, options);
   }
 
   putById(id, options = {}) {
-    return this.makeRequest(`${this.host}/users/${id}`, {
+    return this.makeRequest(`${this.host}/users/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   patchPasswordsById(id, options = {}) {
-    return this.makeRequest(`${this.host}/users/${id}/passwords`, {
+    return this.makeRequest(`${this.host}/users/${encodeURIComponent(id)}/passwords`, {
       ...options,
        method: 'PATCH',
     });
   }
 
   deletePasswordsById(id, options = {}) {
-    return this.makeRequest(`${this.host}/users/${id}/passwords`, {
+    return this.makeRequest(`${this.host}/users/${encodeURIComponent(id)}/passwords`, {
       ...options,
        method: 'DELETE',
     });

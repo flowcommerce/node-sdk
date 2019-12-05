@@ -14,26 +14,26 @@ export default class Ratecards extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(id)}`, options);
   }
 
   putPublishById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/${id}/publish`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(id)}/publish`, {
       ...options,
        method: 'PUT',
     });

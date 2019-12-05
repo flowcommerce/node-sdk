@@ -14,11 +14,11 @@ export default class OrganizationTokens extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tokens`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tokens`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tokens`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tokens`, {
       ...options,
        method: 'POST',
     });

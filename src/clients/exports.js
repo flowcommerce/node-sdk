@@ -14,26 +14,26 @@ export default class Exports extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exports`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exports`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exports`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exports`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exports/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exports/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exports/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exports/${encodeURIComponent(id)}`, options);
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exports/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exports/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });

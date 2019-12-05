@@ -14,7 +14,7 @@ export default class GatewayAuthenticationData extends Client {
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/gateways/authentication`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/gateways/authentication`, {
       ...options,
        method: 'POST',
     });

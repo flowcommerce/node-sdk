@@ -14,26 +14,26 @@ export default class RatecardRates extends Client {
   }
 
   get(organization, ratecardId, laneId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/${ratecardId}/lanes/${laneId}/rates`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(ratecardId)}/lanes/${encodeURIComponent(laneId)}/rates`, options);
   }
 
   post(organization, ratecardId, laneId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/${ratecardId}/lanes/${laneId}/rates`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(ratecardId)}/lanes/${encodeURIComponent(laneId)}/rates`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, ratecardId, laneId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/${ratecardId}/lanes/${laneId}/rates/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(ratecardId)}/lanes/${encodeURIComponent(laneId)}/rates/versions`, options);
   }
 
   getById(organization, ratecardId, laneId, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/${ratecardId}/lanes/${laneId}/rates/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(ratecardId)}/lanes/${encodeURIComponent(laneId)}/rates/${encodeURIComponent(id)}`, options);
   }
 
   putById(organization, ratecardId, laneId, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecards/${ratecardId}/lanes/${laneId}/rates/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(ratecardId)}/lanes/${encodeURIComponent(laneId)}/rates/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
