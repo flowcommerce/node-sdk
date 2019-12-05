@@ -21,7 +21,7 @@ export default class OrganizationAuthorizations extends Client {
   }
 
   getByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/organization-authorizations/${encodeURIComponent(organization)}`, options);
+    return this.makeRequest(`${this.host}/organization-authorizations/${organization}`, options);
   }
 
 }

@@ -18,7 +18,7 @@ export default class Provinces extends Client {
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/reference/provinces/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/reference/provinces/${id}`, options);
   }
 
 }

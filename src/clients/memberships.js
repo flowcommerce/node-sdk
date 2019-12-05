@@ -29,18 +29,18 @@ export default class Memberships extends Client {
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/memberships/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/memberships/${id}`, options);
   }
 
   putById(id, options = {}) {
-    return this.makeRequest(`${this.host}/memberships/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/memberships/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(id, options = {}) {
-    return this.makeRequest(`${this.host}/memberships/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/memberships/${id}`, {
       ...options,
        method: 'DELETE',
     });

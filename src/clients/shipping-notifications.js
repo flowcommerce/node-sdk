@@ -14,33 +14,33 @@ export default class ShippingNotifications extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping-notifications`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping-notifications`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping-notifications/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping-notifications/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping-notifications/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping-notifications/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping-notifications/${key}`, {
       ...options,
        method: 'DELETE',
     });

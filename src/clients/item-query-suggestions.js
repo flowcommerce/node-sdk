@@ -14,7 +14,7 @@ export default class ItemQuerySuggestions extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/search/item/query/suggestions`, options);
+    return this.makeRequest(`${this.host}/${organization}/search/item/query/suggestions`, options);
   }
 
 }

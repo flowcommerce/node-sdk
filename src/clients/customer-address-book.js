@@ -14,7 +14,7 @@ export default class CustomerAddressBook extends Client {
   }
 
   get(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}/addresses/book`, options);
+    return this.makeRequest(`${this.host}/${organization}/customers/${number}/addresses/book`, options);
   }
 
 }

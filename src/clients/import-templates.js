@@ -14,11 +14,11 @@ export default class ImportTemplates extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/import/templates`, options);
+    return this.makeRequest(`${this.host}/${organization}/import/templates`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/import/templates`, {
+    return this.makeRequest(`${this.host}/${organization}/import/templates`, {
       ...options,
        method: 'POST',
     });

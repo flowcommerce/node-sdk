@@ -18,7 +18,7 @@ export default class CountryDefaults extends Client {
   }
 
   getByCountry(country, options = {}) {
-    return this.makeRequest(`${this.host}/geolocation/defaults/${encodeURIComponent(country)}`, options);
+    return this.makeRequest(`${this.host}/geolocation/defaults/${country}`, options);
   }
 
 }

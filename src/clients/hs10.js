@@ -14,11 +14,11 @@ export default class Hs10 extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/harmonization/hs10`, options);
+    return this.makeRequest(`${this.host}/${organization}/harmonization/hs10`, options);
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/harmonization/hs10/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/harmonization/hs10/versions`, options);
   }
 
 }

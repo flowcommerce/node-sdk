@@ -14,7 +14,7 @@ export default class Allocations extends Client {
   }
 
   get(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/allocations/${encodeURIComponent(number)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/orders/allocations/${number}`, options);
   }
 
 }

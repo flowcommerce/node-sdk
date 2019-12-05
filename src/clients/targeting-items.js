@@ -14,7 +14,7 @@ export default class TargetingItems extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/targeting-items`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/targeting-items`, options);
   }
 
 }

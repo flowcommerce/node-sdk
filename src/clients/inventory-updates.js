@@ -14,22 +14,22 @@ export default class InventoryUpdates extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_updates`, options);
+    return this.makeRequest(`${this.host}/${organization}/inventory_updates`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_updates`, {
+    return this.makeRequest(`${this.host}/${organization}/inventory_updates`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_updates/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/inventory_updates/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_updates/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/inventory_updates/${id}`, options);
   }
 
 }

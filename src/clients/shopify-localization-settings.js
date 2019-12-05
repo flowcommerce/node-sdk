@@ -14,29 +14,29 @@ export default class ShopifyLocalizationSettings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/localization/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/shopify/localization/settings`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/localization/settings`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/localization/settings`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/localization/settings/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shopify/localization/settings/${id}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/localization/settings/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/localization/settings/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/localization/settings/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/localization/settings/${id}`, {
       ...options,
        method: 'DELETE',
     });

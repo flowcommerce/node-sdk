@@ -14,29 +14,29 @@ export default class PriceBooks extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books`, options);
+    return this.makeRequest(`${this.host}/${organization}/price/books`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books`, {
+    return this.makeRequest(`${this.host}/${organization}/price/books`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/price/books/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${key}`, {
       ...options,
        method: 'DELETE',
     });

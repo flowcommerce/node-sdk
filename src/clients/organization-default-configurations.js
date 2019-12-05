@@ -14,11 +14,11 @@ export default class OrganizationDefaultConfigurations extends Client {
   }
 
   get(organizationId, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organizationId)}/default/configurations`, options);
+    return this.makeRequest(`${this.host}/${organizationId}/default/configurations`, options);
   }
 
   putCheckout(organizationId, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organizationId)}/default/configurations/checkout`, {
+    return this.makeRequest(`${this.host}/${organizationId}/default/configurations/checkout`, {
       ...options,
        method: 'PUT',
     });

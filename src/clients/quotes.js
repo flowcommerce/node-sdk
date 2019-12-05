@@ -14,18 +14,18 @@ export default class Quotes extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/quotes`, options);
+    return this.makeRequest(`${this.host}/${organization}/quotes`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/quotes`, {
+    return this.makeRequest(`${this.host}/${organization}/quotes`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/quotes/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/quotes/${id}`, options);
   }
 
 }

@@ -14,29 +14,29 @@ export default class CustomerAddressBookContacts extends Client {
   }
 
   get(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}/addresses/book/contacts`, options);
+    return this.makeRequest(`${this.host}/${organization}/customers/${number}/addresses/book/contacts`, options);
   }
 
   post(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}/addresses/book/contacts`, {
+    return this.makeRequest(`${this.host}/${organization}/customers/${number}/addresses/book/contacts`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, number, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}/addresses/book/contacts/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/customers/${number}/addresses/book/contacts/${id}`, options);
   }
 
   putById(organization, number, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}/addresses/book/contacts/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/customers/${number}/addresses/book/contacts/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, number, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}/addresses/book/contacts/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/customers/${number}/addresses/book/contacts/${id}`, {
       ...options,
        method: 'DELETE',
     });

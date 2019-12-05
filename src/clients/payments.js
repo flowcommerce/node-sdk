@@ -14,26 +14,26 @@ export default class Payments extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payments`, options);
+    return this.makeRequest(`${this.host}/${organization}/payments`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payments`, {
+    return this.makeRequest(`${this.host}/${organization}/payments`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payments/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/payments/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payments/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/payments/${id}`, options);
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payments/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/payments/${id}`, {
       ...options,
        method: 'DELETE',
     });

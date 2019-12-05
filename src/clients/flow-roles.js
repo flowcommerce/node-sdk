@@ -14,7 +14,7 @@ export default class FlowRoles extends Client {
   }
 
   getOrganizationAndRolesByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/permission/organization/${encodeURIComponent(organization)}/roles`, options);
+    return this.makeRequest(`${this.host}/permission/organization/${organization}/roles`, options);
   }
 
 }

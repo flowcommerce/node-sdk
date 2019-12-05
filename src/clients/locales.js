@@ -18,7 +18,7 @@ export default class Locales extends Client {
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/reference/locales/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/reference/locales/${id}`, options);
   }
 
 }

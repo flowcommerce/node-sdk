@@ -14,7 +14,7 @@ export default class CreditMemos extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/credit/memos`, options);
+    return this.makeRequest(`${this.host}/${organization}/credit/memos`, options);
   }
 
 }

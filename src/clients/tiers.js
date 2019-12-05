@@ -14,33 +14,33 @@ export default class Tiers extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tiers`, options);
+    return this.makeRequest(`${this.host}/${organization}/tiers`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tiers`, {
+    return this.makeRequest(`${this.host}/${organization}/tiers`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tiers/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/tiers/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tiers/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/tiers/${id}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tiers/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/tiers/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tiers/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/tiers/${id}`, {
       ...options,
        method: 'DELETE',
     });

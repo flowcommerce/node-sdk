@@ -14,47 +14,47 @@ export default class Items extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/items`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/items`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/versions`, options);
   }
 
   getByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items/${encodeURIComponent(number)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, options);
   }
 
   putByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items/${encodeURIComponent(number)}`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items/${encodeURIComponent(number)}`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   patchAttributesByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items/${encodeURIComponent(number)}/attributes`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}/attributes`, {
       ...options,
        method: 'PATCH',
     });
   }
 
   putPriceByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/items/${encodeURIComponent(number)}/price`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/items/${number}/price`, {
       ...options,
        method: 'PUT',
     });

@@ -14,7 +14,7 @@ export default class PermissionChecks extends Client {
   }
 
   getPermissionAndChecksAndAllByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/permission/checks/all`, options);
+    return this.makeRequest(`${this.host}/${organization}/permission/checks/all`, options);
   }
 
 }

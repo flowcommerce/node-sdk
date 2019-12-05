@@ -14,29 +14,29 @@ export default class ItemFormOverlays extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/item/overlays`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/item/overlays`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/item/overlays`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/item/overlays`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/item/overlays/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/item/overlays/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/item/overlays/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/item/overlays/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/item/overlays/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/item/overlays/${key}`, {
       ...options,
        method: 'DELETE',
     });

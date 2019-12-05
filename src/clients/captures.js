@@ -14,37 +14,37 @@ export default class Captures extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/captures`, options);
+    return this.makeRequest(`${this.host}/${organization}/captures`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/captures`, {
+    return this.makeRequest(`${this.host}/${organization}/captures`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/captures/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/captures/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/captures/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}`, options);
   }
 
   getIdentifiersByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/captures/${encodeURIComponent(key)}/identifiers`, options);
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}/identifiers`, options);
   }
 
   putIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/captures/${encodeURIComponent(key)}/identifiers/${encodeURIComponent(identifier)}`, {
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}/identifiers/${identifier}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/captures/${encodeURIComponent(key)}/identifiers/${encodeURIComponent(identifier)}`, {
+    return this.makeRequest(`${this.host}/${organization}/captures/${key}/identifiers/${identifier}`, {
       ...options,
        method: 'DELETE',
     });

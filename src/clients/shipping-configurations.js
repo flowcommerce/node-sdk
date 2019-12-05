@@ -14,69 +14,69 @@ export default class ShippingConfigurations extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getLanesByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}/lanes`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes`, options);
   }
 
   postLanesByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}/lanes`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes`, {
       ...options,
        method: 'POST',
     });
   }
 
   getLanesByKeyAndId(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}/lanes/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/${id}`, options);
   }
 
   putLanesByKeyAndId(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}/lanes/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteLanesByKeyAndId(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}/lanes/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/${id}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getLanesAndDefaultsAndTiersByKeyAndId(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}/lanes/${encodeURIComponent(id)}/defaults/tiers`, options);
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/${id}/defaults/tiers`, options);
   }
 
   putLanesAndDefaultsAndTiersByKeyAndId(organization, key, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/${encodeURIComponent(key)}/lanes/${encodeURIComponent(id)}/defaults/tiers`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/${key}/lanes/${id}/defaults/tiers`, {
       ...options,
        method: 'PUT',
     });

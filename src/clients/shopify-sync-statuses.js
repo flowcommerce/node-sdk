@@ -14,7 +14,7 @@ export default class ShopifySyncStatuses extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/sync/status`, options);
+    return this.makeRequest(`${this.host}/${organization}/shopify/sync/status`, options);
   }
 
 }

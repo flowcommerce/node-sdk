@@ -14,7 +14,7 @@ export default class ShippingConfigurationCopies extends Client {
   }
 
   postByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping/configuration/copies/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shipping/configuration/copies/${key}`, {
       ...options,
        method: 'POST',
     });

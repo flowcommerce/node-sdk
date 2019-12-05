@@ -14,33 +14,33 @@ export default class Authorizations extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/authorizations`, options);
+    return this.makeRequest(`${this.host}/${organization}/authorizations`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/authorizations`, {
+    return this.makeRequest(`${this.host}/${organization}/authorizations`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/authorizations/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/authorizations/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/authorizations/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/authorizations/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/authorizations/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/authorizations/${key}`, {
       ...options,
        method: 'DELETE',
     });
