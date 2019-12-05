@@ -14,37 +14,37 @@ export default class Serials extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/serials`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory/serials`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/serials`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory/serials`, {
       ...options,
        method: 'POST',
     });
   }
 
   getPricesByAggregate(organization, aggregate, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/serials/prices/${aggregate}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory/serials/prices/${encodeURIComponent(aggregate)}`, options);
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/serials/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory/serials/versions`, options);
   }
 
   getByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/serials/${number}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory/serials/${encodeURIComponent(number)}`, options);
   }
 
   putByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/serials/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory/serials/${encodeURIComponent(number)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory/serials/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory/serials/${encodeURIComponent(number)}`, {
       ...options,
        method: 'DELETE',
     });

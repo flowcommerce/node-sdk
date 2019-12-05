@@ -14,29 +14,29 @@ export default class CheckoutAttributes extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/checkout/attributes`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/checkout/attributes`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/checkout/attributes`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/checkout/attributes`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/checkout/attributes/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/checkout/attributes/${encodeURIComponent(id)}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/checkout/attributes/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/checkout/attributes/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/checkout/attributes/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/checkout/attributes/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });

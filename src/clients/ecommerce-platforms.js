@@ -14,7 +14,14 @@ export default class EcommercePlatforms extends Client {
   }
 
   get(organizationId, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${organizationId}/ecommerce/platform`, options);
+    return this.makeRequest(`${this.host}/organizations/${encodeURIComponent(organizationId)}/ecommerce/platform`, options);
+  }
+
+  put(organizationId, options = {}) {
+    return this.makeRequest(`${this.host}/organizations/${encodeURIComponent(organizationId)}/ecommerce/platform`, {
+      ...options,
+       method: 'PUT',
+    });
   }
 
 }

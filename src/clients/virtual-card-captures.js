@@ -14,11 +14,11 @@ export default class VirtualCardCaptures extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/virtual/card/captures`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/virtual/card/captures`, options);
   }
 
   getByVirtualCardId(organization, virtualCardId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/virtual/card/captures/${virtualCardId}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/virtual/card/captures/${encodeURIComponent(virtualCardId)}`, options);
   }
 
 }

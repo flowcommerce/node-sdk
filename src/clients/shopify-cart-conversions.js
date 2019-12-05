@@ -14,7 +14,7 @@ export default class ShopifyCartConversions extends Client {
   }
 
   postConversions(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/shopify/cart/conversions`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(experienceKey)}/shopify/cart/conversions`, {
       ...options,
        method: 'POST',
     });

@@ -14,11 +14,11 @@ export default class PartnerTokens extends Client {
   }
 
   get(partner, options = {}) {
-    return this.makeRequest(`${this.host}/partners/${partner}/tokens`, options);
+    return this.makeRequest(`${this.host}/partners/${encodeURIComponent(partner)}/tokens`, options);
   }
 
   post(partner, options = {}) {
-    return this.makeRequest(`${this.host}/partners/${partner}/tokens`, {
+    return this.makeRequest(`${this.host}/partners/${encodeURIComponent(partner)}/tokens`, {
       ...options,
        method: 'POST',
     });

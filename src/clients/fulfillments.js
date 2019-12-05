@@ -14,18 +14,18 @@ export default class Fulfillments extends Client {
   }
 
   get(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/fulfillments`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/fulfillments`, options);
   }
 
   putCancellations(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/fulfillments/cancellations`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/fulfillments/cancellations`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putCompleteAndCancellations(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/fulfillments/complete/cancellations`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/fulfillments/complete/cancellations`, {
       ...options,
        method: 'PUT',
     });

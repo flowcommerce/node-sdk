@@ -14,11 +14,11 @@ export default class PaymentMethodRules extends Client {
   }
 
   getPaymentMethodRules(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/payment-method-rules`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payment-method-rules`, options);
   }
 
   getPaymentAndMethodAndRules(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/payment/method/rules`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payment/method/rules`, options);
   }
 
 }

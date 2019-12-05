@@ -14,7 +14,7 @@ export default class AddressConfigurations extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/address/configurations`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/address/configurations`, options);
   }
 
 }

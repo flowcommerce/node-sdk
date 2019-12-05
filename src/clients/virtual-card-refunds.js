@@ -14,11 +14,11 @@ export default class VirtualCardRefunds extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/virtual/card/refunds`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/virtual/card/refunds`, options);
   }
 
   getByVirtualCardId(organization, virtualCardId, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/virtual/card/refunds/${virtualCardId}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/virtual/card/refunds/${encodeURIComponent(virtualCardId)}`, options);
   }
 
 }

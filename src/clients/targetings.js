@@ -14,29 +14,29 @@ export default class Targetings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/targetings`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/targetings`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/${key}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/targetings/${encodeURIComponent(key)}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/targetings/${encodeURIComponent(key)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/catalog/targetings/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/targetings/${encodeURIComponent(key)}`, {
       ...options,
        method: 'DELETE',
     });

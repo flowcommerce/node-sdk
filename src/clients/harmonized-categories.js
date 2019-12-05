@@ -14,7 +14,7 @@ export default class HarmonizedCategories extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/harmonization/categories`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/harmonization/categories`, options);
   }
 
 }

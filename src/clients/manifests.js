@@ -14,22 +14,22 @@ export default class Manifests extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/manifests`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/manifests`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/manifests`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/manifests`, {
       ...options,
        method: 'POST',
     });
   }
 
   getServicesAndOutstandingByService(organization, service, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/manifests/services/${service}/outstanding`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/manifests/services/${encodeURIComponent(service)}/outstanding`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/manifests/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/manifests/${encodeURIComponent(id)}`, options);
   }
 
 }

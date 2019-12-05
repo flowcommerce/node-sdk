@@ -14,7 +14,7 @@ export default class B2bCreditMemos extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/b2b/credit/memos`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/b2b/credit/memos`, options);
   }
 
 }

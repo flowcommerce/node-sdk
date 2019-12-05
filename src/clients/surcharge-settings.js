@@ -14,7 +14,7 @@ export default class SurchargeSettings extends Client {
   }
 
   getDisplays(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/surcharge/settings/displays`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/surcharge/settings/displays`, options);
   }
 
 }
