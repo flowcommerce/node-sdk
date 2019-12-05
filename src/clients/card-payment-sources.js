@@ -14,29 +14,29 @@ export default class CardPaymentSources extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/sources/payments/cards`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/sources/payments/cards`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/sources/payments/cards`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/sources/payments/cards`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/sources/payments/cards/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/sources/payments/cards/${encodeURIComponent(id)}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/sources/payments/cards/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/sources/payments/cards/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/sources/payments/cards/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/sources/payments/cards/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });

@@ -14,22 +14,22 @@ export default class ShippingLabels extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_labels`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping_labels`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_labels`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping_labels`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_labels/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping_labels/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/shipping_labels/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping_labels/${encodeURIComponent(id)}`, options);
   }
 
 }

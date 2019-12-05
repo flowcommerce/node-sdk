@@ -14,15 +14,15 @@ export default class WebhookDeliveries extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhook/deliveries`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhook/deliveries`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhook/deliveries/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhook/deliveries/${encodeURIComponent(id)}`, options);
   }
 
   postRequestsById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhook/deliveries/${id}/requests`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhook/deliveries/${encodeURIComponent(id)}/requests`, {
       ...options,
        method: 'POST',
     });

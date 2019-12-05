@@ -14,18 +14,18 @@ export default class FtpOrganizationSettings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ftp/settings`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ftp/settings`, options);
   }
 
   put(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ftp/settings`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ftp/settings`, {
       ...options,
        method: 'PUT',
     });
   }
 
   delete(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ftp/settings`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ftp/settings`, {
       ...options,
        method: 'DELETE',
     });

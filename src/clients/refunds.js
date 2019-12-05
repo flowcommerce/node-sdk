@@ -14,41 +14,41 @@ export default class Refunds extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds`, {
       ...options,
        method: 'POST',
     });
   }
 
   getSummaryByOrderNumber(organization, orderNumber, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/summary/${orderNumber}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds/summary/${encodeURIComponent(orderNumber)}`, options);
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/${key}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds/${encodeURIComponent(key)}`, options);
   }
 
   getIdentifiersByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/${key}/identifiers`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds/${encodeURIComponent(key)}/identifiers`, options);
   }
 
   putIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/${key}/identifiers/${identifier}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds/${encodeURIComponent(key)}/identifiers/${encodeURIComponent(identifier)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteIdentifiersByKeyAndIdentifier(organization, key, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/refunds/${key}/identifiers/${identifier}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/refunds/${encodeURIComponent(key)}/identifiers/${encodeURIComponent(identifier)}`, {
       ...options,
        method: 'DELETE',
     });

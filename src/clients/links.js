@@ -14,7 +14,7 @@ export default class Links extends Client {
   }
 
   get(carrier, organization, orderNumber, options = {}) {
-    return this.makeRequest(`${this.host}/carrier/${carrier}/data/${organization}/${orderNumber}`, options);
+    return this.makeRequest(`${this.host}/carrier/${encodeURIComponent(carrier)}/data/${encodeURIComponent(organization)}/${encodeURIComponent(orderNumber)}`, options);
   }
 
 }

@@ -14,22 +14,22 @@ export default class FtpFiles extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ftp/files`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ftp/files`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ftp/files`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ftp/files`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ftp/files/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ftp/files/${encodeURIComponent(id)}`, options);
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ftp/files/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ftp/files/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });

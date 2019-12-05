@@ -14,11 +14,11 @@ export default class ExperienceLogisticsSettings extends Client {
   }
 
   get(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/settings/logistics`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(experienceKey)}/settings/logistics`, options);
   }
 
   put(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/settings/logistics`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(experienceKey)}/settings/logistics`, {
       ...options,
        method: 'PUT',
     });

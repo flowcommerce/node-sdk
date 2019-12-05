@@ -21,3 +21,12 @@ const ecommercePlatforms = client().ecommercePlatforms;
 | organization_id | string |  |
 
 
+##`put(organizationId, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization_id | string |  |
+
+

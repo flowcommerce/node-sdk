@@ -14,15 +14,15 @@ export default class VirtualCards extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/virtual/cards`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/virtual/cards`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/virtual/cards/${key}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/virtual/cards/${encodeURIComponent(key)}`, options);
   }
 
   putAuthorizationsByKeyAndAuthorizationKey(organization, key, authorizationKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/virtual/cards/${key}/authorizations/${authorizationKey}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/virtual/cards/${encodeURIComponent(key)}/authorizations/${encodeURIComponent(authorizationKey)}`, {
       ...options,
        method: 'PUT',
     });

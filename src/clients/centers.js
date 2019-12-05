@@ -14,40 +14,40 @@ export default class Centers extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/centers`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/centers`, {
       ...options,
        method: 'POST',
     });
   }
 
   postQuery(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers/query`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/centers/query`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/centers/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers/${key}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/centers/${encodeURIComponent(key)}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/centers/${encodeURIComponent(key)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/centers/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/centers/${encodeURIComponent(key)}`, {
       ...options,
        method: 'DELETE',
     });

@@ -14,14 +14,14 @@ export default class RatecardEstimates extends Client {
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecard_estimates`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecard_estimates`, {
       ...options,
        method: 'POST',
     });
   }
 
   postSummaries(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/ratecard_estimates/summaries`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecard_estimates/summaries`, {
       ...options,
        method: 'POST',
     });

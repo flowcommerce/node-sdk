@@ -14,7 +14,7 @@ export default class CustomerBundles extends Client {
   }
 
   getBundleByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customers/${number}/bundle`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}/bundle`, options);
   }
 
 }

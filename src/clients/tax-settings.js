@@ -14,18 +14,18 @@ export default class TaxSettings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tax/settings`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/settings`, options);
   }
 
   put(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tax/settings`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/settings`, {
       ...options,
        method: 'PUT',
     });
   }
 
   delete(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/tax/settings`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/settings`, {
       ...options,
        method: 'DELETE',
     });

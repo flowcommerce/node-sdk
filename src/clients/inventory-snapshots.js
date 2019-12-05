@@ -14,15 +14,15 @@ export default class InventorySnapshots extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory_snapshots`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_snapshots`, options);
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory_snapshots/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_snapshots/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/inventory_snapshots/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_snapshots/${encodeURIComponent(id)}`, options);
   }
 
 }

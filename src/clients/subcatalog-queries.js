@@ -14,7 +14,7 @@ export default class SubcatalogQueries extends Client {
   }
 
   postValidations(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/query/validations`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/query/validations`, {
       ...options,
        method: 'POST',
     });

@@ -14,18 +14,18 @@ export default class OrderNumberGenerators extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/number/generators`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/number/generators`, options);
   }
 
   put(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/number/generators`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/number/generators`, {
       ...options,
        method: 'PUT',
     });
   }
 
   delete(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/order/number/generators`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/number/generators`, {
       ...options,
        method: 'DELETE',
     });
