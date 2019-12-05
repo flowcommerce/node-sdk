@@ -14,7 +14,7 @@ export default class ConsumerInvoiceDocuments extends Client {
   }
 
   getTokensAndTypeByTokenAndType(token, type, options = {}) {
-    return this.makeRequest(`${this.host}/consumer/invoice/document/tokens/${encodeURIComponent(token)}/type/${encodeURIComponent(type)}`, options);
+    return this.makeRequest(`${this.host}/consumer/invoice/document/tokens/${token}/type/${type}`, options);
   }
 
 }

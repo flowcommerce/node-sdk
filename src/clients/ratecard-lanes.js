@@ -14,29 +14,29 @@ export default class RatecardLanes extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecard-lanes`, options);
+    return this.makeRequest(`${this.host}/${organization}/ratecard-lanes`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecard-lanes`, {
+    return this.makeRequest(`${this.host}/${organization}/ratecard-lanes`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecard-lanes/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/ratecard-lanes/${id}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecard-lanes/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/ratecard-lanes/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecard-lanes/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/ratecard-lanes/${id}`, {
       ...options,
        method: 'DELETE',
     });

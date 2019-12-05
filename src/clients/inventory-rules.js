@@ -14,18 +14,18 @@ export default class InventoryRules extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_rules`, options);
+    return this.makeRequest(`${this.host}/${organization}/inventory_rules`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_rules`, {
+    return this.makeRequest(`${this.host}/${organization}/inventory_rules`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/inventory_rules/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/inventory_rules/versions`, options);
   }
 
 }

@@ -14,29 +14,29 @@ export default class ShopifyLocationFlowCenterMappings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/locations/mappings`, options);
+    return this.makeRequest(`${this.host}/${organization}/shopify/locations/mappings`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/locations/mappings`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/locations/mappings`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/locations/mappings/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shopify/locations/mappings/${id}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/locations/mappings/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/locations/mappings/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/locations/mappings/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/locations/mappings/${id}`, {
       ...options,
        method: 'DELETE',
     });

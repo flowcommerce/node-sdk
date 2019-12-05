@@ -14,7 +14,7 @@ export default class Uploads extends Client {
   }
 
   postByName(organization, name, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/uploads/${encodeURIComponent(name)}`, {
+    return this.makeRequest(`${this.host}/${organization}/uploads/${name}`, {
       ...options,
        method: 'POST',
     });

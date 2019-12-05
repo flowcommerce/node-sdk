@@ -14,22 +14,22 @@ export default class TrackingLabels extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tracking-labels`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tracking-labels`, {
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tracking-labels/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tracking-labels/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/tracking-labels/${id}`, options);
   }
 
 }

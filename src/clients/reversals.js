@@ -14,26 +14,26 @@ export default class Reversals extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/reversals`, options);
+    return this.makeRequest(`${this.host}/${organization}/reversals`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/reversals`, {
+    return this.makeRequest(`${this.host}/${organization}/reversals`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/reversals/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/reversals/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/reversals/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/reversals/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/reversals/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/reversals/${key}`, {
       ...options,
        method: 'PUT',
     });

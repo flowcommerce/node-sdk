@@ -14,29 +14,29 @@ export default class PriceBookItems extends Client {
   }
 
   get(organization, priceBookKey, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(priceBookKey)}/items`, options);
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items`, options);
   }
 
   post(organization, priceBookKey, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(priceBookKey)}/items`, {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, priceBookKey, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(priceBookKey)}/items/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items/${key}`, options);
   }
 
   putByKey(organization, priceBookKey, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(priceBookKey)}/items/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, priceBookKey, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/price/books/${encodeURIComponent(priceBookKey)}/items/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/price/books/${priceBookKey}/items/${key}`, {
       ...options,
        method: 'DELETE',
     });

@@ -14,11 +14,11 @@ export default class PublicKeys extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/encryption/keys`, options);
+    return this.makeRequest(`${this.host}/${organization}/encryption/keys`, options);
   }
 
   getLatest(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/encryption/keys/latest`, options);
+    return this.makeRequest(`${this.host}/${organization}/encryption/keys/latest`, options);
   }
 
 }

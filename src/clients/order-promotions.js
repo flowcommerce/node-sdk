@@ -14,7 +14,7 @@ export default class OrderPromotions extends Client {
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/promotions/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/order/promotions/${key}`, {
       ...options,
        method: 'DELETE',
     });

@@ -14,21 +14,21 @@ export default class TaxRegistrations extends Client {
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/registrations`, {
+    return this.makeRequest(`${this.host}/${organization}/tax/registrations`, {
       ...options,
        method: 'POST',
     });
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/registrations/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/tax/registrations/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/registrations/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/tax/registrations/${key}`, {
       ...options,
        method: 'DELETE',
     });

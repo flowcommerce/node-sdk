@@ -14,33 +14,33 @@ export default class OrderIdentifiers extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-identifiers`, options);
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-identifiers`, {
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-identifiers/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/versions`, options);
   }
 
   getByIdentifier(organization, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-identifiers/${encodeURIComponent(identifier)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${identifier}`, options);
   }
 
   putByIdentifier(organization, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-identifiers/${encodeURIComponent(identifier)}`, {
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${identifier}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByIdentifier(organization, identifier, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-identifiers/${encodeURIComponent(identifier)}`, {
+    return this.makeRequest(`${this.host}/${organization}/order-identifiers/${identifier}`, {
       ...options,
        method: 'DELETE',
     });

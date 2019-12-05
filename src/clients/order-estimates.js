@@ -14,18 +14,18 @@ export default class OrderEstimates extends Client {
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-estimates`, {
+    return this.makeRequest(`${this.host}/${organization}/order-estimates`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-estimates/${encodeURIComponent(number)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/order-estimates/${number}`, options);
   }
 
   putByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order-estimates/${encodeURIComponent(number)}`, {
+    return this.makeRequest(`${this.host}/${organization}/order-estimates/${number}`, {
       ...options,
        method: 'PUT',
     });

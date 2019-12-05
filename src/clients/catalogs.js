@@ -14,33 +14,33 @@ export default class Catalogs extends Client {
   }
 
   getCatalog(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog`, options);
   }
 
   getCatalogAndRestrictions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/restrictions`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/restrictions`, options);
   }
 
   getCatalogAndRestrictionsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/restrictions/${encodeURIComponent(number)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/restrictions/${number}`, options);
   }
 
   putCatalogAndRestrictionsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/restrictions/${encodeURIComponent(number)}`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/restrictions/${number}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteCatalogAndRestrictionsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/restrictions/${encodeURIComponent(number)}`, {
+    return this.makeRequest(`${this.host}/${organization}/catalog/restrictions/${number}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getCatalogAndStatistics(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/statistics`, options);
+    return this.makeRequest(`${this.host}/${organization}/catalog/statistics`, options);
   }
 
 }

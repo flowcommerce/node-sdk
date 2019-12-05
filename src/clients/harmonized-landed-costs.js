@@ -14,7 +14,7 @@ export default class HarmonizedLandedCosts extends Client {
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/harmonization/landed-costs`, {
+    return this.makeRequest(`${this.host}/${organization}/harmonization/landed-costs`, {
       ...options,
        method: 'POST',
     });

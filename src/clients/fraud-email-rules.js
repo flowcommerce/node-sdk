@@ -14,18 +14,18 @@ export default class FraudEmailRules extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/fraud/email/rules`, options);
+    return this.makeRequest(`${this.host}/${organization}/fraud/email/rules`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/fraud/email/rules`, {
+    return this.makeRequest(`${this.host}/${organization}/fraud/email/rules`, {
       ...options,
        method: 'POST',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/fraud/email/rules/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/fraud/email/rules/${id}`, {
       ...options,
        method: 'DELETE',
     });

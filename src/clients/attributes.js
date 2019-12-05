@@ -14,33 +14,33 @@ export default class Attributes extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes`, options);
+    return this.makeRequest(`${this.host}/${organization}/attributes`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes`, {
+    return this.makeRequest(`${this.host}/${organization}/attributes`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/attributes/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes/${encodeURIComponent(key)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes/${encodeURIComponent(key)}`, {
+    return this.makeRequest(`${this.host}/${organization}/attributes/${key}`, {
       ...options,
        method: 'DELETE',
     });

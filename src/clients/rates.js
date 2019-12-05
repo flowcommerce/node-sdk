@@ -14,11 +14,11 @@ export default class Rates extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/rates`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/rates`, options);
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/rates/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/rates/versions`, options);
   }
 
 }

@@ -14,33 +14,33 @@ export default class OrganizationCurrencySettings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/settings`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/settings`, {
+    return this.makeRequest(`${this.host}/${organization}/currency/settings`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/settings/versions`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/settings/versions`, options);
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/settings/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/currency/settings/${id}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/settings/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/currency/settings/${id}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/currency/settings/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/currency/settings/${id}`, {
       ...options,
        method: 'DELETE',
     });

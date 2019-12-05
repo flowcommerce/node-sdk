@@ -14,18 +14,18 @@ export default class CheckoutTokens extends Client {
   }
 
   getCheckoutAndTokensById(id, options = {}) {
-    return this.makeRequest(`${this.host}/checkout/tokens/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/checkout/tokens/${id}`, options);
   }
 
   deleteCheckoutAndTokensById(id, options = {}) {
-    return this.makeRequest(`${this.host}/checkout/tokens/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/checkout/tokens/${id}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   postCheckoutAndTokensByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/checkout/tokens`, {
+    return this.makeRequest(`${this.host}/${organization}/checkout/tokens`, {
       ...options,
        method: 'POST',
     });

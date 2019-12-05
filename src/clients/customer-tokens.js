@@ -14,25 +14,25 @@ export default class CustomerTokens extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customer/tokens`, options);
+    return this.makeRequest(`${this.host}/${organization}/customer/tokens`, options);
   }
 
   postLatestByCustomerNumber(organization, customerNumber, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customer/tokens/latest/${encodeURIComponent(customerNumber)}`, {
+    return this.makeRequest(`${this.host}/${organization}/customer/tokens/latest/${customerNumber}`, {
       ...options,
        method: 'POST',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customer/tokens/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/customer/tokens/${id}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getByToken(organization, token, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customer/tokens/${encodeURIComponent(token)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/customer/tokens/${token}`, options);
   }
 
 }

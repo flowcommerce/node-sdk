@@ -25,11 +25,11 @@ export default class Invitations extends Client {
   }
 
   getTokensByToken(token, options = {}) {
-    return this.makeRequest(`${this.host}/invitations/tokens/${encodeURIComponent(token)}`, options);
+    return this.makeRequest(`${this.host}/invitations/tokens/${token}`, options);
   }
 
   putTokensByToken(token, options = {}) {
-    return this.makeRequest(`${this.host}/invitations/tokens/${encodeURIComponent(token)}`, {
+    return this.makeRequest(`${this.host}/invitations/tokens/${token}`, {
       ...options,
        method: 'PUT',
     });
@@ -40,11 +40,11 @@ export default class Invitations extends Client {
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/invitations/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/invitations/${id}`, options);
   }
 
   deleteById(id, options = {}) {
-    return this.makeRequest(`${this.host}/invitations/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/invitations/${id}`, {
       ...options,
        method: 'DELETE',
     });

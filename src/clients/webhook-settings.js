@@ -14,11 +14,11 @@ export default class WebhookSettings extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhook/settings`, options);
+    return this.makeRequest(`${this.host}/${organization}/webhook/settings`, options);
   }
 
   put(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhook/settings`, {
+    return this.makeRequest(`${this.host}/${organization}/webhook/settings`, {
       ...options,
        method: 'PUT',
     });

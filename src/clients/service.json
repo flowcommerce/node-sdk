@@ -3293,13 +3293,6 @@
           "required": true
         },
         {
-          "name": "name",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
           "name": "identifier",
           "annotations": [],
           "attributes": [],
@@ -6489,15 +6482,6 @@
           "required": true
         },
         {
-          "name": "unit_discount",
-          "annotations": [],
-          "description": "The value of the discount. Amount must be negative",
-          "attributes": [],
-          "type": "decimal",
-          "required": false,
-          "example": "-10"
-        },
-        {
           "name": "unit_tax",
           "annotations": [],
           "attributes": [],
@@ -6560,15 +6544,6 @@
           "attributes": [],
           "type": "decimal",
           "required": true
-        },
-        {
-          "name": "discount",
-          "annotations": [],
-          "description": "The value of the discount. Amount must be negative",
-          "attributes": [],
-          "type": "decimal",
-          "required": false,
-          "example": "-10"
         },
         {
           "name": "tax",
@@ -6906,44 +6881,6 @@
           "type": "string",
           "required": true,
           "example": "fr"
-        }
-      ]
-    },
-    {
-      "plural": "country_pickers",
-      "name": "country_picker",
-      "description": "The Country Picker manages the configuration of your country picker.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "source",
-          "annotations": [],
-          "attributes": [],
-          "type": "country_picker_source",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "country_picker_forms",
-      "name": "country_picker_form",
-      "attributes": [],
-      "fields": [
-        {
-          "default": "experience",
-          "name": "source",
-          "annotations": [],
-          "attributes": [],
-          "type": "country_picker_source",
-          "required": true
         }
       ]
     },
@@ -9816,29 +9753,6 @@
       ]
     },
     {
-      "plural": "ecommerce_platform_forms",
-      "name": "ecommerce_platform_form",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "type",
-          "annotations": [],
-          "attributes": [],
-          "type": "ecommerce_platform_type",
-          "required": true
-        },
-        {
-          "name": "version",
-          "annotations": [],
-          "description": "The version of the platform where appropriate. For platform types like shopify that are fully hosted, version does not apply and thus is optional",
-          "attributes": [],
-          "type": "string",
-          "required": false,
-          "example": "2.2"
-        }
-      ]
-    },
-    {
       "plural": "ecommerce_platform_upserteds",
       "name": "ecommerce_platform_upserted",
       "attributes": [],
@@ -9929,9 +9843,9 @@
           "required": true
         },
         {
-          "name": "return",
+          "name": "refund",
           "annotations": [],
-          "description": "The summary of the items in the order that were returned, triggering this refund",
+          "description": "The summary of the refund (and what parts of the order were refunded)",
           "attributes": [],
           "type": "order_summary",
           "required": true
@@ -11298,145 +11212,6 @@
           "annotations": [],
           "attributes": [],
           "type": "experience_price_book_mapping",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "experience_price_conversions",
-      "name": "experience_price_conversion",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "request",
-          "annotations": [],
-          "attributes": [],
-          "type": "experience_price_conversion_request",
-          "required": true
-        },
-        {
-          "name": "price",
-          "annotations": [],
-          "attributes": [],
-          "type": "price_with_base",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "experience_price_conversion_requests",
-      "name": "experience_price_conversion_request",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "value",
-          "annotations": [],
-          "attributes": [],
-          "type": "decimal",
-          "required": true
-        },
-        {
-          "name": "base",
-          "annotations": [],
-          "description": "The requested base currency ISO code",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "local",
-          "annotations": [],
-          "description": "The requested local currency ISO code",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "experience_price_conversion_responses",
-      "name": "experience_price_conversion_response",
-      "description": "Conversion of a price from the organization's base currency into a local currency, using display rules suitable for price facets in search.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "prices",
-          "annotations": [],
-          "attributes": [],
-          "type": "[experience_price_conversion]",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "experience_price_facet_conversions",
-      "name": "experience_price_facet_conversion",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "request",
-          "annotations": [],
-          "attributes": [],
-          "type": "experience_price_facet_conversion_request",
-          "required": true
-        },
-        {
-          "name": "price",
-          "annotations": [],
-          "attributes": [],
-          "type": "price_with_base",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "experience_price_facet_conversion_requests",
-      "name": "experience_price_facet_conversion_request",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "boundary",
-          "annotations": [],
-          "attributes": [],
-          "type": "price_facet_boundary",
-          "required": true
-        },
-        {
-          "name": "value",
-          "annotations": [],
-          "attributes": [],
-          "type": "decimal",
-          "required": true
-        },
-        {
-          "name": "base",
-          "annotations": [],
-          "description": "The requested base currency ISO code",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "local",
-          "annotations": [],
-          "description": "The requested local currency ISO code",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "experience_price_facet_conversion_responses",
-      "name": "experience_price_facet_conversion_response",
-      "description": "Conversion of a price from the organization's base currency into a local currency, using display rules suitable for price facets in search.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "facets",
-          "annotations": [],
-          "attributes": [],
-          "type": "[experience_price_facet_conversion]",
           "required": true
         }
       ]
@@ -14131,14 +13906,6 @@
           "attributes": [],
           "type": "boolean",
           "required": false
-        },
-        {
-          "name": "name",
-          "annotations": [],
-          "description": "A name to identify the source of this identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
         }
       ]
     },
@@ -20971,15 +20738,6 @@
           "required": true
         },
         {
-          "default": "external",
-          "name": "name",
-          "annotations": [],
-          "description": "The name of the identifier is used to identify where this identifier was set. It is informational only",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
           "name": "identifier",
           "annotations": [],
           "attributes": [],
@@ -21087,14 +20845,6 @@
           "required": true
         },
         {
-          "name": "name",
-          "annotations": [],
-          "description": "The name of the identifier is used to identify where this identifier was set. It is informational only",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
           "name": "identifier",
           "annotations": [],
           "attributes": [],
@@ -21134,14 +20884,6 @@
           "attributes": [],
           "type": "string",
           "required": true
-        },
-        {
-          "name": "name",
-          "annotations": [],
-          "description": "The name of the identifier is used to identify where this identifier was set. It is informational only",
-          "attributes": [],
-          "type": "string",
-          "required": false
         },
         {
           "name": "primary",
@@ -21763,15 +21505,6 @@
           "attributes": [],
           "type": "price_accuracy",
           "required": false
-        },
-        {
-          "name": "rate_label",
-          "annotations": [],
-          "description": "Optional rate label for this order price detail if the key relates to a VAT or Duty in the format XX.XXX%.",
-          "attributes": [],
-          "type": "string",
-          "required": false,
-          "example": "8.875%"
         }
       ]
     },
@@ -22148,14 +21881,6 @@
           "required": true
         },
         {
-          "name": "name",
-          "annotations": [],
-          "description": "The name of the identifier is used to identify where this identifier was set. It is informational only",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
           "name": "primary",
           "annotations": [],
           "description": "If you set this to true, creates the order identifier and marks it as primary. If there already exists a prior primary identifier, that identifier will be updated to no longer by the primary",
@@ -22248,14 +21973,6 @@
           "attributes": [],
           "type": "[order_summary_line_item]",
           "required": true
-        },
-        {
-          "name": "identifiers",
-          "annotations": [],
-          "description": "The identifiers object is a map where the key will be the name of the identifier and the value is the identifier itself. For example, if you have an identifer named external_id, you will have an object here with a key named external_id",
-          "attributes": [],
-          "type": "map[string]",
-          "required": false
         }
       ]
     },
@@ -22371,15 +22088,6 @@
           "example": "0.2"
         },
         {
-          "name": "rate_label",
-          "annotations": [],
-          "description": "Optional rate label for this order price detail if the key relates to a VAT or Duty in the format XX.XXX%",
-          "attributes": [],
-          "type": "string",
-          "required": false,
-          "example": "8.875%"
-        },
-        {
           "name": "value",
           "annotations": [],
           "attributes": [],
@@ -22478,15 +22186,6 @@
           "type": "decimal",
           "required": false,
           "example": "0.2"
-        },
-        {
-          "name": "rate_label",
-          "annotations": [],
-          "description": "Optional rate label for this order price detail if the key relates to a VAT or Duty in the format XX.XXX%",
-          "attributes": [],
-          "type": "string",
-          "required": false,
-          "example": "8.875%"
         }
       ]
     },
@@ -22876,6 +22575,59 @@
           "description": "Globally unique identifier",
           "attributes": [],
           "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "plural": "organization_countries_data",
+      "name": "organization_countries_data",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "available",
+          "annotations": [],
+          "description": "List of ISO 3166-3 country codes available as defined in https://api.flow.io/reference/countries",
+          "attributes": [],
+          "type": "[string]",
+          "required": true,
+          "example": "[CAN, FRA]"
+        }
+      ]
+    },
+    {
+      "plural": "organization_countries_publisheds",
+      "name": "organization_countries_published",
+      "description": "Represents the list of countries that are currently marked available for an organization. This is a bulk event - meaning any time an organization enables or disables a specific region, we publish the new list of all of the countries that the organization is making available to its consumers.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "data",
+          "annotations": [],
+          "attributes": [],
+          "type": "organization_countries_data",
           "required": true
         }
       ]
@@ -29076,13 +28828,6 @@
           "annotations": [],
           "attributes": [],
           "type": "refund_reference",
-          "required": true
-        },
-        {
-          "name": "name",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
           "required": true
         },
         {
@@ -39473,6 +39218,11 @@
           "type": "organization_rates_published"
         },
         {
+          "discriminator_value": "organization_countries_published",
+          "attributes": [],
+          "type": "organization_countries_published"
+        },
+        {
           "discriminator_value": "ratecard_lane_upserted",
           "attributes": [],
           "type": "ratecard_lane_upserted"
@@ -47514,220 +47264,6 @@
       "type": "experience_logistics_settings"
     },
     {
-      "path": "/:organization/experiences/:experience_key/conversions/price",
-      "plural": "experience_price_conversions",
-      "operations": [
-        {
-          "path": "/:organization/experiences/:experience_key/conversions/price",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "experience_price_conversion_response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "description": "Converts one or more prices from one currency to another",
-          "attributes": [],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "experience_key",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "base",
-              "description": "The ISO currency code of the provided values. Defaults to the organization base currency",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "local",
-              "description": "The ISO currency code in which to return the price facets. Defaults to the experience currency",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "amount",
-              "description": "One or more prices to convert",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "minimum": 0,
-              "required": false,
-              "example": "10"
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "localization"
-          }
-        }
-      ],
-      "type": "experience_price_conversion"
-    },
-    {
-      "path": "/:organization/experiences/:experience_key/conversions/price/facet",
-      "plural": "experience_price_facet_conversions",
-      "operations": [
-        {
-          "path": "/:organization/experiences/:experience_key/conversions/price/facet",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "experience_price_facet_conversion_response"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "description": "Converts one or more price values into local currency, rounding for display in price facets. A common use case is to say show a price filter to consumers (e.g. 10-20 USD) and want to display that in local currency (15-30 CAD). To do so, send the values '10' and '20' to this API which will return the rounded local currency facet values",
-          "attributes": [],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "experience_key",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "base",
-              "description": "The ISO currency code of the provided values. Defaults to the organization base currency",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "local",
-              "description": "The ISO currency code in which to return the price facets. Defaults to the experience currency",
-              "location": "Query",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "min",
-              "description": "One or more prices to convert. These values are expected to represent the minimum of a range (e.g. for a 10-50 facet value, this would be 10)",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "minimum": 0,
-              "required": false,
-              "example": "10"
-            },
-            {
-              "name": "max",
-              "description": "One or more prices to convert. These values are expected to represent the maximum of a range (e.g. for a 10-50 facet value, this would be 50)",
-              "maximum": 100,
-              "location": "Query",
-              "type": "[string]",
-              "minimum": 0,
-              "required": false,
-              "example": "10"
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "localization"
-          }
-        }
-      ],
-      "type": "experience_price_facet_conversion"
-    },
-    {
       "path": "/:organization/catalog/items",
       "plural": "items",
       "operations": [
@@ -52661,9 +52197,6 @@
                     "value": "id"
                   },
                   {
-                    "value": "name"
-                  },
-                  {
                     "value": "identifier"
                   },
                   {
@@ -52742,7 +52275,7 @@
               "required": true
             },
             {
-              "default": "name",
+              "default": "-created_at",
               "name": "sort",
               "location": "Query",
               "type": "string",
@@ -62590,9 +62123,6 @@
                     "value": "id"
                   },
                   {
-                    "value": "name"
-                  },
-                  {
                     "value": "identifier"
                   },
                   {
@@ -62671,7 +62201,7 @@
               "required": true
             },
             {
-              "default": "name",
+              "default": "-created_at",
               "name": "sort",
               "location": "Query",
               "type": "string",
@@ -65192,9 +64722,6 @@
                     "value": "id"
                   },
                   {
-                    "value": "name"
-                  },
-                  {
                     "value": "identifier"
                   },
                   {
@@ -65273,7 +64800,7 @@
               "required": true
             },
             {
-              "default": "name",
+              "default": "-created_at",
               "name": "sort",
               "location": "Query",
               "type": "string",
@@ -80860,176 +80387,6 @@
       "type": "consumer_invoice_document"
     },
     {
-      "path": "/organizations/:organization_id/country/picker",
-      "plural": "country_pickers",
-      "operations": [
-        {
-          "path": "/organizations/:organization_id/country/picker",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "country_picker"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations",
-                  "membership_manager"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/organizations/:organization_id/country/picker",
-          "method": "PUT",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "country_picker"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations",
-                  "membership_manager"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "country_picker_form"
-          },
-          "parameters": [
-            {
-              "name": "organization_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "description": "The Country Picker manages the configuration of your country picker.",
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "type": "country_picker"
-    },
-    {
       "path": "/:organization/credit/memos",
       "plural": "credit_memos",
       "operations": [
@@ -83132,90 +82489,6 @@
               }
             }
           ],
-          "parameters": [
-            {
-              "name": "organization_id",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/organizations/:organization_id/ecommerce/platform",
-          "method": "PUT",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "ecommerce_platform"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "generic_error"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations",
-                  "membership_manager"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "ecommerce_platform_form"
-          },
           "parameters": [
             {
               "name": "organization_id",
@@ -87183,106 +86456,6 @@
         }
       ],
       "type": "invitation"
-    },
-    {
-      "path": "/:organization/shopify/price/rules/discount/:code",
-      "plural": "price_rules",
-      "operations": [
-        {
-          "path": "/:organization/shopify/price/rules/discount/:code",
-          "method": "GET",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 200
-                }
-              },
-              "description": "Successful response",
-              "attributes": [],
-              "type": "io.flow.shopify.external.v0.models.price_rule"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 404
-                }
-              },
-              "description": "Resource was not found",
-              "attributes": [],
-              "type": "unit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "linter",
-              "value": {
-                "ignore": [
-                  "get",
-                  "versions"
-                ]
-              }
-            },
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_merchant",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "code",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        }
-      ],
-      "attributes": [
-        {
-          "name": "docs",
-          "value": {
-            "module": "general"
-          }
-        }
-      ],
-      "type": "io.flow.shopify.external.v0.models.price_rule"
     },
     {
       "path": "/:organization/search/item/query/suggestions",
@@ -94902,23 +94075,6 @@
       "attributes": []
     },
     {
-      "plural": "country_picker_sources",
-      "values": [
-        {
-          "name": "experience",
-          "description": "Indicates we should build the list of countries based on each active experience country",
-          "attributes": []
-        },
-        {
-          "name": "destination",
-          "description": "Indicates we should build the list of countries based on all countries to which you have a rate card (ie. all valid destination countries)",
-          "attributes": []
-        }
-      ],
-      "name": "country_picker_source",
-      "attributes": []
-    },
-    {
       "plural": "credit_payment_error_codes",
       "values": [
         {
@@ -95920,6 +95076,10 @@
         },
         {
           "name": "organization_rates_published",
+          "attributes": []
+        },
+        {
+          "name": "organization_countries_published",
           "attributes": []
         },
         {
@@ -97594,21 +96754,6 @@
         }
       ],
       "name": "price_detail_key",
-      "attributes": []
-    },
-    {
-      "plural": "price_facet_boundaries",
-      "values": [
-        {
-          "name": "min",
-          "attributes": []
-        },
-        {
-          "name": "max",
-          "attributes": []
-        }
-      ],
-      "name": "price_facet_boundary",
       "attributes": []
     },
     {

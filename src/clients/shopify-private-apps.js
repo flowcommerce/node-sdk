@@ -14,22 +14,22 @@ export default class ShopifyPrivateApps extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/private/apps`, options);
+    return this.makeRequest(`${this.host}/${organization}/shopify/private/apps`, options);
   }
 
   put(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/private/apps`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/private/apps`, {
       ...options,
        method: 'PUT',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/private/apps/${encodeURIComponent(id)}`, options);
+    return this.makeRequest(`${this.host}/${organization}/shopify/private/apps/${id}`, options);
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shopify/private/apps/${encodeURIComponent(id)}`, {
+    return this.makeRequest(`${this.host}/${organization}/shopify/private/apps/${id}`, {
       ...options,
        method: 'DELETE',
     });
