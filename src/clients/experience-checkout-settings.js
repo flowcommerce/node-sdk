@@ -14,11 +14,11 @@ export default class ExperienceCheckoutSettings extends Client {
   }
 
   get(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/settings/checkout`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(experienceKey)}/settings/checkout`, options);
   }
 
   put(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/settings/checkout`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(experienceKey)}/settings/checkout`, {
       ...options,
        method: 'PUT',
     });

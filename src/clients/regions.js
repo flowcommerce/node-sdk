@@ -18,7 +18,7 @@ export default class Regions extends Client {
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/reference/regions/${id}`, options);
+    return this.makeRequest(`${this.host}/reference/regions/${encodeURIComponent(id)}`, options);
   }
 
 }

@@ -14,7 +14,7 @@ export default class CheckoutItemContents extends Client {
   }
 
   getCheckout(organization, experienceKey, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/experiences/${experienceKey}/item/content/checkout`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(experienceKey)}/item/content/checkout`, options);
   }
 
 }

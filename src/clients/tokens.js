@@ -25,18 +25,18 @@ export default class Tokens extends Client {
   }
 
   getById(id, options = {}) {
-    return this.makeRequest(`${this.host}/tokens/${id}`, options);
+    return this.makeRequest(`${this.host}/tokens/${encodeURIComponent(id)}`, options);
   }
 
   deleteById(id, options = {}) {
-    return this.makeRequest(`${this.host}/tokens/${id}`, {
+    return this.makeRequest(`${this.host}/tokens/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });
   }
 
   getCleartextById(id, options = {}) {
-    return this.makeRequest(`${this.host}/tokens/${id}/cleartext`, options);
+    return this.makeRequest(`${this.host}/tokens/${encodeURIComponent(id)}/cleartext`, options);
   }
 
 }

@@ -14,29 +14,29 @@ export default class Customers extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customers`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customers`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customers/${number}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}`, options);
   }
 
   putByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customers/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/customers/${number}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}`, {
       ...options,
        method: 'DELETE',
     });

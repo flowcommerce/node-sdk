@@ -14,11 +14,11 @@ export default class Documents extends Client {
   }
 
   getCatalog(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/search/catalog`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/search/catalog`, options);
   }
 
   getHarmonization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/search/harmonization`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/search/harmonization`, options);
   }
 
 }

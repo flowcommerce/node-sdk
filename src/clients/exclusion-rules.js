@@ -14,29 +14,29 @@ export default class ExclusionRules extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exclusion/rules`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exclusion/rules`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exclusion/rules`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exclusion/rules`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exclusion/rules/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exclusion/rules/versions`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exclusion/rules/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exclusion/rules/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   putDeletionById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/exclusion/rules/${id}/deletion`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/exclusion/rules/${encodeURIComponent(id)}/deletion`, {
       ...options,
        method: 'PUT',
     });

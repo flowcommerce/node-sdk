@@ -14,33 +14,33 @@ export default class CreditPayments extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/credit/payments`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/credit/payments`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/credit/payments`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/credit/payments`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/credit/payments/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/credit/payments/versions`, options);
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/credit/payments/${key}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/credit/payments/${encodeURIComponent(key)}`, options);
   }
 
   putByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/credit/payments/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/credit/payments/${encodeURIComponent(key)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/credit/payments/${key}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/credit/payments/${encodeURIComponent(key)}`, {
       ...options,
        method: 'DELETE',
     });

@@ -14,29 +14,29 @@ export default class Webhooks extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhooks`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhooks`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks`, {
       ...options,
        method: 'POST',
     });
   }
 
   getById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks/${encodeURIComponent(id)}`, options);
   }
 
   putById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
   deleteById(organization, id, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/webhooks/${id}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',
     });

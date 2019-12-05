@@ -14,18 +14,18 @@ export default class B2bInvoices extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/b2b/invoices`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/b2b/invoices`, options);
   }
 
   postExports(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/b2b/invoices/exports`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/b2b/invoices/exports`, {
       ...options,
        method: 'POST',
     });
   }
 
   getByKey(organization, key, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/b2b/invoices/${key}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/b2b/invoices/${encodeURIComponent(key)}`, options);
   }
 
 }

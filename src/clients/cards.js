@@ -14,33 +14,33 @@ export default class Cards extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/cards`, options);
   }
 
   post(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/cards`, {
       ...options,
        method: 'POST',
     });
   }
 
   postNonces(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards/nonces`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/cards/nonces`, {
       ...options,
        method: 'POST',
     });
   }
 
   getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards/versions`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/cards/versions`, options);
   }
 
   getByToken(organization, token, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/cards/${encodeURIComponent(token)}`, options);
   }
 
   deleteByToken(organization, token, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/cards/${token}`, {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/cards/${encodeURIComponent(token)}`, {
       ...options,
        method: 'DELETE',
     });

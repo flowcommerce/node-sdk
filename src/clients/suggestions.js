@@ -14,7 +14,7 @@ export default class Suggestions extends Client {
   }
 
   getCatalog(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/suggestion/catalog`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/suggestion/catalog`, options);
   }
 
 }
