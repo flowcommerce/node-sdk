@@ -70,6 +70,21 @@ const orders = client().orders;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
+| romanize | [string] | Fields on the order to romanize. For example, if &#x27;destination&#x27; is passed, then destination addresses in Chinese characters will be transliterated to the romanized form in pinyin |
+
+##`postSubmissions(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
 
 ##`getVersions(organization, options = {})`
 
@@ -172,16 +187,6 @@ const orders = client().orders;
 | number | string |  |
 
 
-##`postInstallmentAndPlanAndAuthorizationsByNumber(organization, number, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| number | string |  |
-
-
 ##`putInventoryAndReservationsByNumber(organization, number, options = {})`
 
 ### Function Parameters
@@ -264,7 +269,7 @@ const orders = client().orders;
 | number | string |  |
 
 
-##`postLabelsByNumber(organization, number, options = {})`
+##`postLabelsAndDocumentsAndInvoiceByNumber(organization, number, options = {})`
 
 ### Function Parameters
 

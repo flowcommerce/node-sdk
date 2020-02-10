@@ -1,13 +1,13 @@
-# [API](README.md).ecommercePlatforms - Flow Commerce API - Node SDK Documentation
+# [API](README.md).countryPickers - Flow Commerce API - Node SDK Documentation
 
-The Ecommerce Platform defines what the organization is using for their ecommerce systems.
+The Country Picker manages the configuration of your country picker.
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const ecommercePlatforms = client().ecommercePlatforms;
+const countryPickers = client().countryPickers;
 ```
 
 ## Operations

@@ -18,6 +18,8 @@ These resources mirror the official documentation located at
 | [experienceCheckoutSettings](experienceCheckoutSettings.md) |  |
 | [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
 | [experienceLogisticsSettings](experienceLogisticsSettings.md) | Controls logistics related settings per experience |
+| [experiencePriceConversions](experiencePriceConversions.md) |  |
+| [experiencePriceFacetConversions](experiencePriceFacetConversions.md) |  |
 | [items](items.md) | The Flow item defines a specific item that can be purchased by a consumer. For many clients, this will map to a Sku. |
 | [itemFormOverlays](itemFormOverlays.md) | The item form overlay defines data to merge into an item form. |
 | [orders](orders.md) | An order represents all of the information about a particular set of line items, including pricing, currency rates, delivery options, etc. All information in an order is guaranteed by Flow - if an order is submitted before its expiration. The intended use case is to create an order as a consumer enters checkout, then to submit that order as part of the user submitting their order. Note that Flow will automatically mark an order submitted if we see payment authorization(s) covering the full balance of an order. |
@@ -26,6 +28,7 @@ These resources mirror the official documentation located at
 | [orderIdentifiers](orderIdentifiers.md) | Represents alternate identifiers that can be used to lookup an order. Common use cases are to support attaching a primary identifier (e.g. a nice order number) post order submission or attaching IDs that are used by the warehouse to ship the orders. |
 | [orderNumberGenerators](orderNumberGenerators.md) |  |
 | [orderPromotions](orderPromotions.md) |  |
+| [orderSummaries](orderSummaries.md) | The order summary is a view of the order summary object with the order prices flattened to keys. |
 | [organizations](organizations.md) |  |
 | [paymentMethodRules](paymentMethodRules.md) | Returns payment methods that are enabled for an organization and available for the provided country and currency. |
 | [priceBooks](priceBooks.md) |  |
@@ -97,6 +100,7 @@ These resources mirror the official documentation located at
 | [checkoutTokens](checkoutTokens.md) | Represents a secure token that can be used to redirect to Checkout UI |
 | [consumerInvoices](consumerInvoices.md) | The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment. |
 | [consumerInvoiceDocuments](consumerInvoiceDocuments.md) |  |
+| [countryPickers](countryPickers.md) | The Country Picker manages the configuration of your country picker. |
 | [creditMemos](creditMemos.md) | The credit memo represents the details of a refund and the reasons for the issuance of the refund. |
 | [customers](customers.md) | A customer represents the actual person placing an order. |
 | [customerAddressBook](customerAddressBook.md) | A composed model representing a customer&#x27;s address book contacts. |
@@ -118,6 +122,7 @@ These resources mirror the official documentation located at
 | [imports](imports.md) |  |
 | [importTemplates](importTemplates.md) |  |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
+| [priceRules](priceRules.md) |  |
 | [itemQuerySuggestions](itemQuerySuggestions.md) |  |
 | [links](links.md) |  |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |

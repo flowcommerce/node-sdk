@@ -29,6 +29,7 @@ const shippingLabels = client().shippingLabels;
 | flow_tracking_number | [string] |  |
 | order_number | [string] |  |
 | service | [string] |  |
+| show_commercial_invoice | boolean |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

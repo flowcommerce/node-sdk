@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class EcommercePlatforms extends Client {
+export default class CountryPickers extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -14,11 +14,11 @@ export default class EcommercePlatforms extends Client {
   }
 
   get(organizationId, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${organizationId}/ecommerce/platform`, options);
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/country/picker`, options);
   }
 
   put(organizationId, options = {}) {
-    return this.makeRequest(`${this.host}/organizations/${organizationId}/ecommerce/platform`, {
+    return this.makeRequest(`${this.host}/organizations/${organizationId}/country/picker`, {
       ...options,
        method: 'PUT',
     });

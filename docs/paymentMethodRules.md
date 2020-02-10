@@ -25,7 +25,7 @@ const paymentMethodRules = client().paymentMethodRules;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | country | [string] | Filters available payment methods to those available for the experience associated with the provided country. |
-| amount | string | If specified, we will ensure that any available installment programs are adjusted to be &lt;&#x3D; this amount. If specified, must also specify currency |
+| amount | string | Filters available payment methods to those that support the price in the currency of the &#x60;currency&#x60; parameter. |
 | currency | string | Filters available payment methods to those that support the provided currency. |
 | experience | string | If provided, the payment methods available for the corresponding experience will be returned. |
 | ip | string | If provided, will be used to help pick the experience if the country or experience key are not provided. |
@@ -46,7 +46,7 @@ const paymentMethodRules = client().paymentMethodRules;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | country | [string] | Filters available payment methods to those available for the experience associated with the provided country. |
-| amount | string | If specified, we will ensure that any available installment programs are adjusted to be &lt;&#x3D; this amount. If specified, must also specify currency |
+| amount | string | Filters available payment methods to those that support the price in the currency of the &#x60;currency&#x60; parameter. |
 | currency | string | Filters available payment methods to those that support the provided currency. |
 | experience | string | If provided, the payment methods available for the corresponding experience will be returned. |
 | ip | string | If provided, will be used to help pick the experience if the country or experience key are not provided. |

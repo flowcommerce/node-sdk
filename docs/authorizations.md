@@ -104,3 +104,13 @@ const authorizations = client().authorizations;
 | key | string |  |
 
 
+##`postDetailsByKey(organization, key, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| key | string |  |
+
+

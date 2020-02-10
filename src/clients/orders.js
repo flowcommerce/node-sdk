@@ -28,6 +28,13 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${organization}/orders/identifier/${identifier}`, options);
   }
 
+  postSubmissions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/submissions`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${organization}/orders/versions`, options);
   }
@@ -65,13 +72,6 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/destination`, {
       ...options,
        method: 'PUT',
-    });
-  }
-
-  postInstallmentAndPlanAndAuthorizationsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/installment/plan/authorizations`, {
-      ...options,
-       method: 'POST',
     });
   }
 
@@ -121,8 +121,8 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${organization}/orders/${number}/status/fraud`, options);
   }
 
-  postLabelsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${organization}/orders/${number}/labels`, {
+  postLabelsAndDocumentsAndInvoiceByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${organization}/orders/${number}/labels/documents/invoice`, {
       ...options,
        method: 'POST',
     });
