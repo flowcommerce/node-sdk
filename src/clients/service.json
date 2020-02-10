@@ -14691,89 +14691,6 @@
       ]
     },
     {
-      "plural": "installment_plan_payment_errors",
-      "name": "installment_plan_payment_error",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "code",
-          "annotations": [],
-          "attributes": [],
-          "type": "installment_plan_payment_error_code",
-          "required": true
-        },
-        {
-          "name": "messages",
-          "annotations": [],
-          "attributes": [],
-          "type": "[string]",
-          "minimum": 1,
-          "required": true
-        },
-        {
-          "name": "codes",
-          "annotations": [],
-          "attributes": [],
-          "type": "[installment_plan_payment_error_code]",
-          "minimum": 1,
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "installment_plan_payment_forms",
-      "name": "installment_plan_payment_form",
-      "description": "The installment payment form is used to create an installment plan for an order, associating the plan immediately with this order.",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "installment_program_id",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "authorization_key",
-          "annotations": [],
-          "description": "The key of the initial payment authorization for this plan",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        }
-      ]
-    },
-    {
-      "plural": "installment_program_summaries",
-      "name": "installment_program_summary",
-      "attributes": [],
-      "fields": [
-        {
-          "name": "id",
-          "annotations": [],
-          "description": "Globally unique identifier",
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "name",
-          "annotations": [],
-          "attributes": [],
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "initial",
-          "annotations": [],
-          "description": "The initial authorization amount for this program",
-          "attributes": [],
-          "type": "price",
-          "required": true
-        }
-      ]
-    },
-    {
       "plural": "inventory_backorders",
       "name": "inventory_backorder",
       "description": "Enables backorders, setting an optional number of units that we allow for backorder. For example, a backorder w/ quantity 10 will enable selling until the actual inventory quantity is -10.",
@@ -16430,6 +16347,48 @@
       ]
     },
     {
+      "plural": "item_price_update_forms",
+      "name": "item_price_update_form",
+      "description": "The item price update form is used to update only the price (and attributes, eg. msrp) of given item. This form defines the format of the CSV import.",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "currency",
+          "annotations": [],
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies If not specified, defaults to the existing item's currency",
+          "attributes": [],
+          "type": "string",
+          "required": false,
+          "example": "USD"
+        },
+        {
+          "name": "price",
+          "annotations": [],
+          "description": "The actual price of the item as offered to a customer. This price must be in the currency specified for this item.",
+          "attributes": [],
+          "type": "decimal",
+          "required": true
+        },
+        {
+          "default": "{}",
+          "name": "attributes",
+          "annotations": [],
+          "description": "Attributes of the items. An attribute of type intent must be given as a string representation of a decimal to be correctly localized.",
+          "attributes": [],
+          "type": "map[string]",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "item_price_update_put_forms",
       "name": "item_price_update_put_form",
       "attributes": [],
@@ -16437,10 +16396,10 @@
         {
           "name": "currency",
           "annotations": [],
-          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies",
+          "description": "ISO 4217 3 currency code as defined in https://api.flow.io/reference/currencies If not specified, defaults to the existing item's currency",
           "attributes": [],
           "type": "string",
-          "required": true,
+          "required": false,
           "example": "USD"
         },
         {
@@ -16871,6 +16830,42 @@
       ]
     },
     {
+      "plural": "label_deleted_v2s",
+      "name": "label_deleted_v2",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "label",
+          "annotations": [],
+          "attributes": [],
+          "type": "shipping_label",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "label_format_deleteds",
       "name": "label_format_deleted",
       "attributes": [],
@@ -17151,6 +17146,42 @@
           "attributes": [],
           "type": "string",
           "required": false
+        }
+      ]
+    },
+    {
+      "plural": "label_upserted_v2s",
+      "name": "label_upserted_v2",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "event_id",
+          "annotations": [],
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "annotations": [],
+          "attributes": [],
+          "type": "date-time-iso8601",
+          "required": true
+        },
+        {
+          "name": "organization",
+          "annotations": [],
+          "description": "Refers to your organization's account identifier",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "label",
+          "annotations": [],
+          "attributes": [],
+          "type": "shipping_label",
+          "required": true
         }
       ]
     },
@@ -19030,14 +19061,6 @@
           "required": false
         },
         {
-          "name": "installment_program_id",
-          "annotations": [],
-          "description": "If this authorization is made in context of an installment program, this field can be provided and this authorization will reflect only the first installment amount.",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
           "name": "browser_info",
           "annotations": [],
           "description": "Shopper browser info. If you are using 3DS2, this field is required.",
@@ -20880,6 +20903,14 @@
           "attributes": [],
           "type": "[string]",
           "required": false
+        },
+        {
+          "name": "options",
+          "annotations": [],
+          "description": "Optional behaviors to enable for this order",
+          "attributes": [],
+          "type": "order_options",
+          "required": false
         }
       ]
     },
@@ -21475,6 +21506,22 @@
       ]
     },
     {
+      "plural": "order_optionses",
+      "name": "order_options",
+      "description": "Optional behaviors to enable for this order",
+      "attributes": [],
+      "fields": [
+        {
+          "default": "persist",
+          "name": "storage",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_storage",
+          "required": true
+        }
+      ]
+    },
+    {
       "plural": "order_payments",
       "name": "order_payment",
       "description": "An Order Payment represents an individual payment applied to an order. The type of the payment can be used to further lookup transaction level detail",
@@ -21933,6 +21980,14 @@
           "description": "Sets the authorization keys to associate with this order. Each authorization, if valid, will then be added to the order.payments field.",
           "attributes": [],
           "type": "[string]",
+          "required": false
+        },
+        {
+          "name": "options",
+          "annotations": [],
+          "description": "Optional behaviors to enable for this order",
+          "attributes": [],
+          "type": "order_options",
           "required": false
         }
       ]
@@ -22760,6 +22815,30 @@
           "attributes": [],
           "type": "order",
           "required": true
+        }
+      ]
+    },
+    {
+      "plural": "order_with_discounts_forms",
+      "name": "order_with_discounts_form",
+      "attributes": [],
+      "fields": [
+        {
+          "name": "order",
+          "annotations": [],
+          "attributes": [],
+          "type": "order_form",
+          "required": true
+        },
+        {
+          "default": "[]",
+          "name": "discounts",
+          "annotations": [],
+          "description": "A list of discount codes to apply to the order.",
+          "attributes": [],
+          "type": "[string]",
+          "required": true,
+          "example": "WELCOME20"
         }
       ]
     },
@@ -24540,10 +24619,10 @@
         {
           "name": "programs",
           "annotations": [],
-          "description": "A list of available installment plans, if any, that can optionally be applied to this payment method",
+          "description": "Deprecated - will always be provided and empty. Will be removed shortly.",
           "attributes": [],
-          "type": "[installment_program_summary]",
-          "required": true
+          "type": "[object]",
+          "required": false
         },
         {
           "name": "q",
@@ -27277,6 +27356,14 @@
           "required": true
         },
         {
+          "name": "number",
+          "annotations": [],
+          "description": "Client's unique identifier for this object",
+          "attributes": [],
+          "type": "string",
+          "required": true
+        },
+        {
           "name": "direction",
           "annotations": [],
           "description": "Tells us whether the ratecard is for outbound or reverse logistics. This will determine what fees, if any, to apply on an estimate.",
@@ -27311,14 +27398,6 @@
           "example": "dhl-express-worldwide"
         },
         {
-          "name": "number",
-          "annotations": [],
-          "description": "Client's unique identifier for this object",
-          "attributes": [],
-          "type": "string",
-          "required": false
-        },
-        {
           "name": "published_at",
           "annotations": [],
           "description": "Timestamp when the ratecard was published and would be used to generate rates. Until this field is filled out, then ratecard is still in draft mode and cannot be used to generate cost estimates.",
@@ -27332,7 +27411,7 @@
           "description": "Describes who owns this ratecard and is responsible for paying the carrier.",
           "attributes": [],
           "type": "ratecard_owner",
-          "required": false
+          "required": true
         }
       ]
     },
@@ -32269,6 +32348,15 @@
           "attributes": [],
           "type": "string",
           "required": false
+        },
+        {
+          "default": "true",
+          "name": "required",
+          "annotations": [],
+          "description": "Indicates whether this document required to be printed by the center transfering the shipment to the carrier",
+          "attributes": [],
+          "type": "boolean",
+          "required": true
         }
       ]
     },
@@ -33867,6 +33955,15 @@
           "attributes": [],
           "type": "delivery_window",
           "required": true
+        },
+        {
+          "name": "liability",
+          "annotations": [],
+          "description": "Describes which party would be responsible for paying the carrier.",
+          "attributes": [],
+          "type": "ratecard_owner",
+          "required": false,
+          "example": "flow"
         },
         {
           "name": "cost",
@@ -39197,6 +39294,16 @@
           "type": "label_upserted"
         },
         {
+          "discriminator_value": "label_deleted_v2",
+          "attributes": [],
+          "type": "label_deleted_v2"
+        },
+        {
+          "discriminator_value": "label_upserted_v2",
+          "attributes": [],
+          "type": "label_upserted_v2"
+        },
+        {
           "discriminator_value": "notification_upserted",
           "attributes": [],
           "type": "notification_upserted"
@@ -39824,16 +39931,8 @@
       "plural": "flow_roles",
       "name": "flow_role",
       "description": "All roles available to attach to a user.",
-      "attributes": [
-        {
-          "name": "linter",
-          "value": {
-            "ignore": [
-              "discriminator"
-            ]
-          }
-        }
-      ]
+      "attributes": [],
+      "discriminator": "discriminator"
     },
     {
       "types": [
@@ -39927,16 +40026,7 @@
       "plural": "localized_prices",
       "name": "localized_price",
       "description": "The localized prices for an item are returned as a list - the key of each element is defined here",
-      "attributes": [
-        {
-          "name": "linter",
-          "value": {
-            "ignore": [
-              "discriminator"
-            ]
-          }
-        }
-      ],
+      "attributes": [],
       "discriminator": "key"
     },
     {
@@ -40579,7 +40669,7 @@
       "application": {
         "key": "shopify-external"
       },
-      "version": "0.2.10",
+      "version": "0.3.4",
       "enums": [
         "cancel_reason",
         "discount_status",
@@ -45492,7 +45582,7 @@
             },
             {
               "name": "amount",
-              "description": "If specified, we will ensure that any available installment programs are adjusted to be <= this amount. If specified, must also specify currency",
+              "description": "If specified, must also specify currency",
               "location": "Query",
               "type": "string",
               "required": false,
@@ -49527,6 +49617,74 @@
           ]
         },
         {
+          "path": "/:organization/orders/submissions",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 201
+                }
+              },
+              "description": "Operation succeeded and the resource was created",
+              "attributes": [],
+              "type": "order"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "order_error"
+            }
+          ],
+          "description": "Submits an order. You will get a validation error if the order has already expired (and a new quote could not be automatically recreated for a lower or same price). This method is idempotent - submitting an order a second time has no effect.",
+          "attributes": [
+            {
+              "name": "auth",
+              "value": {
+                "techniques": [],
+                "roles": []
+              }
+            }
+          ],
+          "body": {
+            "attributes": [],
+            "type": "order_with_discounts_form"
+          },
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "expand",
+              "maximum": 1,
+              "location": "Query",
+              "type": "[string]",
+              "minimum": 0,
+              "required": false,
+              "example": "experience"
+            }
+          ]
+        },
+        {
           "path": "/:organization/orders/versions",
           "method": "GET",
           "responses": [
@@ -50261,87 +50419,6 @@
           "body": {
             "attributes": [],
             "type": "order_destination_put_form"
-          },
-          "parameters": [
-            {
-              "name": "organization",
-              "description": "Refers to your organization's account identifier",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "number",
-              "location": "Path",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        {
-          "path": "/:organization/orders/:number/installment/plan/authorizations",
-          "method": "POST",
-          "responses": [
-            {
-              "code": {
-                "integer": {
-                  "value": 201
-                }
-              },
-              "description": "Operation succeeded and the resource was created",
-              "attributes": [],
-              "type": "order"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 401
-                }
-              },
-              "description": "Authorization failed",
-              "attributes": [],
-              "type": "unit"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 403
-                }
-              },
-              "attributes": [],
-              "type": "permission_error"
-            },
-            {
-              "code": {
-                "integer": {
-                  "value": 422
-                }
-              },
-              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
-              "attributes": [],
-              "type": "installment_plan_payment_error"
-            }
-          ],
-          "description": "Creates an installment plan for this order, automatically associating to this order.",
-          "attributes": [
-            {
-              "name": "auth",
-              "value": {
-                "techniques": [
-                  "session",
-                  "user",
-                  "token"
-                ],
-                "roles": [
-                  "organization_admin",
-                  "organization_operations"
-                ]
-              }
-            }
-          ],
-          "body": {
-            "attributes": [],
-            "type": "installment_plan_payment_form"
           },
           "parameters": [
             {
@@ -62114,6 +62191,63 @@
               }
             }
           ],
+          "parameters": [
+            {
+              "name": "organization",
+              "description": "Refers to your organization's account identifier",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "key",
+              "location": "Path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "path": "/:organization/authorizations/:key/details",
+          "method": "POST",
+          "responses": [
+            {
+              "code": {
+                "integer": {
+                  "value": 200
+                }
+              },
+              "description": "Successful response",
+              "attributes": [],
+              "type": "authorization"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 401
+                }
+              },
+              "description": "Authorization failed",
+              "attributes": [],
+              "type": "unit"
+            },
+            {
+              "code": {
+                "integer": {
+                  "value": 422
+                }
+              },
+              "description": "One or more errors were found with the data sent in the request. The body of the response contains specific details on what data failed validation.",
+              "attributes": [],
+              "type": "generic_error"
+            }
+          ],
+          "description": "Accepts the data from the underlying processor to, for example, record the 3DSecure results",
+          "attributes": [],
+          "body": {
+            "attributes": [],
+            "type": "json"
+          },
           "parameters": [
             {
               "name": "organization",
@@ -94194,7 +94328,7 @@
     }
   ],
   "description": "The Flow Commerce REST API provides full access to the global ecommerce platform.",
-  "version": "0.8.46",
+  "version": "0.8.74",
   "enums": [
     {
       "plural": "adjustment_reason_keys",
@@ -95703,6 +95837,14 @@
           "attributes": []
         },
         {
+          "name": "label_deleted_v2",
+          "attributes": []
+        },
+        {
+          "name": "label_upserted_v2",
+          "attributes": []
+        },
+        {
           "name": "notification_upserted",
           "attributes": []
         },
@@ -96418,6 +96560,11 @@
           "attributes": []
         },
         {
+          "name": "item_prices",
+          "description": "Provides bulk upsert of item pricing into an organization's catalog, updating only the prices and associated price attributes while preserving all other item information.",
+          "attributes": []
+        },
+        {
           "name": "item_form_overlays",
           "description": "Item form overlays allow you to upload additional catalog item information that will be applied to each catalog item, even if you later modify the item. You can think of this import as providing catalog item data that will be overlaid on top of the content in your core catalog.",
           "attributes": []
@@ -96566,28 +96713,6 @@
         }
       ],
       "name": "input_specification_type",
-      "attributes": []
-    },
-    {
-      "plural": "installment_plan_payment_error_codes",
-      "values": [
-        {
-          "name": "invalid_authorization",
-          "description": "Indicates the specified authorization key does not exist",
-          "attributes": []
-        },
-        {
-          "name": "invalid_authorization_amount",
-          "description": "Indicates the specified authorization amount does not match the first installment in the plan",
-          "attributes": []
-        },
-        {
-          "name": "invalid_installment_plan",
-          "description": "Indicates the specified installment plan does not exist",
-          "attributes": []
-        }
-      ],
-      "name": "installment_plan_payment_error_code",
       "attributes": []
     },
     {
@@ -97038,7 +97163,7 @@
         },
         {
           "name": "installment_plan",
-          "description": "An installment plan payment represents that the user has elected an installment plan to pay for this order. For the purposes of the order, the balance will reflect fully paid for the total value of the installment plan, even though individual installments may be created in the future.",
+          "description": "An installment plan payment represents that the user has elected an installment plan to pay for this order. For the purposes of the order, the balance will reflect fully paid for the total value of the installment plan, even though individual installments may be created in the future. Note this feature was deprecated in early 2020.",
           "attributes": []
         },
         {
@@ -97244,6 +97369,23 @@
       ],
       "name": "order_status",
       "description": "Indicates an order's status",
+      "attributes": []
+    },
+    {
+      "plural": "order_storages",
+      "values": [
+        {
+          "name": "do_not_persist",
+          "description": "Indicates to not persist the order.",
+          "attributes": []
+        },
+        {
+          "name": "persist",
+          "description": "Indicates to persist the order.",
+          "attributes": []
+        }
+      ],
+      "name": "order_storage",
       "attributes": []
     },
     {

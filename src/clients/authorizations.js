@@ -46,4 +46,11 @@ export default class Authorizations extends Client {
     });
   }
 
+  postDetailsByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/authorizations/${encodeURIComponent(key)}/details`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
 }

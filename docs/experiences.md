@@ -298,7 +298,7 @@ const experiences = client().experiences;
 | ---- | ---- | ---- |
 | payment_method_type | [payment_method_type] |  |
 | tags | [string] |  |
-| amount | string | If specified, we will ensure that any available installment programs are adjusted to be &lt;&#x3D; this amount. If specified, must also specify currency |
+| amount | string | If specified, must also specify currency |
 | currency | string | Required if amount is specified |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |

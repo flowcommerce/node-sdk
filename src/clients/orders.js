@@ -28,6 +28,13 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/identifier/${encodeURIComponent(identifier)}`, options);
   }
 
+  postSubmissions(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/submissions`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/versions`, options);
   }
@@ -65,13 +72,6 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/destination`, {
       ...options,
        method: 'PUT',
-    });
-  }
-
-  postInstallmentAndPlanAndAuthorizationsByNumber(organization, number, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/installment/plan/authorizations`, {
-      ...options,
-       method: 'POST',
     });
   }
 
