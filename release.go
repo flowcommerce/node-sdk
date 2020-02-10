@@ -13,6 +13,7 @@ func main() {
 	executor = executor.Add("git add src docs package.json package-lock.json")
 	executor = executor.Add("git commit -m 'autocommit: version and generated src and docs directories. API Version `node -p \"require('./api.service.json').service.version\"`'")
 	executor = executor.Add("dev tag")
+	executor = executor.Add("npm version from-git")
 	executor = executor.Add("npm publish --otp")
 	executor.Run()
 }
