@@ -9,7 +9,8 @@
     "lint": "eslint ./src --format=codeframe",
     "lint:fix": "npm run lint -- --fix",
     "prepublish": "babel src --out-dir lib",
-    "postpublish": "rm -rf lib"
+    "postpublish": "rm -rf lib",
+    "size": "size-limit $npm_package_main"
   },
   "files": [
     "lib"
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@flowio/babel-preset-flowio": "^1.4.4",
     "@flowio/eslint-config-flowio": "^12.1.0",
+    "@size-limit/preset-small-lib": "^4.5.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
@@ -35,7 +37,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "lodash": "^4.17.11",
-    "mocha": "^6.0.2"
+    "mocha": "^6.0.2",
+    "size-limit": "^4.5.0"
   },
   "dependencies": {
     "@flowio/lib-apidoc": "^1.6.0",
