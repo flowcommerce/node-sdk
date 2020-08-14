@@ -21,4 +21,8 @@ export default class PaymentMethodRules extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payment/method/rules`, options);
   }
 
+  getPaymentAndMethodAndRulesAndBatch(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/payment/method/rules/batch`, options);
+  }
+
 }

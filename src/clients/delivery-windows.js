@@ -17,4 +17,8 @@ export default class DeliveryWindows extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/delivery-windows/summary`, options);
   }
 
+  getSummaryAndAll(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/delivery-windows/summary/all`, options);
+  }
+
 }

@@ -17,8 +17,4 @@ export default class Hs10 extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/harmonization/hs10`, options);
   }
 
-  getVersions(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/harmonization/hs10/versions`, options);
-  }
-
 }

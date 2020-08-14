@@ -1,13 +1,13 @@
-# [API](README.md).attributes - Flow Commerce API - Node SDK Documentation
+# [API](README.md).syncRecordFailures - Flow Commerce API - Node SDK Documentation
 
-An attribute can be configured to be used in different ways throughout Flow. A common example is to identify a meaningful attribute (e.g. brand) that can then be displayed throughout the Flow console.
+
 
 ## Usage
 
 ```JavaScript
 import client from '@flowio/node-sdk';
 
-const attributes = client().attributes;
+const syncRecordFailures = client().syncRecordFailures;
 ```
 
 ## Operations
@@ -25,7 +25,10 @@ const attributes = client().attributes;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
+| stream_key | string |  |
+| value | string |  |
+| system | string |  |
+| reason | sync_record_failure_reason |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
@@ -39,60 +42,33 @@ const attributes = client().attributes;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`put(organization, options = {})`
+##`getById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
 
 
-##`getVersions(organization, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| id | [string] | Filter by one or more IDs of this resource |
-| key | [string] |  |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
-
-##`getByKey(organization, key, options = {})`
+##`putById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 
-##`putByKey(organization, key, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
-
-
-##`deleteByKey(organization, key, options = {})`
+##`deleteById(organization, id, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | organization | string | Refers to your organization&#x27;s account identifier |
-| key | string |  |
+| id | string | Filter by one or more IDs of this resource |
 
 

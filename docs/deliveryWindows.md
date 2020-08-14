@@ -32,4 +32,23 @@ const deliveryWindows = client().deliveryWindows;
 | latitude | string |  |
 | longitude | string |  |
 | service | string |  |
+| item_number | [string] |  |
+| min_lead_days | long |  |
+| max_lead_days | long |  |
+
+##`getSummaryAndAll(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| destination | [string] | List of origin countries using ISO 3-char country code. |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
 

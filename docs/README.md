@@ -14,6 +14,7 @@ These resources mirror the official documentation located at
 | [checkoutAttributes](checkoutAttributes.md) | A Checkout Attribute defines an attribute that will be made available via the checkout item content. This is useful if you would like to surface a specific attribute (like &#x27;size&#x27; or &#x27;color&#x27;) in checkout. |
 | [checkoutItemContents](checkoutItemContents.md) | A Checkout Item Content provides information about an item to support rendering of that item in the context of checkout |
 | [creditPayments](creditPayments.md) | A Credit Payment records a &#x27;non cash&#x27; payment against an order (e.g. a store credit, gift card, etc.), recording the amount of that credit and additional details to reconcile payments. The primary purpose of the credit payment is to record that a payment has been made against an order so the remaining balance can be correctly computed. |
+| [discountRuleSettings](discountRuleSettings.md) |  |
 | [experiences](experiences.md) | Experiences define a local experience for a given geographic region |
 | [experienceCheckoutSettings](experienceCheckoutSettings.md) |  |
 | [experienceDefaults](experienceDefaults.md) | Defines a set of defaults for a given organization and region |
@@ -35,9 +36,6 @@ These resources mirror the official documentation located at
 | [priceBookItems](priceBookItems.md) |  |
 | [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
-| [subcatalogQueries](subcatalogQueries.md) | Represents a typed query to indicate which items to include or exclude in a subcatalog |
-| [targetings](targetings.md) |  |
-| [targetingItems](targetingItems.md) | Represents catalog items where a targeting query is applicable |
 | [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
 | [harmonizedCategories](harmonizedCategories.md) | Categories optimized for harmonization |
@@ -69,7 +67,6 @@ These resources mirror the official documentation located at
 | [ratecardLanes](ratecardLanes.md) | Describe list of rates applicable for a lane on the ratecard - defined by origin and destination zone |
 | [ratecardRates](ratecardRates.md) | Specific line item in a ratecard lane with information on a weight threshold and corresponding amount to charge |
 | [returns](returns.md) |  |
-| [serials](serials.md) | A unique identifier assigned to an individual item. |
 | [shippingConfigurations](shippingConfigurations.md) |  |
 | [shippingConfigurationCopies](shippingConfigurationCopies.md) |  |
 | [shippingLabels](shippingLabels.md) | Represents information about a carrier-generated shipping label used by a shipper to transport a package from a given origin to destination |
@@ -94,6 +91,7 @@ These resources mirror the official documentation located at
 | [paymentMethods](paymentMethods.md) | Represents a single payment method - e.g VISA or Paypal - and any associated metadata required for processing |
 | [provinces](provinces.md) | A subdivision/province/state within a country. These conform to the ISO 3166-2 standard for country subdivisions. See https://api.flow.io/reference/provinces |
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions |
+| [abandonedOrderSettings](abandonedOrderSettings.md) |  |
 | [b2bCreditMemos](b2bCreditMemos.md) | The b2b credit memo represents a refund transaction between Flow and one of our clients |
 | [b2bInvoices](b2bInvoices.md) | The b2b invoice represents a transaction between Flow and one of our clients (e.g. Flow purchasing inventory to resell to a consumer). |
 | [catalogPriceBookItemDocuments](catalogPriceBookItemDocuments.md) | Represents the returned information for searching particular price book items |
@@ -106,13 +104,14 @@ These resources mirror the official documentation located at
 | [customerAddressBook](customerAddressBook.md) | A composed model representing a customer&#x27;s address book contacts. |
 | [customerAddressBookContacts](customerAddressBookContacts.md) | Preferences may indicate a contact is preferred for billing, invoicing, and/or shipping. |
 | [customerBundles](customerBundles.md) | A bundle of all the content needed to render customer data. |
+| [customerPurgeSettings](customerPurgeSettings.md) | Represent settings for when to purge customer data |
 | [customerTokens](customerTokens.md) | Represents a mapping between a customer number and a token |
 | [documents](documents.md) |  |
 | [ecommercePlatforms](ecommercePlatforms.md) | The Ecommerce Platform defines what the organization is using for their ecommerce systems. |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exclusionRules](exclusionRules.md) | A global exclusion rule allows the user to select 1 or more items by query and to globally exclude those items from sale in one or more regions. |
 | [exports](exports.md) |  |
-| [flowRoles](flowRoles.md) | All roles available to attach to a user. |
+| [flowRoles](flowRoles.md) | Default user roles supported by Flow |
 | [fraudEmailRules](fraudEmailRules.md) | Rule to apply to enable white-listing and black-listing for an email address. |
 | [ftpFiles](ftpFiles.md) | The FTP File represents a file uploaded to the FTP Server |
 | [ftpFolders](ftpFolders.md) | The FTP Folder represents a single folder associated with an organization for which we create an external FTP Directory |
@@ -145,6 +144,10 @@ These resources mirror the official documentation located at
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
 | [shopifySyncStatuses](shopifySyncStatuses.md) |  |
 | [suggestions](suggestions.md) |  |
+| [syncPendingRecords](syncPendingRecords.md) |  |
+| [syncRecords](syncRecords.md) |  |
+| [syncRecordFailures](syncRecordFailures.md) |  |
+| [syncStreams](syncStreams.md) |  |
 | [taxSettings](taxSettings.md) |  |
 | [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |

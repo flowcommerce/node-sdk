@@ -85,6 +85,9 @@ const orders = client().orders;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
+| experience | string | The key of the experience in which to place the order. |
+| currency | string | Iso 4217 3 currency code as defined in https://api.flow.io/reference/currencies If specified, translate the pricing to this currency. Translation occurs using the current spot rate for this currency from the base currency in the experience. |
+| show_selections_only | boolean | Flag to indicate whether to only show delivery options that are selected. Only the delivery options with ids in the selections list would be shown. |
 
 ##`getVersions(organization, options = {})`
 
