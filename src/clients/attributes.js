@@ -24,6 +24,13 @@ export default class Attributes extends Client {
     });
   }
 
+  put(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/attributes/versions`, options);
   }

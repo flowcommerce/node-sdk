@@ -32,6 +32,13 @@ export default class Ratecards extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(id)}`, options);
   }
 
+  deleteById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(id)}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
   putPublishById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/ratecards/${encodeURIComponent(id)}/publish`, {
       ...options,

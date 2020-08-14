@@ -54,3 +54,19 @@ const paymentMethodRules = client().paymentMethodRules;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
+##`getPaymentAndMethodAndRulesAndBatch(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| experiences | [string] | Fetch payment method rules for only specified experiences. |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+

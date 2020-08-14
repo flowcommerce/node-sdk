@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class TargetingItems extends Client {
+export default class SyncPendingRecords extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -14,7 +14,7 @@ export default class TargetingItems extends Client {
   }
 
   get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/catalog/targeting-items`, options);
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/sync/pending/records`, options);
   }
 
 }

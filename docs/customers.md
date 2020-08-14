@@ -41,6 +41,15 @@ const customers = client().customers;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`postClientAndTokens(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
 ##`getByNumber(organization, number, options = {})`
 
 ### Function Parameters

@@ -300,9 +300,6 @@ const experiences = client().experiences;
 | tags | [string] |  |
 | amount | string | If specified, must also specify currency |
 | currency | string | Required if amount is specified |
-| limit | long | The maximum number of results to return |
-| offset | long | The number of results to skip before returning results |
-| sort | string |  |
 
 ##`putPaymentAndMethodAndRulesByExperienceKey(organization, experienceKey, options = {})`
 

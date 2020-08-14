@@ -24,6 +24,13 @@ export default class Customers extends Client {
     });
   }
 
+  postClientAndTokens(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/client/tokens`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/customers/${encodeURIComponent(number)}`, options);
   }

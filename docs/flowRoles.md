@@ -1,6 +1,6 @@
 # [API](README.md).flowRoles - Flow Commerce API - Node SDK Documentation
 
-All roles available to attach to a user.
+Default user roles supported by Flow
 
 ## Usage
 

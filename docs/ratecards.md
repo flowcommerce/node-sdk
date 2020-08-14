@@ -67,6 +67,16 @@ const ratecards = client().ratecards;
 | id | string | Filter by one or more IDs of this resource |
 
 
+##`deleteById(organization, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
+
+
 ##`putPublishById(organization, id, options = {})`
 
 ### Function Parameters
