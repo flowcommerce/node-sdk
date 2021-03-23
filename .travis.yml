@@ -8,4 +8,4 @@ script:
 - npm run lint
 branches:
   only:
-  - master
+  - main

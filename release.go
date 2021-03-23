@@ -6,8 +6,8 @@ import (
 
 func main() {
 	executor := executor.Create("node-sdk")
-	executor = executor.Add("git checkout master")
-	executor = executor.Add("git pull origin master")
+	executor = executor.Add("git checkout main")
+	executor = executor.Add("git pull origin main")
 	executor = executor.Add("npm install")
 	executor = executor.Add("npm run generate")
 	executor = executor.Add("git add src docs package.json package-lock.json")
