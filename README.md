@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/flowcommerce/node-sdk.svg?branch=master)](https://travis-ci.org/flowcommerce/node-sdk)
+[![Build Status](https://travis-ci.org/flowcommerce/node-sdk.svg?branch=main)](https://travis-ci.org/flowcommerce/node-sdk)
 
 # node-sdk
 
