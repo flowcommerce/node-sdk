@@ -24,6 +24,17 @@ export default class Manifests extends Client {
     });
   }
 
+  postBridge(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/manifests/bridge`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  getCentersAndServicesAndOutstandingByCenterKeyAndService(organization, centerKey, service, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/manifests/centers/${encodeURIComponent(centerKey)}/services/${encodeURIComponent(service)}/outstanding`, options);
+  }
+
   getServicesAndOutstandingByService(organization, service, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/manifests/services/${encodeURIComponent(service)}/outstanding`, options);
   }

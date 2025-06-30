@@ -1,6 +1,6 @@
 # [API](README.md).imports - Flow Commerce API - Node SDK Documentation
 
-
+Imports allow you to upload data to Flow via files in batch. Each import fetches data from a given URL. The type of the import determines which file format to expect and what data to update
 
 ## Usage
 

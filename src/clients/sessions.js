@@ -13,52 +13,6 @@ export default class Sessions extends Client {
     super(options);
   }
 
-  postShopifyAndOrganizationsByOrganization(organization, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/shopify/organizations/${encodeURIComponent(organization)}`, {
-      ...options,
-       method: 'POST',
-    });
-  }
-
-  getShopifyBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}`, options);
-  }
-
-  putShopifyBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
-  deleteShopifyBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}`, {
-      ...options,
-       method: 'DELETE',
-    });
-  }
-
-  putShopifyAndClearBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}/clear`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
-  putShopifyAndOrganizationsBySessionAndOrganization(session, organization, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}/organizations/${encodeURIComponent(organization)}`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
-  putShopifyAndResetBySession(session, options = {}) {
-    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}/reset`, {
-      ...options,
-       method: 'PUT',
-    });
-  }
-
   postOrganizationsByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/sessions/organizations/${encodeURIComponent(organization)}`, {
       ...options,
@@ -100,6 +54,52 @@ export default class Sessions extends Client {
 
   putResetBySession(session, options = {}) {
     return this.makeRequest(`${this.host}/sessions/${encodeURIComponent(session)}/reset`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  postShopifyAndOrganizationsByOrganization(organization, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/organizations/${encodeURIComponent(organization)}`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  getShopifyBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}`, options);
+  }
+
+  putShopifyBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteShopifyBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
+  putShopifyAndClearBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}/clear`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putShopifyAndOrganizationsBySessionAndOrganization(session, organization, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}/organizations/${encodeURIComponent(organization)}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putShopifyAndResetBySession(session, options = {}) {
+    return this.makeRequest(`${this.host}/sessions/shopify/${encodeURIComponent(session)}/reset`, {
       ...options,
        method: 'PUT',
     });

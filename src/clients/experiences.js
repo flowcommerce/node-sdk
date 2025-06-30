@@ -187,6 +187,10 @@ export default class Experiences extends Client {
     });
   }
 
+  getPricingAndVersionsByKey(organization, key, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(key)}/pricing/versions`, options);
+  }
+
   getPromotionsAndAvailableByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/experiences/${encodeURIComponent(key)}/promotions/available`, options);
   }

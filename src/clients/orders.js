@@ -61,6 +61,10 @@ export default class Orders extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/allocations`, options);
   }
 
+  getAllocationsAndSummariesAndLineByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/allocations/summaries/line`, options);
+  }
+
   postAuthorizationsByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/authorizations`, {
       ...options,
@@ -82,10 +86,31 @@ export default class Orders extends Client {
     });
   }
 
+  postPaymentsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/payments`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   putPromotionsAndFreeShippingByNumberAndKey(organization, number, key, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/promotions/${encodeURIComponent(key)}/free_shipping`, {
       ...options,
        method: 'PUT',
+    });
+  }
+
+  postRefundsAndSummariesByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/refunds/summaries`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  postReplacementsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/orders/${encodeURIComponent(number)}/replacements`, {
+      ...options,
+       method: 'POST',
     });
   }
 

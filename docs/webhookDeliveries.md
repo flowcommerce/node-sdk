@@ -26,6 +26,8 @@ const webhookDeliveries = client().webhookDeliveries;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | webhook_id | string |  |
+| since | date-time-iso8601 | Filter to items created_at after the specified datetime. |
+| event_discriminator | string | Filter by delivery event discriminator. |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

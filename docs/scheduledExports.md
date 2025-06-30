@@ -1,6 +1,6 @@
 # [API](README.md).scheduledExports - Flow Commerce API - Node SDK Documentation
 
-
+Allows a user to create a scheduled export that will be delivered on a schedule (currently only support once / day at a set time)
 
 ## Usage
 

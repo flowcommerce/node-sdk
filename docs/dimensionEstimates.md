@@ -65,6 +65,21 @@ const dimensionEstimates = client().dimensionEstimates;
 | id | string | Filter by one or more IDs of this resource |
 
 
+##`putById(organization, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| from_bulk | boolean |  |
+
 ##`deleteById(organization, id, options = {})`
 
 ### Function Parameters

@@ -1,6 +1,6 @@
 # [API](README.md).priceBooks - Flow Commerce API - Node SDK Documentation
 
-
+Represents a list of target prices in a specific currency that can override any subset of item prices within an experience.
 
 ## Usage
 

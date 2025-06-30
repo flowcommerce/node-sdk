@@ -52,6 +52,13 @@ export default class OrderBuilders extends Client {
     });
   }
 
+  putCustomerByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/customer`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   putDestinationByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/destination`, {
       ...options,
@@ -68,6 +75,55 @@ export default class OrderBuilders extends Client {
 
   putInvoiceAndAddressByNumber(organization, number, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/invoice/address`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  postLinesByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/lines`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  putLinesByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/lines`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putLinesByNumberAndId(organization, number, id, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/lines/${encodeURIComponent(id)}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteLinesByNumberAndId(organization, number, id, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/lines/${encodeURIComponent(id)}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
+  putLinesAndAttributesByNumberAndId(organization, number, id, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/lines/${encodeURIComponent(id)}/attributes`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putLinesAndQuantityByNumberAndId(organization, number, id, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/lines/${encodeURIComponent(id)}/quantity`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  putSelectionsByNumber(organization, number, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/builders/${encodeURIComponent(number)}/selections`, {
       ...options,
        method: 'PUT',
     });

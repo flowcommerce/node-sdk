@@ -1,6 +1,6 @@
 # [API](README.md).organizations - Flow Commerce API - Node SDK Documentation
 
-
+Represents a single organization in the system, and what environment it is currently operating in.
 
 ## Usage
 
@@ -37,6 +37,25 @@ const organizations = client().organizations;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`getCountriesAndStatusesByOrganization(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`putCountriesAndStatusesByOrganizationAndCountry(organization, country, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| country | string |  |
+
+
 ##`get(options = {})`
 
 
@@ -45,9 +64,11 @@ const organizations = client().organizations;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
+| channel_id | string |  |
 | name | string | Find organizations with this name. Case insensitive. Exact match. |
 | environment | environment | Find organizations with this environment |
 | parent | string | Find organizations that belong to this specified parent organization id. Case insensitive. Exact match. |
+| in_channel | boolean | Filters organizations that are or are not channel organizations. |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

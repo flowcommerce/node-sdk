@@ -47,6 +47,19 @@ const shippingLabels = client().shippingLabels;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | show_commercial_invoice | boolean |  |
+| force_new | boolean | Indicates that even if a label already exists, a new one will be generated. Defaults to false. |
+| include_pdf_data | boolean | Includes the base 64 encoded pdf content in the response |
+| suppress_paperless_waybill | boolean | Supresses the waybill page of a label if the label is paperless |
+
+##`getCrossdockAndLabelsAndBarcodeByBarcode(organization, barcode, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| barcode | string |  |
+
 
 ##`getVersions(organization, options = {})`
 

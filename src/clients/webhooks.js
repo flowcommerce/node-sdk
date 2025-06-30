@@ -13,29 +13,58 @@ export default class Webhooks extends Client {
     super(options);
   }
 
-  get(organization, options = {}) {
+  getChannelAndWebhooksByChannel(channel, options = {}) {
+    return this.makeRequest(`${this.host}/channel/${encodeURIComponent(channel)}/webhooks`, options);
+  }
+
+  postChannelAndWebhooksByChannel(channel, options = {}) {
+    return this.makeRequest(`${this.host}/channel/${encodeURIComponent(channel)}/webhooks`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
+  getChannelAndWebhooksByChannelAndId(channel, id, options = {}) {
+    return this.makeRequest(`${this.host}/channel/${encodeURIComponent(channel)}/webhooks/${encodeURIComponent(id)}`, options);
+  }
+
+  putChannelAndWebhooksByChannelAndId(channel, id, options = {}) {
+    return this.makeRequest(`${this.host}/channel/${encodeURIComponent(channel)}/webhooks/${encodeURIComponent(id)}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
+  deleteChannelAndWebhooksByChannelAndId(channel, id, options = {}) {
+    return this.makeRequest(`${this.host}/channel/${encodeURIComponent(channel)}/webhooks/${encodeURIComponent(id)}`, {
+      ...options,
+       method: 'DELETE',
+    });
+  }
+
+  getWebhooksByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks`, options);
   }
 
-  post(organization, options = {}) {
+  postWebhooksByOrganization(organization, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks`, {
       ...options,
        method: 'POST',
     });
   }
 
-  getById(organization, id, options = {}) {
+  getWebhooksByOrganizationAndId(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks/${encodeURIComponent(id)}`, options);
   }
 
-  putById(organization, id, options = {}) {
+  putWebhooksByOrganizationAndId(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks/${encodeURIComponent(id)}`, {
       ...options,
        method: 'PUT',
     });
   }
 
-  deleteById(organization, id, options = {}) {
+  deleteWebhooksByOrganizationAndId(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/webhooks/${encodeURIComponent(id)}`, {
       ...options,
        method: 'DELETE',

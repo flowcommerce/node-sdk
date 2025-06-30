@@ -32,6 +32,13 @@ export default class DimensionEstimates extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates/${encodeURIComponent(id)}`, options);
   }
 
+  putById(organization, id, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates/${encodeURIComponent(id)}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   deleteById(organization, id, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/dimension-estimates/${encodeURIComponent(id)}`, {
       ...options,

@@ -26,6 +26,12 @@ const items = client().items;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | number | [string] | Find items with this number. Case insensitive. Exact match |
+| sku | [string] |  |
+| product_title | [string] |  |
+| product_id | [string] |  |
+| vendor | [string] |  |
+| barcode | [string] |  |
+| physical_good | boolean |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

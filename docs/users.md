@@ -1,6 +1,6 @@
 # [API](README.md).users - Flow Commerce API - Node SDK Documentation
 
-
+Represents a single user in the system
 
 ## Usage
 

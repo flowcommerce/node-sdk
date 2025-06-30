@@ -1,6 +1,6 @@
 # [API](README.md).priceRules - Flow Commerce API - Node SDK Documentation
 
-
+Price rules are a set of conditions, including entitlements and prerequisites, that must be met in order for a discount code to apply.
 
 ## Usage
 

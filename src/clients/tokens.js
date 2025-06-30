@@ -24,6 +24,13 @@ export default class Tokens extends Client {
     });
   }
 
+  postAuthenticationsAndV2(options = {}) {
+    return this.makeRequest(`${this.host}/tokens/authentications/v2`, {
+      ...options,
+       method: 'POST',
+    });
+  }
+
   getById(id, options = {}) {
     return this.makeRequest(`${this.host}/tokens/${encodeURIComponent(id)}`, options);
   }

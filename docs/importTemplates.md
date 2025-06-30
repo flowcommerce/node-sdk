@@ -1,6 +1,6 @@
 # [API](README.md).importTemplates - Flow Commerce API - Node SDK Documentation
 
-
+An import template provides an organization specific example CSV file of a particular import type.
 
 ## Usage
 
