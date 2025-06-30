@@ -117,6 +117,21 @@ const orderBuilders = client().orderBuilders;
 | ---- | ---- | ---- |
 | expand | [string] |  |
 
+##`putCustomerByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
 ##`putDestinationByNumber(organization, number, options = {})`
 
 ### Function Parameters
@@ -148,6 +163,85 @@ const orderBuilders = client().orderBuilders;
 | expand | [string] |  |
 
 ##`putInvoiceAndAddressByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| expand | [string] |  |
+
+##`postLinesByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
+##`putLinesByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
+##`putLinesByNumberAndId(organization, number, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`deleteLinesByNumberAndId(organization, number, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`putLinesAndAttributesByNumberAndId(organization, number, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`putLinesAndQuantityByNumberAndId(organization, number, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`putSelectionsByNumber(organization, number, options = {})`
 
 ### Function Parameters
 

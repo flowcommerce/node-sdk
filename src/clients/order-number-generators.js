@@ -31,4 +31,8 @@ export default class OrderNumberGenerators extends Client {
     });
   }
 
+  getGeneratedAndNumber(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/order/number/generators/generated/number`, options);
+  }
+
 }

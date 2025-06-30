@@ -13,8 +13,8 @@ export default class Trackings extends Client {
     super(options);
   }
 
-  getTrackingsById(id, options = {}) {
-    return this.makeRequest(`${this.host}/trackings/${encodeURIComponent(id)}`, options);
+  getTrackingsByIdentifier(identifier, options = {}) {
+    return this.makeRequest(`${this.host}/trackings/${encodeURIComponent(identifier)}`, options);
   }
 
   getTrackingsByOrganization(organization, options = {}) {

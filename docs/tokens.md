@@ -31,6 +31,10 @@ const tokens = client().tokens;
 
 
 
+##`postAuthenticationsAndV2(options = {})`
+
+
+
 ##`getById(id, options = {})`
 
 ### Function Parameters

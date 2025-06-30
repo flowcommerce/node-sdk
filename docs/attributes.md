@@ -26,6 +26,7 @@ const attributes = client().attributes;
 | ---- | ---- | ---- |
 | id | [string] | Filter by one or more IDs of this resource |
 | key | [string] |  |
+| intent | attribute_intent |  |
 | limit | long | The maximum number of results to return |
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |

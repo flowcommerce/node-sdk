@@ -1,6 +1,6 @@
 # [API](README.md).payments - Flow Commerce API - Node SDK Documentation
 
-Represents data for a specific online payment method
+An initiated payment session with a payment provider. Used to display a payment provider&#x27;s experience.
 
 ## Usage
 

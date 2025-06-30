@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class SyncPendingRecords extends Client {
+export default class Romanizations extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -13,8 +13,11 @@ export default class SyncPendingRecords extends Client {
     super(options);
   }
 
-  get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/sync/pending/records`, options);
+  post(options = {}) {
+    return this.makeRequest(`${this.host}/romanize`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
 }

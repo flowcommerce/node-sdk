@@ -12,7 +12,25 @@ const webhookSettings = client().webhookSettings;
 
 ## Operations
 
-##`get(organization, options = {})`
+##`getChannelAndWebhookAndSettingsByChannel(channel, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| channel | string |  |
+
+
+##`putChannelAndWebhookAndSettingsByChannel(channel, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| channel | string |  |
+
+
+##`getWebhookAndSettingsByOrganization(organization, options = {})`
 
 ### Function Parameters
 
@@ -21,7 +39,7 @@ const webhookSettings = client().webhookSettings;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`put(organization, options = {})`
+##`putWebhookAndSettingsByOrganization(organization, options = {})`
 
 ### Function Parameters
 

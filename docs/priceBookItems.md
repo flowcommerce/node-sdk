@@ -1,6 +1,6 @@
 # [API](README.md).priceBookItems - Flow Commerce API - Node SDK Documentation
 
-
+Represents the price of a single item within a price book.
 
 ## Usage
 

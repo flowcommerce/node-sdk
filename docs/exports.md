@@ -1,6 +1,6 @@
 # [API](README.md).exports - Flow Commerce API - Node SDK Documentation
 
-
+Exports represent data extraction requests (e.g. download my catalog items to a CSV file)
 
 ## Usage
 

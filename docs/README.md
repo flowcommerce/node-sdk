@@ -30,15 +30,13 @@ These resources mirror the official documentation located at
 | [orderNumberGenerators](orderNumberGenerators.md) |  |
 | [orderPromotions](orderPromotions.md) |  |
 | [orderSummaries](orderSummaries.md) | The order summary is a view of the order summary object with the order prices flattened to keys. |
-| [organizations](organizations.md) |  |
+| [organizations](organizations.md) | Represents a single organization in the system, and what environment it is currently operating in. |
 | [paymentMethodRules](paymentMethodRules.md) | Returns payment methods that are enabled for an organization and available for the provided country and currency. |
-| [priceBooks](priceBooks.md) |  |
-| [priceBookItems](priceBookItems.md) |  |
-| [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of master catalog items for a localized experience |
+| [priceBooks](priceBooks.md) | Represents a list of target prices in a specific currency that can override any subset of item prices within an experience. |
+| [priceBookItems](priceBookItems.md) | Represents the price of a single item within a price book. |
+| [subcatalogs](subcatalogs.md) | A configuration with custom query to select a subset of the catalog items for a localized experience |
 | [subcatalogItems](subcatalogItems.md) | Represents information specific to an item in a given subcatalog |
-| [organizationCurrencySettings](organizationCurrencySettings.md) | Represents organization-specific currency conversion adjustments. |
 | [rates](rates.md) | Represents an organization-specific currency conversion rate at a point in time. |
-| [harmonizedCategories](harmonizedCategories.md) | Categories optimized for harmonization |
 | [harmonizedLandedCosts](harmonizedLandedCosts.md) | Summary of landed cost data (taxes and duties) for 1 or more items going to a single destination country. Records are unique based on (item.number, country of origin). |
 | [hs10](hs10.md) | API to fetch HS-10 codes assigned to your items. Note that if your item has been classified multiple times or its classification has changed, this API will provide you with the most recent harmonization code for that item. That is, each code is unique across your item number, country of origin and destination. |
 | [taxRegistrations](taxRegistrations.md) | Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company. |
@@ -47,23 +45,17 @@ These resources mirror the official documentation located at
 | [cards](cards.md) | Card represents the metadata about a secure, tokenized card. The card &#x27;token&#x27; is a unique, cryptographically secure token by which this card can be identified in the future. The card token itself will either be a permanent card token (denoted by a prefix of F96) or a one time nonce (denoted by a prefix of F17). Nonces represent cards that were encrypted from public channels (like the user&#x27;s browser via JavaScript) and can be used once only. If you have a nonce you can exchange it for a permanent card token via the operation POST /:organization/cards/nonces |
 | [cardPaymentSources](cardPaymentSources.md) | Represents a saved credit card payment method. |
 | [gatewayAuthenticationData](gatewayAuthenticationData.md) |  |
-| [payments](payments.md) | Represents data for a specific online payment method |
+| [payments](payments.md) | An initiated payment session with a payment provider. Used to display a payment provider&#x27;s experience. |
 | [publicKeys](publicKeys.md) | A public key is used to encrypt cards client side prior to submitting to the Flow vault. |
 | [refunds](refunds.md) | Refunds can be created against either a specific capture or an authorization (in which case we will select 1 or more specific captures against which to execute the refund). |
 | [reversals](reversals.md) | A reversal is used to clear an authorization (full or partial). |
-| [virtualCards](virtualCards.md) | Virtual credit cards are created for a specific limit and currency. Currently only USD denominated cards can be issued. Once created the virtual card can be used in the same way as a physical credit card using the card number, cvv and expiration details. |
-| [virtualCardCaptures](virtualCardCaptures.md) | Payment has been captured for the virtual credit card |
-| [virtualCardRefunds](virtualCardRefunds.md) | A refund has been issued for the virtual credit card |
 | [centers](centers.md) | Represents a facility capable of fulfilling a shipment |
 | [deliveryWindows](deliveryWindows.md) | Flow&#x27;s estimate of when a shipment for this delivery will actually arrive at the final destination, taking into account a shipment estimate, center schedules, and carrier transit windows. |
 | [dimensionEstimates](dimensionEstimates.md) |  |
-| [inventoryRules](inventoryRules.md) | Ordered list of rules to apply, from first to last, to get available quantity. This is unique per organization |
-| [inventorySnapshots](inventorySnapshots.md) | Inventory snapshot reflects the current quantity and available number of units for a given center / item |
-| [inventoryUpdates](inventoryUpdates.md) | Represents a single update on inventory quantity |
 | [manifests](manifests.md) | Represents closeout of a group of labels that have been transferred to the carrier for shipping |
 | [quotes](quotes.md) | Represents a collection of deliveries and available options for fulfillment of that delivery |
 | [ratecards](ratecards.md) | Snapshot of all lanes and rows across all service levels of an organization |
-| [ratecardEstimates](ratecardEstimates.md) |  |
+| [ratecardEstimates](ratecardEstimates.md) | Here for backards compatibility with estimates we store in databases |
 | [ratecardLanes](ratecardLanes.md) | Describe list of rates applicable for a lane on the ratecard - defined by origin and destination zone |
 | [ratecardRates](ratecardRates.md) | Specific line item in a ratecard lane with information on a weight threshold and corresponding amount to charge |
 | [returns](returns.md) |  |
@@ -79,7 +71,7 @@ These resources mirror the official documentation located at
 | [webhooks](webhooks.md) |  |
 | [webhookDeliveries](webhookDeliveries.md) | A webhook delivery represents an event that matched a webhook&#x27;s event types. Each delivery will be attempted one or more times subject to the settings of your webhook. |
 | [webhookSettings](webhookSettings.md) | Sets organization level settings to determine things like how many retries on delivery, how long we wait, etc. By default, we will attempt delivery up to 6 times, using exponential backoff with a see of 1 minute (60k ms) - which means that we will retry over the course of approximately an hour before giving up. |
-| [addresses](addresses.md) |  |
+| [addresses](addresses.md) | Defines structured fields for address to be used in user/form input. Either text or the structured input needs to be present. |
 | [countryDefaults](countryDefaults.md) | Provides country level defaults, incl language and currency. This resource allows you to provide geo info (e.g. IP, address, country) and will geolocate the request, returning the matching country level defaults. For example, if a user lands on your website and you do not have any stored preferences, you can use this API to retrieve the best default preferences based on the location of the user by providing their IP Address. |
 | [timezones](timezones.md) | Time zone data is provided by the public IANA time zone database. See http://www.iana.org/time-zones |
 | [carriers](carriers.md) | Partner that actually takes a shipment between places (ex: FedEx, DHL, SF Express) |
@@ -91,13 +83,30 @@ These resources mirror the official documentation located at
 | [paymentMethods](paymentMethods.md) | Represents a single payment method - e.g VISA or Paypal - and any associated metadata required for processing |
 | [provinces](provinces.md) | A subdivision/province/state within a country. These conform to the ISO 3166-2 standard for country subdivisions. See https://api.flow.io/reference/provinces |
 | [regions](regions.md) | A region represents a geographic area of the world. Regions can be countries, continents or other political areas (like the Eurozone). See https://api.flow.io/reference/regions |
+| [abandonedOrderPromotions](abandonedOrderPromotions.md) |  |
 | [abandonedOrderSettings](abandonedOrderSettings.md) |  |
+| [allocationV2s](allocationV2s.md) |  |
 | [b2bCreditMemos](b2bCreditMemos.md) | The b2b credit memo represents a refund transaction between Flow and one of our clients |
 | [b2bInvoices](b2bInvoices.md) | The b2b invoice represents a transaction between Flow and one of our clients (e.g. Flow purchasing inventory to resell to a consumer). |
+| [bankAccountForms](bankAccountForms.md) |  |
 | [catalogPriceBookItemDocuments](catalogPriceBookItemDocuments.md) | Represents the returned information for searching particular price book items |
+| [channelAuthorizations](channelAuthorizations.md) |  |
+| [channelBankAccounts](channelBankAccounts.md) |  |
+| [channelCurrencyPairs](channelCurrencyPairs.md) | Represents an organization-specific currency conversion rate at a point in time. |
+| [channelDefaultBankAccounts](channelDefaultBankAccounts.md) |  |
+| [channelOrganizations](channelOrganizations.md) |  |
+| [channelOrganizationAuthorizations](channelOrganizationAuthorizations.md) |  |
+| [channelPayouts](channelPayouts.md) |  |
+| [channelPendingPayoutTransactions](channelPendingPayoutTransactions.md) | A transaction that is pending payout. |
+| [channelRates](channelRates.md) |  |
+| [channelStatements](channelStatements.md) |  |
+| [channelTokens](channelTokens.md) |  |
+| [channelTransactions](channelTransactions.md) |  |
+| [channelViesRegistrations](channelViesRegistrations.md) | Result of looking up a specific tax registration number. Indicates validity of a number for a specific country and (if valid) the associated person/company. |
 | [checkoutTokens](checkoutTokens.md) | Represents a secure token that can be used to redirect to Checkout UI |
 | [consumerInvoices](consumerInvoices.md) | The consumer invoice represents the details of a set of items from a given order. This may represent either the full order or a partial fulfillment. |
 | [consumerInvoiceDocuments](consumerInvoiceDocuments.md) |  |
+| [countryOfOrigins](countryOfOrigins.md) |  |
 | [countryPickers](countryPickers.md) | The Country Picker manages the configuration of your country picker. |
 | [creditMemos](creditMemos.md) | The credit memo represents the details of a refund and the reasons for the issuance of the refund. |
 | [customers](customers.md) | A customer represents the actual person placing an order. |
@@ -107,34 +116,53 @@ These resources mirror the official documentation located at
 | [customerPurgeSettings](customerPurgeSettings.md) | Represent settings for when to purge customer data |
 | [customerTokens](customerTokens.md) | Represents a mapping between a customer number and a token |
 | [documents](documents.md) |  |
+| [dutyItems](dutyItems.md) |  |
+| [dutyItemApprovals](dutyItemApprovals.md) |  |
+| [dutyItemProducers](dutyItemProducers.md) | Manufacturer of an item. |
 | [ecommercePlatforms](ecommercePlatforms.md) | The Ecommerce Platform defines what the organization is using for their ecommerce systems. |
 | [emailVerifications](emailVerifications.md) | Represents the successful response of an email verification token. We return the email address in this case to allow the UI to display which email address was verified. |
 | [exclusionRules](exclusionRules.md) | A global exclusion rule allows the user to select 1 or more items by query and to globally exclude those items from sale in one or more regions. |
-| [exports](exports.md) |  |
+| [exports](exports.md) | Exports represent data extraction requests (e.g. download my catalog items to a CSV file) |
 | [flowRoles](flowRoles.md) | Default user roles supported by Flow |
-| [fraudEmailRules](fraudEmailRules.md) | Rule to apply to enable white-listing and black-listing for an email address. |
+| [flowTransactions](flowTransactions.md) | Provides internal access to all transactions |
+| [fraudEmailRules](fraudEmailRules.md) | Rule to apply to enable allow-listing and deny-listing for an email address. |
 | [ftpFiles](ftpFiles.md) | The FTP File represents a file uploaded to the FTP Server |
 | [ftpFolders](ftpFolders.md) | The FTP Folder represents a single folder associated with an organization for which we create an external FTP Directory |
 | [ftpOrganizationSettings](ftpOrganizationSettings.md) | The FTP Organization Settings allows you to enable an FTP Drop Point for an organization, creating the standard set of FTP Folders, credentials, and associated webhooks. |
 | [fulfillments](fulfillments.md) | Used to track and manage the fulfillment of an order. |
 | [healthchecks](healthchecks.md) |  |
-| [imports](imports.md) |  |
-| [importTemplates](importTemplates.md) |  |
+| [imports](imports.md) | Imports allow you to upload data to Flow via files in batch. Each import fetches data from a given URL. The type of the import determines which file format to expect and what data to update |
+| [importTemplates](importTemplates.md) | An import template provides an organization specific example CSV file of a particular import type. |
 | [invitations](invitations.md) | An invitation via email to a user to join this organization. The user will then walk through a user login/registration process and will immediately become a member of the organization. |
-| [priceRules](priceRules.md) |  |
+| [priceRules](priceRules.md) | Price rules are a set of conditions, including entitlements and prerequisites, that must be met in order for a discount code to apply. |
 | [itemQuerySuggestions](itemQuerySuggestions.md) |  |
+| [knowYourBusinesses](knowYourBusinesses.md) |  |
+| [kubeHealthchecks](kubeHealthchecks.md) |  |
 | [links](links.md) |  |
 | [memberships](memberships.md) | Represents the users that are part of this organization. Primary purpose is to manage which users have access to the organization&#x27;s data and to provide a simple user interface to assign roles and permissions to each member of the organization |
+| [merchantApplications](merchantApplications.md) | Submit merchant application form for an organization |
 | [merchantGiftCardBalances](merchantGiftCardBalances.md) |  |
 | [merchantGiftCardRedemptions](merchantGiftCardRedemptions.md) |  |
 | [merchantGiftCardReversals](merchantGiftCardReversals.md) |  |
 | [organizationAuthorizations](organizationAuthorizations.md) | Defines the data used for broad authorization of user access to org level data |
+| [organizationBankAccounts](organizationBankAccounts.md) |  |
+| [organizationDefaultBankAccounts](organizationDefaultBankAccounts.md) |  |
 | [organizationDefaultConfigurations](organizationDefaultConfigurations.md) |  |
+| [organizationOnboardingStates](organizationOnboardingStates.md) |  |
+| [organizationPayouts](organizationPayouts.md) |  |
+| [organizationPendingPayoutTransactions](organizationPendingPayoutTransactions.md) | A transaction that is pending payout. |
 | [organizationTokens](organizationTokens.md) | All of the metadata associated with a given token. |
+| [organizationTokenV2](organizationTokenV2.md) |  |
+| [packageDimensionses](packageDimensionses.md) |  |
 | [partnerTokens](partnerTokens.md) | All of the metadata associated with a given token. |
 | [passwordResetForms](passwordResetForms.md) |  |
+| [paymentPaymentMethods](paymentPaymentMethods.md) |  |
+| [paymentRequests](paymentRequests.md) |  |
+| [paymentRequestBundles](paymentRequestBundles.md) |  |
 | [permissionChecks](permissionChecks.md) | Used to test an integration&#x27;s permissions, including identifying the authentication technique that will be used for similar requests. |
-| [scheduledExports](scheduledExports.md) |  |
+| [returnPolicies](returnPolicies.md) | A global return policy allows the user to select 1 or more items by query and to globally mark those items as non-returnable |
+| [romanizations](romanizations.md) | Romanize/transliterates input into Roman (Latin) script |
+| [scheduledExports](scheduledExports.md) | Allows a user to create a scheduled export that will be delivered on a schedule (currently only support once / day at a set time) |
 | [sessions](sessions.md) |  |
 | [sessionAuthorizations](sessionAuthorizations.md) |  |
 | [shopifyCarts](shopifyCarts.md) | Cart actions are based off the Shopify Ajax API, documentation at https://help.shopify.com/themes/development/getting-started/using-ajax-api |
@@ -143,13 +171,14 @@ These resources mirror the official documentation located at
 | [shopifyLocationFlowCenterMappings](shopifyLocationFlowCenterMappings.md) |  |
 | [shopifyPrivateApps](shopifyPrivateApps.md) | Shopify private app information. |
 | [shopifySyncStatuses](shopifySyncStatuses.md) |  |
+| [statements](statements.md) |  |
 | [suggestions](suggestions.md) |  |
-| [syncPendingRecords](syncPendingRecords.md) |  |
-| [syncRecords](syncRecords.md) |  |
-| [syncRecordFailures](syncRecordFailures.md) |  |
-| [syncStreams](syncStreams.md) |  |
 | [taxSettings](taxSettings.md) |  |
 | [tokens](tokens.md) |  |
 | [tokenValidations](tokenValidations.md) | Validations test whether or not a given API token is valid |
+| [tradeAgreements](tradeAgreements.md) |  |
+| [tradeAgreementCertifiers](tradeAgreementCertifiers.md) | Person or organization responsible for certifying an item complies with a trade agreement. |
+| [transactions](transactions.md) |  |
+| [ultimateBeneficiaryOwners](ultimateBeneficiaryOwners.md) |  |
 | [uploads](uploads.md) | Provides the ability to upload a file to a URL (an expiring s3 url, usually valid for 1 week) |
-| [users](users.md) |  |
+| [users](users.md) | Represents a single user in the system |

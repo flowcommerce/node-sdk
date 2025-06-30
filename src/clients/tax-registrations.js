@@ -20,6 +20,10 @@ export default class TaxRegistrations extends Client {
     });
   }
 
+  getDetails(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/registrations/details`, options);
+  }
+
   putByKey(organization, key, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/tax/registrations/${encodeURIComponent(key)}`, {
       ...options,

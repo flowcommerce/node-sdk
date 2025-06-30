@@ -21,6 +21,17 @@ export default class Organizations extends Client {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/countries/destinations`, options);
   }
 
+  getCountriesAndStatusesByOrganization(organization, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/countries/statuses`, options);
+  }
+
+  putCountriesAndStatusesByOrganizationAndCountry(organization, country, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/countries/statuses/${encodeURIComponent(country)}`, {
+      ...options,
+       method: 'PUT',
+    });
+  }
+
   get(options = {}) {
     return this.makeRequest(`${this.host}/organizations`, options);
   }

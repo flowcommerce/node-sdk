@@ -12,7 +12,63 @@ const webhooks = client().webhooks;
 
 ## Operations
 
-##`get(organization, options = {})`
+##`getChannelAndWebhooksByChannel(channel, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| channel | string |  |
+
+### Query Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| id | [string] | Filter by one or more IDs of this resource |
+| limit | long | The maximum number of results to return |
+| offset | long | The number of results to skip before returning results |
+| sort | string |  |
+
+##`postChannelAndWebhooksByChannel(channel, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| channel | string |  |
+
+
+##`getChannelAndWebhooksByChannelAndId(channel, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| channel | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`putChannelAndWebhooksByChannelAndId(channel, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| channel | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`deleteChannelAndWebhooksByChannelAndId(channel, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| channel | string |  |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`getWebhooksByOrganization(organization, options = {})`
 
 ### Function Parameters
 
@@ -29,7 +85,7 @@ const webhooks = client().webhooks;
 | offset | long | The number of results to skip before returning results |
 | sort | string |  |
 
-##`post(organization, options = {})`
+##`postWebhooksByOrganization(organization, options = {})`
 
 ### Function Parameters
 
@@ -38,17 +94,7 @@ const webhooks = client().webhooks;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
-##`getById(organization, id, options = {})`
-
-### Function Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| organization | string | Refers to your organization&#x27;s account identifier |
-| id | string | Filter by one or more IDs of this resource |
-
-
-##`putById(organization, id, options = {})`
+##`getWebhooksByOrganizationAndId(organization, id, options = {})`
 
 ### Function Parameters
 
@@ -58,7 +104,17 @@ const webhooks = client().webhooks;
 | id | string | Filter by one or more IDs of this resource |
 
 
-##`deleteById(organization, id, options = {})`
+##`putWebhooksByOrganizationAndId(organization, id, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| id | string | Filter by one or more IDs of this resource |
+
+
+##`deleteWebhooksByOrganizationAndId(organization, id, options = {})`
 
 ### Function Parameters
 

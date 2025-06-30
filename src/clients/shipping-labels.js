@@ -24,6 +24,10 @@ export default class ShippingLabels extends Client {
     });
   }
 
+  getCrossdockAndLabelsAndBarcodeByBarcode(organization, barcode, options = {}) {
+    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping_labels/crossdock/labels/${encodeURIComponent(barcode)}/barcode`, options);
+  }
+
   getVersions(organization, options = {}) {
     return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/shipping_labels/versions`, options);
   }

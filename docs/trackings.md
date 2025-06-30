@@ -12,13 +12,13 @@ const trackings = client().trackings;
 
 ## Operations
 
-##`getTrackingsById(id, options = {})`
+##`getTrackingsByIdentifier(identifier, options = {})`
 
 ### Function Parameters
 
 | Name  | Type | Description |
 | ---- | ---- | ---- |
-| id | string | Filter by one or more IDs of this resource |
+| identifier | string |  |
 
 
 ##`getTrackingsByOrganization(organization, options = {})`

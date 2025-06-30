@@ -1,6 +1,6 @@
 import Client from './client';
 
-export default class HarmonizedCategories extends Client {
+export default class ChannelOrganizationAuthorizations extends Client {
   constructor(opts) {
     let options = opts;
 
@@ -13,8 +13,11 @@ export default class HarmonizedCategories extends Client {
     super(options);
   }
 
-  get(organization, options = {}) {
-    return this.makeRequest(`${this.host}/${encodeURIComponent(organization)}/harmonization/categories`, options);
+  post(options = {}) {
+    return this.makeRequest(`${this.host}/channel/organization/authorizations`, {
+      ...options,
+       method: 'POST',
+    });
   }
 
 }

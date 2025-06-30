@@ -165,6 +165,16 @@ const orders = client().orders;
 | number | string |  |
 
 
+##`getAllocationsAndSummariesAndLineByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
 ##`postAuthorizationsByNumber(organization, number, options = {})`
 
 ### Function Parameters
@@ -174,11 +184,6 @@ const orders = client().orders;
 | organization | string | Refers to your organization&#x27;s account identifier |
 | number | string |  |
 
-### Query Parameters
-
-| Name  | Type | Description |
-| ---- | ---- | ---- |
-| expand | [string] |  |
 
 ##`putDestinationByNumber(organization, number, options = {})`
 
@@ -191,6 +196,16 @@ const orders = client().orders;
 
 
 ##`putInventoryAndReservationsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
+##`postPaymentsByNumber(organization, number, options = {})`
 
 ### Function Parameters
 
@@ -215,6 +230,26 @@ const orders = client().orders;
 | Name  | Type | Description |
 | ---- | ---- | ---- |
 | expand | [string] |  |
+
+##`postRefundsAndSummariesByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
+
+##`postReplacementsByNumber(organization, number, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| number | string |  |
+
 
 ##`postServiceAndChangesByNumber(organization, number, options = {})`
 

@@ -41,6 +41,26 @@ const manifests = client().manifests;
 | organization | string | Refers to your organization&#x27;s account identifier |
 
 
+##`postBridge(organization, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+
+
+##`getCentersAndServicesAndOutstandingByCenterKeyAndService(organization, centerKey, service, options = {})`
+
+### Function Parameters
+
+| Name  | Type | Description |
+| ---- | ---- | ---- |
+| organization | string | Refers to your organization&#x27;s account identifier |
+| center_key | string |  |
+| service | string |  |
+
+
 ##`getServicesAndOutstandingByService(organization, service, options = {})`
 
 ### Function Parameters

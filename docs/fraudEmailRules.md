@@ -1,6 +1,6 @@
 # [API](README.md).fraudEmailRules - Flow Commerce API - Node SDK Documentation
 
-Rule to apply to enable white-listing and black-listing for an email address.
+Rule to apply to enable allow-listing and deny-listing for an email address.
 
 ## Usage
 
